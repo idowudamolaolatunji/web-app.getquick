@@ -8,25 +8,25 @@ function DashboardMenu() {
 
         <ul>
             <li>
-                <Link to={'/dashboard'}>Dashboard</Link>
+                <a href={'/dashboard'}>Dashboard</a>
             </li>
             <li>
-                <Link to={'/dashboard/orders'}>Orders</Link>
+                <a href={'/dashboard/orders'}>Orders</a>
             </li>
             <li>
-                <Link to={'/dashboard/products'}>Products</Link>
+                <a href={'/dashboard/products'}>Products</a>
             </li>
             <li>
-                <Link to={'/dashboard/discounts'}>Run Sales / coupon</Link>
+                <a href={'/dashboard/discounts'}>Run Sales / coupon</a>
             </li>
             <li>
-                <Link to={'/dashboard/customers'}>Customers</Link>
+                <a href={'/dashboard/customers'}>Customers</a>
             </li>
             <li>
-                <Link to={'/dashboard/transactions'}>Transactions</Link>
+                <a href={'/dashboard/transactions'}>Transactions</a>
             </li>
             <li>
-                <Link to={'/dashboard/connected'}>Connected apps</Link>
+                <a href={'/dashboard/connected'}>Connected apps</a>
             </li>
         </ul>
         

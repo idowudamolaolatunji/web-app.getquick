@@ -1,36 +1,26 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import MenuLink from './MenuLink'
 
 function DashboardMenu() {
   return (
-    <figure>
-        <h3>Access</h3>
+    <div>
 
-        <ul>
-            <li>
-                <a href={'/dashboard'}>Dashboard</a>
-            </li>
-            <li>
-                <a href={'/dashboard/orders'}>Orders</a>
-            </li>
-            <li>
-                <a href={'/dashboard/products'}>Products</a>
-            </li>
-            <li>
-                <a href={'/dashboard/discounts'}>Run Sales / coupon</a>
-            </li>
-            <li>
-                <a href={'/dashboard/customers'}>Customers</a>
-            </li>
-            <li>
-                <a href={'/dashboard/transactions'}>Transactions</a>
-            </li>
-            <li>
-                <a href={'/dashboard/connected'}>Connected apps</a>
-            </li>
-        </ul>
+        <div>
+            <h3>Access</h3>
+            <ul>
+                <MenuLink icon={<></>} title='Dashboard' link='/' />
+                <MenuLink icon={<></>} title='Orders' link='/orders' />
+                <MenuLink icon={<></>} title='Products' link='/products' />
+                <MenuLink icon={<></>} title='Run Sales / coupon' link='/discounts' />
+                <MenuLink icon={<></>} title='Customers' link='/customers' />
+                <MenuLink icon={<></>} title='Transactions' link='/transactions' />
+                <MenuLink icon={<></>} title='Connected apps' link='/connected' />
+            </ul>
+        </div>
+
+
         
-    </figure>
+    </div>
   )
 }
 

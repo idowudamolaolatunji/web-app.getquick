@@ -3,7 +3,7 @@ import DashboardBase from './ui/DashboardBase'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
-import Spinner from './components/Spinner';
+import Spinner from './components/spinner';
 import ProtectedRoute from './utils/ProtectedRoute';
 
 const DashboardHome = lazy(() => import('./pages/home'));
@@ -15,9 +15,9 @@ const Settings = lazy(() => import('./pages/settings'));
 function App() {
     return (
 
-        <DashboardBase>
         <Suspense fallback={<Spinner />}>
             <BrowserRouter>
+                <DashboardBase>
                 <Routes>
                     {/* <Route element={<ProtectedRoute />}> */}
                     <Route path='/' element={<DashboardHome />}></Route>
@@ -29,9 +29,9 @@ function App() {
                     <Route path='/dashboard/settings' element={<Settings />}></Route>
                     {/* </Route> */}
                 </Routes>
+                </DashboardBase>
             </BrowserRouter>
         </Suspense>
-        </DashboardBase>
     )
 }
 

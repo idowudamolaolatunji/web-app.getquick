@@ -12,9 +12,20 @@ export default DataContext;
 //// CREATING PROVIDER ////
 //////////////////////////////////////////////
 export const DataProvider = ({ children }) => {
+    const [isMenuClosed, setIsMenuClosed] = useState( JSON.parse(localStorage.getItem('menu')) || false );
+
+    function handleMenuClose() {
+        setIsMenuClosed(!isMenuClosed)
+    }
+
+    useEffect(function() {
+        localStorage.setItem('menu', JSON.stringify(isMenuClosed));
+    }, [isMenuClosed]);
+
  // CREATE CONTEXT DATA
     let contextData = {
-        
+        isMenuClosed,
+        handleMenuClose,
     }
 
 

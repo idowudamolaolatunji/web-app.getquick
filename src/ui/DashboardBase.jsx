@@ -1,22 +1,24 @@
-import React from 'react'
-import DashboardHead from './uiComponents/DashboardHead'
-import DashboardMenu from './uiComponents/DashboardMenu'
+import React, { Fragment } from 'react'
+import DashboardHead from './uiComponents/DashboardHead';
+import DashboardMenu from './uiComponents/DashboardMenu';
+import './dashboard.css';
+
 
 function DashboardBase({ children }) {
 
-  return (
-    <React.Fragment>
-        <DashboardHead />
+    return (
+        <Fragment>
+            <DashboardHead />
 
-        <section>
-            <DashboardMenu />
-            
-            <section>
-                {children}
+            <section className='dashboard--base'>
+                <DashboardMenu />
+
+                <section>
+                    {children}
+                </section>
             </section>
-        </section>
-    </React.Fragment>
-  )
+        </Fragment>
+    )
 }
 
 export default DashboardBase

@@ -6,14 +6,14 @@ import { useDataContext } from '../../context/DataContext';
 
 function DashboardHead() {
 
-    const { isMenuClosed, handleMenuClose } = useDataContext();
+    const { isMenuCollapsed, handleMenuCollapse } = useDataContext();
 
     return (
         <header className='dashboard--header'>
             <div className='dashboard--logo-box'>
                 <img src={logo_img} alt='' className='dashboard--logo' />
-                <div className='dashboard--header-control' onClick={handleMenuClose}>
-                    {isMenuClosed ? (
+                <div className='dashboard--header-control' onClick={handleMenuCollapse}>
+                    {isMenuCollapsed ? (
                         <SlArrowRight className='header--arrow' />
                     ) : (
                         <SlArrowLeft className='header--arrow' />
@@ -22,7 +22,9 @@ function DashboardHead() {
             </div>
 
 
-            <div></div>
+            <div>
+                
+            </div>
         </header>
     )
 }

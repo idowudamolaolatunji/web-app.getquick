@@ -7,14 +7,18 @@ import { MdOutlineDashboard, MdOutlineDeliveryDining, MdOutlineShoppingBag, MdOu
 import { GrTransaction } from 'react-icons/gr'
 import { BiCustomize } from 'react-icons/bi'
 import { HiOutlineSquare3Stack3D } from 'react-icons/hi2'
+import { useDataContext } from '../../context/DataContext'
 
 
 function DashboardMenu() {
+    const { isMenuCollapsed } = useDataContext();
 
   return (
-    <div className='dashboard--menu'>
+    <div className={`dashboard--menu ${isMenuCollapsed ? 'collapsed' : ''}`}>
         <div className='menu--list'>
-            <p>Main Menu</p>
+            {!isMenuCollapsed && (
+                <p>Main Menu</p>
+            )}
             <ul className='dashboard--list'>
                 <MenuLink icon={<MdOutlineDashboard />} title='Dashboard' link='/' />
                 <MenuLink icon={<MdOutlineShoppingBag />} title='Orders' link='/orders' />
@@ -28,10 +32,15 @@ function DashboardMenu() {
         </div>
 
         <div className='menu--list'>
-            <span>
-                <p>Store</p>
+            {!isMenuCollapsed ? (
+                <span>
+                    <p>Store</p>
+                    <AiOutlinePlus />
+                </span>
+            ) : (
                 <AiOutlinePlus />
-            </span>
+            )}
+
 
             <ul className='dashboard--list'>
                 <MenuLink icon={<MdOutlineStorefront />} title='Store Info' link='/' />

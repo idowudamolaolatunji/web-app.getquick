@@ -31,10 +31,29 @@ ul {
     list-style: none;
 }
 
+a, a:link, a:visited {
+    text-decoration: none;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
+}
+
+
+::-webkit-scrollbar {
+	width: 0.4rem ;
+}
+::-webkit-scrollbar-track {
+	background: none;
+	border: none;
+}
+::-webkit-scrollbar-thumb {
+	background: #ccc;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #aaa;
 }
 
 .line {

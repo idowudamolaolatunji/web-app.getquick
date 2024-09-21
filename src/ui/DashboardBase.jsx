@@ -10,7 +10,6 @@ function DashboardBase({ children }) {
         <Fragment>
             <DashboardHead />
 
-            {/* <section className='dashboard--base' style={isMenuClosed ? { gridTemplateColumns: '8rem 1fr' } : { gridTemplateColumns: '24rem 1fr' }}> */}
             <section className='dashboard--base'>
                 <DashboardMenu />
 

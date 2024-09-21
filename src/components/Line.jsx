@@ -1,8 +1,13 @@
 import React from 'react'
 
-function Line() {
+function Line({ where=null, value=0 }) {
+
+    const customStyle = {
+        [where && `margin${where}`]: value,
+    }
+
   return (
-    <div className='line' />
+    <div className='line' style={customStyle} />
   )
 }
 

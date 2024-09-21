@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MenuLink from './MenuLink'
-import { AiOutlineBank, AiOutlinePlus } from 'react-icons/ai'
+import { AiOutlineBank, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { LuGlobe, LuPartyPopper, LuTags } from 'react-icons/lu'
 import { FiUsers } from 'react-icons/fi'
 import { MdOutlineDashboard, MdOutlineDeliveryDining, MdOutlineShoppingBag, MdOutlineSsidChart, MdOutlineStorefront, MdOutlineWebhook } from 'react-icons/md'
@@ -8,16 +8,24 @@ import { GrTransaction } from 'react-icons/gr'
 import { BiCustomize } from 'react-icons/bi'
 import { HiOutlineSquare3Stack3D } from 'react-icons/hi2'
 import { useDataContext } from '../../context/DataContext'
+import Line from '../../components/Line'
 
 
 function DashboardMenu() {
+    const [showRemains, setShowRemains] = useState(false);
     const { isMenuCollapsed } = useDataContext();
+
+    function handleShowRemains() {
+        setShowRemains(!showRemains)
+    }
 
   return (
     <div className={`dashboard--menu ${isMenuCollapsed ? 'collapsed' : ''}`}>
         <div className='menu--list'>
             {!isMenuCollapsed && (
-                <p>Main Menu</p>
+                <span className='menu--list-item'>
+                    <p>Main Access</p>
+                </span>
             )}
             <ul className='dashboard--list'>
                 <MenuLink icon={<MdOutlineDashboard />} title='Dashboard' link='/' />
@@ -32,24 +40,41 @@ function DashboardMenu() {
         </div>
 
         <div className='menu--list'>
+            <Line />
             {!isMenuCollapsed ? (
-                <span>
-                    <p>Store</p>
-                    <AiOutlinePlus />
+                <span className='menu--list-item'>
+                    <p>Store Settings</p>
+                    <div className='menu--icon-box' onClick={handleShowRemains}>
+                        {showRemains ? (
+                            <AiOutlineMinus className='menu--icon' />
+                        ) : (
+                            <AiOutlinePlus className='menu--icon' />
+                        )}
+                    </div>
                 </span>
             ) : (
-                <AiOutlinePlus />
+                <div className='menu--icon-box' data-text={'Store Settings'} onClick={handleShowRemains}>
+                    {showRemains ? (
+                        <AiOutlineMinus className='menu--icon' />
+                    ) : (
+                        <AiOutlinePlus className='menu--icon' />
+                    )}
+                </div>
             )}
 
+            {showRemains && (
+                <ul className='dashboard--list'>
+                    <MenuLink icon={<MdOutlineStorefront />} title='Store Info' link='/' />
+                    <MenuLink icon={<AiOutlineBank />} title='Bank Details' link='/' />
+                    <MenuLink icon={<MdOutlineDeliveryDining />} title='Shipping' link='/' />
+                    <MenuLink icon={<LuGlobe />} title='Domain' link='/' />
+                    <MenuLink icon={<HiOutlineSquare3Stack3D/>} title='Subscription' link='/' />
+                    <MenuLink icon={<BiCustomize />} title='Site Customization' link='/' />
+                </ul>
+            )}
 
-            <ul className='dashboard--list'>
-                <MenuLink icon={<MdOutlineStorefront />} title='Store Info' link='/' />
-                <MenuLink icon={<AiOutlineBank />} title='Bank Details' link='/' />
-                <MenuLink icon={<MdOutlineDeliveryDining />} title='Shipping' link='/' />
-                <MenuLink icon={<LuGlobe />} title='Domain' link='/' />
-                <MenuLink icon={<HiOutlineSquare3Stack3D/>} title='Subscription' link='/' />
-                <MenuLink icon={<BiCustomize />} title='Site Customization' link='/' />
-            </ul>
+            <Line />
+
         </div>
     </div>
   )

@@ -8,7 +8,7 @@ function MenuLink({ icon, title, link }) {
     return (
         <>
             {isMenuCollapsed ? (
-                <Link className='dashboard--menu-link' to={`/dashboard${link}`}>
+                <Link className='dashboard--menu-link' data-text={title} to={`/dashboard${link}`}>
                     <span className='dashboard--menu-icon'>{icon}</span>
                 </Link>
             ) : (

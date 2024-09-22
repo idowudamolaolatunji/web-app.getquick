@@ -12,7 +12,7 @@ import { useWindowSize } from 'react-use';
 
 function DashboardHead() {
 
-    const { isMenuCollapsed, handleMenuCollapse } = useDataContext();
+    const { isMenuCollapsed, handleMenuCollapse, handleShowSidemenu } = useDataContext();
     const { width } = useWindowSize();
 
     return (
@@ -20,7 +20,7 @@ function DashboardHead() {
             <div className='logo--container' style={isMenuCollapsed ? { borderBottomColor: '#eeeff1' } : {} }>
                 <img src={logo_img} alt='Quick logo' />
 
-                <span className='hamburger--icon' onClick={handleMenuCollapse}>
+                <span className='hamburger--icon' onClick={(width > 900) ? handleMenuCollapse : handleShowSidemenu}>
                     {(width > 900) ? (
                         isMenuCollapsed ? <RiMenu3Fill /> : <RiCloseFill /> 
                     ) : (

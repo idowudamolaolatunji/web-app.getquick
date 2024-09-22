@@ -15,9 +15,14 @@ export const DataProvider = ({ children }) => {
     const [isMenuCollapsed, setIsMenuCollapsed] = useState(function() {
         return localStorage.getItem('menu') ? JSON.parse(localStorage.getItem('menu')) : false 
     });
+    const [showSidemenu, setShowSidemenu] = useState(false);
 
     function handleMenuCollapse() {
         setIsMenuCollapsed(!isMenuCollapsed);
+    }
+
+    function handleShowSidemenu() {
+        setShowSidemenu(!showSidemenu);
     }
 
     useEffect(function() {
@@ -27,7 +32,10 @@ export const DataProvider = ({ children }) => {
     // CREATE CONTEXT DATA
     let contextData = {
         isMenuCollapsed,
-        handleMenuCollapse
+        handleMenuCollapse,
+
+        showSidemenu,
+        handleShowSidemenu
     }
 
 

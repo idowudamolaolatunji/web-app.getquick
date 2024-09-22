@@ -321,6 +321,60 @@
 
 
 
+
+
+/* ========================================== */
+/*  */
+/* ========================================== */
+.dashboard--sidemenu {
+    min-width: 34rem;
+    height: 100vh;
+    background-color: #fff;
+
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    
+    padding: 3.8rem 1.8rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    border-right: 1.2px solid var(--border-color);
+
+    overflow-y: auto;
+    scrollbar-width: none;
+    z-index: 115;
+    transition: all .3s ease;
+    animation: menu-slide-in .25s ease-out both;
+    opacity: 1; 
+    transform: translateX(0);
+}
+
+@keyframes menu-slide-in {
+    0% {
+        opacity: 0.5; transform: translateX(-40rem);
+    }
+    100% {
+        opacity: 1; transform: translateX(0); 
+    }
+}
+
+.dashboard--sidemenu .hamburger--icon {
+    position: absolute;
+    top: 1.6rem;
+    right: 2rem;
+}
+.dashboard--sidemenu .store--btn {
+    display: inline-flex;
+    margin: 2.8rem 0 1.8rem;
+    justify-content: center;
+}
+/* ========================================== */
+
+
+
+
 /* ========================================== */
 /*  */
 /* ========================================== */
@@ -345,9 +399,6 @@
 
 /* 900px === 56.25em */
 @media screen and (max-width: 56.25em) {
-    html {
-        font-size: 56.25%;
-    }
     .dashboard--header {
         grid-template-columns: 14rem 1fr;
         border-bottom: 1.2px solid var(--border-color);
@@ -370,7 +421,6 @@
         border: none;
         padding: 0;
     }
-
 
     .dashboard--base {
         display: block;
@@ -399,6 +449,9 @@
     }
     .logo--container img {
         width: 7rem;
+    }
+    .dashboard--sidemenu {
+        min-width: 100%;
     }
     .store--btn {
         display: none;

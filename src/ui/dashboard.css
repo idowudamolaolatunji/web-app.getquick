@@ -127,6 +127,7 @@
     padding: 0 .28rem;
     cursor: pointer;
     transition: all .35s;
+    position: relative;
 }
 .user--info {
     display: flex;
@@ -141,6 +142,67 @@
 .user--info svg {
     font-size: 1.6rem;
 }
+/* ========================================== */
+
+
+
+/* ========================================== */
+/*  */
+/* ========================================== */
+.dropdown {
+    min-width: 24rem;
+    padding: 3rem 2rem;
+    background-color: var(--white-1);
+    border-radius: .4rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+
+    position: absolute;
+    top: 6.5rem;
+    right: 1rem;
+
+    transform: scale(0);
+    box-shadow: 0 0 20px #0000000d;
+}
+.dropdown.is-shown {
+    transition: transform .2s cubic-bezier(0.25, 0.1, 0, 0.88);
+    transform: scale(1)
+}
+.dropdown--item,
+div.dropdown--item,
+a.dropdown--item {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--grey-1);
+    cursor: pointer;
+}
+.dropdown--item:last-child {
+    color: #d90429;
+}
+.dropdown--item svg {
+    font-size: 2.2rem;
+}
+.mode--switch {
+    display: flex;
+    align-items: center;
+}
+.mode--switch div.react-switch-bg div {
+    height: auto !important;
+}
+.mode--switch div.react-switch-bg  {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.mode--switch svg {
+    font-size: 1.8rem;
+}
+
 /* ========================================== */
 
 
@@ -371,7 +433,6 @@
     justify-content: center;
 }
 /* ========================================== */
-
 
 
 

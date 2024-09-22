@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import logo_img from '../../assets/images/alloura-removebg-preview.png'
 import { useDataContext } from '../../context/DataContext';
@@ -9,11 +9,18 @@ import { RiCloseFill, RiMenu3Fill } from 'react-icons/ri';
 import { LuBell, LuUser } from 'react-icons/lu';
 
 import { useWindowSize } from 'react-use';
+import Dropdown from '../../components/Dropdown';
 
 function DashboardHead() {
 
+    const [isShownDropdown, setIsShownDropdown] = useState(false);
+
     const { isMenuCollapsed, handleMenuCollapse, handleShowSidemenu } = useDataContext();
     const { width } = useWindowSize();
+
+    function handleShowDropdown() {
+        setIsShownDropdown(!isShownDropdown)
+    }
 
     return (
         <header className='dashboard--header'>
@@ -43,7 +50,7 @@ function DashboardHead() {
                         <LuBell />
                     </div>
 
-                    <span className='nav--user'>
+                    <div className='nav--user' onClick={handleShowDropdown}>
                         <div className="nav--icon user--icon">
                             <LuUser />
                         </div>
@@ -51,7 +58,11 @@ function DashboardHead() {
                             <p className='user--name'>Idowu Olatunji</p>
                             <IoChevronDownSharp />
                         </div>
-                    </span>
+                    </div>
+
+                    {isShownDropdown && (
+                        <Dropdown isShown={isShownDropdown} />
+                    )}
                 </div>
 
             </div>

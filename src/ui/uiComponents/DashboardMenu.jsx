@@ -33,10 +33,10 @@ function DashboardMenu() {
                 <MenuLink icon={<MdOutlineShoppingBag />} title='Orders' link='/orders' />
                 <MenuLink icon={<LuTags />} title='Products' link='/products' />
                 <MenuLink icon={<BiLineChart  />} title='Analytics' link='/analytics' />
-                <MenuLink icon={<RiCoupon3Line />} title='Run Sales & coupon' link='/run-sales' />
+                <MenuLink icon={<RiCoupon3Line />} title='Run sales / coupon' link='/run-sales' />
                 <MenuLink icon={<FiUsers />} title='Customers' link='/customers' />
                 <MenuLink icon={<LuRotate3D />} title='Transactions' link='/transactions' />
-                <MenuLink icon={<MdOutlineWebhook />} title='Connected apps' link='/connected-apps' />
+                <MenuLink icon={<MdOutlineWebhook />} title='Connected platforms' link='/connected-apps' />
             </ul>
         </div>
 

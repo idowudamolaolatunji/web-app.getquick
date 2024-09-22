@@ -157,7 +157,7 @@
     grid-template-columns: 6rem 1fr;
 }
 .dashboard--menu {
-    padding: 2.4rem 2rem;
+    padding: 2.4rem 1.8rem;
     display: flex;
     flex-direction: column;
     gap: 1.4rem;
@@ -217,7 +217,7 @@
 .menu--list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: .8rem;
 }
 .collapsed .menu--list {
     gap: .8rem;

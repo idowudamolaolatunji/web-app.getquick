@@ -1,9 +1,12 @@
 import React from 'react'
+import Welcome from '../../components/Welcome'
 
 function index() {
   return (
-    <div>Main Dashboard</div>
+    <section>
+      <Welcome />
+    </section>
   )
 }
 
-export default index
+export default index;

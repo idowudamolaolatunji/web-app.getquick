@@ -1,38 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
 
 html {
-    font-size: 62.5%;
+	font-size: 62.5%;
 	scroll-behavior: smooth;
 }
 
 :root {
-    --border-color: #eeeff1;
+	--border-color: #eeeff1;
 }
 
 body {
 	font-family: "Open Sans", sans-serif;
-    background-color: #fff;
-    font-size: 1.6rem;
-    line-height: 1;
-    font-weight: 400;
-    color: #333;
-
-    height: 100vh;
-    overflow: hidden;
+	background-color: #fff;
+	font-size: 1.6rem;
+	line-height: 1;
+	font-weight: 400;
+	color: #333;
+	height: 100vh;
+    width: 100%;
+	overflow: hidden;
 }
 
-ul {
-    list-style: none;
+ul,
+ol {
+	list-style: none;
 }
 
-a, a:link, a:visited {
-    text-decoration: none;
+a,
+a:link,
+a:visited {
+	text-decoration: none;
+}
+
+/* Parent selector, finally 😃 */
+button:has(svg) {
+	line-height: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+	hyphens: auto;
+}
+
+img {
+	max-width: 100%;
 }
 
 input::-webkit-outer-spin-button,
@@ -41,9 +64,8 @@ input::-webkit-inner-spin-button {
 	margin: 0;
 }
 
-
 ::-webkit-scrollbar {
-	width: 0.4rem ;
+	width: 0.4rem;
 }
 ::-webkit-scrollbar-track {
 	background: none;
@@ -57,5 +79,5 @@ input::-webkit-inner-spin-button {
 }
 
 .line {
-    border: 1px solid #eeeff1;
+	border: 1px solid #eeeff1;
 }

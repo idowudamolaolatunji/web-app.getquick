@@ -343,7 +343,11 @@
 
 
 
-@media screen and (max-width: 900px) {
+/* 900px === 56.25em */
+@media screen and (max-width: 56.25em) {
+    html {
+        font-size: 56.25%;
+    }
     .dashboard--header {
         grid-template-columns: 14rem 1fr;
         border-bottom: 1.2px solid var(--border-color);
@@ -375,3 +379,32 @@
         display: none;
     }
 }
+
+
+/* 750px === 46.87em */
+@media screen and (max-width: 46.87em) {
+    .user--name {
+        display: none;
+    }
+}
+
+
+/* 600px === 37.5em */
+@media screen and (max-width: 37.5em) {
+    .dashboard--header {
+        grid-template-columns: 12rem 1fr;
+    }
+    .logo--container {
+        gap: 1rem;
+    }
+    .logo--container img {
+        width: 7rem;
+    }
+    .store--btn {
+        display: none;
+    }
+}
+
+
+/* 400px === 25em */
+/* @media screen and (max-width: 25em) {} */

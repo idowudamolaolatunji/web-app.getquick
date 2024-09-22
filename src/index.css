@@ -97,3 +97,13 @@ input::-webkit-inner-spin-button {
 	-webkit-backdrop-filter: blur(2px);
 	backdrop-filter: blur(2px);
 }
+
+
+
+
+/* 600px === 37.5em */
+@media screen and (max-width: 37.5em) {
+    html {
+        font-size: 65%;
+    }
+}

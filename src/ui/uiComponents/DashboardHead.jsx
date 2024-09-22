@@ -8,13 +8,12 @@ import { MdOutlineStorefront } from 'react-icons/md';
 import { RiCloseFill, RiMenu3Fill } from 'react-icons/ri';
 import { LuBell, LuUser } from 'react-icons/lu';
 
-// import { useWindowScroll, useWindowSize } from 'react-use';
+import { useWindowSize } from 'react-use';
 
 function DashboardHead() {
 
     const { isMenuCollapsed, handleMenuCollapse } = useDataContext();
-    // const { width } = useWindowSize();
-    const width = 100;
+    const { width } = useWindowSize();
 
     return (
         <header className='dashboard--header'>

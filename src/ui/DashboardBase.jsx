@@ -4,14 +4,12 @@ import DashboardMenu from './uiComponents/DashboardMenu';
 import './dashboard.css';
 import { useDataContext } from '../context/DataContext';
 
-// import { useWindowScroll, useWindowSize } from 'react-use';
+import { useWindowSize } from 'react-use';
 
 function DashboardBase({ children }) {
-
     const { isMenuCollapsed } = useDataContext();
+    const { width } = useWindowSize();
 
-    // const { width } = useWindowSize();
-    const width = 9100;
 
     return (
         <Fragment>

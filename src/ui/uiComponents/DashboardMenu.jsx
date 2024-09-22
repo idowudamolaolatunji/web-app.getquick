@@ -9,7 +9,7 @@ import { MdOutlineDashboard, MdOutlineDeliveryDining, MdOutlineShoppingBag, MdOu
 import { BiCustomize, BiLineChart } from 'react-icons/bi';
 import { HiOutlineSquare3Stack3D } from 'react-icons/hi2';
 import { useDataContext } from '../../context/DataContext';
-import { RiCoupon3Line } from 'react-icons/ri';
+import { RiBankLine, RiCoupon3Line } from 'react-icons/ri';
 
 
 function DashboardMenu() {
@@ -41,7 +41,7 @@ function DashboardMenu() {
         </div>
 
         <div className='menu--block'>
-            <Line where={'Bottom'} value={'0.5rem'} />
+            <Line where={'Bottom'} value={'0.34rem'} />
 
             {!isMenuCollapsed ? (
                 <span className='block--heading' onClick={handleShowRemains}>
@@ -59,7 +59,7 @@ function DashboardMenu() {
             {showRemains && (
                 <ul className='menu--list'>
                     <MenuLink icon={<MdOutlineStorefront />} title='Store Information' link='/store-info' />
-                    <MenuLink icon={<AiOutlineBank />} title='Bank Details' link='/bank-details' />
+                    <MenuLink icon={<RiBankLine />} title='Bank Details' link='/bank-details' />
                     <MenuLink icon={<MdOutlineDeliveryDining />} title='Delivery' link='/delivery' />
                     <MenuLink icon={<LuGlobe />} title='Custom Domain' link='/custom-domain' />
                     <MenuLink icon={<HiOutlineSquare3Stack3D/>} title='Subscription' link='/subscription' />
@@ -67,7 +67,7 @@ function DashboardMenu() {
                 </ul>
             )}
 
-            <Line where={'Top'} value={'0.5rem'} />
+            <Line where={'Top'} value={'0.34rem'} />
 
         </div>
     </div>

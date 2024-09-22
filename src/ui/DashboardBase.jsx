@@ -4,17 +4,20 @@ import DashboardMenu from './uiComponents/DashboardMenu';
 import './dashboard.css';
 import { useDataContext } from '../context/DataContext';
 
+// import { useWindowScroll, useWindowSize } from 'react-use';
 
 function DashboardBase({ children }) {
 
     const { isMenuCollapsed } = useDataContext();
 
+    // const { width } = useWindowSize();
+    const width = 9100;
+
     return (
         <Fragment>
             <DashboardHead />
 
-            {/* <section className='dashboard--base' style={ isMenuCollapsed ? { gridTemplateColumns: "6rem 1fr"} : { gridTemplateColumns: "25rem 1fr"}}> */}
-            <section className={`dashboard--base ${isMenuCollapsed ? 'collapsed' : ''}`}>
+            <section className={`dashboard--base ${(isMenuCollapsed && width > 900) ? 'collapsed' : ''}`}>
                 <DashboardMenu />
 
                 <section className='content--block'>

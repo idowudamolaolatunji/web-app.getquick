@@ -169,6 +169,7 @@
     scrollbar-width: none;
 
     transition: all .3s ease;
+
 }
 .collapsed .dashboard--menu {
     padding: 2.4rem .8rem;
@@ -207,6 +208,17 @@
 .collapsed .heading--icon {
     position: relative;
 }
+
+.menu--block:last-child {
+    margin-bottom: 8rem;
+    animation: grow-down 1s;
+    height: auto;
+}
+
+@keyframes grow-down {
+    from { height: 0; }
+    to { height: auto; }
+}
 /* ========================================== */
 
 /* transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1), border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1); */
@@ -240,6 +252,8 @@
     text-decoration: none;
     cursor: pointer;
     border-radius: .4rem;
+    position: relative;
+
 }
 .menu--link:hover {
     background-color: var(--white-2);
@@ -262,11 +276,11 @@
 
 /* show text on hovered collapsed menu item */
 .collapsed .menu--link .show-text {
-    background-color: #333;
+    background-color: var(--grey-1);
     color: var(--white-1);
-    font-weight: 500;
-    font-size: 1.12rem;
-    padding: .4rem;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: .4rem .6rem;
     width: max-content;
 
     display: inline-flex;
@@ -284,7 +298,6 @@
 .collapsed .menu--link:hover .show-text {
     visibility: visible;
     opacity: 1;
-    z-index: 1000;
 }
 .collapsed .menu--link:not(:hover) .show-text {
     transition-delay: 0s;
@@ -316,3 +329,49 @@
     padding: 2rem;
 }
 /* ========================================== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 900px) {
+    .dashboard--header {
+        grid-template-columns: 14rem 1fr;
+        border-bottom: 1.2px solid var(--border-color);
+        height: auto;
+        padding: 1.4rem 1.6rem;
+        justify-content: space-between;
+    }
+    .logo--container {
+        border: none;
+
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 2rem;
+        padding: 0;
+    }
+    .logo--container img {
+        width: 7.6rem;
+    }
+    .nav--container {
+        border: none;
+        padding: 0;
+    }
+
+
+    .dashboard--base {
+        display: block;
+    }
+    .dashboard--menu {
+        display: none;
+    }
+}

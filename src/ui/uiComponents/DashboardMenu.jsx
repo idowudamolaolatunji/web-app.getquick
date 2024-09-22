@@ -15,6 +15,7 @@ import { RiBankLine, RiCoupon3Line } from 'react-icons/ri';
 function DashboardMenu() {
     const [showRemains, setShowRemains] = useState(false);
     const { isMenuCollapsed } = useDataContext();
+    console.log(isMenuCollapsed)
 
     function handleShowRemains() {
         setShowRemains(!showRemains)

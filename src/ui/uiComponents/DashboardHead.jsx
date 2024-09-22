@@ -1,17 +1,20 @@
 import React from 'react';
 
 import logo_img from '../../assets/images/alloura-removebg-preview.png'
-import { SlArrowDown, SlArrowLeft, SlArrowRight } from 'react-icons/sl';
 import { useDataContext } from '../../context/DataContext';
-import { HiOutlineBell, HiOutlineUser } from 'react-icons/hi2';
+// import { HiOutlineBell, HiOutlineUser } from 'react-icons/hi2';
 import { IoChevronDownSharp } from 'react-icons/io5';
 import { MdOutlineStorefront } from 'react-icons/md';
 import { RiCloseFill, RiMenu3Fill } from 'react-icons/ri';
 import { LuBell, LuUser } from 'react-icons/lu';
 
+// import { useWindowScroll, useWindowSize } from 'react-use';
+
 function DashboardHead() {
 
     const { isMenuCollapsed, handleMenuCollapse } = useDataContext();
+    // const { width } = useWindowSize();
+    const width = 100;
 
     return (
         <header className='dashboard--header'>
@@ -19,7 +22,11 @@ function DashboardHead() {
                 <img src={logo_img} alt='Quick logo' />
 
                 <span className='hamburger--icon' onClick={handleMenuCollapse}>
-                    { isMenuCollapsed ? <RiMenu3Fill /> : <RiCloseFill /> }
+                    {(width > 900) ? (
+                        isMenuCollapsed ? <RiMenu3Fill /> : <RiCloseFill /> 
+                    ) : (
+                        <RiMenu3Fill />
+                    )}
                 </span>
             </div>
 

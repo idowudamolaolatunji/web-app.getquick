@@ -12,7 +12,9 @@ export default DataContext;
 //// CREATING PROVIDER ////
 //////////////////////////////////////////////
 export const DataProvider = ({ children }) => {
-    const [isMenuCollapsed, setIsMenuCollapsed] = useState( JSON.parse(localStorage.getItem('menu')) || false );
+    const [isMenuCollapsed, setIsMenuCollapsed] = useState(function() {
+        return localStorage.getItem('menu') ? JSON.parse(localStorage.getItem('menu')) : false 
+    });
 
     function handleMenuCollapse() {
         setIsMenuCollapsed(!isMenuCollapsed);
@@ -22,7 +24,7 @@ export const DataProvider = ({ children }) => {
         localStorage.setItem('menu', JSON.stringify(isMenuCollapsed));
     }, [isMenuCollapsed]);
 
- // CREATE CONTEXT DATA
+    // CREATE CONTEXT DATA
     let contextData = {
         isMenuCollapsed,
         handleMenuCollapse

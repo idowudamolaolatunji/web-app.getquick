@@ -10,14 +10,10 @@
     --background-color-1: #f9fafc;
     /* --shadow: .4rem .6rem 1rem rgba(0, 0, 0, .15); */
 
-    --color-brand-50: #eef2ff;
-    --color-brand-100: #e0e7ff;
-    --color-brand-200: #c7d2fe;
-    --color-brand-500: #6366f1;
-    --color-brand-600: #4f46e5;
-    --color-brand-700: #4338ca;
-    --color-brand-800: #3730a3;
-    --color-brand-900: #312e81;
+    --color-brand-100: #ECF2FF;
+    --color-brand-300: #BFACE2;
+    --color-brand-500: #655DBB;
+
 }
 /* ========================================== */
 
@@ -139,8 +135,10 @@
     color: var(--grey-1);
 }
 .user--name {
-    font-size: 1.26rem;
-    font-weight: 500;
+    font-size: 1.2rem;
+    font-family: inherit;
+    /* font-weight: 500; */
+    font-weight: 600;
 }
 .user--info svg {
     font-size: 1.6rem;
@@ -205,6 +203,22 @@ a.dropdown--item {
 }
 .mode--switch svg {
     font-size: 1.8rem;
+}
+.mode--switch svg.animate {
+    animation: bounce .5s;
+}
+.mode--switch svg.animate.light {
+    color: rgb(202, 190, 16);
+}
+.mode--switch svg.animate.dark {
+    color: #777;
+}
+
+@keyframes bounce {
+    25% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    75% { transform: scale(1.5); }
+    100% { transform: scale(1.2); }
 }
 
 /* ========================================== */
@@ -377,8 +391,8 @@ a.dropdown--item {
     font-size: 2rem;
 }
 .menu--text {
-    font-size: 1.24rem;
-    font-weight: 500;
+    font-size: 1.25rem;
+    font-weight: 600;
     color: inherit;
     display: flex;
     align-items: center;
@@ -465,7 +479,7 @@ a.dropdown--item {
 /* 900px === 56.25em */
 @media screen and (max-width: 56.25em) {
     .dashboard--header {
-        grid-template-columns: 14rem 1fr;
+        grid-template-columns: 15rem 1fr;
         border-bottom: 1.2px solid var(--border-color);
         height: auto;
         padding: 1.4rem 1.6rem;
@@ -476,11 +490,12 @@ a.dropdown--item {
 
         display: flex;
         flex-direction: row-reverse;
-        gap: 2rem;
+        /* gap: 2rem; */
+        gap: 1rem;
         padding: 0;
     }
     .logo--container img {
-        width: 7.6rem;
+        width: 10rem;
     }
     .nav--container {
         border: none;
@@ -507,13 +522,13 @@ a.dropdown--item {
 /* 600px === 37.5em */
 @media screen and (max-width: 37.5em) {
     .dashboard--header {
-        grid-template-columns: 12rem 1fr;
+        grid-template-columns: 14rem 1fr;
     }
     .logo--container {
-        gap: 1rem;
+        gap: .68rem;
     }
     .logo--container img {
-        width: 7rem;
+        width: 9.4rem;
     }
     .dashboard--sidemenu {
         min-width: 100%;

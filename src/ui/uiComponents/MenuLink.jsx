@@ -13,7 +13,7 @@ function MenuLink({ icon, title, link }) {
     return (
         <>
             {(width > 900) ? (
-                <Link className={`menu--link ${pathname === `/dashboard${link}` ? 'is-active' : ''}`} to={`/dashboard${link}`}>
+                <Link className={`menu--link ${(title === 'Dashboard' && (pathname === '/dashboard' || pathname === '/')) ? 'is-active' : pathname === `/dashboard${link}` ? 'is-active' : ''}`} to={`/dashboard${link}`}>
                     <span className='menu--icon'>{icon}</span>
                     {isMenuCollapsed ? (
                         <span className='show-text'>{title}</span>

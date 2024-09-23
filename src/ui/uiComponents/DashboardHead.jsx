@@ -22,8 +22,6 @@ function DashboardHead() {
         setIsShownDropdown(true)
     }
 
-    console.log(isShownDropdown)
-
 
     return (
         <header className='dashboard--header'>
@@ -53,7 +51,7 @@ function DashboardHead() {
                         <LuBell />
                     </div>
 
-                    <button className='nav--user' onClick={handleShowDropdown}>
+                    <div className='nav--user' onClick={handleShowDropdown}>
                         <div className="nav--icon user--icon">
                             <LuUser />
                         </div>
@@ -61,7 +59,7 @@ function DashboardHead() {
                             <p className='user--name'>Idowu Olatunji</p>
                             <IoChevronDownSharp />
                         </div>
-                    </button>
+                    </div>
 
                     {isShownDropdown && (
                         <Dropdown isShown={isShownDropdown} setIsShown={setIsShownDropdown} />

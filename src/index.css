@@ -101,11 +101,10 @@ input::-webkit-inner-spin-button {
 	height: 100vh;
 	z-index: 110;
 
-	background-color: rgba(0, 0, 0, 0.25);
+	background-color: rgba(0, 0, 0, 0.15);
 	-webkit-backdrop-filter: blur(2px);
 	backdrop-filter: blur(2px);
 }
-
 
 
 

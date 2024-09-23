@@ -3,13 +3,15 @@ import './style.css'
 
 function index() {
   return (
-    <div class="container">
+    <div className="spinner--container">
+      <div class="spinner">
       <div class="dot"></div>
       <div class="dot"></div>
       <div class="dot"></div>
       <div class="dot"></div>
       <div class="dot"></div>
       <div class="dot"></div>
+    </div>
     </div>
   )
 }

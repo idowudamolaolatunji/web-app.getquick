@@ -527,9 +527,6 @@ a.dropdown--item {
     .logo--container {
         gap: .68rem;
     }
-    .logo--container img {
-        width: 11rem;
-    }
     .dashboard--sidemenu {
         min-width: 100%;
     }

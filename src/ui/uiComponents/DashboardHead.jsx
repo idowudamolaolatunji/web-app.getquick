@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import logo_img from '../../assets/images/alloura-removebg-preview.png'
+import logo_img from '../../assets/images/logo.png'
 import { useDataContext } from '../../context/DataContext';
 // import { HiOutlineBell, HiOutlineUser } from 'react-icons/hi2';
 import { IoChevronDownSharp } from 'react-icons/io5';
@@ -19,8 +19,11 @@ function DashboardHead() {
     const { width } = useWindowSize();
 
     function handleShowDropdown() {
-        setIsShownDropdown(!isShownDropdown)
+        setIsShownDropdown(true)
     }
+
+    console.log(isShownDropdown)
+
 
     return (
         <header className='dashboard--header'>
@@ -50,7 +53,7 @@ function DashboardHead() {
                         <LuBell />
                     </div>
 
-                    <div className='nav--user' onClick={handleShowDropdown}>
+                    <button className='nav--user' onClick={handleShowDropdown}>
                         <div className="nav--icon user--icon">
                             <LuUser />
                         </div>
@@ -58,10 +61,10 @@ function DashboardHead() {
                             <p className='user--name'>Idowu Olatunji</p>
                             <IoChevronDownSharp />
                         </div>
-                    </div>
+                    </button>
 
                     {isShownDropdown && (
-                        <Dropdown isShown={isShownDropdown} />
+                        <Dropdown isShown={isShownDropdown} setIsShown={setIsShownDropdown} />
                     )}
                 </div>
 

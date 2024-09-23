@@ -522,10 +522,10 @@ a.dropdown--item {
 /* 600px === 37.5em */
 @media screen and (max-width: 37.5em) {
     .dashboard--header {
-        grid-template-columns: 14rem 1fr;
+        grid-template-columns: 15rem 1fr;
     }
     .logo--container {
-        gap: .68rem;
+        gap: 0rem;
     }
     .dashboard--sidemenu {
         min-width: 100%;

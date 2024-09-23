@@ -22,7 +22,7 @@ function MenuLink({ icon, title, link }) {
                     )}
                 </Link>
             ) : (
-                <Link className={`menu--link ${pathname === `/dashboard${link}` ? 'is-active' : ''}`} to={`/dashboard${link}`} onClick={handleShowSidemenu}>
+                <Link className={`menu--link ${(title === 'Dashboard' && (pathname === '/dashboard' || pathname === '/')) ? 'is-active' : pathname === `/dashboard${link}` ? 'is-active' : ''}`} to={`/dashboard${link}`}>
                     <span className='menu--icon'>{icon}</span>
                     <p className='menu--text'>{title}</p>
                 </Link>

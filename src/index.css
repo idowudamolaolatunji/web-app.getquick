@@ -27,6 +27,14 @@ body {
 	overflow: hidden;
 }
 
+@media (prefers-color-scheme: dark) {
+	body.dark-mode {
+		background-color: #333;
+		color: #fff;
+	}
+}
+  
+
 ul,
 ol {
 	list-style: none;

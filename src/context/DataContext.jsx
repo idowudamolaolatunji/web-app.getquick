@@ -27,8 +27,8 @@ export const DataProvider = ({ children }) => {
         setShowSidemenu(!showSidemenu);
     }
 
-    function onMode() {
-        setIsDarkMode(!isDarkMode);
+    function onMode(mode) {
+        setIsDarkMode(mode);
     }
 
     useEffect(function() {

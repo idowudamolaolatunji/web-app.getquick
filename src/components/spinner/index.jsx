@@ -1,8 +1,16 @@
-import React from 'react'
+import React from 'react';
+import './style.css'
 
 function index() {
   return (
-    <div>Loading...</div>
+    <div class="container">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
   )
 }
 

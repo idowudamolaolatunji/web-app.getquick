@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import Switch from "react-switch";
 import { Link } from 'react-router-dom';
 
@@ -8,11 +8,13 @@ import { TbLogout2 } from 'react-icons/tb'
 import { useDataContext } from '../context/DataContext';
 import { MdLightMode, MdOutlineDarkMode, MdOutlineDisplaySettings } from 'react-icons/md';
 import { useOutsideClick } from '../hooks/useOutsideClick';
+import { Classic } from "@theme-toggles/react";
 
 
 function Dropdown({ isShown, setIsShown }) {
+    // const [isToggled, setToggle] = useState(false)
     const { onMode, isDarkMode } = useDataContext();
-
+    
     const ref = useOutsideClick(handleClose);
     
     function handleClose() {
@@ -22,6 +24,8 @@ function Dropdown({ isShown, setIsShown }) {
     return (
         <div className={`dropdown ${isShown ? 'is-shown' : ''}`} ref={ref}>
             <div className='dropdown--item' style={{ cursor: 'auto' }}>
+                {/* <Classic toggled={isToggled} toggle={setToggle} /> */}
+                
                 <Switch
                     onChange={next => onMode(next)}
                     checked={isDarkMode}
@@ -35,6 +39,7 @@ function Dropdown({ isShown, setIsShown }) {
                     handleDiameter={18}
                     height={24}
                 />
+               
                 Switch to{' '}{isDarkMode ? 'Light' : 'Dark'}{' '} Mode
             </div>
             <Link className='dropdown--item' to='/dashboard/profile'><CgProfile /> Profile</Link>

@@ -45,7 +45,6 @@ function index() {
             </div>
 
 
-
         </section>
     )
 }

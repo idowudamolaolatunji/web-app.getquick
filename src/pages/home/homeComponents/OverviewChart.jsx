@@ -1,7 +1,5 @@
-import { color } from 'framer-motion';
 import React from 'react'
 import ReactApexChart from 'react-apexcharts';
-
 
 function OverviewChart() {
   const series = [
@@ -13,8 +11,9 @@ function OverviewChart() {
   const options = {
     chart: {
       type: 'bar',
-      height: '300px',
-      width: '100%'
+      toolbar: {
+        show: false,
+      },
     },
     plotOptions: {
       bar: {
@@ -25,7 +24,7 @@ function OverviewChart() {
       enabled: false,
     },
     stroke: {
-      show: true,
+      show: false,
       width: 1,
       colors: ['#fff'],
     },
@@ -33,18 +32,32 @@ function OverviewChart() {
       shared: true,
       intersect: false,
     },
+    grid: {
+      borderColor: '#f1f1f1',
+      xaxis: {
+        lines: {
+          show: false,
+        },
+      },
+      yaxis: {
+        lines: {
+          show: true,
+        },
+      },
+    },
+  
     xaxis: {
       categories: ['Jan', 'Feb', 'Mar', "Apr", 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     },
   };
 
   return (
-    <div>
-      <div id="chart">
-        <ReactApexChart options={options} series={series} type="bar" height={430} />
+    <>
+      <div id="chart" style={{ marginLeft: '-1.4rem', marginTop: '2rem' }}>
+        <ReactApexChart options={options} series={series} type='bar' height={360} />
       </div>
       <div id="html-dist"></div>
-    </div>
+    </>
   );
 
 }

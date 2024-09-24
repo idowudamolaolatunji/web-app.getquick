@@ -547,6 +547,12 @@ a.dropdown--item {
     .store--btn {
         display: none;
     }
+
+    .content--block {
+        /* background-color: var(--white-1); */
+        padding-left:2rem;
+        padding-right:2rem;
+    }
 }
 
 

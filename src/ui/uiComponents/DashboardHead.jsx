@@ -6,10 +6,11 @@ import { useDataContext } from '../../context/DataContext';
 import { IoChevronDownSharp } from 'react-icons/io5';
 import { MdOutlineStorefront } from 'react-icons/md';
 import { RiCloseFill, RiMenu3Fill } from 'react-icons/ri';
-import { LuBell, LuUser } from 'react-icons/lu';
+import { LuBell, LuPanelLeftClose, LuPanelRightClose, LuUser } from 'react-icons/lu';
 
 import { useWindowSize } from 'react-use';
 import Dropdown from '../../components/Dropdown';
+import { Link } from 'react-router-dom';
 
 function DashboardHead() {
 
@@ -26,11 +27,13 @@ function DashboardHead() {
     return (
         <header className='dashboard--header'>
             <div className='logo--container' style={isMenuCollapsed ? { borderBottomColor: '#eeeff1' } : {} }>
-                <img src={logo_img} alt='Quick logo' />
+                <Link to='/'>
+                    <img src={logo_img} alt='Quick logo' />
+                </Link>
 
                 <span className='hamburger--icon' onClick={(width > 900) ? handleMenuCollapse : handleShowSidemenu}>
                     {(width > 900) ? (
-                        isMenuCollapsed ? <RiMenu3Fill /> : <RiCloseFill /> 
+                        isMenuCollapsed ? <LuPanelRightClose /> : <LuPanelLeftClose /> 
                     ) : (
                         <RiMenu3Fill />
                     )}

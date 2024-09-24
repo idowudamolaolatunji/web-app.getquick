@@ -3,7 +3,7 @@ import MenuLink from './MenuLink';
 import Line from '../../components/Line';
 
 import { AiOutlineBank, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { LuGlobe, LuRotate3D, LuTags } from 'react-icons/lu';
+import { LuGlobe, LuLayoutPanelLeft, LuRotate3D, LuTags } from 'react-icons/lu';
 import { FiUsers } from 'react-icons/fi';
 import { MdChatBubble, MdOutlineChatBubbleOutline, MdOutlineDashboard, MdOutlineDeliveryDining, MdOutlineSettings, MdOutlineShoppingBag, MdOutlineSsidChart, MdOutlineStorefront, MdOutlineWebhook } from 'react-icons/md';
 import { BiCustomize, BiLineChart } from 'react-icons/bi';
@@ -35,7 +35,7 @@ function DashboardMenu() {
                             </span>
                         )}
                         <ul className='menu--list'>
-                            <MenuLink icon={<MdOutlineDashboard />} title='Dashboard' link='/' />
+                            <MenuLink icon={<LuLayoutPanelLeft />} title='Dashboard' link='/' />
                             <MenuLink icon={<MdOutlineShoppingBag />} title='Orders' link='/orders' />
                             <MenuLink icon={<LuTags />} title='Products' link='/products' />
                             <MenuLink icon={<BiLineChart />} title='Analytics' link='/analytics' />
@@ -109,7 +109,7 @@ function DashboardMenu() {
                                 <p className='heading--text'>Main Access</p>
                             </span>
                             <ul className='menu--list'>
-                                <MenuLink icon={<MdOutlineDashboard />} title='Dashboard' link='/' />
+                                <MenuLink icon={<LuLayoutPanelLeft />} title='Dashboard' link='/' />
                                 <MenuLink icon={<MdOutlineShoppingBag />} title='Orders' link='/orders' />
                                 <MenuLink icon={<LuTags />} title='Products' link='/products' />
                                 <MenuLink icon={<BiLineChart />} title='Analytics' link='/analytics' />

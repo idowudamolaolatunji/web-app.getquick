@@ -5,7 +5,7 @@ import Line from '../../components/Line';
 import { AiOutlineBank, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { LuGlobe, LuRotate3D, LuTags } from 'react-icons/lu';
 import { FiUsers } from 'react-icons/fi';
-import { MdOutlineDashboard, MdOutlineDeliveryDining, MdOutlineShoppingBag, MdOutlineSsidChart, MdOutlineStorefront, MdOutlineWebhook } from 'react-icons/md';
+import { MdChatBubble, MdOutlineChatBubbleOutline, MdOutlineDashboard, MdOutlineDeliveryDining, MdOutlineSettings, MdOutlineShoppingBag, MdOutlineSsidChart, MdOutlineStorefront, MdOutlineWebhook } from 'react-icons/md';
 import { BiCustomize, BiLineChart } from 'react-icons/bi';
 import { HiOutlineSquare3Stack3D } from 'react-icons/hi2';
 import { useDataContext } from '../../context/DataContext';
@@ -76,6 +76,12 @@ function DashboardMenu() {
                         <Line where={'Top'} value={'0.34rem'} />
 
                     </div>
+
+
+                    <ul className='menu--list last--menu'>
+                        <MenuLink icon={<MdOutlineChatBubbleOutline />} title='Community and Forums' link='/community-forums' />
+                        <MenuLink icon={<MdOutlineSettings />} title='Settings' link='/settings' />
+                    </ul>
                 </div>
             )}
 
@@ -138,6 +144,11 @@ function DashboardMenu() {
                             <Line where={'Top'} value={'0.34rem'} />
 
                         </div>
+
+                        <ul className='menu--list last--menu'>
+                            <MenuLink icon={<MdOutlineChatBubbleOutline />} title='Community and Forums' link='/community-forums' />
+                            <MenuLink icon={<MdOutlineSettings />} title='Settings' link='/settings' />
+                        </ul>
                     </div>
                 </>
             )}

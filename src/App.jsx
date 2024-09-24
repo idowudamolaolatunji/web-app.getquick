@@ -46,6 +46,7 @@ import BankDetails from './pages/bankDetails';
 import Delivery from './pages/delivery';
 import Subscription from './pages/subscription';
 import Analytics from './pages/analytics';
+import CommunityForums from './pages/communityForums';
 
 function App() {
     return (
@@ -75,6 +76,7 @@ function App() {
                         <Route path='/dashboard/profile' element={<Profile />}></Route>
                         <Route path='/dashboard/customers' element={<Customers />}></Route>
                         <Route path='/dashboard/analytics' element={<Analytics />}></Route>
+                        <Route path='/dashboard/community-forums' element={<CommunityForums />}></Route>
                     </Route>
                 </Routes>
             </BrowserRouter>

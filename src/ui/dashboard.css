@@ -237,12 +237,11 @@ a.dropdown--item {
     grid-template-columns: 6rem 1fr;
 }
 .dashboard--menu {
-    padding: 2.4rem 1.8rem;
+    padding: 2.5rem 1.8rem;
     display: flex;
     flex-direction: column;
     gap: 1.4rem;
     border-right: 1.2px solid var(--border-color);
-    padding-bottom: 2rem;
 
     height: 90vh;
     overflow-y: auto;
@@ -252,7 +251,7 @@ a.dropdown--item {
 
 }
 .collapsed .dashboard--menu {
-    padding: 2.4rem .8rem;
+    padding: 2.5rem .8rem;
 }
 /* ========================================== */
 
@@ -396,6 +395,9 @@ a.dropdown--item {
     color: inherit;
     display: flex;
     align-items: center;
+}
+.menu--list.last--menu {
+    margin-top: 2.4rem;
 }
 /* ========================================== */
 

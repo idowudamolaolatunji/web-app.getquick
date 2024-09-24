@@ -40,7 +40,7 @@ function Dropdown({ isShown, setIsShown }) {
             </div> */}
             <Link className='dropdown--item' to='/dashboard/profile'><CgProfile /> Profile</Link>
             <div className='dropdown--item'><MdOutlineDisplaySettings /> Maintenance Status</div>
-            <Link className='dropdown--item' to='/dashboard/settings'><LuSettings /> Settings</Link>
+            {/* <Link className='dropdown--item' to='/dashboard/settings'><LuSettings /> Settings</Link> */}
             <div className='dropdown--item'><TbLogout2 /> Logout</div>
         </div>
     )

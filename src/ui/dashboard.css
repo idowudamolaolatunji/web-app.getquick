@@ -178,7 +178,7 @@ a.dropdown--item {
     align-items: center;
     gap: .6rem;
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--grey-1);
     cursor: pointer;
 }
@@ -186,7 +186,7 @@ a.dropdown--item {
     color: #d90429;
 }
 .dropdown--item svg {
-    font-size: 2.2rem;
+    font-size: 2rem;
     opacity: .8;
 }
 .mode--switch {

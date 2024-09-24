@@ -2,7 +2,7 @@ import React from 'react'
 
 function TopSales() {
   return (
-    <div>TopSales</div>
+    <div className='card'>TopSales</div>
   )
 }
 

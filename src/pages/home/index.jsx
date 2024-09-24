@@ -28,7 +28,7 @@ function index() {
                 {(width > 700) && (
                     <div className='top--info'>
                         <p className='info--text'>You're on a Free plan</p>
-                        <Link to={'/'} className='info--link'><TiStarburstOutline />Upgrade</Link>
+                        <Link to={'/dashboard/subscription'} className='info--link'><TiStarburstOutline />Upgrade</Link>
                     </div>
                 )}
             </div>

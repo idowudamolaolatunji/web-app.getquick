@@ -33,7 +33,7 @@ function DashboardHead() {
 
                 <span className='hamburger--icon' onClick={(width > 900) ? handleMenuCollapse : handleShowSidemenu}>
                     {(width > 900) ? (
-                        isMenuCollapsed ? <LuPanelRightClose /> : <LuPanelLeftClose /> 
+                        isMenuCollapsed ? <LuPanelRightClose style={{ fontSize: '2rem' }} /> : <LuPanelLeftClose style={{ fontSize: '2rem' }} /> 
                     ) : (
                         <RiMenu3Fill />
                     )}

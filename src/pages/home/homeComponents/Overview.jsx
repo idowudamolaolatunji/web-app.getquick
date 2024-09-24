@@ -4,10 +4,10 @@ import OverviewChart from './OverviewChart'
 
 function Overview() {
   return (
-    <div>
-      <p>Overview</p>
+    <div className='card'>
+      <p>Business Overview</p>
 
-      {/* <OverviewChart /> */}
+      <OverviewChart />
     </div>
   )
 }

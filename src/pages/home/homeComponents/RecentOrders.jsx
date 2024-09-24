@@ -2,7 +2,7 @@ import React from 'react'
 
 function RecentOrders() {
   return (
-    <div>RecentOrders</div>
+    <div className='card'>RecentOrders</div>
   )
 }
 

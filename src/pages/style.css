@@ -62,11 +62,9 @@
     flex-direction: column;
     gap: 1.4rem;
 }
-/* .grid--left {} */
-/* .grid--right {} */
 
-.grid--left div,
-.grid--right div {
+.grid--left .card,
+.grid--right .card {
     border-radius: .8rem;
     width: 100%;
     padding: 2rem;
@@ -74,7 +72,7 @@
     box-shadow: 0 0 2px #0000001e, 0 0 10px #0000000d;
 
     /* temps */
-    height: 20rem;
+    min-height: 20rem;
 }
 
 

@@ -2,12 +2,16 @@ import { Outlet, Navigate} from 'react-router-dom'
 import { useAuthContext } from '../context/AuthContext';
 
 
-function ProtectedRoute() {
-    let { user } = useAuthContext();
+function ProtectedRoute({ children }) {
+    // let { user } = useAuthContext();
+    const user = 'Idowu'
     
-    return(
-        !user ? <Navigate to="/login" /> : <Outlet/>
-    );
+    if (!user) {
+        return <Navigate to="/login" replace />;
+    }
+    
+    return children ? children : <Outlet />;
+    
 }
 
 export default ProtectedRoute;

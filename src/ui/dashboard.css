@@ -392,7 +392,7 @@ a.dropdown--item {
 }
 .menu--text {
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 500;
     color: inherit;
     display: flex;
     align-items: center;
@@ -462,7 +462,6 @@ a.dropdown--item {
     padding: 2rem;
 }
 /* ========================================== */
-
 
 
 

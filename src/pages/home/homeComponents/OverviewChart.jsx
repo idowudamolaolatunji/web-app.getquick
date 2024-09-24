@@ -21,7 +21,7 @@ function OverviewChart() {
         size: '20px',
         color: '#333',
       },
-    },
+    },  
     plotOptions: {
       bar: {
         horizontal: false,
@@ -36,18 +36,25 @@ function OverviewChart() {
       colors: ['#fff'],
     },
     tooltip: {
-      enabled: width < 600 ? true : false,
+      enabled: true,
       shared: true,
       followCursor: true,
       intersect: false,
       style: {
-        fontSize: '12px',
+        fontSize: '11px',
         fontFamily: 'Raleway, sans-serif',
         color: '#333',
       },
       onDatasetHover: {
         highlightDataSeries: true,
       },
+    },
+    legend: {
+      show: true,
+      position: 'bottom',
+      horizontalAlign: width < 600 ? 'center' : 'left',
+      offsetX: 0,
+      offsetY: 12,
     },
     grid: {
       borderColor: '#f1f1f1',
@@ -66,7 +73,7 @@ function OverviewChart() {
       categories: ['Jan', 'Feb', 'Mar', "Apr", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       labels: {
         style: {
-          fontSize: '9.2px',
+          fontSize: '9.4px',
           fontWeight: 500,
           fontFamily: 'inherit',
           colors: '#444',
@@ -96,7 +103,7 @@ function OverviewChart() {
 
   return (
     <>
-      <div id="chart" style={{ marginLeft: '-1.4rem', marginTop: '2rem' }}>
+      <div id="chart" style={{ marginLeft: '-1.6rem', marginTop: '2rem' }}>
         <ReactApexChart options={options} series={series} type='bar' height={360} />
       </div>
       <div id="html-dist"></div>

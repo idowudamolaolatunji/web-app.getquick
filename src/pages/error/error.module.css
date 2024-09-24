@@ -50,15 +50,18 @@
 
 
 @media screen and (max-width: 600px) {
+    .error__container {
+        gap: 2.4rem;
+    }
     .error__heading {
         font-size: 8rem;
-        margin-bottom: 1rem;
+        /* margin-bottom: 1rem; */
     }
     .error__heading span {
         display: none;
     }
     .error__text {
         font-size: 1.8rem;
-        margin-bottom: 1.4rem;
+        /* margin-bottom: 1.4rem; */
     }
 }

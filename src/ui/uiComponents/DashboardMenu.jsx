@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MenuLink from './MenuLink';
 import Line from '../../components/Line';
 
@@ -16,12 +16,13 @@ import Overlay from '../../components/Overlay';
 
 function DashboardMenu() {
     const [showRemains, setShowRemains] = useState(false);
-    const { isMenuCollapsed, showSidemenu, handleShowSidemenu } = useDataContext();
+    const { isMenuCollapsed, showSidemenu, handleShowSidemenu, animateOut } = useDataContext();
     const { width } = useWindowSize()
 
     function handleShowRemains() {
         setShowRemains(!showRemains)
     }
+    
 
     return (
         <>
@@ -81,7 +82,8 @@ function DashboardMenu() {
             {(width < 900 && showSidemenu) && (
                 <>
                     <Overlay handleClose={handleShowSidemenu} />
-                    <div className='dashboard--sidemenu'>
+                    <div className={`dashboard--sidemenu ${animateOut ? 'animate-out' : ''}`}>
+
                         <div className='menu--block'>
                             <span className='hamburger--icon' onClick={handleShowSidemenu}>
                                 <RiCloseFill />

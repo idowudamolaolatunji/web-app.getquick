@@ -4,11 +4,10 @@ import { useDataContext } from '../../context/DataContext';
 import { useWindowSize } from 'react-use';
 
 
-
 function MenuLink({ icon, title, link }) {
     const { isMenuCollapsed, handleShowSidemenu } = useDataContext();
     const { pathname } = useLocation();
-    const { width } = useWindowSize()
+    const { width } = useWindowSize();
 
     return (
         <>

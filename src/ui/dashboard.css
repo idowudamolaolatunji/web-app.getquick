@@ -439,6 +439,14 @@ a.dropdown--item {
         opacity: 1; transform: translateX(0); 
     }
 }
+@keyframes menu-slide-out {
+    0% { opacity: 1; transform: translateX(0); }
+    100% { transform: translateX(-40rem); }
+}
+  
+.dashboard--sidemenu.animate-out {
+    animation: menu-slide-out 0.25s ease-out forwards;
+}
 
 .dashboard--sidemenu .hamburger--icon {
     position: absolute;

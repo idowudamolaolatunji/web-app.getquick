@@ -5,31 +5,52 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Spinner from './components/spinner';
 import ProtectedRoute from './utils/ProtectedRoute';
 
-const Login = lazy(() => import('./auth/login'));
-const Signup = lazy(() => import('./auth/signup'));
-const Error = lazy(() => import('./pages/error'));
+// const Login = lazy(() => import('./auth/login'));
+// const Signup = lazy(() => import('./auth/signup'));
+// const Error = lazy(() => import('./pages/error'));
 
-const DashboardHome = lazy(() => import('./pages/home'));
-const Orders = lazy(() => import('./pages/orders'));
-const Products = lazy(() => import('./pages/products'));
-const Transaction = lazy(() => import('./pages/transactions'));
-const Settings = lazy(() => import('./pages/settings'));
-const Profile = lazy(() => import('./pages/profile'));
-const ConnectedApps = lazy(() => import('./pages/connectedApps'));
-const StoreCustomization = lazy(() => import('./pages/storeCustomization'));
-const CustomDomain = lazy(() => import('./pages/customDomain'));
-const StoreInformation = lazy(() => import('./pages/storeInfo'));
-const Customers = lazy(() => import('./pages/customers'));
-const RunSales = lazy(() => import('./pages/salesAndCoupon'));
-const BankDetails = lazy(() => import('./pages/bankDetails'));
-const Delivery = lazy(() => import('./pages/delivery'));
-const Subscription = lazy(() => import('./pages/subscription'));
-const Analytics = lazy(() => import('./pages/analytics'));
+import Login from './auth/login';
+import Signup from './auth/signup';
+import Error from './pages/error';
+
+// const DashboardHome = lazy(() => import('./pages/home'));
+// const Orders = lazy(() => import('./pages/orders'));
+// const Products = lazy(() => import('./pages/products'));
+// const Transaction = lazy(() => import('./pages/transactions'));
+// const Settings = lazy(() => import('./pages/settings'));
+// const Profile = lazy(() => import('./pages/profile'));
+// const ConnectedApps = lazy(() => import('./pages/connectedApps'));
+// const StoreCustomization = lazy(() => import('./pages/storeCustomization'));
+// const CustomDomain = lazy(() => import('./pages/customDomain'));
+// const StoreInformation = lazy(() => import('./pages/storeInfo'));
+// const Customers = lazy(() => import('./pages/customers'));
+// const RunSales = lazy(() => import('./pages/salesAndCoupon'));
+// const BankDetails = lazy(() => import('./pages/bankDetails'));
+// const Delivery = lazy(() => import('./pages/delivery'));
+// const Subscription = lazy(() => import('./pages/subscription'));
+// const Analytics = lazy(() => import('./pages/analytics'));
+
+import DashboardHome from './pages/home';
+import Orders from './pages/orders';
+import Products from './pages/products';
+import Transaction from './pages/transactions';
+import Settings from './pages/settings';
+import Profile from './pages/profile';
+import ConnectedApps from './pages/connectedApps';
+import StoreCustomization from './pages/storeCustomization';
+import CustomDomain from './pages/customDomain';
+import StoreInformation from './pages/storeInfo';
+import Customers from './pages/customers';
+import RunSales from './pages/salesAndCoupon';
+import BankDetails from './pages/bankDetails';
+import Delivery from './pages/delivery';
+import Subscription from './pages/subscription';
+import Analytics from './pages/analytics';
 
 function App() {
     return (
 
-        <Suspense fallback={<Spinner />}>
+        // <Suspense fallback={<></>} >
             <BrowserRouter>
                 <Routes>
                     <Route path='/login' element={<Login />}></Route>
@@ -57,7 +78,7 @@ function App() {
                     </Route>
                 </Routes>
             </BrowserRouter>
-        </Suspense>
+        // </Suspense>
     )
 }
 

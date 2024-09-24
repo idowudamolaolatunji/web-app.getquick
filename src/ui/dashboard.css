@@ -467,7 +467,9 @@ a.dropdown--item {
 /* ========================================== */
 .content--block {
     /* background-color: var(--white-1); */
-    padding: 2rem;
+    padding: 3.2rem 2.4rem 6.4rem;
+    overflow-y: auto;
+    height: 90vh;
 }
 /* ========================================== */
 

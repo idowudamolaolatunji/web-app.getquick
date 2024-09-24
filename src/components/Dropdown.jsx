@@ -8,25 +8,19 @@ import { TbLogout2 } from 'react-icons/tb'
 import { useDataContext } from '../context/DataContext';
 import { MdDarkMode, MdLightMode, MdOutlineDarkMode, MdOutlineDisplaySettings } from 'react-icons/md';
 import { useOutsideClick } from '../hooks/useOutsideClick';
-import { Classic } from "@theme-toggles/react";
 
 
 function Dropdown({ isShown, setIsShown }) {
     const { onMode, isDarkMode } = useDataContext();
-    // const [isToggled, setToggle] = useState(false)
-    
     const ref = useOutsideClick(handleClose);
     
     function handleClose() {
         setIsShown(false);
     }
 
-
     return (
         <div className={`dropdown ${isShown ? 'is-shown' : ''}`} ref={ref}>
-            <div className='dropdown--item' style={{ cursor: 'auto' }}>
-                {/* <Classic toggled={isToggled} toggle={setToggle} /> */}
-                
+            {/* <div className='dropdown--item' style={{ cursor: 'auto' }}>
                 <Switch
                     onChange={next => onMode(next)}
                     checked={isDarkMode}
@@ -43,7 +37,7 @@ function Dropdown({ isShown, setIsShown }) {
                 />
                
                 Switch to{' '}{isDarkMode ? 'Light' : 'Dark'}{' '} Mode
-            </div>
+            </div> */}
             <Link className='dropdown--item' to='/dashboard/profile'><CgProfile /> Profile</Link>
             <div className='dropdown--item'><MdOutlineDisplaySettings /> Maintenance Status</div>
             <Link className='dropdown--item' to='/dashboard/settings'><LuSettings /> Settings</Link>

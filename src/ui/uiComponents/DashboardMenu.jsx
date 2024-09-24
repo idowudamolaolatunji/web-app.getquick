@@ -68,7 +68,7 @@ function DashboardMenu() {
                                 <MenuLink icon={<MdOutlineDeliveryDining />} title='Delivery' link='/delivery' />
                                 <MenuLink icon={<LuGlobe />} title='Custom Domain' link='/custom-domain' />
                                 <MenuLink icon={<HiOutlineSquare3Stack3D />} title='Subscription' link='/subscription' />
-                                <MenuLink icon={<BiCustomize />} title='Site Customization' link='/store-customization' />
+                                <MenuLink icon={<BiCustomize />} title='Store Customization' link='/store-customization' />
                             </ul>
                         )}
 

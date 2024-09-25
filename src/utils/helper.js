@@ -1,5 +1,10 @@
 import moment from "moment";
 
+
+export function formatNumber(amount) {
+	return Number(amount).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 export function todayDate() {
 	return moment().format("dddd, MMMM D, YYYY");
 }

@@ -8,22 +8,20 @@ import Overview from './homeComponents/Overview';
 import RecentOrders from './homeComponents/RecentOrders';
 import TopSales from './homeComponents/TopSales';
 import { useWindowSize } from 'react-use';
+import InsightCards from './homeComponents/InsightCards';
 
 const name = 'Idowu';
 
 
 function index() {
-    
     const { width } = useWindowSize();
-
 
     return (
         <section className='home--section'>
             <div className='home--top'>
                 <div className='top--heading'>
-                    {/* <p className='heading--name'>Welcome back, {name}</p> */}
                     <p className='heading--name'>{getGreeting()}, {name}!</p>
-                    <p className='heading--date'>{todayDate()}</p>
+                    <p className='heading--date'>{todayDate()}.</p>
                 </div>
 
                 {(width > 700) && (
@@ -33,6 +31,28 @@ function index() {
                     </div>
                 )}
             </div>
+
+                
+
+            <section className='insights--container'>
+                <div className="container--box">
+                    <div className="top">
+                        <div className="section--heading">
+                            <h2>Brief Overview</h2>
+                            <p>This is what your business is up to today!</p>
+                        </div>
+
+                        <select>
+                            <option>Today</option>
+                            <option>This Week</option>
+                            <option>This Month</option>
+                            <option>This Year</option>
+                        </select>
+                    </div>
+
+                    <InsightCards />
+                </div>
+            </section>
 
             <div className="home--grid">
                 <div className="grid--left">

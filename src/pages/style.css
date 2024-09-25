@@ -70,11 +70,19 @@
     padding: 2.4rem 2rem;
     border: 1px solid #eff2f7;
     box-shadow: 0 0 2px #0000001e, 0 0 10px #0000000d;
-
-    /* temps */
     min-height: 20rem;
 }
-.apexcharts-legend {
+
+
+.overview--chart {
+    overflow-x: auto;
+    width: 100%;
+}
+#chart.business-overview {
+    margin-left: -1.6rem;
+    margin-top: 2rem;
+}
+#chart .apexcharts-legend {
     padding: 0 !important;
 }
 
@@ -82,6 +90,95 @@
 
 
 
+.insights--container {
+    display: grid;
+    grid-template-columns: 4fr 1.8fr;
+}
+.container--box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+.container--box .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.container--box .section--heading {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+.container--box .section--heading h2 {
+    font-weight: 600;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+}
+.container--box .section--heading p {
+    font-size: 1.2rem;
+    color: #888;
+    font-weight: 500;
+}
+
+.insight--grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    align-items: center;
+}
+.insight--figure {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem;
+    border: 1px solid #eee;
+    border-radius: .5rem;
+    transition: all .3s;
+}
+.insight--figure:hover {
+    transform: scale(1.06);
+    cursor: pointer;
+}
+.insight--info {
+    display: flex;
+    flex-direction: column;
+    gap: .45rem;
+    font-weight: 600;
+}
+.insight--info p {
+    font-size: 1.2rem;
+}
+.insight--info span {
+    font-size: 2rem;
+}
+.insight--icon {
+    width: 3.2rem;
+    height: 3.2rem;
+    background-color: #eee;
+    border-radius: .2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.insight--icon svg {
+    font-size: 2rem;
+}
+
+
+
+
+
+
+
+
+
+/* 900px === 56.25em */
+@media screen and (max-width: 56.25em) {
+    .insights--container {
+        grid-template-columns: 1fr;
+    }
+}
 
 
 /* 800px === 50em */
@@ -91,4 +188,30 @@
         flex-direction: column;
         gap: 1.6rem;
     }
+    #chart.business-overview {
+        margin-left: -1.8rem;
+        width: 50rem;
+    }
 }
+
+
+/* 650px === 40.625em */
+@media screen and (max-width: 40.625em) {
+    .insight--grid {
+        grid-template-columns: repeat(3, 1fr);
+    }    
+}
+/* 500px === 31.25em */
+@media screen and (max-width: 31.25em) {
+    .insight--grid {
+        grid-template-columns: 1fr 1fr;
+    } 
+}
+
+/* 450px === 28.125em */
+@media screen and (max-width: 28.125em) {}
+
+
+
+/* 400px === 25em */
+@media screen and (max-width: 25em) {}

@@ -489,6 +489,9 @@ a.dropdown--item {
 
 /* 900px === 56.25em */
 @media screen and (max-width: 56.25em) {
+    body {
+        overflow-x: hidden;
+    }
     .dashboard--header {
         grid-template-columns: 15rem 1fr;
         border-bottom: 1.2px solid var(--border-color);

@@ -19,13 +19,40 @@ function SalesChart() {
         colors: ['#C5C3F7', '#8E87CE', '#A7B4F5', '#D2C5F7', '#786FA3'],
         responsive: [
             {
+                breakpoint: 600,
+                options: {
+                    chart: {
+                        height: 200
+                    },
+                    legend: {
+                        position: 'right',
+                    },
+                },
+            },
+            {
                 breakpoint: 480,
                 options: {
                     chart: {
-                        width: '100%',
+                        height: 250
+                    },
+                },
+            },
+            {
+                breakpoint: 400,
+                options: {
+                    chart: {
+                        height: 260
                     },
                     legend: {
                         position: 'bottom',
+                    },
+                },
+            },
+            {
+                breakpoint: 340,
+                options: {
+                    chart: {
+                        height: 290
                     },
                 },
             },
@@ -37,23 +64,34 @@ function SalesChart() {
                 fontFamily: 'Raleway, sans-serif',
             },
         },
+        tooltip: {
+            enabled: true,
+            shared: true,
+            followCursor: true,
+            style: {
+                fontSize: '11px',
+                fontFamily: 'Raleway, sans-serif',
+                color: '#333',
+            },
+        },
         legend: {
             show: true,
             position: 'bottom',
             horizontalAlign: 'center',
             offsetX: 0,
             offsetY: 10,
+            
         },
-        labels: ['Jiji', 'Market', 'Social Media', 'Referrals', 'Others'],
+        labels: ['Jiji', 'Online store', 'WhatsApp', 'Physical store', 'Others'],
     });
 
     return (
-        <div>
-            <div id="chart">
-                <ReactApexChart options={options} series={series} type="donut" />
+        <>
+            <div id="chart" className='sales-overview'>
+                <ReactApexChart options={options} series={series} type="donut" height={280}  />
             </div>
             <div id="html-dist"></div>
-        </div>
+        </>
     );
 
 }

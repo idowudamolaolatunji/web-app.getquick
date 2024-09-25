@@ -10,7 +10,7 @@ function Overview() {
     <div className='card'>
       
       <span>
-        <p>Business Overview</p>
+        <p>Yearly Business Progress</p>
       </span>
 
       <OverviewChart />

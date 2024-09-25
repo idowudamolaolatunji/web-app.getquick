@@ -1,7 +1,12 @@
 import React from 'react'
 import OverviewChart from './OverviewChart'
-import { useWindowSize } from 'react-use'
+import SelectAutoWidthDropdown from '../../../components/SelectAutoWidthDropdown'
 
+
+const datePeriods = [
+    { title: 'This Year', value: 'this-year' },
+    { title: 'Last Year', value: 'last-year' },
+]
 
 function Overview() {
 
@@ -9,11 +14,10 @@ function Overview() {
     return (
         <div className='card'>
             <span className='top'>
-                <p>Yearly Business Progress</p>
-                <select>
-                    <option>This Year</option>
-                    <option>Last Year</option>
-                </select>
+                <div className="section--heading">
+                    <h2>Your Business Yearly Sales Perfomance</h2>
+                </div>
+                <SelectAutoWidthDropdown menus={datePeriods} />
             </span>
 
             <OverviewChart />

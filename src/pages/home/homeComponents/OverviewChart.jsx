@@ -9,17 +9,17 @@ function OverviewChart() {
     const series = [
         {
             name: 'Total Sales',
-            data: [104500, 52700, 52200, 45500, 105350, 92500, 134100, 98300, 45600, null, null, null],
+            data: [104500, 52700, 52200, 45500, 105350, 92500, 104100, 98300, 45600, null, null, null],
             color: '#655DBB'
         },
         {
             name: 'Online Sales',
-            data: [94300, 41900, 8700, 41200, 95600, 9800, 82100, 5100, 3600, null, null, null],
+            data: [94300, 41900, 8700, 41200, 95600, 9800, 52100, 5100, 3600, null, null, null],
             color: '#BFACE2'
         },
         {
             name: 'Offline Sales',
-            data: [8600, 8500, 41200, 4300, 9700, 82100, 43600, 92700, 41900, null, null, null],
+            data: [9600, 8500, 41200, 4300, 9700, 82100, 43600, 92700, 41900, null, null, null],
             color: '#A084DC'
         }          
     ];
@@ -55,7 +55,7 @@ function OverviewChart() {
             followCursor: true,
             intersect: false,
             style: {
-                fontSize: '13px',
+                fontSize: '12px',
                 fontFamily: 'Raleway, sans-serif',
                 color: '#333',
             },
@@ -88,7 +88,7 @@ function OverviewChart() {
             },
         },
         xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', "Apr", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            categories: [ 'Jan', 'Feb', 'Mar', "Apr", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
             labels: {
                 style: {
                     fontSize: '11px',

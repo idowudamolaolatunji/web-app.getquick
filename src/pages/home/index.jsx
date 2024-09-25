@@ -10,8 +10,15 @@ import TopSales from './homeComponents/TopSales';
 import { useWindowSize } from 'react-use';
 import InsightCards from './homeComponents/InsightCards';
 import Line from '../../components/Line';
+import SelectAutoWidthDropdown from '../../components/SelectAutoWidthDropdown';
 
 const name = 'Idowu';
+const datePeriods = [
+    { value: 'today', title: 'Today' },
+    { value: 'this-week', title: 'This Week' },
+    { value: 'this-month', title: 'This Month' },
+    { value: 'this-year', title: 'This Year' },
+]
 
 
 function index() {
@@ -44,12 +51,7 @@ function index() {
                             <p>This is what your business is up to today!</p>
                         </div>
 
-                        <select>
-                            <option>Today</option>
-                            <option>This Week</option>
-                            <option>This Month</option>
-                            <option>This Year</option>
-                        </select>
+                        <SelectAutoWidthDropdown menus={datePeriods} />
                     </div>
 
                     <InsightCards />

@@ -13,14 +13,14 @@ export default DataContext;
 //// CREATING PROVIDER ////
 //////////////////////////////////////////////
 export const DataProvider = ({ children }) => {
-    const { pathname } = useLocation();
-
     const [isMenuCollapsed, setIsMenuCollapsed] = useState(localStorage.getItem('menu') ? JSON.parse(localStorage.getItem('menu')) : false);
     const [showSidemenu, setShowSidemenu] = useState(false);
 
     const storedDarkMode = localStorage.getItem('isDarkMode');
     const [isDarkMode, setIsDarkMode] = useState(storedDarkMode ? JSON.parse(storedDarkMode) : false);
     const [animateOut, setAnimateOut] = useState(false);
+
+    const { pathname } = useLocation();
 
 
     function handleMenuCollapse() {
@@ -52,7 +52,7 @@ export const DataProvider = ({ children }) => {
     }, [pathname]);
 
     useEffect(function() {
-        localStorage.setItem('isDarkMode', isDarkMode);
+        localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
 
         if(isDarkMode) {
             document.body.classList.add('dark-mode');

@@ -6,7 +6,10 @@ function Insight({ title, value, icon, link }) {
     const navigate = useNavigate();
 
     return (
-        <figure className='insight--figure' onClick={() => link && navigate(`/dashboard${link}`)} style={ !link ? { cursor: 'auto' } : { } }>
+        <figure className='insight--figure' 
+            onClick={() => link && navigate(`/dashboard${link}`)}
+            style={!link ? { cursor: 'auto' } : {}}
+        >
             <div className='insight--info'>
                 <p className='text'>{title}</p>
                 <span className='value'>{formatNumber(value)}</span>

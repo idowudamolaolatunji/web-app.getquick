@@ -53,7 +53,7 @@
 
 .home--grid {
     display: grid;
-    grid-template-columns: 4fr 1.8fr;
+    grid-template-columns: 4.2fr 1.8fr;
     gap: 1.6rem;
 }
 .grid--left,
@@ -76,6 +76,8 @@
 
 .overview--chart {
     overflow-x: auto;
+}
+#chart {
     width: 100%;
 }
 #chart.business-overview {
@@ -110,12 +112,12 @@
 .container--box .section--heading {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: .8rem;
 }
-.container--box .section--heading h2 {
+.container--box .section--heading h2, .section--heading h2 {
     font-weight: 600;
-    font-size: 1.4rem;
-    text-transform: uppercase;
+    font-size: 1.5rem;
+    text-transform: capitalize;
 }
 .container--box .section--heading p {
     font-size: 1.2rem;
@@ -204,6 +206,15 @@
 
 
 
+
+
+
+
+/* bad parctices */
+.css-15k6ek6-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: .4rem !important;
+    padding-right: 3rem !important;
+}
 
 
 

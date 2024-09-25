@@ -1,37 +1,34 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React from 'react'
 import { useDataContext } from '../../context/DataContext';
 import { useWindowSize } from 'react-use';
+
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Zoom from '@mui/material/Zoom';
-import { styled } from '@mui/material';
+import { Button, styled } from '@mui/material';
+import Darkmode from '../../components/Darkmode';
 
 
 const Tooltip11 = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
-  ))(({ theme }) => ({
+))(({ theme }) => ({
     [`& .${tooltipClasses.tooltip}`]: {
-      boxShadow: theme.shadows[1],
-      fontSize: 11,
-      fontWeight: 500,
-      fontFamily: 'inherit'
+        boxShadow: theme.shadows[1],
+        fontSize: 11,
+        fontWeight: 500,
+        fontFamily: 'inherit'
     },
 }));
 
-
-function MenuLink({ icon, title, link }) {
+function MenuButton({ title, icon, action }) {
     const { isMenuCollapsed } = useDataContext();
-    const { pathname } = useLocation();
     const { width } = useWindowSize();
-
-    const isActiveClass = `menu--link ${(title === 'Dashboard' && (pathname === '/dashboard' || pathname === '/')) ? 'is-active' : pathname === `/dashboard${link}` ? 'is-active' : ''}`;
 
     return (
         <>
-            {(width > 900) ? (
+            {(width > 900) && (
                 <>
                     {isMenuCollapsed ? (
-                        <Tooltip11 
+                        <Tooltip11
                             title={title}
                             TransitionComponent={Zoom}
                             enterDelay={250}
@@ -39,25 +36,25 @@ function MenuLink({ icon, title, link }) {
                             placement="right"
                             disableInteractive
                         >
-                            <Link className={isActiveClass} to={`/dashboard${link}`}>
+                            <button className='menu--button' onClick={action}>
                                 <span className='menu--icon'>{icon}</span>
-                            </Link>
+                            </button>
                         </Tooltip11>
                     ) : (
-                        <Link className={isActiveClass} to={`/dashboard${link}`}>
+                        <button className='menu--button' style={{ alignItems: 'center'}} onClick={action}>
                             <span className='menu--icon'>{icon}</span>
                             <p className='menu--text'>{title}</p>
-                        </Link>
+                            {title === 'Dark Mode' && (
+                                <Darkmode />
+                            )}
+                        </button>
                     )}
                 </>
-            ) : (
-                <Link className={isActiveClass} to={`/dashboard${link}`}>
-                    <span className='menu--icon'>{icon}</span>
-                    <p className='menu--text'>{title}</p>
-                </Link>
             )}
         </>
     )
 }
 
-export default MenuLink
+export default MenuButton
+
+// openWidget

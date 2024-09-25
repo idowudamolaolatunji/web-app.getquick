@@ -19,3 +19,12 @@ export function getGreeting() {
 		return "Good evening";
 	}
 }
+
+
+
+export function openWidget() {
+	FreshworksWidget('open');
+}
+export function closeWidget() {
+	FreshworksWidget('close');
+}

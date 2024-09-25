@@ -315,7 +315,7 @@ a.dropdown--item {
 .collapsed .menu--list {
     gap: .8rem;
 }
-.menu--link {
+.menu--link, button.menu--button {
     width: 100%;
     display: flex;
     align-self: center;
@@ -334,9 +334,13 @@ a.dropdown--item {
     cursor: pointer;
     border-radius: .4rem;
     position: relative;
-
 }
-.menu--link:hover {
+
+button.menu--button {
+    border: none !important;
+}
+
+.menu--link:hover, .menu--button:hover {
     background-color: var(--white-2);
 }
 .menu--link.is-active,
@@ -345,7 +349,7 @@ a.dropdown--item {
     color: var(--color-brand-500);
     border-right-color: var(--color-brand-500);
 }
-.collapsed .menu--link {
+.collapsed .menu--link, .collapsed .menu--button {
     border-color: transparent !important;
     background-color: var(--white-2);
     padding: .8rem 1.1rem;
@@ -353,37 +357,6 @@ a.dropdown--item {
 }
 .collapsed .menu--link.is-active {
     background-color: var(--color-brand-100);
-}
-
-/* show text on hovered collapsed menu item */
-.collapsed .menu--link .show-text {
-    background-color: var(--grey-1);
-    color: var(--white-1);
-    font-weight: 600;
-    font-size: 1rem;
-    padding: .4rem .6rem;
-    width: max-content;
-
-    display: inline-flex;
-    align-items: center;
-    border-radius: .6rem;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 6rem;
-    
-    visibility: hidden;
-    transition: visibility 0.35s, opacity 0.35s;
-    transition-delay: .5s;
-}
-.collapsed .menu--link:hover .show-text {
-    visibility: visible;
-    opacity: 1;
-}
-.collapsed .menu--link:not(:hover) .show-text {
-    transition-delay: 0s;
-    opacity: 0;
-    visibility: hidden;
 }
 .collapsed .menu--icon svg {
     font-size: 2.1rem;

@@ -9,6 +9,7 @@ import RecentOrders from './homeComponents/RecentOrders';
 import TopSales from './homeComponents/TopSales';
 import { useWindowSize } from 'react-use';
 import InsightCards from './homeComponents/InsightCards';
+import Line from '../../components/Line';
 
 const name = 'Idowu';
 
@@ -32,10 +33,11 @@ function index() {
                 )}
             </div>
 
-                
 
-            <section className='insights--container'>
-                <div className="container--box">
+            {width < 500 && <Line border={1.4} />}
+
+            <div className='insights--container'>
+                <div className={`container--box ${width > 500 ? 'card' : ''}`}>
                     <div className="top">
                         <div className="section--heading">
                             <h2>Brief Overview</h2>
@@ -52,7 +54,9 @@ function index() {
 
                     <InsightCards />
                 </div>
-            </section>
+
+                <div className='card'></div>
+            </div>
 
             <div className="home--grid">
                 <div className="grid--left">

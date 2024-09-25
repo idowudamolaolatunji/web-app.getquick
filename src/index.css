@@ -87,9 +87,9 @@ input::-webkit-inner-spin-button {
 	background: #aaa;
 }
 
-.line {
+/* .line {
 	border-top: 1.24px solid var(--border-color);
-}
+} */
 
 .global--overlay {
 	position: fixed;

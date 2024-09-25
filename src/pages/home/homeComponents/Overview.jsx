@@ -6,16 +6,19 @@ import { useWindowSize } from 'react-use'
 function Overview() {
 
 
-  return (
-    <div className='card'>
-      
-      <span>
-        <p>Yearly Business Progress</p>
-      </span>
+    return (
+        <div className='card'>
+            <span className='top'>
+                <p>Yearly Business Progress</p>
+                <select>
+                    <option>This Year</option>
+                    <option>Last Year</option>
+                </select>
+            </span>
 
-      <OverviewChart />
-    </div>
-  )
+            <OverviewChart />
+        </div>
+    )
 }
 
 export default Overview

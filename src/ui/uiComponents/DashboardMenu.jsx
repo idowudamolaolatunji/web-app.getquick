@@ -149,7 +149,7 @@ function DashboardMenu() {
 
                         </div>
 
-                        <ul className='menu--list last--menu'>
+                        <ul className={`menu--list ${!showRemains ? 'last--menu' : ''}`}>
                             <MenuLink icon={<MdOutlineChatBubbleOutline />} title='Community and Forums' link='/community-forums' />
                             <MenuLink icon={<MdOutlineSettings />} title='Settings' link='/settings' />
                         </ul>

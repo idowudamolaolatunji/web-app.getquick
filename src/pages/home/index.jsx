@@ -12,6 +12,7 @@ import { getGreeting, todayDate } from '../../utils/helper';
 
 import { TiStarburstOutline } from 'react-icons/ti';
 import '../style.css';
+import QuickActions from './homeComponents/QuickActions';
 
 
 const name = 'Idowu';
@@ -65,12 +66,13 @@ function index() {
 
                     {/* THE CARDS THEMSELVES */}
                     <InsightCards />
-                    {width <= 500 && (
-                        <ProgressGrid />
-                    )}
                 </div>
 
-                <div className='card'></div>
+                {width <= 500 ? (
+                    <ProgressGrid />
+                ) : (
+                    <QuickActions />
+                )}
             </div>
 
 

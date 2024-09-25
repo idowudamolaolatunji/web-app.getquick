@@ -11,7 +11,7 @@ const datePeriods = [
 function SalesOverview() {
 
     return (
-        <div className='card'>
+        <div className='card sales-section'>
             <span className='top'>
                 <div className="section--heading">
                     <h2>Your Business Yearly Sales Perfomance</h2>

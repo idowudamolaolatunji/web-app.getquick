@@ -193,7 +193,7 @@
     }
     #chart.business-overview {
         margin-left: -1.68rem;
-        width: 50rem;
+        width: 60rem;
     }
 }
 
@@ -206,9 +206,6 @@
 }
 /* 500px === 31.25em */
 @media screen and (max-width: 31.25em) {
-    .insights--container {
-        /* margin-top: 2.8rem; */
-    }
     .insight--grid {
         grid-template-columns: 1fr 1fr;
     } 

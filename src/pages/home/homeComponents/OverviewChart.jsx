@@ -42,7 +42,7 @@ function OverviewChart() {
             followCursor: true,
             intersect: false,
             style: {
-                fontSize: '11px',
+                fontSize: '13px',
                 fontFamily: 'Raleway, sans-serif',
                 color: '#333',
             },
@@ -75,7 +75,7 @@ function OverviewChart() {
             categories: ['Jan', 'Feb', 'Mar', "Apr", 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             labels: {
                 style: {
-                    fontSize: '9.4px',
+                    fontSize: '11px',
                     fontWeight: 500,
                     fontFamily: 'inherit',
                     colors: '#444',
@@ -85,7 +85,7 @@ function OverviewChart() {
         yaxis: {
             labels: {
                 style: {
-                    fontSize: '10px',
+                    fontSize: '12px',
                     fontWeight: 500,
                     fontFamily: 'inherit',
                     colors: '#444',

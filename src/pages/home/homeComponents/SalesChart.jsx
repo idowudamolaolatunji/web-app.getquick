@@ -60,7 +60,7 @@ function SalesChart() {
         dataLabels: {
             enabled: true,
             style: {
-                fontSize: '10px',
+                fontSize: '12px',
                 fontFamily: 'Raleway, sans-serif',
             },
         },
@@ -69,7 +69,7 @@ function SalesChart() {
             shared: true,
             followCursor: true,
             style: {
-                fontSize: '11px',
+                fontSize: '13px',
                 fontFamily: 'Raleway, sans-serif',
                 color: '#333',
             },

@@ -1,5 +1,5 @@
 import React from 'react'
-import { todayDate } from '../../utils/helper';
+import { getGreeting, todayDate } from '../../utils/helper';
 
 import '../style.css';
 import { Link } from 'react-router-dom';
@@ -21,7 +21,8 @@ function index() {
         <section className='home--section'>
             <div className='home--top'>
                 <div className='top--heading'>
-                    <p className='heading--name'>Welcome back, {name}</p>
+                    {/* <p className='heading--name'>Welcome back, {name}</p> */}
+                    <p className='heading--name'>{getGreeting()}, {name}!</p>
                     <p className='heading--date'>{todayDate()}</p>
                 </div>
 

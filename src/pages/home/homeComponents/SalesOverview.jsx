@@ -1,5 +1,5 @@
 import React from 'react'
-import OverviewChart from './OverviewChart'
+import SalesOverviewChart from './SalesOverviewChart'
 import SelectAutoWidthDropdown from '../../../components/SelectAutoWidthDropdown'
 
 
@@ -8,8 +8,7 @@ const datePeriods = [
     { title: 'Last Year', value: 'last-year' },
 ]
 
-function Overview() {
-
+function SalesOverview() {
 
     return (
         <div className='card'>
@@ -20,9 +19,9 @@ function Overview() {
                 <SelectAutoWidthDropdown menus={datePeriods} />
             </span>
 
-            <OverviewChart />
+            <SalesOverviewChart />
         </div>
     )
 }
 
-export default Overview
+export default SalesOverview

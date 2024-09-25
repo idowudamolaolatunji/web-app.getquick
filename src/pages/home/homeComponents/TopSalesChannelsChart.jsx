@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReactApexChart from 'react-apexcharts';
 
 
-function SalesChart() {
+function TopSalesChannelsChart() {
     const [series] = useState([44, 55, 41, 17, 15]);
     const [options] = useState({
         chart: {
@@ -87,7 +87,7 @@ function SalesChart() {
 
     return (
         <>
-            <div id="chart" className='sales-overview'>
+            <div id="chart">
                 <ReactApexChart options={options} series={series} type="donut" height={280}  />
             </div>
             <div id="html-dist"></div>
@@ -96,4 +96,4 @@ function SalesChart() {
 
 }
 
-export default SalesChart
+export default TopSalesChannelsChart

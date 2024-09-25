@@ -1,16 +1,18 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+import { useWindowSize } from 'react-use';
+
+import Line from '../../components/Line';
+import InsightCards from './homeComponents/InsightCards';
+import HomeRightSide from './homeComponents/HomeRightSide';
+import HomeLeftSide from './homeComponents/HomeLeftSide';
+import ProgressGrid from './homeComponents/ProgressGrid';
+import SelectAutoWidthDropdown from '../../components/SelectAutoWidthDropdown';
 import { getGreeting, todayDate } from '../../utils/helper';
 
-import '../style.css';
-import { Link } from 'react-router-dom';
 import { TiStarburstOutline } from 'react-icons/ti';
-import Overview from './homeComponents/Overview';
-import RecentOrders from './homeComponents/RecentOrders';
-import TopSales from './homeComponents/TopSales';
-import { useWindowSize } from 'react-use';
-import InsightCards from './homeComponents/InsightCards';
-import Line from '../../components/Line';
-import SelectAutoWidthDropdown from '../../components/SelectAutoWidthDropdown';
+import '../style.css';
+
 
 const name = 'Idowu';
 const datePeriods = [
@@ -33,16 +35,23 @@ function index() {
                 </div>
 
                 {(width > 700) && (
-                    <div className='top--info'>
-                        <p className='info--text'>You're on a Free plan</p>
-                        <Link to={'/dashboard/subscription'} className='info--link'><TiStarburstOutline />Upgrade</Link>
+                    <div className='top--upgrade'>
+                        <p className='upgrade--text'>You're on a Free plan</p>
+                        <Link to={'/dashboard/subscription'} className='upgrade--link'><TiStarburstOutline />Upgrade</Link>
                     </div>
                 )}
             </div>
 
 
+            {width > 500 && (
+                <ProgressGrid />
+            )}
+
+
             {width < 500 && <Line border={1.4} />}
 
+
+            {/* MAIN INSIGHT LAYOUT */}
             <div className='insights--container'>
                 <div className={`container--box ${width > 500 ? 'card' : ''}`}>
                     <div className="top">
@@ -54,20 +63,26 @@ function index() {
                         <SelectAutoWidthDropdown menus={datePeriods} />
                     </div>
 
+                    {/* THE CARDS THEMSELVES */}
                     <InsightCards />
+                    {width <= 500 && (
+                        <ProgressGrid />
+                    )}
                 </div>
 
                 <div className='card'></div>
             </div>
 
+
+
+            {/* HOME GRID LAYOUT */}
             <div className="home--grid">
                 <div className="grid--left">
-                    <Overview />
-                    <RecentOrders />
+                    <HomeLeftSide />
                 </div>
 
                 <div className="grid--right">
-                    <TopSales />
+                    <HomeRightSide />
                 </div>
             </div>
 

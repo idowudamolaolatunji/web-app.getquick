@@ -4,8 +4,6 @@ import { useWindowSize } from 'react-use';
 import { formatNumber } from '../../../utils/helper';
 
 function OverviewChart() {
-    const { width } = useWindowSize();
-
     const series = [
         {
             name: 'Total Sales',
@@ -69,7 +67,6 @@ function OverviewChart() {
         legend: {
             show: true,
             position: 'bottom',
-            // horizontalAlign: width < 600 ? 'center' : 'left',
             horizontalAlign: 'left',
             offsetX: 0,
             offsetY: 12,
@@ -120,8 +117,8 @@ function OverviewChart() {
     };
 
     return (
-        <div className='overview--chart'>
-            <div id="chart" className='business-overview'>
+        <div className='sales-overview--chart'>
+            <div id="chart" className='sales-overview'>
                 <ReactApexChart options={options} series={series} type='bar' height={360} />
             </div>
             <div id="html-dist"></div>

@@ -25,16 +25,16 @@
     color: #888;
 }
 
-.top--info {
+.top--upgrade {
     display: flex;
     align-items: center;
     gap: 1.4rem;
 }
-.info--text {
+.upgrade--text {
     font-size: 1.28rem;
     font-weight: 500;
 }
-.info--link {
+.upgrade--link {
     display: inline-flex;
     align-items: center;
     gap: .4rem;
@@ -46,9 +46,94 @@
     color: #fff;
     text-transform: uppercase;
 }
-.info--link svg {
+.upgrade--link svg {
     font-size: 2rem;
 }
+
+
+
+.prog--grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 0.5fr;
+    gap: 1.2rem;
+
+    /* temps, but helps */
+    margin-bottom: -2.6rem;
+}
+
+.prog-figure {
+    border: 1.4px solid var(--color-brand-300);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1rem 1.4rem;
+    border-radius: .6rem;
+}
+.prog-figure-top {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.prog-figure-icon {
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+    background-color: #eee;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.prog-figure-icon svg {
+    font-size: 2.4rem;
+    color: #555;
+}
+.prog-figure-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+
+.prog-figure-bottom {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.prog-figure-value {
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: 'Montserrat', 'Raleway', sans-serif;
+}
+.prog-figure-info {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+}
+.prog-figure-chart {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+
+    font-size: 1.3rem;
+    color: green;
+}
+.prog-figure-chart p {
+    font-weight: 500;
+}
+.prog-figure-detail {
+    font-size: 1rem;
+    opacity: .8;
+}
+
+
+
+
+
+
+
+
 
 
 .home--grid {
@@ -74,19 +159,21 @@
 }
 
 
-.overview--chart {
+.sales-overview--chart {
     overflow-x: auto;
 }
 #chart {
     width: 100%;
-}
-#chart.business-overview {
-    margin-left: -1.6rem;
     margin-top: 2rem;
+}
+#chart.sales-overview {
+    margin-left: -1.6rem;
 }
 #chart .apexcharts-legend {
     padding: 0 !important;
 }
+
+
 
 
 
@@ -96,7 +183,7 @@
     grid-template-columns: 4fr 1.8fr;
     gap: 1.6rem;
 
-    /* temp */
+    /* temp, but helps well */
     margin-bottom: -2.4rem;
 }
 .container--box {
@@ -124,6 +211,9 @@
     color: #888;
     font-weight: 500;
 }
+
+
+
 
 .insight--grid {
     display: grid;
@@ -154,7 +244,8 @@
     font-size: 1.05rem;
 }
 .insight--info .value {
-    font-size: 1.8rem;
+    font-size: 1.85rem;
+    font-family: 'Montserrat', 'Raleway', sans-serif;
 }
 .insight--icon {
     width: 3.4rem;
@@ -228,12 +319,15 @@
 
 /* 800px === 50em */
 @media screen and (max-width: 50em) {
+    .prog--grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
     .home--grid {
         display: flex;
         flex-direction: column;
         gap: 1.6rem;
     }
-    #chart.business-overview {
+    #chart.sales-overview {
         margin-left: -1.68rem;
         width: 60rem;
     }
@@ -242,12 +336,22 @@
 
 /* 650px === 40.625em */
 @media screen and (max-width: 40.625em) {
+    .prog--grid {
+        grid-template-columns: 1fr 1fr;
+    }
     .insight--grid {
         grid-template-columns: repeat(3, 1fr);
     }    
 }
 /* 500px === 31.25em */
 @media screen and (max-width: 31.25em) {
+    .prog--grid {
+        margin-bottom: 0;
+    }
+    .prog-figure {
+        padding: .6rem 1rem;
+        gap: .6rem;
+    }
     .insight--grid {
         grid-template-columns: 1fr 1fr;
     } 
@@ -255,6 +359,9 @@
 
 /* 450px === 28.125em */
 @media screen and (max-width: 28.125em) {
+    .prog--grid {
+        grid-template-columns: 1fr;
+    }
     .grid--left .card,
     .grid--right .card {
         padding: 2.2rem 1.8rem;

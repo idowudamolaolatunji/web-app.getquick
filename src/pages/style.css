@@ -133,7 +133,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.2rem;
+    padding: 1.4rem;
     border: 1px solid #eee;
     border-radius: .5rem;
     transition: all .3s;
@@ -148,18 +148,18 @@
     gap: .45rem;
     font-weight: 600;
 }
-.insight--info p {
-    font-size: 1.2rem;
+.insight--info .text {
+    font-size: 1.05rem;
 }
-.insight--info span {
-    font-size: 2rem;
+.insight--info .value {
+    font-size: 1.8rem;
 }
 .insight--icon {
-    width: 3.2rem;
-    height: 3.2rem;
-    background-color: #eee;
-    border-radius: .2rem;
-
+    width: 3.4rem;
+    height: 3.4rem;
+    background-color: #fff;
+    border-radius: .4rem;
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -170,6 +170,37 @@
 
 
 
+
+
+
+.insight--figure:nth-child(1) {
+    background-color: #FFDEDE;
+}
+.insight--figure:nth-child(1) svg {
+    color: #EB4747;
+}
+
+.insight--figure:nth-child(2) {
+    background-color: var(--color-brand-50);
+}
+.insight--figure:nth-child(2) svg {
+    color: var(--color-brand-500);
+}
+
+
+.insight--figure:nth-child(3) {
+    background-color: #E1FFEE;
+}
+.insight--figure:nth-child(3) svg {
+    color: #00DFA2;
+}
+
+.insight--figure:nth-child(4) {
+    background-color: #FFFBEB;
+}
+.insight--figure:nth-child(4) svg {
+    color: #F8CBA6;
+}
 
 
 

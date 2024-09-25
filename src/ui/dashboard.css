@@ -10,6 +10,7 @@
     --background-color-1: #f9fafc;
     /* --shadow: .4rem .6rem 1rem rgba(0, 0, 0, .15); */
 
+    --color-brand-50: #EEF1FF;
     --color-brand-100: #ECF2FF;
     --color-brand-300: #BFACE2;
     --color-brand-500: #655DBB;
@@ -86,8 +87,9 @@
     font-size: 1.32rem;
     font-weight: 600;
     padding: .8rem 1.2rem;
-    box-shadow: inset 0 0 0 .14rem #eee;
-    color: var(--grey-1);
+    box-shadow: inset 0 0 0 .14rem var(--color-brand-500);
+    background-color: var(--color-brand-100);
+    color: var(--color-brand-500);
     border-radius: .4rem;
 }
 .store--btn svg {

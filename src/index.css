@@ -24,10 +24,6 @@ body {
 	color: #444;
     width: 100%;
 	transition: all .2s ease-in;
-
-	/* temps - not really, they are fixing a bug only on desktop */
-	height: 100vh;
-	overflow: hidden;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -119,13 +115,22 @@ input::-webkit-inner-spin-button {
 }
 
 
+
+
+
+
 /* 600px === 37.5em */
+/* MIN WIDTH - DESKTOP MEDIA QUERY */
+@media screen and (min-width: 37.5em) {
+	body {
+		height: 100vh;
+		overflow: hidden;
+	}
+}
+
+/* MAX WIDTH - MOBILE MEDIA QUERY */
 @media screen and (max-width: 37.5em) {
     html {
         font-size: 65%;
     }
-	body {
-		height: auto;
-		overflow: visible;
-	}
 }

@@ -80,11 +80,11 @@ function DashboardMenu() {
                     </div>
 
 
-                    <ul className='menu--list last--menu'>
+                    <ul className={`menu--list ${!showRemains ? 'last--menu' : ''}`}>
                         <MenuLink icon={<MdOutlineChatBubbleOutline />} title='Community and Forums' link='/community-forums' />
                         <MenuLink icon={<MdOutlineSettings />} title='Settings' link='/settings' />
                         <MenuButton icon={<MdOutlineHelpOutline />} title='Help Center'action={openWidget} />
-                        <MenuButton icon={<MdOutlineDarkMode />} title='Dark Mode' />
+                        {/* <MenuButton icon={<MdOutlineDarkMode />} title='Dark Mode' /> */}
                     </ul>
                 </div>
             )}

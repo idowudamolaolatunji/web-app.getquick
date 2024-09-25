@@ -266,6 +266,7 @@ a.dropdown--item {
     display: flex;
     flex-direction: column;
     gap: .8rem;
+    transition: all .3s;
 }
 .block--heading {
     display: flex;

@@ -43,8 +43,8 @@ export const DataProvider = ({ children }) => {
         }
     }
 
-    function onMode(mode) {
-        setIsDarkMode(mode);
+    function onMode() {
+        setIsDarkMode(!isDarkMode);
     }
 
     useEffect(function() {

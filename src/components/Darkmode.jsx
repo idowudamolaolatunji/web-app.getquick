@@ -11,7 +11,7 @@ function Darkmode() {
   return (
     <div>
         <ReactSwitch
-            onChange={next => onMode(next)}
+            onChange={next => onMode()}
             checked={isDarkMode}
             className='mode--switch'
             onColor='#ddd'

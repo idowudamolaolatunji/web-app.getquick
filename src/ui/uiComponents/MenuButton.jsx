@@ -6,6 +6,7 @@ import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Zoom from '@mui/material/Zoom';
 import { Button, styled } from '@mui/material';
 import Darkmode from '../../components/Darkmode';
+import { MdOutlineLight, MdOutlineLightMode } from 'react-icons/md';
 
 
 const Tooltip11 = styled(({ className, ...props }) => (
@@ -20,8 +21,9 @@ const Tooltip11 = styled(({ className, ...props }) => (
 }));
 
 function MenuButton({ title, icon, action }) {
-    const { isMenuCollapsed } = useDataContext();
+    const { isMenuCollapsed, isDarkMode, onMode } = useDataContext();
     const { width } = useWindowSize();
+    const modifiedTitle = title === 'Dark Mode' ? (isDarkMode ? 'Turn Off ' : 'Turn On ') + title : title;
 
     return (
         <>
@@ -29,15 +31,20 @@ function MenuButton({ title, icon, action }) {
                 <>
                     {isMenuCollapsed ? (
                         <Tooltip11
-                            title={title}
+                            title={modifiedTitle}
                             TransitionComponent={Zoom}
                             enterDelay={250}
                             enterNextDelay={150}
                             placement="right"
                             disableInteractive
                         >
-                            <button className='menu--button' onClick={action}>
-                                <span className='menu--icon'>{icon}</span>
+                            <button className='menu--button' onClick={() => (title === 'Dark Mode') ? onMode(): action()}>
+                                {title === 'Dark Mode' ? (
+                                    isDarkMode ? <span className='menu--icon'>{<MdOutlineLightMode />}</span> : <span className='menu--icon'>{icon}</span>
+                                ) : (
+                                    <span className='menu--icon'>{icon}</span>
+                                )}
+
                             </button>
                         </Tooltip11>
                     ) : (

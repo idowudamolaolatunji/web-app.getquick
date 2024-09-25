@@ -209,7 +209,12 @@
 }
 
 /* 450px === 28.125em */
-@media screen and (max-width: 28.125em) {}
+@media screen and (max-width: 28.125em) {
+    .grid--left .card,
+    .grid--right .card {
+        padding: 2.2rem 1.8rem;
+    }
+}
 
 
 

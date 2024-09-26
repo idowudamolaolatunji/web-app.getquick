@@ -1,7 +1,7 @@
 import React from 'react'
 import DataTable from 'react-data-table-component'
 import { capitalizeFirstLetter, formatDate, formatNumber } from '../../../utils/helper';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { facebook, online_store, physical_store, instagram,whatsapp, twitter, flutterwave_store, others, jiji, jumia, konga } from '../../../assets/images/index';
 import TooltipUI from '../../../components/TooltipUI';
@@ -107,8 +107,14 @@ function RecentOrders() {
 
     return (
         <div className='card recent-section' style={{ padding: 0 }}>
-            <div className="section--heading" style={{ padding: '2rem' }}>
-                <h2>Recent Order </h2>
+            <div className="section--top" style={{ padding: '2rem' }}>
+
+                <div className="section--heading" >
+                    <h2>Recent Order </h2>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                </div>
+
+                <Link to="/dashboard/orders">View more</Link>
             </div>
 
             <DataTable

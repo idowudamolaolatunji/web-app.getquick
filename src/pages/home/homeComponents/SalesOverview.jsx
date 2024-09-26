@@ -12,9 +12,10 @@ function SalesOverview() {
 
     return (
         <div className='card sales-section'>
-            <span className='top'>
+            <span className='section--top'>
                 <div className="section--heading">
                     <h2>Your Business Yearly Sales Perfomance</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, possimus.</p>
                 </div>
                 <SelectAutoWidthDropdown menus={datePeriods} />
             </span>

@@ -1,0 +1,22 @@
+import { Button, styled } from '@mui/material'
+import React from 'react'
+
+
+const ButtonStyled = styled(Button)(({ theme }) => ({
+  padding: 0,
+  minWidth: 0,
+  width: 'fit-content',
+  textTransform: 'inherit',
+  '&:hover': {
+    backgroundColor: '#EEF1FF',
+  }
+}));
+
+
+function DefaultButton({ action, text, customStyle, children }) {
+  return (
+    <ButtonStyled style={customStyle} onClick={action}>{text || children}</ButtonStyled>
+  )
+}
+
+export default DefaultButton

@@ -1,4 +1,6 @@
-
+/* ============================================= */
+/*  */
+/* ============================================= */
 .home--section {
     display: flex;
     flex-direction: column;
@@ -9,14 +11,12 @@
     align-items: flex-start;
     justify-content: space-between;
 }
-
 .top--heading {
     display: flex;
     flex-direction: column;
     gap: 1.48rem;
     font-weight: 600;
 }
-
 .heading--name {
     font-size: 2.4rem;
 }
@@ -24,7 +24,6 @@
     font-size: 1.34rem;
     color: #888;
 }
-
 .top--upgrade {
     display: flex;
     align-items: center;
@@ -49,9 +48,15 @@
 .upgrade--link svg {
     font-size: 2rem;
 }
+/* ============================================= */
 
 
 
+
+
+/* ============================================= */
+/*  */
+/* ============================================= */
 .prog--grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 0.5fr;
@@ -63,7 +68,6 @@
 
 .prog-figure {
     border: 1.4px solid var(--color-brand-300);
-
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
@@ -75,7 +79,6 @@
     align-items: center;
     gap: 2rem;
 }
-
 .prog-figure-icon {
     width: 3.6rem;
     height: 3.6rem;
@@ -96,6 +99,10 @@
 }
 
 
+
+/* ============================================= */
+/*  */
+/* ============================================= */
 .prog-figure-bottom {
     display: flex;
     align-items: flex-start;
@@ -126,6 +133,7 @@
     font-size: 1rem;
     opacity: .8;
 }
+/* ============================================= */
 
 
 
@@ -134,8 +142,9 @@
 
 
 
-
-
+/* ============================================= */
+/*  */
+/* ============================================= */
 .home--grid {
     display: grid;
     grid-template-columns: 4.2fr 1.8fr;
@@ -159,6 +168,11 @@
 }
 
 
+
+
+/* ============================================= */
+/*  */
+/* ============================================= */
 .sales-overview--chart {
     overflow-x: auto;
 }
@@ -172,49 +186,57 @@
 #chart .apexcharts-legend {
     padding: 0 !important;
 }
+/* ============================================= */
 
 
 
 
 
 
-.insights--container {
-    display: grid;
-    grid-template-columns: 4fr 1.8fr;
-    gap: 1.6rem;
-
-    /* temp, but helps well */
-    margin-bottom: -2.4rem;
-}
-.container--box {
+/* ============================================= */
+/*  */
+/* ============================================= */
+.insight--container {
     display: flex;
     flex-direction: column;
     gap: 1.8rem;
 }
-.container--box .top, .top {
+.section--top {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: .5rem;
 }
-.container--box .section--heading {
+.section--top a {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #444;
+    text-decoration: underline !important;
+}
+.section--heading {
     display: flex;
     flex-direction: column;
     gap: .8rem;
 }
-.container--box .section--heading h2, .section--heading h2 {
+.section--heading h2 {
     font-weight: 600;
     font-size: 1.5rem;
     text-transform: capitalize;
 }
-.container--box .section--heading p {
+.section--heading p {
     font-size: 1.2rem;
     color: #888;
     font-weight: 500;
 }
+/* ============================================= */
 
 
 
 
+
+/* ============================================= */
+/*  */
+/* ============================================= */
 .insight--grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -260,12 +282,16 @@
 .insight--icon svg {
     font-size: 2rem;
 }
+/* ============================================= */
 
 
 
 
 
 
+/* ============================================= */
+/*  */
+/* ============================================= */
 .insight--figure:nth-child(1) {
     background-color: #FFDEDE;
 }
@@ -280,7 +306,6 @@
     color: var(--color-brand-500);
 }
 
-
 .insight--figure:nth-child(3) {
     background-color: #E1FFEE;
 }
@@ -294,6 +319,18 @@
 .insight--figure:nth-child(4) svg {
     color: #F8CBA6;
 }
+/* ============================================= */
+
+
+
+
+
+
+
+
+/* ============================================= */
+/*  */
+/* ============================================= */
 
 .recent-section {
     /* some thing strange is going on here */
@@ -305,10 +342,6 @@
     min-width: 100%;
 }
 
-
-
-
-
 /* bad parctices */
 .css-15k6ek6-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
     padding: .4rem !important;
@@ -317,6 +350,11 @@
 
 
 
+
+
+/* ============================================= */
+/*  */
+/* ============================================= */
 /* 900px === 56.25em */
 @media screen and (max-width: 56.25em) {
     .insights--container {
@@ -375,7 +413,7 @@
     .prog-figure-title {
         font-size: 1.34rem;
     }
-    .sales-section .top {
+    .sales-section .section--top {
         flex-direction: column;
         text-align: center;
     }

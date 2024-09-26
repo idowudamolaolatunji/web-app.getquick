@@ -2,7 +2,7 @@ import React from 'react'
 import { HiMiniArrowTrendingDown, HiMiniArrowTrendingUp } from 'react-icons/hi2'
 import { formatNumber } from '../../../utils/helper'
 
-function HomeProgCard({ title, icon, value, upTrend=true, percent, days }) {
+function HomeProgressCard({ title, icon, value, upTrend=true, percent, days }) {
   return (
     <figure className='prog-figure'>
         <div className="prog-figure-top">
@@ -26,4 +26,4 @@ function HomeProgCard({ title, icon, value, upTrend=true, percent, days }) {
   )
 }
 
-export default HomeProgCard
+export default HomeProgressCard

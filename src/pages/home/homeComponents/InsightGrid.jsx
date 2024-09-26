@@ -2,9 +2,10 @@ import React from 'react'
 import { FiUsers } from 'react-icons/fi'
 import { LuMousePointerClick, LuTags } from 'react-icons/lu'
 import { MdOutlineShoppingBag } from 'react-icons/md'
-import Insight from './Insight'
+import Insight from '../../../components/Insight'
 
-function InsightCards() {
+
+function InsightGrid() {
     return (
         <div className='insight--grid'>
             <Insight title='Website Visits' value={1200} icon={<LuMousePointerClick />} />
@@ -15,4 +16,4 @@ function InsightCards() {
     )
 }
 
-export default InsightCards
+export default InsightGrid

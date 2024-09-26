@@ -11,7 +11,7 @@ function HomeLeftSide() {
         <>
             <SalesOverview />
 
-            {width > 500 && <QuickActions />}
+            {width <= 500 && <QuickActions />}
 
             <RecentOrders />
         </>

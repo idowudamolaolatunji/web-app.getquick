@@ -2,21 +2,9 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDataContext } from '../../context/DataContext';
 import { useWindowSize } from 'react-use';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-import Zoom from '@mui/material/Zoom';
-import { styled } from '@mui/material';
 
+import TooltipUI from '../../components/TooltipUI';
 
-const Tooltip11 = styled(({ className, ...props }) => (
-    <Tooltip {...props} classes={{ popper: className }} />
-  ))(({ theme }) => ({
-    [`& .${tooltipClasses.tooltip}`]: {
-      boxShadow: theme.shadows[1],
-      fontSize: 11,
-      fontWeight: 500,
-      fontFamily: 'inherit'
-    },
-}));
 
 
 function MenuLink({ icon, title, link }) {
@@ -31,18 +19,11 @@ function MenuLink({ icon, title, link }) {
             {(width > 900) ? (
                 <>
                     {isMenuCollapsed ? (
-                        <Tooltip11 
-                            title={title}
-                            TransitionComponent={Zoom}
-                            enterDelay={250}
-                            enterNextDelay={150}
-                            placement="right"
-                            disableInteractive
-                        >
+                       <TooltipUI title={title}>
                             <Link className={isActiveClass} to={`/dashboard${link}`}>
                                 <span className='menu--icon'>{icon}</span>
                             </Link>
-                        </Tooltip11>
+                        </TooltipUI>
                     ) : (
                         <Link className={isActiveClass} to={`/dashboard${link}`}>
                             <span className='menu--icon'>{icon}</span>

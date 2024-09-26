@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import logo_img from '../../assets/images/logo.png'
+import logo_img from '../../assets/images/logo/logo.png'
 import { useDataContext } from '../../context/DataContext';
 // import { HiOutlineBell, HiOutlineUser } from 'react-icons/hi2';
 import { IoChevronDownSharp } from 'react-icons/io5';

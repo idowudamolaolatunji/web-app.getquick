@@ -295,7 +295,15 @@
     color: #F8CBA6;
 }
 
-
+.recent-section {
+    /* some thing strange is going on here */
+    min-width: 100%;
+    max-width: 68rem;
+    transition: all .35s;
+}
+.collapsed .recent-section {
+    min-width: 100%;
+}
 
 
 
@@ -384,6 +392,12 @@
     .grid--left .card,
     .grid--right .card {
         padding: 2.2rem 1.8rem;
+    }
+
+    .home--grid, .grid--left,
+    .grid--right,
+    .insights--container {
+        gap: 2rem;
     }
 }
 

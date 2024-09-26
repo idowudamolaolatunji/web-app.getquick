@@ -18,17 +18,17 @@ function TopSalesChannelsChart() {
         },
         colors: ['#C5C3F7', '#8E87CE', '#A7B4F5', '#D2C5F7', '#786FA3'],
         responsive: [
-            {
-                breakpoint: 600,
-                options: {
-                    chart: {
-                        height: 200
-                    },
-                    legend: {
-                        position: 'right',
-                    },
-                },
-            },
+            // {
+            //     breakpoint: 600,
+            //     options: {
+            //         chart: {
+            //             height: 200
+            //         },
+            //         legend: {
+            //             position: 'right',
+            //         },
+            //     },
+            // },
             {
                 breakpoint: 480,
                 options: {
@@ -87,7 +87,7 @@ function TopSalesChannelsChart() {
 
     return (
         <>
-            <div id="chart">
+            <div id="chart" className='channel-chart'>
                 <ReactApexChart options={options} series={series} type="donut" height={280}  />
             </div>
             <div id="html-dist"></div>

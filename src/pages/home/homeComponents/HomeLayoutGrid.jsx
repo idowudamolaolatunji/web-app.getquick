@@ -24,9 +24,9 @@ function HomeLayoutGrid() {
             </div>
 
             <div className="grid--right">
-                <QuickActions />
                 <VisitorOverview />
                 <TopProducts />
+                <QuickActions />
                 <TopSalesChannels />
             </div>
         </div>

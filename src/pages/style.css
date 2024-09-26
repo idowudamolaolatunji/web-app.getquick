@@ -342,7 +342,18 @@
     min-width: 100%;
 }
 
-/* bad parctices */
+
+/* .channel-chart {
+    overflow: hidden;
+    width: 100% !important;
+}
+.channel-chart .apexcharts-canvas.apexchartsgqsehmok {
+    height: 0;
+    width: 0 !important;
+} */
+
+
+/* bad parctices for the mui dropdown */
 .css-15k6ek6-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
     padding: .4rem !important;
     padding-right: 3rem !important;

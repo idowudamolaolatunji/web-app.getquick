@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactApexChart from 'react-apexcharts';
-import { useWindowSize } from 'react-use';
 import { formatNumber } from '../../../utils/helper';
 
 function OverviewChart() {

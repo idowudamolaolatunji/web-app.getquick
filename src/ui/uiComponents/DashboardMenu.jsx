@@ -91,7 +91,7 @@ function DashboardMenu() {
 
             {(width < 900 && showSidemenu) && (
                 <>
-                    <Overlay handleClose={handleShowSidemenu} />
+                    {width >= 600 && <Overlay handleClose={handleShowSidemenu} />}
                     <div className={`dashboard--sidemenu ${animateOut ? 'animate-out' : ''}`}>
 
                         <div className='menu--block'>

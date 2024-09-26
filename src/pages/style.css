@@ -147,7 +147,7 @@
 /* ============================================= */
 .home--grid {
     display: grid;
-    grid-template-columns: 4.2fr 1.8fr;
+    grid-template-columns: 4fr 1.8fr;
     gap: 1.4rem;
 }
 .grid--left,
@@ -173,14 +173,16 @@
 /* ============================================= */
 /*  */
 /* ============================================= */
-.sales-overview--chart {
-    overflow-x: auto;
+.sales-overview {
+    overflow-x: auto !important;
 }
 #chart {
     width: 100%;
     margin-top: 2rem;
 }
-#chart.sales-overview {
+
+#chart.bar-chart,
+#chart.line-chart {
     margin-left: -1.6rem;
 }
 #chart .apexcharts-legend {
@@ -343,11 +345,11 @@
 }
 
 
-/* .channel-chart {
+/* .dougnot-chart {
     overflow: hidden;
     width: 100% !important;
 }
-.channel-chart .apexcharts-canvas.apexchartsgqsehmok {
+.dougnot-chart .apexcharts-canvas.apexchartsgqsehmok {
     height: 0;
     width: 0 !important;
 } */
@@ -392,7 +394,7 @@
         flex-direction: column;
         gap: 1.6rem;
     }
-    #chart.sales-overview {
+    #chart.bar-chart {
         margin-left: -1.68rem;
         width: 60rem;
     }

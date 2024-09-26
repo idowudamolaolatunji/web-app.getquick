@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getGreeting, todayDate } from '../../../utils/helper';
+import { getExpression, getGreeting, todayDate } from '../../../utils/helper';
 import { TiStarburstOutline } from 'react-icons/ti';
 import { useWindowSize } from 'react-use';
 import { MdOutlineWorkspacePremium } from 'react-icons/md';
@@ -17,7 +17,7 @@ function HomeTop() {
     return (
         <div className='home--top'>
             <div className='top--heading'>
-                <p className='heading--name'>{getGreeting()},{" "}{user.firstname}! 👋🏿</p>
+                <p className='heading--name'>{getGreeting()},{" "}{user.firstname}! {getExpression()}</p>
                 <p className='heading--date'>{todayDate()}.</p>
             </div>
 

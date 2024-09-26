@@ -4,16 +4,14 @@ import ReactApexChart from 'react-apexcharts';
 const series = [
     {
         name: 'Total Sales',
-        data: [ 45, 56, 20, null, null, null],
-        color: '#ECE5C7'
+        data: [ 56, 14, 40, null, null, null],
+        color: '#EB4747' || '#00DFA2'
     },
 ];
 
 
 const options = {
     chart: {
-        type: 'bar',
-        width: '100%',
         toolbar: {
             show: false,
         },
@@ -22,11 +20,16 @@ const options = {
             size: '20px',
             color: '#333',
         },
-    },
-    plotOptions: {
-        bar: {
-            horizontal: false,
+        zoom: {
+            type: 'x',
+            enabled: true,
+            autoScaleYaxis: true
         },
+    },
+    
+    stroke: {
+        width: 1.5,
+        curve: 'smooth'
     },
     dataLabels: {
         enabled: false,
@@ -64,6 +67,7 @@ const options = {
                 colors: '#444',
             },
         },
+        min: 0,
     }
 };
 
@@ -77,8 +81,8 @@ function VisitorOverview() {
 
 
             <>
-                <div id="chart">
-                    <ReactApexChart options={options} series={series} type='bar' height={360} />
+                <div id="chart" className='line-chart'>
+                    <ReactApexChart options={options} series={series} type='line' height={200} />
                 </div>
                 <div id="html-dist"></div>
             </>

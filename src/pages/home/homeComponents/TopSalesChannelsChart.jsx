@@ -16,19 +16,19 @@ function TopSalesChannelsChart() {
                 color: '#333',
             },
         },
-        colors: ['#C5C3F7', '#8E87CE', '#A7B4F5', '#D2C5F7', '#786FA3'],
+        colors: ['#00DFA2', '#F8CBA6', '#A7B4F5', '#EB4747', '#D2C5F7'],
         responsive: [
-            // {
-            //     breakpoint: 600,
-            //     options: {
-            //         chart: {
-            //             height: 200
-            //         },
-            //         legend: {
-            //             position: 'right',
-            //         },
-            //     },
-            // },
+            {
+                breakpoint: 600,
+                options: {
+                    chart: {
+                        height: 200
+                    },
+                    legend: {
+                        position: 'right',
+                    },
+                },
+            },
             {
                 breakpoint: 480,
                 options: {
@@ -41,7 +41,7 @@ function TopSalesChannelsChart() {
                 breakpoint: 400,
                 options: {
                     chart: {
-                        height: 260
+                        height: 280
                     },
                     legend: {
                         position: 'bottom',
@@ -52,7 +52,7 @@ function TopSalesChannelsChart() {
                 breakpoint: 340,
                 options: {
                     chart: {
-                        height: 290
+                        height: 310
                     },
                 },
             },
@@ -87,7 +87,7 @@ function TopSalesChannelsChart() {
 
     return (
         <>
-            <div id="chart" className='channel-chart'>
+            <div id="chart" className='dougnot-chart'>
                 <ReactApexChart options={options} series={series} type="donut" height={280}  />
             </div>
             <div id="html-dist"></div>

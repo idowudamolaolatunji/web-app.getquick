@@ -116,8 +116,8 @@ function OverviewChart() {
     };
 
     return (
-        <div className='sales-overview--chart'>
-            <div id="chart" className='sales-overview'>
+        <div className='sales-overview'>
+            <div id="chart" className='bar-chart'>
                 <ReactApexChart options={options} series={series} type='bar' height={360} />
             </div>
             <div id="html-dist"></div>

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 function QuickButton({ icon, text, action }) {
     return (
         <DefaultButton customStyle={{ width: '100%', padding: 0 }}>
-            <button style={{ width: '100%' }} onClick={action}>
+            <button onClick={action}>
                 {icon} {text}
             </button>
         </DefaultButton>
@@ -26,7 +26,7 @@ function QuickActions() {
             </div>
 
             <div className="quick-container">
-                <QuickButton icon={<MdOutlineShoppingBag />} text='Record / Add a sale' action={() => navigate('/dashboard/order/add')} />
+                <QuickButton icon={<MdOutlineShoppingBag />} text='Record a sale' action={() => navigate('/dashboard/order/add')} />
                 <QuickButton icon={<LuTags />} text='Add product' action={() => navigate('/dashboard/product/add')} />
                 <QuickButton icon={<MdOutlineHelpOutline />} text='Help Center' action={openWidget} />
             </div>

@@ -60,7 +60,7 @@ function DashboardHead() {
                         </div>
                     </DefaultButton>
 
-                    <DefaultButton>
+                    <DefaultButton customStyle={{ fontFamily: 'inherit' }}>
                         <div className='nav--user' onClick={handleShowDropdown}>
                             <div className="nav--icon user--icon">
                                 <LuUser />

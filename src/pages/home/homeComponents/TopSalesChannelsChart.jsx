@@ -3,9 +3,13 @@ import ReactApexChart from 'react-apexcharts';
 import { pieArcLabelClasses, PieChart } from '@mui/x-charts/PieChart';
 import { Stack } from '@mui/material';
 import { useWindowSize } from 'react-use';
+import { useDataContext } from '../../../context/DataContext';
 
 function TopSalesChannelsChart() {
+    const { isMenuCollapsed } = useDataContext()
     const { width } = useWindowSize();
+
+    const isCollapsedBtw1000and1100 = !isMenuCollapsed && (width >= 1000 && width < 1100 );
 
     // const [series] = useState([44, 55, 41, 17, 15]);
     // const [options] = useState({
@@ -119,17 +123,24 @@ function TopSalesChannelsChart() {
                 <div id="chart">
                     <PieChart
                         colors={['#00DFA2', '#F8CBA6', '#A7B4F5', '#EB4747', '#D2C5F7']}
+                        slotProps={{
+                            legend: { 
+                                hidden: isCollapsedBtw1000and1100,
+                            },
+                        }}
                         series={[
                             {
                                 data,
-                                arcLabel: (item) => item.value,
+                                ...( width <= 500 && { arcLabel: (item) => item.value }),
                                 highlightScope: { fade: 'global', highlight: 'item' },
                                 donut: { innerRadius: 30 },
                                 faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
                                 ...( width > 1200 && {  cx: 80, cy: 80 }),
+                                ...( isCollapsedBtw1000and1100 && {  cx: 100, cy: 80 }),
                                 ...( width <= 380 && {  cx: 70, cy: 80 }),
                                 innerRadius: 40,
                                 paddingAngle: 2.5,
+                                
                             },
                         ]}
                         sx={{

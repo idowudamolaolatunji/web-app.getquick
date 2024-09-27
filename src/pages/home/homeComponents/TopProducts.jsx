@@ -42,6 +42,7 @@ function TopProducts() {
             <div className='top-product--container'>
                 <ProductFigure />
                 <ProductFigure />
+                <ProductFigure />
             </div>
 
         </div>

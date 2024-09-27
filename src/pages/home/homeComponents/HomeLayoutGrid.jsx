@@ -13,10 +13,10 @@ function HomeLayoutGrid() {
     const { width } = useWindowSize();
     const { isMenuCollapsed } = useDataContext();
 
-    console.log(width < 900 && width > 1000 )
+    const isBtn900and1000 = !isMenuCollapsed && (width > 900 && width < 1000 );
 
     return (
-        <div className="home--grid" style={ (!isMenuCollapsed && (width > 900 && width < 1000 )) ? { gridTemplateColumns: '1fr' } : { gridTemplateColumns: '4fr 1.8fr'} }>
+        <div className={`home--grid ${isBtn900and1000 ? 'column-1fr' : ''}`}>
             <div className="grid--left">
                 <HomeInsightContainer />
                 <SalesOverview />

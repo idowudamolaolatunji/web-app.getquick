@@ -26,7 +26,6 @@ const options = {
             autoScaleYaxis: true
         },
     },
-    
     stroke: {
         width: 1.5,
         curve: 'smooth'

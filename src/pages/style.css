@@ -145,9 +145,12 @@
 /* ============================================= */
 /*  */
 /* ============================================= */
+.home--grid.column-1fr {
+    grid-template-columns: 1fr;
+}
 .home--grid {
     display: grid;
-    grid-template-columns: 4fr 1.8fr;
+    grid-template-columns: 4fr 2fr;
     gap: 1.4rem;
 }
 .grid--left,
@@ -177,10 +180,10 @@
     overflow-x: auto !important;
 }
 #chart {
+    min-width: 100%;
     width: 100%;
     margin-top: 2rem;
 }
-
 #chart.bar-chart,
 #chart.line-chart {
     margin-left: -1.6rem;
@@ -327,6 +330,121 @@
 
 
 
+/* ============================================= */
+/*  */
+/* ============================================= */
+.top-product--container {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    margin-top: 2rem;
+}
+.top-product--figure {
+    padding: .2rem;
+    border-radius: .2rem;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    align-items: center;
+    gap: .8rem;
+}
+.top-product--img {
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+    border-radius: .2rem;
+}
+.top-product--details {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+.top-product--info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.top-product--scale {
+    width: 100%;
+    height: .5rem;
+    background-color: #eee;
+    border-radius: .4rem;
+    overflow: hidden;
+    position: relative;
+}
+.top-product--scale span {
+    height: 100%;
+    background-color: #EB4747;
+    border-top-right-radius: .4rem;
+    border-bottom-right-radius: .4rem;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+.product--info-text {
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+.product--info-value {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+.product--info-value span:nth-child(1) {
+    font-size: 1.3rem;
+    
+}
+.product--info-value span:nth-child(2) {
+    font-size: 1.2rem;
+    padding: .4rem .6rem;
+    background-color: #FFDEDE;
+    color: #EB4747;
+}
+
+/* ============================================= */
+
+
+
+/* ============================================= */
+/*  */
+/* ============================================= */
+.quick-container {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    margin-top: 1.2rem;
+}
+
+.quick-container button {
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-size: 1.34rem;
+    font-weight: 500;
+
+    padding: 1.2rem;
+    cursor: pointer;
+    border-radius: .4rem;
+    transition: all .35s;
+}
+.quick-container button:hover, .quick-container button:hover svg {
+    color: var(--color-brand-500);
+}
+.quick-container button svg {
+    font-size: 1.89rem;
+    color: #444;
+}
+
+
+
+
+/* ============================================= */
+
+
+
 
 
 
@@ -337,7 +455,7 @@
 .recent-section {
     /* some thing strange is going on here */
     min-width: 100%;
-    max-width: 68rem;
+    max-width: 64rem;
     transition: all .35s;
 }
 .collapsed .recent-section {

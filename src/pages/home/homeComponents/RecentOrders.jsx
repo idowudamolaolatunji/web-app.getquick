@@ -73,6 +73,26 @@ const data = [
         date: new Date('2024-05-22T23:59:01Z'),
         channel: 'facebook'
     },
+    {
+        id: '0358673',
+        name: 'David Olatunji',
+        product: 'Baggie Trousers',
+        amount: 120000,
+        status: 'Pending',
+        delivery: 'Pending',
+        date: new Date('2024-05-22T23:59:01Z'),
+        channel: 'jiji'
+    },
+    {
+        id: '01162334',
+        name: 'Oyindamola Olatunji',
+        product: 'Baggie Trousers',
+        amount: 120000,
+        status: 'Pending',
+        delivery: 'Pending',
+        date: new Date('2024-05-22T23:59:01Z'),
+        channel: 'flutterwave_store'
+    },
 ];
 
 const customStyles = {

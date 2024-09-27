@@ -117,6 +117,29 @@ input::-webkit-inner-spin-button {
 
 
 
+.status p {
+	min-width: 80px;
+    display: inline-block;
+    padding: .6rem 1.2rem;
+    border-radius: .6rem;
+	font-weight: 500;
+	font-size: 1.2rem;
+	text-transform: capitalize;
+}
+
+.status--failed p {
+    background-color: #ff9797b7;
+    color: red;
+}
+.status--pending p {
+    background-color: #aba7fa94;
+    color: #4e48f0;
+}
+.status--success p,
+.status--delivered p {
+    color: #008001;
+    background-color: #d7ecd1b7;
+}
 
 
 /* 600px === 37.5em */

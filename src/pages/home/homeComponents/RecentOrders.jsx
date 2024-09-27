@@ -42,10 +42,20 @@ const columns = [
         name: 'Amount', selector: row => '₦'+formatNumber(row.amount), width: '100px'
     },
     { 
-        name: 'Status', selector: row => row.status, width: '100px'
+        name: 'Status', selector: row => (
+            <span className={`status status--${(row.status)}`}>
+                <p>{row.status}</p>
+            </span>
+        ),
+        width: '120px'
     },
     { 
-        name: 'Delievery', selector: row => row.delivery, width: '100px'
+        name: 'Delievery', selector: row => (
+            <span className={`status status--${(row.delivery)}`}>
+                <p>{row.delivery}</p>
+            </span>
+        ),
+        width: '135px'
     },
     { 
         name: 'Date', selector: row => formatDate(row.date), width: '150px'
@@ -57,9 +67,9 @@ const data = [
         id: '019875',
         name: 'Damola Olatunji',
         product: 'T-shirt polo xl',
-        amount: 100000,
-        status: 'Success',
-        delivery: 'Delivered',
+        amount: 10000,
+        status: 'success',
+        delivery: 'delivered',
         date: new Date('2024-09-04T09:21:38Z'),
         channel: 'online_store'
     },
@@ -67,30 +77,30 @@ const data = [
         id: '0387663',
         name: 'Idowu Olatunji',
         product: 'Baggie Trousers',
-        amount: 120000,
-        status: 'Pending',
-        delivery: 'Pending',
+        amount: 10000,
+        status: 'pending',
+        delivery: 'pending',
         date: new Date('2024-05-22T23:59:01Z'),
         channel: 'facebook'
     },
     {
         id: '0358673',
         name: 'David Olatunji',
-        product: 'Baggie Trousers',
-        amount: 120000,
-        status: 'Pending',
-        delivery: 'Pending',
+        product: 'Baggie Sweater',
+        amount: 12000,
+        status: 'pending',
+        delivery: 'pending',
         date: new Date('2024-05-22T23:59:01Z'),
         channel: 'jiji'
     },
     {
         id: '01162334',
         name: 'Oyindamola Olatunji',
-        product: 'Baggie Trousers',
-        amount: 120000,
-        status: 'Pending',
-        delivery: 'Pending',
-        date: new Date('2024-05-22T23:59:01Z'),
+        product: 'Luxury Trousers',
+        amount: 12000,
+        status: 'pending',
+        delivery: 'failed',
+        date: new Date('2024-09-22T23:59:01Z'),
         channel: 'flutterwave_store'
     },
 ];
@@ -105,7 +115,8 @@ const customStyles = {
 		style: {
 			fontSize: "13px",
 			fontWeight: "bold",
-			color: "#555",
+			color: "#eee",
+            height: '40px'
 		},
 	},
 	rows: {
@@ -117,9 +128,16 @@ const customStyles = {
     headCells: {
 		style: {
 			paddingRight: '5px',
+            backgroundColor: '#444',
+            height: '40px'
+
 		},
 	},
-
+    cells: {
+		style: {
+            textAlign: 'center'
+        }
+    }
 };
 
 function RecentOrders() {

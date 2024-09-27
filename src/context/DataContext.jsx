@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import { useLocation } from "react-use";
+import { useLocation, useWindowSize } from "react-use";
 
 
 //////////////////////////////////////////////
@@ -21,6 +21,7 @@ export const DataProvider = ({ children }) => {
     const [animateOut, setAnimateOut] = useState(false);
 
     const { pathname } = useLocation();
+    const { width } = useWindowSize();
 
 
     function handleMenuCollapse() {
@@ -46,6 +47,13 @@ export const DataProvider = ({ children }) => {
     function onMode() {
         setIsDarkMode(!isDarkMode);
     }
+
+    useEffect(function() {
+        console.log(width);
+        if(width <= 1100) {
+            setIsMenuCollapsed(true);
+        }
+    }, [width]);
 
     useEffect(function() {
         closeNanimate();

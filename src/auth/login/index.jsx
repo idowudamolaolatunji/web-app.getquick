@@ -11,6 +11,7 @@ import logo_image from '../../assets/images/logo/logo.png'
 import img_user1 from '../../assets/images/resources/user-img.jpg'
 import img_user2 from '../../assets/images/resources/user-img2.jpg'
 import '../auth.css'
+import { div } from 'framer-motion/client';
 
 function index() {
     const [showPassword, setShowPassword] = useState(false);
@@ -23,6 +24,11 @@ function index() {
         <section className='auth__section'>
             <div className="auth--left">
                 <div className='auth--left-top'>
+                    {width <= 850 && (
+                        <div className="auth--logo">
+                            <img src={logo_image} alt="" />
+                        </div>
+                    )}
                     <a href='https://www.getquicka.com' className='auth--left-link'>
                         <MdArrowBackIosNew />
                         <p>Back to home</p>
@@ -32,13 +38,31 @@ function index() {
 
                 <div className="auth--left-container">
                     <form className="auth--form">
-                        {width <= 850 && (
-                            <div className="auth--logo">
-                                <img src={logo_image} alt="" />
-                            </div>
-                        )}
+                        <div>
+                            <h2 className='form--heading'>Welcome Back!👋🏿</h2>
+                            {width <= 850 && (
+                                <div className='auth--extra-info'>
+                                    <p className='auth--right-text'>Take Control, Grow, Manage, market, and succeed with easy-to-use tools designed for entrepreneurs like you. Trusted by 100+ businesses</p>
 
-                        <h2 className='form--heading'>Welcome Back!👋🏿</h2>
+                                    <div className='auth--right-details'>
+                                        <div className="auth--right-users">
+                                            <img src={img_user1} alt="" />
+                                            <img src={img_user2} alt="" />
+                                            <img src={img_user1} alt="" />
+                                            <img src={img_user2} alt="" />
+                                        </div>
+
+                                        <span className='auth--right-rating'>
+                                            <span>
+                                                <Rating name="read-only" value={5} readOnly />
+                                                <p>5.0</p>
+                                            </span>
+                                            <p>from 20+ businesses</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                         <div className="form--item">
                             <label className='form--label' htmlFor="email">Email Adress</label>
                             <input type="email" id="email" className='form--input' placeholder='youremail@email.com' />
@@ -48,7 +72,7 @@ function index() {
 
                             <div className="form--input-box">
                                 <input
-                                    type={showPassword ? "text" : "password"} id="password" className='form--input' placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" 
+                                    type={showPassword ? "text" : "password"} id="password" className='form--input' placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                                 />
 
                                 <div className='form--input-icon' onClick={() => setShowPassword(!showPassword)}>

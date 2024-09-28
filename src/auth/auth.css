@@ -167,6 +167,14 @@
 }
 
 
+.auth--extra-info {
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+}
+.auth--extra-info .auth--right-text {
+    margin-bottom: 1rem;
+}
+
 /* =========================== */
 /* =========================== */
 .auth--logo {
@@ -256,5 +264,12 @@
     }
     .auth--right {
         display: none;
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .auth__section {
+        padding: 2rem;
     }
 }

@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react'
 import DashboardBase from './ui/DashboardBase'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Spinner from './components/spinner';
+import Spinner_two from './components/spinner/spinner_two';
 import ProtectedRoute from './utils/ProtectedRoute';
 
 // const Login = lazy(() => import('./auth/login'));

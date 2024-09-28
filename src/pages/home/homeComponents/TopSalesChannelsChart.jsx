@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import ReactApexChart from 'react-apexcharts';
+// import ReactApexChart from 'react-apexcharts';
 import { pieArcLabelClasses, PieChart } from '@mui/x-charts/PieChart';
-import { Stack } from '@mui/material';
 import { useWindowSize } from 'react-use';
 import { useDataContext } from '../../../context/DataContext';
 
@@ -140,7 +139,6 @@ function TopSalesChannelsChart() {
                                 ...( width <= 380 && {  cx: 70, cy: 80 }),
                                 innerRadius: 40,
                                 paddingAngle: 2.5,
-                                
                             },
                         ]}
                         sx={{

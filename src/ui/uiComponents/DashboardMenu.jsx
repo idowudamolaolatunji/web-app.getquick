@@ -48,7 +48,7 @@ function DashboardMenu() {
                         </ul>
                     </div>
 
-                    <div className='menu--block'>
+                    <div className={`menu--block settings ${showRemains ? 'menu-animate' : ''}`}>
                         <Line where={'Bottom'} value={'0.34rem'} />
 
                         {!isMenuCollapsed ? (
@@ -65,7 +65,7 @@ function DashboardMenu() {
                         )}
 
                         {showRemains && (
-                            <ul className='menu--list'>
+                            <ul className={`menu--list ${showRemains ? 'menu-animate' : 'menu-unanimate'}`}>
                                 <MenuLink icon={<MdOutlineStorefront />} title='Store Information' link='/store-info' />
                                 <MenuLink icon={<RiBankLine />} title='Bank Details' link='/bank-details' />
                                 <MenuLink icon={<MdOutlineDeliveryDining />} title='Delivery' link='/delivery' />

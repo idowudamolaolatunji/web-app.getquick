@@ -81,7 +81,7 @@ function VisitorOverview() {
 
             <>
                 <div id="chart" className='line-chart'>
-                    <ReactApexChart options={options} series={series} type='line' height={200} />
+                    <ReactApexChart options={options} series={series} type='line' height={180} />
                 </div>
                 <div id="html-dist"></div>
             </>

@@ -6,7 +6,7 @@ function TopSalesChannels() {
         <div className='card'>
             <div className="section--heading">
                 <h2>Top five sales channels</h2>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing.</p>
+                <p>Lorem ipsum dolor sit amet.</p>
             </div>
 
             <TopSalesChannelsChart />

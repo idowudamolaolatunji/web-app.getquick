@@ -9,7 +9,7 @@ import { MdDarkMode, MdLightMode, MdOutlineDarkMode, MdOutlineDisplaySettings } 
 import { useOutsideClick } from '../hooks/useOutsideClick';
 
 
-function Dropdown({ isShown, setIsShown }) {
+function Dropdown({ setIsShown }) {
     const ref = useOutsideClick(handleClose);
     
     function handleClose() {
@@ -17,7 +17,7 @@ function Dropdown({ isShown, setIsShown }) {
     }
 
     return (
-        <div className={`dropdown ${isShown ? 'is-shown' : ''}`} ref={ref}>
+        <div className={`dropdown`} ref={ref}>
             <Link className='dropdown--item' to='/dashboard/profile'><CgProfile /> Profile</Link>
             <div className='dropdown--item'><MdOutlineDisplaySettings /> Maintenance Status</div>
             <Link className='dropdown--item' to='/dashboard/settings'><LuSettings /> Settings</Link>

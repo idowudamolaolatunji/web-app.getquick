@@ -32,7 +32,7 @@ function TopProducts() {
         <div className='card top-product-section'>
             <div className="section--top">
                 <div className="section--heading" >
-                    <h2>Top Products</h2>
+                    <h2>Best Selling Products</h2>
                     <p>Lorem ipsum dolor sit amet.</p>
                 </div>
 

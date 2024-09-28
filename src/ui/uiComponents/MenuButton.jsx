@@ -46,6 +46,5 @@ function MenuButton({ title, icon, action }) {
     )
 }
 
-export default MenuButton
 
-// openWidget
+export default MenuButton

@@ -8,7 +8,7 @@ import TooltipUI from '../../../components/TooltipUI';
 
 
 function imgString(imgType) {
-    if(imgType === 'online_store') return online_store;
+    if(imgType === 'your_online_store') return online_store;
     if(imgType === 'facebook') return facebook;
     if(imgType === 'physical_store') return physical_store;
     if(imgType === 'instagram') return instagram;
@@ -71,7 +71,7 @@ const data = [
         status: 'success',
         delivery: 'delivered',
         date: new Date('2024-09-04T09:21:38Z'),
-        channel: 'online_store'
+        channel: 'your_online_store'
     },
     {
         id: '0387663',
@@ -149,7 +149,7 @@ function RecentOrders() {
 
                 <div className="section--heading" >
                     <h2>Recent Order </h2>
-                    <p>Lorem ipsum dolor sit amet.</p>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing.</p>
                 </div>
 
                 <Link to="/dashboard/orders">View more</Link>

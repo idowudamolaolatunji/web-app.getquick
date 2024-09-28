@@ -191,6 +191,7 @@
 #chart .apexcharts-legend {
     padding: 0 !important;
 }
+/* apexcharts-tooltip */
 /* ============================================= */
 
 
@@ -312,10 +313,10 @@
 }
 
 .insight--figure:nth-child(3) {
-    background-color: #E1FFEE;
+    background-color: #d7ecd1b7;
 }
 .insight--figure:nth-child(3) svg {
-    color: #00DFA2;
+    color: #008001;
 }
 
 .insight--figure:nth-child(4) {
@@ -413,7 +414,7 @@
 .quick-container {
     display: flex;
     flex-direction: column;
-    gap: .8rem;
+    gap: 1rem;
     margin-top: 1.2rem;
 }
 
@@ -427,7 +428,7 @@
     font-weight: 500;
     font-family: inherit !important;
 
-    padding: 1rem 1.2rem;
+    padding: .9rem 1.2rem;
     cursor: pointer;
     border-radius: .4rem;
     transition: all .35s;
@@ -518,7 +519,7 @@
     }
     #chart.bar-chart {
         margin-left: -1.68rem;
-        width: 60rem;
+        width: 70rem;
     }
 }
 

@@ -151,75 +151,46 @@
 /*  */
 /* ========================================== */
 .dropdown {
-    min-width: 24rem;
-    padding: 3rem 2rem;
+    min-width: 26rem;
+    padding: 2.4rem 1.8rem;
     background-color: var(--white-1);
     border-radius: .4rem;
 
     display: flex;
     flex-direction: column;
-    gap: 1.8rem;
-
+    gap: .6rem;
     position: absolute;
-    top: 6.5rem;
-    right: 1rem;
-
-    transform: scale(0);
+    top: 7rem;
+    right: 0rem;
     box-shadow: 0 0 20px #0000000d;
     z-index: 1000;
 }
-.dropdown.is-shown {
-    transition: transform .2s cubic-bezier(0.25, 0.1, 0, 0.88);
-    transform: scale(1)
-}
+
 .dropdown--item,
 div.dropdown--item,
 a.dropdown--item {
     display: flex;
     align-items: center;
-    gap: .6rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--grey-1);
+    gap: .8rem;
+    font-size: 1.28rem;
     cursor: pointer;
+    padding: 1rem .6rem;
+    border-radius: .4rem;
+    font-weight: 600;
+    color: #515151;
+    transition: all .35s;
 }
-.dropdown--item:last-child {
-    color: #d90429;
+.dropdown--item:hover {
+    background-color: var(--color-brand-100);
 }
+
 .dropdown--item svg {
     font-size: 2rem;
     opacity: .8;
+    color: #555;
 }
-.mode--switch {
-    display: flex;
-    align-items: center;
-}
-.mode--switch div.react-switch-bg div {
-    height: auto !important;
-}
-.mode--switch div.react-switch-bg  {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.mode--switch svg {
-    font-size: 1.8rem;
-}
-.mode--switch svg.animate {
-    animation: bounce .5s;
-}
-.mode--switch svg.animate.light {
-    color: rgb(202, 190, 16);
-}
-.mode--switch svg.animate.dark {
-    color: #777;
-}
-
-@keyframes bounce {
-    25% { transform: scale(0); }
-    50% { transform: scale(1.2); }
-    75% { transform: scale(1.5); }
-    100% { transform: scale(1.2); }
+.dropdown--item:last-child, .dropdown--item:last-child svg {
+    color: #d90429;
 }
 
 /* ========================================== */
@@ -290,15 +261,25 @@ a.dropdown--item {
     position: relative;
 }
 
-.menu--block:last-child {
-    margin-bottom: 8rem;
-    animation: grow-down 1s;
+.menu--block.settings .menu--list {
+    overflow: hidden;
+}
+.menu--block.settings .menu--list.menu-unanimate {
+    animation: grow-back-up 5s both;
     height: auto;
+}
+.menu--block.settings .menu--list.menu-animate {
+    animation: grow-down 1s both;
+    height: 100%;
 }
 
 @keyframes grow-down {
-    from { height: 0; }
-    to { height: auto; }
+    from { height: 0; opacity: 0; }
+    to { height: 100%; opacity: 1; }
+}
+@keyframes grow-back-up {
+    from { height: 100%; opacity: 1; }
+    to { height: 0; opacity: 0; }
 }
 /* ========================================== */
 

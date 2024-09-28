@@ -10,6 +10,8 @@ import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import logo_image from '../../assets/images/logo/logo.png'
 import img_user1 from '../../assets/images/resources/user-img.jpg'
 import img_user2 from '../../assets/images/resources/user-img2.jpg'
+import img_user3 from '../../assets/images/resources/user-img3.jpg'
+import img_user0 from '../../assets/images/resources/user-img4.jpg'
 import '../auth.css'
 import { div } from 'framer-motion/client';
 
@@ -46,10 +48,10 @@ function index() {
 
                                     <div className='auth--right-details'>
                                         <div className="auth--right-users">
+                                            <img src={img_user0} alt="" />
                                             <img src={img_user1} alt="" />
                                             <img src={img_user2} alt="" />
-                                            <img src={img_user1} alt="" />
-                                            <img src={img_user2} alt="" />
+                                            <img src={img_user3} alt="" />
                                         </div>
 
                                         <span className='auth--right-rating'>
@@ -110,10 +112,10 @@ function index() {
 
                 <div className='auth--right-details'>
                     <div className="auth--right-users">
+                        <img src={img_user0} alt="" />
                         <img src={img_user1} alt="" />
                         <img src={img_user2} alt="" />
-                        <img src={img_user1} alt="" />
-                        <img src={img_user2} alt="" />
+                        <img src={img_user3} alt="" />
                     </div>
 
                     <span className='auth--right-rating'>

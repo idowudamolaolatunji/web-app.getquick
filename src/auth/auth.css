@@ -9,7 +9,7 @@
 }
 
 .auth--right {
-    background-image: linear-gradient(rgba(0, 0, 0, .32), rgba(0, 0, 0, .32)), url('../assets/images/resources/alex-robinson-rrI02QQ9GSQ-unsplash.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, .35), rgba(0, 0, 0, .35)), url('../assets/images/resources/alex-robinson-rrI02QQ9GSQ-unsplash.jpg');
     background-repeat: no-repeat;
     background-size: 100%;
     border-radius: .6rem;
@@ -89,7 +89,7 @@
 .form--input {
     padding: 1.2rem;
     width: 100%;
-    border: 1.4px solid #eee;
+    border: 1.4px solid #eee ;
     border-radius: .4rem;
     transition: all .35s;
     font-family: inherit;
@@ -173,6 +173,14 @@
 }
 .auth--extra-info .auth--right-text {
     margin-bottom: 1rem;
+}
+.form--error-message {
+    color: red;
+    font-size: 1.2rem;
+    font-weight: 500;
+    width: 100%;
+    height: 1rem;
+    margin: -.6rem 0 -.5rem;
 }
 
 /* =========================== */
@@ -264,6 +272,9 @@
     }
     .auth--right {
         display: none;
+    }
+    .form--submit:hover {
+        background-color: var(--color-brand-500);
     }
 }
 

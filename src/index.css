@@ -127,7 +127,7 @@ input::-webkit-inner-spin-button {
 	left: 0;
 
 	z-index: 200;
-	background-color: rgba(0, 0, 0, 0.15);
+	background-color: rgba(0, 0, 0, 0.1);
 	-webkit-backdrop-filter: blur(2px);
 	backdrop-filter: blur(2px);
 }

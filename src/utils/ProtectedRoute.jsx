@@ -3,9 +3,8 @@ import { useAuthContext } from '../context/AuthContext';
 import DashboardBase from '../ui/DashboardBase';
 
 
-function ProtectedRoute({ children }) {
-    // let { user } = useAuthContext();
-    const user = 'Idowu'
+function ProtectedRoute() {
+    let { user } = useAuthContext();
 
     if (!user) {
         return <Navigate to="/login" replace />;

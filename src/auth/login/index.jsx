@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Rating } from '@mui/material';
 import { useWindowSize } from 'react-use';
 
@@ -7,128 +7,227 @@ import { FaCheck } from 'react-icons/fa';
 import { MdArrowBackIosNew } from 'react-icons/md';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
 
+import Spinner from '../../components/spinner/spinner_two'
 import logo_image from '../../assets/images/logo/logo.png'
 import img_user1 from '../../assets/images/resources/user-img.jpg'
 import img_user2 from '../../assets/images/resources/user-img2.jpg'
 import img_user3 from '../../assets/images/resources/user-img3.jpg'
 import img_user0 from '../../assets/images/resources/user-img4.jpg'
 import '../auth.css'
-import { div } from 'framer-motion/client';
+import { validateForm } from '../../utils/helper';
+import CustomAlert from '../../components/CustomAlert';
+import { useAuthContext } from '../../context/AuthContext';
+
 
 function index() {
     const [showPassword, setShowPassword] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+    const [formErrors, setFormErrors] = useState({});
+    const [isLoading, setIsLoading] = useState({
+        authLoading: false,
+        mainLoading: false
+    });
+    const [response, setResponse] = useState({
+        status: '',
+        message: ''
+    })
 
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
+
+    const navigate = useNavigate();
     const { width } = useWindowSize();
+    const { user, token, handleChange } = useAuthContext();
 
+    const handleFormChange = function (e) {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    const handleLoading = function (key, value) {
+        setIsLoading({
+            ...isLoading, [key]: value,
+        });
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        const newErrors = validateForm(formData, 'login');
+        setFormErrors(newErrors);
+        console.log(newErrors, Object.keys(newErrors))
+        if (Object.keys(newErrors).length >= 1) return;
+
+        // NEXT, IMPLEMENT THE LOGIN REQUEST
+        try {
+            handleLoading('mainLoading', true);
+
+            const res = await fetch('http://localhost:3555/api/users/login', {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({ ...formData })
+            });
+            if (!res.ok) {
+                throw new Error("Something went wrong, Check internet connection");
+			}
+
+            const data = await res.json();
+            if(data.status !== 'success') {
+                throw new Error(data.message);
+            }
+
+            setResponse({ status: data.status, message: data.message });
+            handleChange(data.data.user, data.token);
+        } catch (err) {
+            setResponse({ status: 'error', message: data.message })
+        } finally {
+            handleLoading('mainLoading', false);
+        }
+    }
+
+    useEffect(function() {
+        if(user || token) {
+            navigate('/')
+        }
+    }, [user, token])
 
     return (
-        <section className='auth__section'>
-            <div className="auth--left">
-                <div className='auth--left-top'>
-                    {width <= 850 && (
-                        <div className="auth--logo">
-                            <img src={logo_image} alt="" />
-                        </div>
-                    )}
-                    <a href='https://www.getquicka.com' className='auth--left-link'>
-                        <MdArrowBackIosNew />
-                        <p>Back to home</p>
-                    </a>
-                </div>
-
-
-                <div className="auth--left-container">
-                    <form className="auth--form">
-                        <div>
-                            <h2 className='form--heading'>Welcome Back!👋🏿</h2>
-                            {width <= 850 && (
-                                <div className='auth--extra-info'>
-                                    <p className='auth--right-text'>Take Control, Grow, Manage, market, and succeed with easy-to-use tools designed for entrepreneurs like you. Trusted by 100+ businesses</p>
-
-                                    <div className='auth--right-details'>
-                                        <div className="auth--right-users">
-                                            <img src={img_user0} alt="" />
-                                            <img src={img_user1} alt="" />
-                                            <img src={img_user2} alt="" />
-                                            <img src={img_user3} alt="" />
-                                        </div>
-
-                                        <span className='auth--right-rating'>
-                                            <span>
-                                                <Rating name="read-only" value={5} readOnly />
-                                                <p>5.0</p>
-                                            </span>
-                                            <p>from 20+ businesses</p>
-                                        </span>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                        <div className="form--item">
-                            <label className='form--label' htmlFor="email">Email Adress</label>
-                            <input type="email" id="email" className='form--input' placeholder='youremail@email.com' />
-                        </div>
-                        <div className="form--item">
-                            <label className='form--label' htmlFor="password">Password</label>
-
-                            <div className="form--input-box">
-                                <input
-                                    type={showPassword ? "text" : "password"} id="password" className='form--input' placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                                />
-
-                                <div className='form--input-icon' onClick={() => setShowPassword(!showPassword)}>
-                                    {showPassword ? <ImEye /> : <ImEyeBlocked />}
-                                </div>
+        <> 
+        {(response.message || response.status) && (
+            <CustomAlert type={response.status} message={response.message} />
+        )}
+            {isLoading.mainLoading && <Spinner /> }
+            <section className='auth__section'>
+                <div className="auth--left">
+                    <div className='auth--left-top'>
+                        {width <= 850 && (
+                            <div className="auth--logo">
+                                <img src={logo_image} alt="" />
                             </div>
-                        </div>
-
-                        <div className="form--flex">
-                            <div className="form--item-flex" onClick={() => setIsChecked(!isChecked)}>
-                                <div id="checkbox" className={isChecked ? 'is-selected' : ''}>
-                                    {isChecked && <FaCheck />}
-                                </div>
-                                <label className='form--text' htmlFor="checkbox">Remember Me</label>
-                            </div>
-
-                            <Link to='/'>Forgot Password</Link>
-                        </div>
-
-                        <button type="submit" className='form--submit'>Login</button>
-
-                        <div className="form--info">
-                            <p>Dont have an account? <Link to='/signup'>Create One</Link></p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div className="auth--right">
-                <div className="auth--logo">
-                    <img src={logo_image} alt="" />
-                </div>
-                <h3 className="auth--right-heading">Manage your business online like the boss that you are.</h3>
-                <p className='auth--right-text'>Take Control, Grow, Manage, market, and succeed with easy-to-use tools designed for entrepreneurs like you. Trusted by 100+ businesses</p>
-
-                <div className='auth--right-details'>
-                    <div className="auth--right-users">
-                        <img src={img_user0} alt="" />
-                        <img src={img_user1} alt="" />
-                        <img src={img_user2} alt="" />
-                        <img src={img_user3} alt="" />
+                        )}
+                        <a href='https://www.getquicka.com' className='auth--left-link'>
+                            <MdArrowBackIosNew />
+                            <p>Back to home</p>
+                        </a>
                     </div>
 
-                    <span className='auth--right-rating'>
-                        <span>
-                            <Rating name="read-only" value={5} readOnly />
-                            <p>5.0</p>
-                        </span>
-                        <p>from 20+ businesses</p>
-                    </span>
-                </div>
-            </div>
 
-        </section>
+                    <div className="auth--left-container">
+                        <form className="auth--form" onSubmit={handleSubmit}>
+                            <div>
+                                <h2 className='form--heading'>Welcome Back!👋🏿</h2>
+                                {width <= 850 && (
+                                    <div className='auth--extra-info'>
+                                        <p className='auth--right-text'>Take Control, Grow, Manage, market, and succeed with easy-to-use tools designed for entrepreneurs like you. Trusted by 100+ businesses</p>
+
+                                        <div className='auth--right-details'>
+                                            <div className="auth--right-users">
+                                                <img src={img_user0} alt="" />
+                                                <img src={img_user1} alt="" />
+                                                <img src={img_user2} alt="" />
+                                                <img src={img_user3} alt="" />
+                                            </div>
+
+                                            <span className='auth--right-rating'>
+                                                <span>
+                                                    <Rating name="read-only" value={5} readOnly />
+                                                    <p>5.0</p>
+                                                </span>
+                                                <p>from 20+ businesses</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="form--item">
+                                <label className='form--label' htmlFor="email">Email Adress</label>
+                                <input
+                                    type="text"
+                                    id="email" name='email'
+                                    className='form--input'
+                                    placeholder='youremail@email.com'
+                                    onChange={handleFormChange}
+                                    value={formData.email}
+                                />
+                                <span className="form--error-message">
+                                    {formErrors.email && formErrors.email}
+                                </span>
+                            </div>
+
+                            <div className="form--item">
+                                <label className='form--label' htmlFor="password">Password</label>
+                                <div className="form--input-box">
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        name='password'
+                                        id="password"
+                                        className='form--input'
+                                        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                                        value={formData.password}
+                                        onChange={handleFormChange}
+                                    />
+                                    <div className='form--input-icon' onClick={() => setShowPassword(!showPassword)}>
+                                        {showPassword ? <ImEye /> : <ImEyeBlocked />}
+                                    </div>
+                                </div>
+                                <span className="form--error-message">
+                                    {formErrors.password ? formErrors.password : ''}
+                                </span>
+                            </div>
+
+                            <div className="form--flex">
+                                <div className="form--item-flex" onClick={() => setIsChecked(!isChecked)}>
+                                    <div id="checkbox" className={isChecked ? 'is-selected' : ''}>
+                                        {isChecked && <FaCheck />}
+                                    </div>
+                                    <label className='form--text' htmlFor="checkbox">Remember Me</label>
+                                </div>
+
+                                <Link to='/'>Forgot Password</Link>
+                            </div>
+
+                            <button type="submit" className='form--submit'>Login</button>
+
+                            <div className="form--info">
+                                <p>Dont have an account? <Link to='/signup'>Create One</Link></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div className="auth--right">
+                    <div className="auth--logo">
+                        <img src={logo_image} alt="" />
+                    </div>
+                    <h3 className="auth--right-heading">Manage your business online like the boss that you are.</h3>
+                    <p className='auth--right-text'>Take Control, Grow, Manage, market, and succeed with easy-to-use tools designed for entrepreneurs like you. Trusted by 100+ businesses</p>
+
+                    <div className='auth--right-details'>
+                        <div className="auth--right-users">
+                            <img src={img_user0} alt="" />
+                            <img src={img_user1} alt="" />
+                            <img src={img_user2} alt="" />
+                            <img src={img_user3} alt="" />
+                        </div>
+
+                        <span className='auth--right-rating'>
+                            <span>
+                                <Rating name="read-only" value={5} readOnly />
+                                <p>5.0</p>
+                            </span>
+                            <p>from 20+ businesses</p>
+                        </span>
+                    </div>
+                </div>
+
+            </section>
+        </>
     )
 }
 

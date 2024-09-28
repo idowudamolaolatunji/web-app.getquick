@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import Styles from './error.module.css';
 import { IoIosLink } from 'react-icons/io';
 import { MdErrorOutline } from 'react-icons/md';
-import logo_img from '../../assets/images/logo/logo.png'
+import logo_img from '../../assets/images/logo/logo-black.png'
 
 function index() {
     return (

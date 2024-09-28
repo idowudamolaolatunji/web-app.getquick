@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import logo_img from '../../assets/images/logo/logo.png'
+import logo_img from '../../assets/images/logo/logo-black.png'
 import { useDataContext } from '../../context/DataContext';
 import { IoChevronDownSharp } from 'react-icons/io5';
 import { MdOutlineStorefront } from 'react-icons/md';

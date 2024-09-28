@@ -8,7 +8,8 @@ import { MdArrowBackIosNew } from 'react-icons/md';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
 
 import Spinner from '../../components/spinner/spinner_two'
-import logo_image from '../../assets/images/logo/logo.png'
+import logo_black from '../../assets/images/logo/logo-black.png'
+import logo_white from '../../assets/images/logo/logo-white.png'
 import img_user1 from '../../assets/images/resources/user-img.jpg'
 import img_user2 from '../../assets/images/resources/user-img2.jpg'
 import img_user3 from '../../assets/images/resources/user-img3.jpg'
@@ -120,7 +121,7 @@ function index() {
                     <div className='auth--left-top'>
                         {width <= 850 && (
                             <div className="auth--logo">
-                                <img src={logo_image} alt="" />
+                                <img src={logo_black} alt="quicka logo" />
                             </div>
                         )}
                         <a href='https://www.getquicka.com' className='auth--left-link'>
@@ -214,7 +215,7 @@ function index() {
 
                 <div className="auth--right">
                     <div className="auth--logo">
-                        <img src={logo_image} alt="" />
+                        <img src={logo_white} alt="quicka logo" />
                     </div>
                     <h3 className="auth--right-heading">Manage your business online like the boss that you are.</h3>
                     <p className='auth--right-text'>Take Control, Grow, Manage, market, and succeed with easy-to-use tools designed for entrepreneurs like you. Trusted by 100+ businesses</p>

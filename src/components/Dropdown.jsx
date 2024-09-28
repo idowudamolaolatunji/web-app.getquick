@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
 import Spinner from './spinner/spinner_two'
@@ -9,10 +9,12 @@ import { TbLogout2 } from 'react-icons/tb'
 import { MdOutlineDisplaySettings } from 'react-icons/md';
 import { useOutsideClick } from '../hooks/useOutsideClick';
 import { useAuthContext } from '../context/AuthContext';
+import CustomAlert from './CustomAlert';
 
 
 function Dropdown({ setIsShown }) {
     const [isLoading, setIsLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
     const ref = useOutsideClick(handleClose);
     const { signoutUser } = useAuthContext();
     
@@ -21,16 +23,19 @@ function Dropdown({ setIsShown }) {
     }
 
     function handleLogout() {
+        // LOGOUT LOGIC
         setIsLoading(true);
+        setIsSuccess(true);
         setTimeout(function() {
             signoutUser();
             setIsLoading(false);
-        }, 3000);
+        }, 2000);
     }
 
     return (
         <>
             {isLoading && <Spinner />}
+            {isSuccess && <CustomAlert type="success" message="Logout successful!" />}
             <div className={`dropdown`} ref={ref}>
                 <Link className='dropdown--item' to='/dashboard/profile'><CgProfile /> Profile</Link>
                 <div className='dropdown--item'><MdOutlineDisplaySettings /> Maintenance Status</div>

@@ -9,7 +9,7 @@ function index() {
             <div class="spinner_two" style={width > 850  ? { 
                 transform: 'translateY(12rem)'
             } : { 
-                transform: 'translateY(5.8rem)'
+                transform: 'translateY(5rem)'
             }}>
                 <div class="cube"><div class="cube__inner"></div></div>
                 <div class="cube"><div class="cube__inner"></div></div>

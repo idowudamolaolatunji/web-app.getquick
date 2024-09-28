@@ -163,7 +163,7 @@
     top: 7rem;
     right: 0rem;
     box-shadow: 0 0 20px #0000000d;
-    z-index: 1000;
+    z-index: 100;
 }
 
 .dropdown--item,

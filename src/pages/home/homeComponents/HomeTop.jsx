@@ -4,14 +4,11 @@ import { getExpression, getGreeting, todayDate } from '../../../utils/helper';
 import { TiStarburstOutline } from 'react-icons/ti';
 import { useWindowSize } from 'react-use';
 import { MdOutlineWorkspacePremium } from 'react-icons/md';
+import { useAuthContext } from '../../../context/AuthContext';
 
-
-const user = {
-    firstname: 'Idowu',
-    storeUrl: 'https://luxeware.quicka.store',
-};
 
 function HomeTop() {
+    const { user } = useAuthContext();
     const { width } = useWindowSize();
     
     return (

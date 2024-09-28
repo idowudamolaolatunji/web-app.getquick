@@ -138,5 +138,4 @@ export function validateForm(data, type) {
 	
 		return errors;
 	}
-
 };

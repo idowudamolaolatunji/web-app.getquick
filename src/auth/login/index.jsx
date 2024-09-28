@@ -38,8 +38,9 @@ function index() {
     });
 
     const navigate = useNavigate();
-    const { width } = useWindowSize();
-    const { user, token, handleChange } = useAuthContext();
+    const { width, height } = useWindowSize();
+    const { user, handleChange } = useAuthContext();
+    const smallHeight = width <= 600 && height <= 625;
 
     const handleFormChange = function (e) {
         const { name, value } = e.target;
@@ -55,18 +56,22 @@ function index() {
         });
     }
 
+    const handleResetResponse = function() {
+        setResponse({ status: '', message: '' });
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
         const newErrors = validateForm(formData, 'login');
         setFormErrors(newErrors);
-        console.log(newErrors, Object.keys(newErrors))
+
         if (Object.keys(newErrors).length >= 1) return;
 
         // NEXT, IMPLEMENT THE LOGIN REQUEST
         try {
             handleLoading('mainLoading', true);
 
-            const res = await fetch('http://localhost:3555/api/users/login', {
+            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/login`, {
                 method: 'POST',
                 headers: {
                     "Content-type": "application/json"
@@ -76,26 +81,33 @@ function index() {
             if (!res.ok) {
                 throw new Error("Something went wrong, Check internet connection");
 			}
+            
+            // RESET THE RESPONSE STATE HERE
+            handleResetResponse();
 
             const data = await res.json();
             if(data.status !== 'success') {
                 throw new Error(data.message);
             }
 
+            // UPDATE THE RESPONSE STATE WITH THE NEW VALUE
             setResponse({ status: data.status, message: data.message });
-            handleChange(data.data.user, data.token);
+            setTimeout(function() {
+                handleChange(data.data.user, data.token);
+            }, 2000);
         } catch (err) {
-            setResponse({ status: 'error', message: data.message })
+            console.log(err)
+            setResponse({ status: 'error', message: err.message })
         } finally {
             handleLoading('mainLoading', false);
         }
     }
 
     useEffect(function() {
-        if(user || token) {
-            navigate('/')
+        if (user) {
+            navigate("/");
         }
-    }, [user, token])
+    }, [user])
 
     return (
         <> 
@@ -119,13 +131,12 @@ function index() {
 
 
                     <div className="auth--left-container">
-                        <form className="auth--form" onSubmit={handleSubmit}>
+                        <form className="auth--form" onSubmit={handleSubmit} style={ smallHeight ? { margin: '8rem 0 3rem' } : {} }>
                             <div>
                                 <h2 className='form--heading'>Welcome Back!👋🏿</h2>
                                 {width <= 850 && (
                                     <div className='auth--extra-info'>
                                         <p className='auth--right-text'>Take Control, Grow, Manage, market, and succeed with easy-to-use tools designed for entrepreneurs like you. Trusted by 100+ businesses</p>
-
                                         <div className='auth--right-details'>
                                             <div className="auth--right-users">
                                                 <img src={img_user0} alt="" />
@@ -189,7 +200,7 @@ function index() {
                                     <label className='form--text' htmlFor="checkbox">Remember Me</label>
                                 </div>
 
-                                <Link to='/'>Forgot Password</Link>
+                                <Link to='/forgot-password'>Forgot Password</Link>
                             </div>
 
                             <button type="submit" className='form--submit'>Login</button>

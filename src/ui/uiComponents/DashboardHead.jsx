@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import logo_img from '../../assets/images/logo/logo.png'
 import { useDataContext } from '../../context/DataContext';
@@ -11,15 +11,15 @@ import { useWindowSize } from 'react-use';
 import Dropdown from '../../components/Dropdown';
 import { Link } from 'react-router-dom';
 import DefaultButton from '../../components/button/DefaultButton';
-import { VscLightbulbSparkle } from 'react-icons/vsc';
-import TooltipUI from '../../components/TooltipUI';
+import { useAuthContext } from '../../context/AuthContext';
+
 
 function DashboardHead() {
-
     const [isShownDropdown, setIsShownDropdown] = useState(false);
 
-    const { isMenuCollapsed, handleMenuCollapse, handleShowSidemenu } = useDataContext();
     const { width } = useWindowSize();
+    const { user } = useAuthContext();
+    const { isMenuCollapsed, handleMenuCollapse, handleShowSidemenu } = useDataContext();
 
     function handleShowDropdown() {
         setIsShownDropdown(true)
@@ -66,7 +66,7 @@ function DashboardHead() {
                                 <LuUser />
                             </div>
                             <div className='user--info'>
-                                <p className='user--name'>Idowu Olatunji</p>
+                                <p className='user--name'>{`${user.firstname} ${user.lastname}`}</p>
                                 <IoChevronDownSharp />
                             </div>
                         </div>

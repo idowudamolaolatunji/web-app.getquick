@@ -19,6 +19,7 @@
 }
 .heading--name {
     font-size: 2.4rem;
+    text-transform: capitalize;
 }
 .heading--date {
     font-size: 1.34rem;

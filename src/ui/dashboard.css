@@ -10,10 +10,15 @@
     --background-color-1: #f9fafc;
     /* --shadow: .4rem .6rem 1rem rgba(0, 0, 0, .15); */
 
-    --color-brand-50: #EEF1FF;
+    /* --color-brand-50: #EEF1FF;
     --color-brand-100: #ECF2FF;
     --color-brand-300: #BFACE2;
-    --color-brand-500: #655DBB;
+    --color-brand-500: #655DBB; */
+
+    --color-brand-50: #EEF1FF;
+    --color-brand-100: #ffe1d7;
+    --color-brand-300: #ffb59a;
+    --color-brand-500: #FF6B35;
 
 }
 /* ========================================== */

@@ -198,7 +198,7 @@ function index() {
                                     <div id="checkbox" className={isChecked ? 'is-selected' : ''}>
                                         {isChecked && <FaCheck />}
                                     </div>
-                                    <label className='form--text' htmlFor="checkbox">Remember Me</label>
+                                    <label className='form--text' htmlFor="checkbox">Remember Password</label>
                                 </div>
 
                                 <Link to='/forgot-password'>Forgot Password</Link>

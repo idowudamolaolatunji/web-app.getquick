@@ -9,7 +9,7 @@
 }
 
 .auth--right {
-    background-image: linear-gradient(rgba(0, 0, 0, .35), rgba(0, 0, 0, .35)), url('../assets/images/resources/alex-robinson-rrI02QQ9GSQ-unsplash.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url('../assets/images/resources/alex-robinson-rrI02QQ9GSQ-unsplash.jpg');
     background-repeat: no-repeat;
     background-size: 100%;
     border-radius: .6rem;
@@ -97,7 +97,7 @@
     font-weight: 500;
 }
 .form--input:hover, .form--input:focus {
-    border-color: var(--color-brand-500);
+    border-color: var(--color-brand-300);
     outline: none;
 }
 .form--flex {

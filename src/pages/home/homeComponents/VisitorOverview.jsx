@@ -5,7 +5,7 @@ const series = [
     {
         name: 'Total Sales',
         data: [ 56, 14, 40, null, null, null],
-        color: '#EB4747' || '#00DFA2'
+        color: '#FF6B35'
     },
 ];
 

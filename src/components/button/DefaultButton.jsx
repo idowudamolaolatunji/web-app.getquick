@@ -8,7 +8,7 @@ const ButtonStyled = styled(Button)(({ theme }) => ({
   width: 'fit-content',
   textTransform: 'inherit',
   '&:hover': {
-    backgroundColor: '#EEF1FF',
+    backgroundColor: '#fff0eb',
   }
 }));
 

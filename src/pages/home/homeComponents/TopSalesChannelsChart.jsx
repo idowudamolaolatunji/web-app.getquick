@@ -131,7 +131,7 @@ function TopSalesChannelsChart() {
                         series={[
                             {
                                 data,
-                                ...( width <= 500 && { arcLabel: (item) => item.value }),
+                                ...( width <= 500 && { arcLabel: (item) => `${item.value}` }),
                                 highlightScope: { fade: 'global', highlight: 'item' },
                                 donut: { innerRadius: 30 },
                                 faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },

@@ -67,7 +67,7 @@ export default function SelectAutoWidthDropdown({ menus }) {
           inputProps={{ 'aria-label': 'Without label' }}
         >
           {menus.map(menu => (
-            <MenuStyled value={`${menu.value}`}>{menu.title}</MenuStyled>
+            <MenuStyled key={menu.value} value={`${menu.value}`}>{menu.title}</MenuStyled>
           ))}
         </SelectStyled>
       </FormControl>

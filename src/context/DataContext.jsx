@@ -49,7 +49,6 @@ export const DataProvider = ({ children }) => {
     }
 
     useEffect(function() {
-        console.log(width);
         if(width <= 1100) {
             setIsMenuCollapsed(true);
         } else {

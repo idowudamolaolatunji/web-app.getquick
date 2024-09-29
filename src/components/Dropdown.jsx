@@ -22,6 +22,12 @@ function Dropdown({ setIsShown }) {
         setIsShown(false);
     }
 
+    function handleCloseByLink(e) {
+        if(e.target.closest('.dropdown--item').tagName === 'A') {
+            setIsShown(false);
+        };
+    }
+
     function handleLogout() {
         // LOGOUT LOGIC
         setIsLoading(true);
@@ -36,7 +42,9 @@ function Dropdown({ setIsShown }) {
         <>
             {isLoading && <Spinner />}
             {isSuccess && <CustomAlert type="success" message="Logout successful!" />}
-            <div className={`dropdown`} ref={ref}>
+
+
+            <div className={`dropdown`} ref={ref} onClick={handleCloseByLink}>
                 <Link className='dropdown--item' to='/dashboard/profile'>
                     <span className='item--user'>
                         {user.avatar ? (

@@ -97,9 +97,7 @@ function DashboardMenu() {
 
                         <div className='menu--block'>
                             <span className='hamburger--icon' onClick={handleShowSidemenu}>
-                                <DefaultButton>
-                                    <RiCloseFill />
-                                </DefaultButton>
+                                <RiCloseFill />
                             </span>
 
                             {(width < 600) && (

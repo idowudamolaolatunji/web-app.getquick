@@ -9,7 +9,7 @@ import logo_black from '../../assets/images/logo/logo-black.png'
 import logo_white from '../../assets/images/logo/logo-white.png'
 import '../auth.css'
 
-function AuthUi({ heading, backText, backLink, dataimg, centered=true, overflowLeft=false, children }) {
+function AuthsUI({ heading, backText, backLink, dataimg, centered=true, overflowLeft=false, children }) {
     const { width } = useWindowSize();
 
     const style = {
@@ -56,4 +56,4 @@ function AuthUi({ heading, backText, backLink, dataimg, centered=true, overflowL
     )
 }
 
-export default AuthUi;
+export default AuthsUI;

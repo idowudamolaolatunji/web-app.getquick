@@ -1,24 +1,22 @@
-// import React from 'react'
-// import AuthUi from '../authComponents/authUi';
+import React from 'react'
+import AuthsUI from '../authComponents/AuthsUI';
 
-// // import data_img from '../../assets/images/resources/micheal-ogungbe-pBR_6uEh6F0-unsplash.jpg'
-// // import data_img from '../../assets/images/resources/good-faces-lhMdsnK_KWk-unsplash.jpg'
+import data_img from '../../assets/images/resources/good-faces-lhMdsnK_KWk-unsplash.jpg'
 
+const headingText = "The Power to Manage, at Your Fingertips."
 
-// const headingText = "The Power to Manage, at Your Fingertips."
-
-// function index() {
-//   return (
-//     <>
+function index() {
+    return (
+        <>
 
 
-//         <AuthUi backText="Back to login" backLink="/login" heading={headingText}>
-//             <form>
+            <AuthsUI backText="Back to login" backLink="/login" heading={headingText} dataimg={data_img}>
+                <form>
 
-//             </form>
-//         </AuthUi>
-//     </>
-//   )
-// }
+                </form>
+            </AuthsUI>
+        </>
+    )
+}
 
-// export default index
+export default index

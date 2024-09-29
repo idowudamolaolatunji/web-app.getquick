@@ -1,27 +1,24 @@
 import React, { useState } from 'react'
-import AuthUi from '../authComponents/authUi';
-
-import data_img from '../../assets/images/resources/micheal-ogungbe-pBR_6uEh6F0-unsplash.jpg'
-import CustomAlert from '../../components/CustomAlert';
-import Spinner from '../../components/spinner/spinner_two'
-import AuthUserRating from '../authComponents/AuthUserRating';
-import { Link, useNavigate } from 'react-router-dom';
-import { useWindowSize } from 'react-use';
-import { FaCheck } from 'react-icons/fa';
-import { ImEye, ImEyeBlocked } from 'react-icons/im';
+import AuthsUI from '../authComponents/AuthsUI';
 
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
+import CustomAlert from '../../components/CustomAlert';
+import Spinner from '../../components/spinner/spinner_two'
+import AuthUserRating from '../authComponents/AuthUserRating';
 
+
+import { Link, useNavigate } from 'react-router-dom';
+import { useWindowSize } from 'react-use';
+import { FaCheck } from 'react-icons/fa';
+import { ImEye, ImEyeBlocked } from 'react-icons/im';
+import data_img from '../../assets/images/resources/micheal-ogungbe-pBR_6uEh6F0-unsplash.jpg'
 
 
 
 const headingText = "The Power to Manage Your Business, at Your Fingertips."
-const customStyle = {
-    gridTemplateColumns: '1.65fr 3fr'
-}
 
 function index() {
     const [showPassword, setShowPassword] = useState(false);
@@ -43,8 +40,6 @@ function index() {
         phone: '',
         password: '',
     });
-
-    const [value, setValue] = useState()
 
     const { width } = useWindowSize();
 
@@ -82,7 +77,6 @@ function index() {
     }
 
 
-
     return (
         <>
 
@@ -93,7 +87,7 @@ function index() {
             {isLoading.mainLoading && <Spinner />}
 
 
-            <AuthUi backText="Back to home" backLink="https://www.getquicka.com" dataimg={data_img} heading={headingText} centered={false} overflowLeft={true}>
+            <AuthsUI backText="Back to home" backLink="https://www.getquicka.com" dataimg={data_img} heading={headingText} centered={false} overflowLeft={true}>
                 <form className="auth--form" onSubmit={handleSubmit} style={{ padding: '8rem 0', width: '90%' }}>
                     <div>
                         <h2 className='form--heading'>Create an Account 🎉</h2>
@@ -213,7 +207,7 @@ function index() {
 
                     <div style={{ paddingBottom: '6rem'}} />
                 </form>
-            </AuthUi>
+            </AuthsUI>
         </>
     )
 }

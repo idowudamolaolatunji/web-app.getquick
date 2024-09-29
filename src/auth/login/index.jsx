@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
 import { validateForm } from '../../utils/helper';
 
-import AuthUi from '../authComponents/authUi';
+import AuthsUI from '../authComponents/AuthsUI';
 import CustomAlert from '../../components/CustomAlert';
 import Spinner from '../../components/spinner/spinner_two'
 import AuthUserRating from '../authComponents/AuthUserRating';
@@ -115,7 +115,7 @@ function index() {
 
             {isLoading.mainLoading && <Spinner /> }
             
-            <AuthUi backText="Back to home" backLink="https://www.getquicka.com" dataimg={data_img} heading={headingText}>
+            <AuthsUI backText="Back to home" backLink="https://www.getquicka.com" dataimg={data_img} heading={headingText}>
                 <form className="auth--form" onSubmit={handleSubmit} style={ smallHeight ? { margin: '8rem 0 3rem' } : {} }>
                     <div>
                         <h2 className='form--heading'>Welcome Back!👋🏿</h2>
@@ -180,7 +180,7 @@ function index() {
                     </div>
                 </form>
 
-            </AuthUi>
+            </AuthsUI>
         </>
     )
 }

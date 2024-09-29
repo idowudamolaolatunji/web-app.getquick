@@ -147,7 +147,7 @@ function RecentOrders() {
         <div className='card recent-section' style={{ padding: 0 }}>
             <div className="section--top" style={{ padding: '2rem' }}>
 
-                <div className="section--heading" >
+                <div className="section--heading">
                     <h2>Recent Order </h2>
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing.</p>
                 </div>

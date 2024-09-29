@@ -23,7 +23,8 @@ function TopSalesChannelsChart() {
     //             color: '#333',
     //         },
     //     },
-    //     colors: ['#00DFA2', '#F8CBA6', '#A7B4F5', '#EB4747', '#D2C5F7'],
+    //  // colors: ['#00DFA2', '#F8CBA6', '#A7B4F5', '#EB4747', '#D2C5F7'],
+    //     colors: ['#ff7a49', '#F8CBA6', '#A7B4F5', '#EB4747', '#444444']
     //     responsive: [
     //         {
     //             breakpoint: 600,
@@ -121,7 +122,7 @@ function TopSalesChannelsChart() {
             {/* {width > 800 ? ( */}
                 <div id="chart">
                     <PieChart
-                        colors={['#00DFA2', '#F8CBA6', '#A7B4F5', '#EB4747', '#D2C5F7']}
+                        colors={['#ff7a49', '#F8CBA6', '#A7B4F5', '#EB4747', '#444444']}
                         slotProps={{
                             legend: { 
                                 hidden: isCollapsedBtw1000and1100,

@@ -68,7 +68,8 @@
 }
 
 .prog-figure {
-    border: 1.4px solid var(--color-brand-300);
+    border: 1.4px solid var(--color-brand-100);
+    background-color: var(--color-brand-50);
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
@@ -84,7 +85,7 @@
     width: 3.6rem;
     height: 3.6rem;
     border-radius: 50%;
-    background-color: #eee;
+    background-color: #fff;
 
     display: flex;
     align-items: center;
@@ -92,7 +93,7 @@
 }
 .prog-figure-icon svg {
     font-size: 2.4rem;
-    color: #555;
+    color: var(--color-brand-500);
 }
 .prog-figure-title {
     font-size: 1.5rem;
@@ -585,6 +586,9 @@
     .grid--right,
     .insights--container {
         gap: 2rem;
+    }
+    .recent-section .section--heading {
+        width: 19rem;
     }
 }
 

@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import Alert from '@mui/material/Alert';
 import { AlertTitle, Snackbar } from '@mui/material';
+import { useWindowSize } from 'react-use';
 
 function CustomAlert({ type, message, duration=5000, style="filled" }) {
     const [open, setOpen] = useState(true);
-    // success, info, warning, error
+    const { width } = useWindowSize();
+    const mobile = width <= 450;
+    // severity = success, info, warning, error || variant = standard, outline, filled
+
+    const origin = {
+        vertical: mobile ? 'top' : 'bottom',
+        horizontal: 'left'
+    }
+    const variant = mobile ? 'standard' : 'filled'
+
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -15,11 +25,13 @@ function CustomAlert({ type, message, duration=5000, style="filled" }) {
     };
 
     return (
-        <Snackbar open={open} autoHideDuration={duration} onClose={handleClose}>
+        <Snackbar 
+            open={open} autoHideDuration={duration} onClose={handleClose} anchorOrigin={origin}
+        >
             <Alert
                 onClose={handleClose}
                 severity={type}
-                variant={style}
+                variant={variant}
                 sx={{ width: '100%', fontFamily: 'inherit', fontSize: '1.4rem', fontWeight: 500, display: 'flex', alignItems: 'center' }}
             >
                 {message}

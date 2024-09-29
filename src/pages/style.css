@@ -577,6 +577,9 @@
     .prog--grid {
         grid-template-columns: 1fr;
     }
+    .prog-figure {
+        background-color: #f9f9f9;
+    }
     .grid--left .card,
     .grid--right .card {
         padding: 2.2rem 1.8rem;

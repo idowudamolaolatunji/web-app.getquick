@@ -115,7 +115,7 @@ function index() {
 
             {isLoading.mainLoading && <Spinner /> }
             
-            <AuthsUI backText="Back to home" backLink="https://www.getquicka.com" dataimg={data_img} heading={headingText}>
+            <AuthsUI backText="Back to home" backLink="https://www.getquicka.com" dataimg={data_img} heading={headingText} extras={{marginBottom: '5.6rem'}}>
                 <form className="auth--form" onSubmit={handleSubmit} style={ smallHeight ? { margin: '8rem 0 3rem' } : {} }>
                     <div>
                         <h2 className='form--heading'>Welcome Back!👋🏿</h2>

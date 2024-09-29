@@ -8,8 +8,6 @@ const headingText = "The Power to Manage, at Your Fingertips."
 function index() {
     return (
         <>
-
-
             <AuthsUI backText="Back to login" backLink="/login" heading={headingText} dataimg={data_img}>
                 <form>
 

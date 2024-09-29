@@ -194,7 +194,7 @@ function index() {
                         <div id="checkbox" className={isChecked ? 'is-selected' : ''}>
                             {isChecked && <FaCheck />}
                         </div>
-                        <label className='form--text' htmlFor="checkbox">
+                        <label className='form--info' htmlFor="checkbox">
                             I agree to the <a href='#'>Terms of Use</a> and <a href='#'>Privacy Policy</a>
                         </label>
                     </div>

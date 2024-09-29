@@ -124,7 +124,7 @@
 .auth--left-link:hover,
 .form--flex a:hover,
 .form--info a:hover {
-    text-shadow: 0 0.4rem 4rem var(--color-brand-500);
+    text-shadow: var(--text-shadow) var(--color-brand-500);
 }
 
 .form--item-flex {

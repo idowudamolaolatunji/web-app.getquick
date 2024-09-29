@@ -32,7 +32,7 @@ function CustomAlert({ type, message, duration=5000, style="filled" }) {
                 onClose={handleClose}
                 severity={type}
                 variant={variant}
-                sx={{ width: '100%', fontFamily: 'inherit', fontSize: '1.4rem', fontWeight: 500, display: 'flex', alignItems: 'center' }}
+                sx={{ width: '100%', fontFamily: 'inherit', fontSize: '1.6rem', fontWeight: 600, display: 'flex', alignItems: 'center' }}
             >
                 {message}
             </Alert>

@@ -52,6 +52,8 @@ export const DataProvider = ({ children }) => {
         console.log(width);
         if(width <= 1100) {
             setIsMenuCollapsed(true);
+        } else {
+            setIsMenuCollapsed(false);
         }
     }, [width]);
 

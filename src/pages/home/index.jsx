@@ -8,7 +8,6 @@ import HomeLayoutGrid from './homeComponents/HomeLayoutGrid';
 import '../style.css';
 
 
-
 function index() {
     const { width } = useWindowSize();
 

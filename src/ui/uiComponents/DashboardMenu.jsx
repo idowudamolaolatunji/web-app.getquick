@@ -14,6 +14,7 @@ import { useWindowSize } from 'react-use';
 import Overlay from '../../components/Overlay';
 import MenuButton from './MenuButton';
 import { openWidget } from '../../utils/helper';
+import DefaultButton from '../../components/button/DefaultButton';
 
 
 function DashboardMenu() {
@@ -96,7 +97,9 @@ function DashboardMenu() {
 
                         <div className='menu--block'>
                             <span className='hamburger--icon' onClick={handleShowSidemenu}>
-                                <RiCloseFill />
+                                <DefaultButton>
+                                    <RiCloseFill />
+                                </DefaultButton>
                             </span>
 
                             {(width < 600) && (

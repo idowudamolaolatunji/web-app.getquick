@@ -112,10 +112,12 @@ function index() {
 
     return (
         <> 
-        {(response.message || response.status) && (
-            <CustomAlert type={response.status} message={response.message} />
-        )}
+            {(response.message || response.status) && (
+                <CustomAlert type={response.status} message={response.message} />
+            )}
+
             {isLoading.mainLoading && <Spinner /> }
+            
             <section className='auth__section'>
                 <div className="auth--left">
                     <div className='auth--left-top'>

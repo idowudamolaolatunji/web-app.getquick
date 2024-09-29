@@ -139,3 +139,10 @@ export function validateForm(data, type) {
 		return errors;
 	}
 };
+
+export function getInitials(fullName) {
+    const nameArray = fullName.split(' ');
+	const firstInitial = nameArray[0].charAt(0);
+	const secondInitial = nameArray[1].charAt(0);
+	return `${firstInitial}${secondInitial}`;
+}

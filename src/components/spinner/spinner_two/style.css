@@ -1,6 +1,6 @@
 .spinner_two {
 	--uib-size: 45px;
-	--uib-color: #655DBB;
+	--uib-color: var(--color-brand-700);
 	--uib-speed: 1.75s;
 	display: flex;
 	align-items: flex-end;

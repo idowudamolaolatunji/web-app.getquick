@@ -1,6 +1,6 @@
 .spinner_one {
 	--uib-size: 40px;
-	--uib-color: #655DBB;
+	--uib-color: var(--color-brand-700);
 	--uib-speed: 1.5s;
 	--dot-size: calc(var(--uib-size) * 0.17);
 	position: relative;

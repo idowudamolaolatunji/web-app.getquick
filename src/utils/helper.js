@@ -128,6 +128,8 @@ export function validateForm(data, type) {
 		if (!data.phone.trim()) {
 			console.log(data.phone);
 			errors.phone = "Phone number is required";
+		} else if(!["234", "233"].includes(data.phone.slice(0, 3))) {
+			errors.phone = "Quicka is only allowed in Nigeria and Ghana"
 		} else if (data.phone.length < 13) {
 			errors.phone = `Phone number must have 10 numbers after +${data.phone.slice(0, 3)}`;
 		}
@@ -163,18 +165,30 @@ export function getInitials(fullName) {
 	return `${firstInitial}${secondInitial}`;
 }
 
-export function countdownTimer(duration = 120, callback) {
-	let secondsLeft = duration;
-	const intervalId = setInterval(() => {
-		callback(
-			`${Math.floor(secondsLeft / 60)
-				.toString()
-				.padStart(2, "0")}:${(secondsLeft % 60).toString().padStart(2, "0")}`,
-		);
+
+let intervalId = null
+export function countdownTimer(duration=120, callback) {
+	if (intervalId) {
+		clearInterval(intervalId);
+	  }
+	
+	  let secondsLeft = duration;
+	  intervalId = setInterval(() => {
+		callback(`${Math.floor(secondsLeft / 60).toString().padStart(2, '0')}:${(secondsLeft % 60).toString().padStart(2, '0')}`);
 		secondsLeft--;
 		if (secondsLeft === 0) {
-			clearInterval(intervalId);
-			callback("00:00");
+		  clearInterval(intervalId);
+		  intervalId = null;
+		  callback("00:00");
 		}
-	}, 1000);
+	  }, 1000);
+	
+	  // Return a function to reset the timer
+	  return (newDuration) => {
+		clearInterval(intervalId);
+		intervalId = null;
+		countdownTimer(newDuration, callback);
+	  };
+	
+	
 }

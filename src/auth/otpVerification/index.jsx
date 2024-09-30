@@ -13,7 +13,8 @@ import data_img from '../../assets/images/resources/good-faces-lhMdsnK_KWk-unspl
 const headingText = "Take Control of Your Business, Anywhere, Anytime"
 
 function index() {
-    const [timeLeft, setTimeLeft] = useState('02:00');
+    const [timeLeft, setTimeLeft] = useState('00:00');
+    const [resent, setResent] = useState(false);
     const [formErrors, setFormErrors] = useState({});
     const [formData, setFormData] = useState({
         email: '',
@@ -25,10 +26,11 @@ function index() {
         status: '',
         message: ''
     })
+      
 
     const navigate = useNavigate();
-    // const otpUser = localStorage.getItem("otp-user") ? JSON.parse(localStorage.getItem("otp-user")) : null;
-    const otpUser = { email: 'dnjn', firstname: 'jbcdjncd'}
+    const { width } = useWindowSize();
+    const otpUser = localStorage.getItem("otp_user") ? JSON.parse(localStorage.getItem("otp_user")) : null;
 
     const handleResetResponse = function () {
         setResponse({ status: null, message: null });
@@ -41,23 +43,41 @@ function index() {
     useEffect(function() {
         if(!otpUser) navigate('/signup');
         else {
-            countdownTimer(120, setTimeLeft);
+            countdownTimer(113, setTimeLeft);
             setFormData({ ...formData, email: otpUser?.email})
         }
     }, []);
 
 
-    async function handleSubmit(e) {
-        e.preventDefault();
+    useEffect(function() {
+        if(resent) {
+            countdownTimer(118, setTimeLeft);
+        }
+    }, [resent])
+
+
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+          event.preventDefault();
+          event.returnValue = '';
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+          window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
+
+    async function handleSubmit() {
 
         const newErrors = validateForm(formData, 'verifyOtp');
         setFormErrors(newErrors);
 
         if (Object.keys(newErrors).length >= 1) return;
 
-        try {
-            setIsLoading(true);
+        setIsLoading(true);
 
+        try {
             const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/verify-otp`, {
                 method: 'PATCH',
                 headers: {
@@ -80,10 +100,14 @@ function index() {
 
             // UPDATE THE RESPONSE STATE WITH THE NEW VALUE
             setResponse({ status: data.status, message: data.message });
-            localStorage.removeItem("otp-user");
+            
+            const userId = data.data.user._id;
+            localStorage.setItem("user_id", userId);
+            
             setTimeout(function() {
+                localStorage.removeItem("otp_user");
                 navigate('/')
-            }, 1500);
+            }, 1000);
         } catch (err) {
             setResponse({ status: 'error', message: err.message })
         } finally {
@@ -93,9 +117,10 @@ function index() {
 
 
     async function handleResend() {
-        try {
-            setIsLoading(true);
+        setIsLoading(true);
+        setResent(false);
 
+        try {
             const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/request-otp`, {
                 method: 'PATCH',
                 headers: { "Content-type": "application/json" },
@@ -117,6 +142,7 @@ function index() {
 
             // UPDATE THE RESPONSE STATE WITH THE NEW VALUE
             setResponse({ status: data.status, message: data.message });
+            setResent(true)
 
         } catch (err) {
             setResponse({ status: 'error', message: err.message })
@@ -136,13 +162,17 @@ function index() {
 
 
             <AuthsUI backText="Back to signup" backLink="/signup" dataimg={data_img} heading={headingText} extras={{ marginBottom: '5.6rem' }}>
-                <form className="auth--form" onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
+                <form className="auth--form" onSubmit={(e) => e.preventDefault()} style={{ textAlign: 'center', width: '90%', ...(width > 850 && { marginTop: '-6rem' }) }}>
                     <div>
                         <HiFingerPrint style={{ fontSize: '3.4rem', marginBottom: '2rem' }} />
 
-                        <h2 className='form--heading' style={{ fontSize: '2.8rem' }}>Welcome Back! {otpUser?.firstname}</h2>
+                        <h2 className='form--heading'>Welcome Back! {otpUser?.name}</h2>
 
-                        <p className='form--info'>We sent a 4-digit code to <span style={{ fontWeight: '700' }}>{otpUser?.email}</span> <br />and it expires in <span style={{ fontWeight: '700', color: '#ff7a49' }}>{timeLeft} mins</span></p>
+                        {otpUser?.message && (
+                            <h4 style={{ margin: "-.8rem 0 1.2rem"}}>Verify your email first..</h4>
+                        )}
+
+                        <p className='form--info'>We {resent ? 're-' : ''}sent a 4-digit code to <span style={{ fontWeight: '700' }}>{otpUser?.email}</span> <br />and it expires in <span style={{ fontWeight: '700', color: '#ff7a49' }}>{timeLeft} mins</span></p>
                     </div>
 
                     <div className="form--item otp--item">
@@ -159,7 +189,7 @@ function index() {
                         </span>
                     </div>
 
-                    <button type="submit" className='form--submit'>Continue</button>
+                    <button onClick={handleSubmit} type='button' className='form--submit'>Continue</button>
 
                     <div className="form--info">
                         <p>Didn't Recieve an OTP or OTP Expired? <button onClick={handleResend}>Resend!</button></p>

@@ -84,6 +84,13 @@ function index() {
 
             const data = await res.json();
             if(data.status !== 'success') {
+                if(data.message === "Account not verified!") {
+                    localStorage.setItem("otp_user", JSON.stringify({ ...data.data.user, message: "not_verified" }));
+
+                    setTimeout(function() {
+                        navigate('/verify-otp');
+                    }, 1000)
+                }
                 throw new Error(data.message);
             }
 

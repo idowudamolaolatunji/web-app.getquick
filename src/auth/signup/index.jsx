@@ -36,6 +36,10 @@ function index() {
         lastname: '',
         email: '',
         phone: '',
+        phoneNumber: '',
+        dialCode: '',
+        countryCode: '',
+        country: '',
         password: '',
         passwordConfirm: ''
     });
@@ -43,12 +47,15 @@ function index() {
     const { width } = useWindowSize();
     const navigate = useNavigate();
 
-    const handleFormChange = function (e, ex) {
-        if (!e && ex) {
-            setFormData({ ...formData, phone: ex });
+    const handleFormChange = function (e, val, opts) {
+        console.log(e, val, opts)
+        if (!e && (val || opts)) {
+            let num = val?.slice(0, 4).includes("0") ? opts?.dialCode + val?.slice(4) : val;
+            console.log(num)
+            setFormData({ ...formData, phone: num, phoneNumber: val?.slice(3), dialCode: opts?.dialCode, countryCode: opts?.countryCode, country: opts?.name });
             return;
         }
-        const { name, value } = e.target;
+        const { name, value } = e?.target;
         setFormData({
             ...formData,
             [name]: value,
@@ -66,9 +73,9 @@ function index() {
     }
 
 
-    const storeInUserInStorage = function(data) {
-        const otpUser = { email: formData.email, firstname: formData.firstname }
-        localStorage.setItem("otp-user", JSON.stringify(otpUser));
+    const storeInUserInStorage = function() {
+        const otpUser = { email: formData.email, name: formData.firstname }
+        localStorage.setItem("otp_user", JSON.stringify(otpUser));
     }
 
     // remove in a later version
@@ -84,9 +91,6 @@ function index() {
         setFormErrors(newErrors);
 
         if (Object.keys(newErrors).length >= 1) return;
-
-        // SAVE USER NEEDED INFO IN LOCALSTORAGE
-        storeInUserInStorage();
         
 
         // NEXT, IMPLEMENT THE LOGIN REQUEST
@@ -113,11 +117,14 @@ function index() {
                 throw new Error(data.message);
             }
 
+            // SAVE USER NEEDED INFO IN LOCALSTORAGE
+            storeInUserInStorage();
+
             // UPDATE THE RESPONSE STATE WITH THE NEW VALUE
             setResponse({ status: data.status, message: data.message });
             setTimeout(function () {
                 navigate('/verify-otp');
-            }, 1500);
+            }, 1000);
         } catch (err) {
             setResponse({ status: 'error', message: err.message })
         } finally {
@@ -137,7 +144,7 @@ function index() {
 
             <AuthsUI backText="Back to home" backLink="https://www.getquicka.com" dataimg={data_img} heading={headingText} centered={false} overflowLeft={true}>
 
-                <form className="auth--form" onSubmit={handleSubmit} style={{ margin: '8rem 0', width: '90%' }}>
+                <form className="auth--form" onSubmit={handleSubmit} style={{ margin: '8rem 0 4rem', width: '90%' }}>
                     <div>
                         <h2 className='form--heading' style={width > 850 ? { color: '#ff7a49' } : { color: 'inherit' }}>Create Account 🎉</h2>
                         {width <= 850 && (
@@ -201,13 +208,14 @@ function index() {
 
                         <PhoneInput
                             country={'ng'}
+                            defaultErrorMessage="Only Nigeria and Ghana"
                             value={formData.phone}
                             inputProps={{ name: 'phone', id: 'phone' }}
-                            onChange={phone => handleFormChange(null, phone)}
+                            onChange={(phone, country) => handleFormChange(null, phone, country)}
                             inputClass='phone-input'
                             onlyCountries={['gh', 'ng']}
                             buttonStyle={{ backgroundColor: 'transparent', border: 'none', paddingLeft: '.4rem', height: '4rem', margin: '.2rem 0' }}
-                            countryCodeEditable={false}
+                            countryCodeEditable={true}
                             dropdownStyle={{ top: '100%', marginTop: 0, borderRadius: '.4rem', padding: '.2rem' }}
                         />
 

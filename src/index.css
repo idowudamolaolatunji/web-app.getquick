@@ -23,7 +23,6 @@ body {
 	font-weight: 400;
 	color: #444;
     width: 100%;
-	transition: all .2s ease-in;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -62,6 +61,10 @@ h5,
 h6 {
 	overflow-wrap: break-word;
 	hyphens: auto;
+}
+
+input[type="file"] {
+    display: none;
 }
 
 img {

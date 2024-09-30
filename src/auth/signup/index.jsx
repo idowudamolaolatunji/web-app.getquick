@@ -14,6 +14,7 @@ import { useWindowSize } from 'react-use';
 import { FaCheck } from 'react-icons/fa';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import data_img from '../../assets/images/resources/micheal-ogungbe-pBR_6uEh6F0-unsplash.jpg'
+import Asterisk from '../../components/Asterisk';
 
 
 const headingText = "The Power to Manage Your Business, at Your Fingertips."
@@ -75,7 +76,7 @@ function index() {
 
     const storeInUserInStorage = function() {
         const otpUser = { email: formData.email, name: formData.firstname }
-        localStorage.setItem("otp_user", JSON.stringify(otpUser));
+        localStorage.setItem("q_otp_user", JSON.stringify(otpUser));
     }
 
     // remove in a later version
@@ -156,7 +157,7 @@ function index() {
                     </div>
 
                     <div className="form--item">
-                        <label className='form--label' htmlFor="email">Email Adress</label>
+                        <label className='form--label' htmlFor="email">Business Email <Asterisk /></label>
                         <input
                             type="text"
                             id="email" name='email'
@@ -173,7 +174,7 @@ function index() {
 
                     <div className="form--grid">
                         <div className="form--item">
-                            <label className='form--label' htmlFor="firstname">First Name</label>
+                            <label className='form--label' htmlFor="firstname">First Name <Asterisk /></label>
                             <input
                                 type="text"
                                 id="firstname" name='firstname'
@@ -187,7 +188,7 @@ function index() {
                             </span>
                         </div>
                         <div className="form--item">
-                            <label className='form--label' htmlFor="email">Last Name</label>
+                            <label className='form--label' htmlFor="email">Last Name <Asterisk /></label>
                             <input
                                 type="text"
                                 id="lastname" name='lastname'
@@ -204,7 +205,7 @@ function index() {
 
 
                     <div className="form--item">
-                        <label className='form--label' htmlFor="phone">Phone Number</label>
+                        <label className='form--label' htmlFor="phone">Phone Number <Asterisk /></label>
 
                         <PhoneInput
                             country={'ng'}
@@ -226,7 +227,7 @@ function index() {
 
 
                     <div className="form--item">
-                        <label className='form--label' htmlFor="password">Password</label>
+                        <label className='form--label' htmlFor="password">Password <Asterisk /></label>
                         <div className="form--input-box">
                             <input
                                 type={showPassword ? "text" : "password"}

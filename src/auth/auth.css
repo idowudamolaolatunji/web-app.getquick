@@ -83,6 +83,17 @@
     position: relative;
     width: 100%;
 }
+.url--box {
+    position: absolute;
+    padding: 1.2rem;
+    top: 0;
+    right: 0;
+    background-color: #eee;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-radius: .4rem;
+    transform: translateX(-3%) translateY(7.25%);
+}
 .form--input-icon {
     position: absolute;
     top: 50%;
@@ -94,7 +105,7 @@
     font-size: 1.6rem;
     color: #555;
 }
-.form--input {
+.form--input, .form--select {
     padding: 1.2rem;
     width: 100%;
     border: 1.4px solid #eee ;
@@ -107,7 +118,8 @@
 }
 .form--input:hover, .form--input:focus,
 .otp--item input:hover, .otp--item input:focus-visible,
-.otp--item input:active {
+.otp--item input:active, .form--select:hover, .form--select:focus,
+.form--input-box:hover .form--input {
     border-color: var(--color-brand-300) !important;
     outline: none;
 }
@@ -311,6 +323,128 @@
 
 
 
+
+
+
+
+
+/* ========================================= */
+/* ONBOARDING */
+/* ========================================= */
+
+.onboarding--section {
+    background-color: #fff;
+    height: 100vh;
+    overflow-y: auto !important;
+}
+.onboarding--container {
+    max-width: 70rem;
+    padding: 8rem 2.4rem;
+    margin: 0 auto;
+}
+.onboarding--top {
+    margin-bottom: 5.2rem;
+}
+.onboarding--numbering {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: .7rem;
+    opacity: .5;
+}
+.onboarding--subtitle {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #555;
+}
+.onboarding--actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2.6rem;
+    width: 100%;
+}
+.onboarding--actions button {
+    padding: 1rem 1.8rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #fff;
+    border-radius: .4rem;
+    transition: all .35s;
+}
+button.onboard--prev {
+    background-color: #333;
+}
+button.onboard--next {
+    background-color: var(--color-brand-500);
+}
+.onboarding--actions button:hover {
+    opacity: .8;
+}
+.form--upload-btn {
+    background-color: #444;
+    color: white;
+    padding: 1rem 1.8rem;
+    font-size: 1rem;
+    border-radius: .4rem;
+    transition: all 0.25s ease;
+    outline: none;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 500;
+    font-size: 1.4rem;
+    border: none;
+}
+.form--element {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.form--element span {
+    width: 14rem;
+    height: 7.4rem;
+    overflow: hidden;
+    height: auto;
+    padding: .4rem;
+    border-radius: .4rem;
+    border: 1.4px solid #eee;
+    background-color: rgba(0, 0, 0, 0.15);
+	-webkit-backdrop-filter: blur(2px);
+	backdrop-filter: blur(2px);
+}
+.form--element span img {
+    width: 100%;
+    object-fit: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================================= */
+
+
+
+
+
+
+
+
+
+
+
 @media screen and (max-width: 1090px) {
     .auth--form {
         width: 100% !important;
@@ -339,6 +473,10 @@
     }
     .form--submit:hover {
         background-color: var(--color-brand-500);
+    }
+
+    .onboarding--section {
+        height: auto !important;
     }
 }
 

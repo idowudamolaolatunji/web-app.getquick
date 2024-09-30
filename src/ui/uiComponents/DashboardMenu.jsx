@@ -102,7 +102,7 @@ function DashboardMenu() {
 
                             {(width < 600) && (
                                 <>
-                                    <a href="https://www.luxeware.quicka.shop" target='_blank' className='store--btn'>
+                                    <a href="https://www.luxeware.quicka.store" target='_blank' className='store--btn'>
                                         View Store <MdOutlineStorefront />
                                     </a>
 

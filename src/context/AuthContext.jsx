@@ -12,8 +12,8 @@ export default AuthContext;
 //// CREATING PROVIDER ////
 //////////////////////////////////////////////
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(Cookies.get('quicka_user') ? JSON.parse(Cookies.get('quicka_user')) : null);
-    const [token, setToken] = useState(Cookies.get('quicka_token') ? Cookies.get('quicka_token') : null);
+    const [user, setUser] = useState(Cookies.get('q_user_obj') ? JSON.parse(Cookies.get('q_user_obj')) : null);
+    const [token, setToken] = useState(Cookies.get('q_user_jwt_token') ? Cookies.get('q_user_jwt_token') : null);
 
     function handleChange(user, token ) {
 		setUser(user);
@@ -37,8 +37,8 @@ export const AuthProvider = ({ children }) => {
 
 
     useEffect(function() {
-        Cookies.set("quicka_user", JSON.stringify(user), { expires: 365 });
-		Cookies.set("quicka_token", token, { expires: 365 });
+        Cookies.set("q_user_obj", JSON.stringify(user), { expires: 365 });
+		Cookies.set("q_user_jwt_token", token, { expires: 365 });
     }, [user, token])
 
  // CREATE CONTEXT DATA

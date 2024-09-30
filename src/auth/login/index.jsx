@@ -12,6 +12,7 @@ import data_img from '../../assets/images/resources/alex-robinson-rrI02QQ9GSQ-un
 
 import { FaCheck } from 'react-icons/fa';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
+import Asterisk from '../../components/Asterisk';
 
 
 const headingText = "Manage your business online like the boss that you are."
@@ -85,7 +86,7 @@ function index() {
             const data = await res.json();
             if(data.status !== 'success') {
                 if(data.message === "Account not verified!") {
-                    localStorage.setItem("otp_user", JSON.stringify({ ...data.data.user, message: "not_verified" }));
+                    localStorage.setItem("q_otp_user", JSON.stringify({ ...data.data.user, message: "not_verified" }));
 
                     setTimeout(function() {
                         navigate('/verify-otp');
@@ -142,7 +143,7 @@ function index() {
                         )}
                     </div>
                     <div className="form--item">
-                        <label className='form--label' htmlFor="email">Email Adress</label>
+                        <label className='form--label' htmlFor="email">Email Adress <Asterisk /></label>
                         <input
                             type="text"
                             id="email" name='email'
@@ -157,7 +158,7 @@ function index() {
                     </div>
 
                     <div className="form--item">
-                        <label className='form--label' htmlFor="password">Password</label>
+                        <label className='form--label' htmlFor="password">Password <Asterisk /></label>
                         <div className="form--input-box">
                             <input
                                 type={showPassword ? "text" : "password"}

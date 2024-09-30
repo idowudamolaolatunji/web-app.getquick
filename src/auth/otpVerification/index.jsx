@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import OtpInput from 'react-otp-input';
 import { useWindowSize } from 'react-use';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AuthsUI from '../authComponents/AuthsUI';
 import CustomAlert from '../../components/CustomAlert';
 import Spinner from '../../components/spinner/spinner_two'
@@ -30,7 +30,7 @@ function index() {
 
     const navigate = useNavigate();
     const { width } = useWindowSize();
-    const otpUser = localStorage.getItem("otp_user") ? JSON.parse(localStorage.getItem("otp_user")) : null;
+    const otpUser = localStorage.getItem("q_otp_user") ? JSON.parse(localStorage.getItem("q_otp_user")) : null;
 
     const handleResetResponse = function () {
         setResponse({ status: null, message: null });
@@ -56,20 +56,15 @@ function index() {
     }, [resent])
 
 
-    useEffect(() => {
-        const handleBeforeUnload = (event) => {
-          event.preventDefault();
-          event.returnValue = '';
+    // COME BACK AND REMODIFY THIS
+    if (window.location.pathname === '/verify-otp') {
+        window.onbeforeunload = function() {
+          return "Are you sure you want to leave this page?";
         };
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => {
-          window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, []);
+    }      
 
 
     async function handleSubmit() {
-
         const newErrors = validateForm(formData, 'verifyOtp');
         setFormErrors(newErrors);
 
@@ -102,11 +97,11 @@ function index() {
             setResponse({ status: data.status, message: data.message });
             
             const userId = data.data.user._id;
-            localStorage.setItem("user_id", userId);
+            localStorage.setItem("q_user_id", userId);
             
             setTimeout(function() {
-                localStorage.removeItem("otp_user");
-                navigate('/')
+                localStorage.removeItem("q_otp_user");
+                navigate('/onboarding')
             }, 1000);
         } catch (err) {
             setResponse({ status: 'error', message: err.message })

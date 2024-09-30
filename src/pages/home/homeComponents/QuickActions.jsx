@@ -9,9 +9,9 @@ import { useNavigate } from 'react-router-dom'
 function QuickButton({ icon, text, action }) {
     return (
         <DefaultButton customStyle={{ width: '100%', padding: 0 }}>
-            <div onClick={action}>
+            <button onClick={action}>
                 {icon} {text}
-            </div>
+            </button>
         </DefaultButton>
     );
 }

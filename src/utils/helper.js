@@ -1,8 +1,9 @@
 import moment from "moment";
 
-
 export function formatNumber(amount) {
-	return Number(amount).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	return Number(amount)
+		.toFixed(0)
+		.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 export function todayDate() {
@@ -30,15 +31,12 @@ export function getExpression() {
 	}
 }
 
-
-
 export function openWidget() {
-	FreshworksWidget('open');
+	FreshworksWidget("open");
 }
 export function closeWidget() {
-	FreshworksWidget('close');
+	FreshworksWidget("close");
 }
-
 
 export function formatDate(givenDate) {
 	const currentDate = moment().startOf("day");
@@ -56,7 +54,7 @@ export function formatDate(givenDate) {
 	if (diffInMins < 60) {
 		return `${diffInMins} mins. ago`;
 	}
-	
+
 	if (inputDate.isSame(currentDate, "day")) {
 		return `Today, ${inputDate.format("h:mm A")}`;
 	} else if (inputDate.isSame(currentDate.clone().subtract(1, "day"), "day")) {
@@ -66,83 +64,117 @@ export function formatDate(givenDate) {
 	} else {
 		const diffInDays = moment().diff(inputDate, "days");
 		if (diffInDays < 7) {
-		  return `Last ${inputDate.format("dddd")}, at ${inputDate.format("h:mm A")}`;
+			return `Last ${inputDate.format("dddd")}, at ${inputDate.format("h:mm A")}`;
 		} else if (diffInDays < 14) {
-		  return `Last week, ${inputDate.format("dddd")}, at ${inputDate.format("h:mm A")}`;
+			return `Last week, ${inputDate.format("dddd")}, at ${inputDate.format("h:mm A")}`;
 		} else if (diffInDays < 21) {
-		  return `2 weeks ago, ${inputDate.format("dddd")}, at ${inputDate.format("h:mm A")}`;
+			return `2 weeks ago, ${inputDate.format("dddd")}, at ${inputDate.format("h:mm A")}`;
 		} else if (diffInDays < 30) {
-		  return `3 weeks ago, ${inputDate.format("dddd")}, at ${inputDate.format("h:mm A")}`;
+			return `3 weeks ago, ${inputDate.format("dddd")}, at ${inputDate.format("h:mm A")}`;
 		} else {
-		  const diffInMonths = moment().diff(inputDate, "months");
-		  if (diffInMonths < 12) {
-			return `${diffInMonths} month${diffInMonths > 1 ? 's' : ''} ago`;
-		  } else {
-			const day = inputDate.date();
-			const suffix = day === 1 || day === 21 || day === 31 ? 'st' : day === 2 || day === 22 ? 'nd' : day === 3 || day === 23 ? 'rd' : 'th';
-			return `on ${inputDate.format("MMM Do") + suffix + ', ' + inputDate.format("YYYY")}`;
-		  }
+			const diffInMonths = moment().diff(inputDate, "months");
+			if (diffInMonths < 12) {
+				return `${diffInMonths} month${diffInMonths > 1 ? "s" : ""} ago`;
+			} else {
+				const day = inputDate.date();
+				const suffix = day === 1 || day === 21 || day === 31 ? "st" : day === 2 || day === 22 ? "nd" : day === 3 || day === 23 ? "rd" : "th";
+				return `on ${inputDate.format("MMM Do") + suffix + ", " + inputDate.format("YYYY")}`;
+			}
 		}
-	  }
-	
-	
+	}
 }
-
 
 export function capitalizeFirstLetter(string) {
-    return string.slice(0, 1).toUpperCase() + string.slice(1);
+	return string.slice(0, 1).toUpperCase() + string.slice(1);
 }
 
-
 export function validateForm(data, type) {
-    const errors = {};
+	const errors = {};
 
-	if(type === 'login' ) {
+	if (type === "login") {
 		if (!data.email.trim()) {
-			errors.email = 'Email is required';
+			errors.email = "Email is required";
 		} else if (!/\S+@\S+\.\S+/.test(data.email)) {
-			errors.email = 'Email is invalid';
+			errors.email = "Email is invalid";
 		}
-	
+
 		if (!data.password) {
-			errors.password = 'Password is required';
+			errors.password = "Password is required";
 		} else if (data.password.length < 8) {
-			errors.password = 'Password must be at least 8 characters long';
+			errors.password = "Password must be at least 8 characters long";
 		}
 
 		return errors;
 	}
 
-	if(type === 'signup') {
-		if (!data.username.trim()) {
-			errors.username = 'Username is required';
-		} else if (data.username.length < 4) {
-			errors.username = 'Username must be at least 4 characters long';
+	if (type === "signup") {
+		if (!data.firstname.trim()) {
+			errors.firstname = "Firstname is required";
+		} else if (data.firstname.length < 3) {
+			errors.firstname = "Firstname must be at least 3 characters long";
+		}
+		if (!data.lastname.trim()) {
+			errors.lastname = "Lastname is required";
+		} else if (data.lastname.length < 3) {
+			errors.lastname = "Lastname must be at least 3 characters long";
 		}
 
 		if (!data.email.trim()) {
-			errors.email = 'Email is required';
+			errors.email = "Email is required";
 		} else if (!/\S+@\S+\.\S+/.test(data.email)) {
-			errors.email = 'Email is invalid';
+			errors.email = "Email is invalid";
 		}
-	
+
+		if (!data.phone.trim()) {
+			console.log(data.phone);
+			errors.phone = "Phone number is required";
+		} else if (data.phone.length < 13) {
+			errors.phone = `Phone number must have 10 numbers after +${data.phone.slice(0, 3)}`;
+		}
+
 		if (!data.password) {
-			errors.password = 'Password is required';
+			errors.password = "Password is required";
 		} else if (data.password.length < 8) {
-			errors.password = 'Password must be at least 8 characters long';
+			errors.password = "Password must be at least 8 characters long";
 		}
-	
-		if (data.confirmPassword !== data.password) {
-			errors.confirmPassword = 'Passwords do not match';
-		}
-	
+
+		// if (data.confirmPassword !== data.password) {
+		// 	errors.confirmPassword = "Passwords do not match";
+		// }
+
 		return errors;
 	}
-};
+
+	if(type === "verifyOtp") {
+		if (!data?.otp.trim()) {
+			errors.otp = "OTP code is required";
+		} else if (data.otp.length < 4) {
+			errors.otp = "OTP must be be 4 character long";
+		}
+
+		return errors;
+	}
+}
 
 export function getInitials(fullName) {
-    const nameArray = fullName.split(' ');
+	const nameArray = fullName.split(" ");
 	const firstInitial = nameArray[0].charAt(0);
 	const secondInitial = nameArray[1].charAt(0);
 	return `${firstInitial}${secondInitial}`;
+}
+
+export function countdownTimer(duration = 120, callback) {
+	let secondsLeft = duration;
+	const intervalId = setInterval(() => {
+		callback(
+			`${Math.floor(secondsLeft / 60)
+				.toString()
+				.padStart(2, "0")}:${(secondsLeft % 60).toString().padStart(2, "0")}`,
+		);
+		secondsLeft--;
+		if (secondsLeft === 0) {
+			clearInterval(intervalId);
+			callback("00:00");
+		}
+	}, 1000);
 }

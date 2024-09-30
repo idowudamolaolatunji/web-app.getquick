@@ -1,21 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AuthsUI from '../authComponents/AuthsUI';
-
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import { Link, useNavigate } from 'react-router-dom';
 
 import CustomAlert from '../../components/CustomAlert';
 import Spinner from '../../components/spinner/spinner_two'
 import AuthUserRating from '../authComponents/AuthUserRating';
+import { validateForm } from '../../utils/helper';
 
-
-import { Link, useNavigate } from 'react-router-dom';
 import { useWindowSize } from 'react-use';
 import { FaCheck } from 'react-icons/fa';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import data_img from '../../assets/images/resources/micheal-ogungbe-pBR_6uEh6F0-unsplash.jpg'
-
 
 
 const headingText = "The Power to Manage Your Business, at Your Fingertips."
@@ -39,12 +37,14 @@ function index() {
         email: '',
         phone: '',
         password: '',
+        passwordConfirm: ''
     });
-
+    
     const { width } = useWindowSize();
+    const navigate = useNavigate();
 
     const handleFormChange = function (e, ex) {
-        if(!e && ex) {
+        if (!e && ex) {
             setFormData({ ...formData, phone: ex });
             return;
         }
@@ -65,14 +65,63 @@ function index() {
         setResponse({ status: '', message: '' });
     }
 
+
+    const storeInUserInStorage = function(data) {
+        const otpUser = { email: formData.email, firstname: formData.firstname }
+        localStorage.setItem("otp-user", JSON.stringify(otpUser));
+    }
+
+    // remove in a later version
+    useEffect(function () {
+        setFormData(prev => ({ ...prev, passwordConfirm: prev.password }));
+    }, [formData.password]);
+
+
     async function handleSubmit(e) {
+        e.preventDefault();
 
+        const newErrors = validateForm(formData, 'signup');
+        setFormErrors(newErrors);
+
+        if (Object.keys(newErrors).length >= 1) return;
+
+        // SAVE USER NEEDED INFO IN LOCALSTORAGE
+        storeInUserInStorage();
+        
+
+        // NEXT, IMPLEMENT THE LOGIN REQUEST
         try {
+        if(!isChecked) throw new Error("Accept terms and conditions");
+            handleLoading('mainLoading', true);
 
+            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/signup`, {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({ ...formData })
+            });
+            if (!res.ok) {
+                throw new Error("Something went wrong, Check internet connection");
+            }
+
+            // RESET THE RESPONSE STATE HERE
+            handleResetResponse();
+
+            const data = await res.json();
+            if (data.status !== 'success') {
+                throw new Error(data.message);
+            }
+
+            // UPDATE THE RESPONSE STATE WITH THE NEW VALUE
+            setResponse({ status: data.status, message: data.message });
+            setTimeout(function () {
+                navigate('/verify-otp');
+            }, 1500);
         } catch (err) {
-
+            setResponse({ status: 'error', message: err.message })
         } finally {
-
+            handleLoading('mainLoading', false);
         }
     }
 
@@ -86,11 +135,11 @@ function index() {
 
             {isLoading.mainLoading && <Spinner />}
 
-
             <AuthsUI backText="Back to home" backLink="https://www.getquicka.com" dataimg={data_img} heading={headingText} centered={false} overflowLeft={true}>
+
                 <form className="auth--form" onSubmit={handleSubmit} style={{ padding: '8rem 0', width: '90%' }}>
                     <div>
-                        <h2 className='form--heading'>Create an Account 🎉</h2>
+                        <h2 className='form--heading' style={width > 850 ? { color: '#ff7a49' } : { color: 'inherit' }}>Create Account 🎉</h2>
                         {width <= 850 && (
                             <div className='auth--extra-info'>
                                 <p className='auth--right-text'>Simplify, Automate, Dominate: Business Made Easy with easy-to-use tools designed for entrepreneurs like you. Trusted by 100+ businesses</p>
@@ -190,13 +239,13 @@ function index() {
                     </div>
 
 
-                    <div className="form--item-flex" onClick={() => setIsChecked(!isChecked)}>
-                        <div id="checkbox" className={isChecked ? 'is-selected' : ''}>
+                    <div className="form--item-flex">
+                        <div id="checkbox" className={isChecked ? 'is-selected' : ''} onClick={() => setIsChecked(!isChecked)}>
                             {isChecked && <FaCheck />}
                         </div>
-                        <label className='form--info' htmlFor="checkbox">
+                        <p className='form--info'>
                             I agree to the <a href='#'>Terms of Use</a> and <a href='#'>Privacy Policy</a>
-                        </label>
+                        </p>
                     </div>
 
                     <button type="submit" className='form--submit'>Continue</button>
@@ -205,8 +254,9 @@ function index() {
                         <p>Already have an account? <Link to='/login'>Sign in</Link></p>
                     </div>
 
-                    <div style={{ paddingBottom: '6rem'}} />
+                    <div style={{ paddingBottom: '6rem' }} />
                 </form>
+
             </AuthsUI>
         </>
     )

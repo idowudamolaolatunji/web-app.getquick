@@ -12,6 +12,7 @@ import ProtectedRoute from './utils/ProtectedRoute';
 import Login from './auth/login';
 import Signup from './auth/signup';
 import ForgotPassword from './auth/forgotPassword';
+import VerifyOtp from './auth/otpVerification';
 import Error from './pages/error';
 
 // const DashboardHome = lazy(() => import('./pages/home'));
@@ -58,6 +59,7 @@ function App() {
                     <Route path='/login' element={<Login />}></Route>
                     <Route path='/signup' element={<Signup />}></Route>
                     <Route path='/forgot-password' element={<ForgotPassword />}></Route>
+                    <Route path='/verify-otp' element={<VerifyOtp />}></Route>
                     <Route path="*" element={<Error />} />
 
                     <Route element={<ProtectedRoute />}>

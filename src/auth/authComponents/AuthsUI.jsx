@@ -9,7 +9,7 @@ import logo_black from '../../assets/images/logo/logo-black.png'
 import logo_white from '../../assets/images/logo/logo-white.png'
 import '../auth.css'
 
-function AuthsUI({ heading, backText, backLink, dataimg, centered = true, overflowLeft = false, children, extras }) {
+function AuthsUI({ heading, backText, backLink, dataimg, centered= true, overflowLeft= false, children, extras }) {
     const { width } = useWindowSize();
 
     const style = {

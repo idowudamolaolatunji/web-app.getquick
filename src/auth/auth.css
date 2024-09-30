@@ -348,6 +348,19 @@
         padding: 2rem;
         height: 99vh;
     }
+
+
+    .auth--left-container {
+        height: 90;
+        display: unset;
+    }
+    .auth--left-container.centered {
+        flex-direction: unset;
+    }
+    .auth--left-container.centered .auth--form {
+        margin: 8rem 0 4rem;
+    }
+
 }
 
 

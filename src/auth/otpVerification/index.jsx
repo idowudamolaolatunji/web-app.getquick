@@ -27,7 +27,8 @@ function index() {
     })
 
     const navigate = useNavigate();
-    const otpUser = localStorage.getItem("otp-user") ? JSON.parse(localStorage.getItem("otp-user")) : null;
+    // const otpUser = localStorage.getItem("otp-user") ? JSON.parse(localStorage.getItem("otp-user")) : null;
+    const otpUser = { email: 'dnjn', firstname: 'jbcdjncd'}
 
     const handleResetResponse = function () {
         setResponse({ status: null, message: null });

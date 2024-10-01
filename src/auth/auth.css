@@ -339,7 +339,7 @@
 }
 .onboarding--container {
     max-width: 70rem;
-    padding: 8rem 2.4rem;
+    padding: 8rem 2.4rem 10rem;
     margin: 0 auto;
 }
 .onboarding--top {
@@ -563,7 +563,7 @@ button.onboard--next {
 
     .congrats--section {
         display: block;
-        padding: 18rem 2rem 8rem;
+        padding: 17rem 2rem 8rem;
     }
     .congrats--container {
         margin: 0 auto;

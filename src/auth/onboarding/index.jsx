@@ -6,13 +6,14 @@ import TooltipUI from '../../components/TooltipUI';
 import Asterisk from '../../components/Asterisk';
 
 import logo_demo from '../../assets/images/resources/logo-demo.png'
-import ConfettiUI from '../../components/ConfettiUI';
 import { useNavigate } from 'react-router-dom';
 import { validateOnboardForm } from '../../utils/helper';
+import { useAuthContext } from '../../context/AuthContext';
 
 
 function index() {
     const navigate = useNavigate();
+    const { handleChange } = useAuthContext()
     const [isReturned, setIsReturned] = useState(false);
     const [storeCategories, setStoreCategories] = useState([]);
     const [onboardingErrors, setOnboardingErrors] = useState({});
@@ -106,7 +107,8 @@ function index() {
         const userId = localStorage.getItem('user_id');
         if(!userId) navigate(-1);
         if(userId.endsWith("-setup")) {
-            setIsReturned(true)
+            setIsReturned(true);
+            localStorage.setItem('user_id', userId.replace("-setup", ""));
         }
     }, []);
 
@@ -153,9 +155,17 @@ function index() {
         console.log(e)
         try {
 
+            // your logic....
             
+            localStorage.setItem(`${import.meta.env.VITE_CONGRATS_KEY}`, "access");
 
-            navigate('/congratulations?next=dashboard');
+            setTimeout(function() {
+                localStorage.removeItem("tab_num");
+                navigate('/congratulations?next=dashboard');
+            }, 1000);
+
+            handleChange(userId, userId);
+            
 
         } catch(err) {
 

@@ -160,7 +160,7 @@ function index() {
 
             <AuthsUI backText="Back to home" backLink="https://www.getquicka.com" dataimg={data_img} heading={headingText} centered={false} overflowLeft={true}>
 
-                <form className="auth--form" onSubmit={handleSubmit} style={{ margin: '8rem 0 4rem', width: '90%' }}>
+                <form className="auth--form" onSubmit={handleSubmit} style={{ padding: '8rem 0 4rem', width: '90%' }}>
                     <div>
                         <h2 className='form--heading' style={width > 850 ? { color: '#ff7a49' } : { color: 'inherit' }}>Create Account 🎉</h2>
                         {width <= 850 && (

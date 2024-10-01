@@ -167,6 +167,7 @@ function index() {
                         <OtpInput
                             value={formData.otp}
                             onChange={handleChangeOtp}
+                            inputType="number"
                             numInputs={4}
                             renderSeparator={<span>{" "}</span>}
                             renderInput={(props) => <input {...props} />}

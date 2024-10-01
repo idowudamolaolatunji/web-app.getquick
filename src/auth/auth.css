@@ -51,6 +51,7 @@
     height: 100vh;
     display: flex;
     justify-content: center;
+    scrollbar-width: none;
 }
 .auth--left-container.centered {
     flex-direction: column;
@@ -62,6 +63,7 @@
     gap: 1.8rem;
     width: 80%;
     height: auto;
+    scrollbar-width: none;
 }
 .form--heading {
     font-size: 3rem;

@@ -76,13 +76,20 @@ function index() {
 
     const storeInUserInStorage = function() {
         const otpUser = { email: formData.email, name: formData.firstname }
-        localStorage.setItem("q_otp_user", JSON.stringify(otpUser));
+        localStorage.setItem("otp_user", JSON.stringify(otpUser));
     }
 
     // remove in a later version
     useEffect(function () {
         setFormData(prev => ({ ...prev, passwordConfirm: prev.password }));
     }, [formData.password]);
+
+
+    useEffect(function() {
+        if(isLoading.mainLoading) {
+            handleResetResponse()
+        }
+    }, [isLoading.mainLoading]);
 
 
     async function handleSubmit(e) {
@@ -96,7 +103,14 @@ function index() {
 
         // NEXT, IMPLEMENT THE LOGIN REQUEST
         try {
-        if(!isChecked) throw new Error("Accept terms and conditions");
+            if(!isChecked) {
+                // IF THE CHECKED IS NOT CHECKED
+                setResponse({ status: "error", message: "Accept terms and conditions" });
+                setTimeout(() => handleResetResponse(), 2000);
+                return;
+            }
+
+            // RUN THE LOADING SPINNER
             handleLoading('mainLoading', true);
 
             const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/signup`, {
@@ -127,6 +141,7 @@ function index() {
                 navigate('/verify-otp');
             }, 1000);
         } catch (err) {
+            console.log(err.message)
             setResponse({ status: 'error', message: err.message })
         } finally {
             handleLoading('mainLoading', false);

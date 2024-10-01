@@ -90,6 +90,24 @@ export function capitalizeFirstLetter(string) {
 
 
 
+
+export function validateOnboardForm(data) {
+	const errors = {};
+
+	if (!data.name.trim()) {
+		errors.name = "Business name is required";
+	} else if (data.name.length < 3) {
+		errors.name = "Business name must be more than 3 characters long";
+	}
+
+	if (!data.category) {
+		errors.category = "Picking a category is required";
+	}
+
+	return errors;
+}
+
+
 export function validateForm(data, type) {
 	const errors = {};
 

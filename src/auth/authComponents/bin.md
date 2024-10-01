@@ -246,3 +246,33 @@ function index() {
 }
 
 export default index
+
+
+
+
+<option>Animals & Pets</option>
+<option>Baby Products</option>
+<option>Books and Media</option>
+<option>Arts and Crafts</option>
+<option>Beauty and Skincare</option>
+<option>Building and Construction</option>
+<option>Education</option>
+<option>Groceries</option>
+<option>Drinks</option>
+<option>Mens Fashion</option>
+<option>Gym and Fitness</option>
+<option>Electronics</option>
+<option>Food & Beverages</option>
+<option>Others</option>
+<option>Home & Kitchen</option>
+<option>Gaming</option>
+<option>Health & Pharmaceuticals</option>
+<option>Makeup and Cosmetics</option>
+<option>Kids Fashion</option>
+<option>Office Equipment</option>
+<option>Personal Care</option>
+<option>Phones and Tablets</option>
+<option>Professional Services</option>
+<option>Restaurant</option>
+<option>Toys & Games</option>
+<option>Womens Fashion</option>

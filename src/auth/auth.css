@@ -382,9 +382,6 @@ button.onboard--prev {
 button.onboard--next {
     background-color: var(--color-brand-500);
 }
-.onboarding--actions button:hover {
-    opacity: .8;
-}
 .form--upload-btn {
     background-color: #444;
     color: white;
@@ -421,6 +418,33 @@ button.onboard--next {
     width: 100%;
     object-fit: 100%;
 }
+
+
+
+.returned--box {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+}
+.returned--text {
+    background-color: rgb(251, 190, 190);
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding: .6rem 1rem;
+    width: fit-content !important;
+    border-radius: .4rem;
+    margin-bottom: 1rem;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 .congrats--section {
@@ -482,6 +506,7 @@ button.onboard--next {
     }
 }
 
+
 @media screen and (max-width: 950px) {
     .auth__section {
         grid-template-columns: 2fr 3fr;
@@ -491,6 +516,12 @@ button.onboard--next {
     }
 }
 
+
+@media screen and (min-width: 850px) {
+    .onboarding--actions button:hover {
+        opacity: .8;
+    }
+}
 
 @media screen and (max-width: 850px) {
     .auth__section {
@@ -507,7 +538,7 @@ button.onboard--next {
     }
 
     .onboarding--section {
-        height: auto !important;
+        /* height: auto !important; */
     }
 }
 
@@ -532,13 +563,21 @@ button.onboard--next {
 
     .congrats--section {
         display: block;
-        padding: 15rem 2rem 8rem;
+        padding: 18rem 2rem 8rem;
     }
     .congrats--container {
         margin: 0 auto;
         width: 100%;
     }
 
+    .returned--box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+    }
+    .returned--text {
+        font-size: 1.2rem;
+    }
 }
 
 

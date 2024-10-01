@@ -22,34 +22,34 @@ function NextCongratsScreen() {
         setTimeout(() => {
             setIsLoading(false);
             navigate(nextData.link);
+            localStorage.removeItem(`${import.meta.env.VITE_CONGRATS_KEY}`);
         }, 1500);
     }
-
-    useEffect(function() {
-        if(search.includes("?next=onboarding")) setNextData({
-            ...nextData,
-            link: "/onboarding",
-            title: "Congrats",
-            text:`Your Quicka account is successfully created! Set up your store in the next page 👉🏿`,
-            buttonText: "Continue"
-        });
-        if(search.includes("?next=dashboard")) setNextData({
-            ...nextData,
-            link: "/dashboard",
-            title: "Congrats",
-            text: "Your store dashboard and website is ready!",
-            buttonText: "Go to Dashboard"
-        });
-
-        if(!search) navigate('/signup')
-    }, []);
 
 
     useEffect(function() {
         const userId = localStorage.getItem("q_user_id");
         const accessKey = localStorage.getItem(`${import.meta.env.VITE_CONGRATS_KEY}`);
 
-        // if(!userId && !accessKey) navigate('/signup');
+        if(!userId && !accessKey) navigate(-1);
+    }, []);
+
+
+    useEffect(function() {
+        if(search.includes("?next=onboarding")) setNextData({
+            link: "/onboarding",
+            title: "Congrats",
+            text:`Your Quicka account is successfully created! Set up your store in the next page 👉🏿`,
+            buttonText: "Continue"
+        });
+        if(search.includes("?next=dashboard")) setNextData({
+            link: "/dashboard",
+            title: "Congrats",
+            text: "Your store dashboard and website is ready!",
+            buttonText: "Go to Dashboard"
+        });
+
+        if(!search) navigate(-1)
     }, []);
 
     return (

@@ -36,9 +36,8 @@ function index() {
     });
 
     const navigate = useNavigate();
-    const { width, height } = useWindowSize();
+    const { width } = useWindowSize();
     const { user, handleChange } = useAuthContext();
-    const smallHeight = width <= 600 && height <= 625;
 
     const handleFormChange = function (e) {
         const { name, value } = e.target;
@@ -55,7 +54,7 @@ function index() {
     }
 
     const handleResetResponse = function() {
-        setResponse({ status: '', message: '' });
+        setResponse({ status: null, message: null });
     }
 
     async function handleSubmit(e) {
@@ -85,14 +84,29 @@ function index() {
 
             const data = await res.json();
             if(data.status !== 'success') {
+                // IF THE USER IS NOT VERIFIED, REDIRECT THE TO THE VERIFICATION PAGE
                 if(data.message === "Account not verified!") {
-                    localStorage.setItem("q_otp_user", JSON.stringify({ ...data.data.user, message: "not_verified" }));
+                    localStorage.setItem("otp_user", JSON.stringify({ ...data.data.user, message: "not_verified" }));
 
                     setTimeout(function() {
                         navigate('/verify-otp');
                     }, 1000)
                 }
+
+                // IF AND ELSE THROW NEW ERROR
                 throw new Error(data.message);
+            }
+
+            // USER MUST HAVE SETUP THEIR STORE TO LOGIN
+            if(!data.data.isStoreSetup) {
+                const userId = data.data.user._id;
+                localStorage.setItem("user_id", userId+'-setup');
+
+                setResponse({ status: data.status, message: data.message });
+                setTimeout(function() {
+                    navigate('/onboarding');
+                }, 1200);
+                return;
             }
 
             // UPDATE THE RESPONSE STATE WITH THE NEW VALUE

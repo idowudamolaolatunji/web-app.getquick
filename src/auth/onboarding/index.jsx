@@ -8,36 +8,31 @@ import Asterisk from '../../components/Asterisk';
 import logo_demo from '../../assets/images/resources/logo-demo.png'
 import ConfettiUI from '../../components/ConfettiUI';
 import { useNavigate } from 'react-router-dom';
+import { validateOnboardForm } from '../../utils/helper';
 
 
 function index() {
+    const navigate = useNavigate();
+    const [isReturned, setIsReturned] = useState(false);
+    const [storeCategories, setStoreCategories] = useState([]);
+    const [onboardingErrors, setOnboardingErrors] = useState({});
     const [isCopied, setIsCopied] = useState(false);
     const [response, setResponse] = useState({
-        status: '',
-        message: ''
-    })
+        status: null,
+        message: null
+    });
+
     const [onboardingData, setOnboardingData] = useState({
         name: "",
         url: "",
         category: ""
     });
-    // const [onboardingData, setOnboardingData] = useState({
-    //     step1: {
-    //         name: "",
-    //         url: "",
-    //         category: ""
-    //     },
-    //     step2: {
-
-    //     }
-    // });
-    const [onboardTabNum, setOnboardTabNum] = useState(1);
+    
+    const [onboardTabNum, setOnboardTabNum] = useState(localStorage.getItem("tab_num") ? JSON.parse(localStorage.getItem("tab_num")) : 1);
     const [image, setImage] = useState({
         file: null,
         preview: null
     });
-
-    const navigate = useNavigate()
 
     const handleResetResponse = function () {
         setResponse({ status: null, message: null });
@@ -84,33 +79,90 @@ function index() {
     };
 
     function handlePrevTab() {
+        setIsReturned(false);
         if(onboardTabNum === 1) return;
         setOnboardTabNum(prev => prev - 1)
     }
 
+    function handleNextTab(e) {
+        setIsReturned(false);
+        if(onboardTabNum === 1) {
+            const newErrors = validateOnboardForm(onboardingData);
+            console.log(newErrors)
+            setOnboardingErrors(newErrors);
 
-    function handleNextTab() {
+            if (Object.keys(newErrors).length >= 1) return;
+        }
         if(onboardTabNum === 3) {
-            navigate('/congratulations?next=dashboard');
+            handleSubmit(e);
+            return;
         };
-        setOnboardTabNum(prev => prev + 1)
+        setOnboardTabNum(prev => prev + 1);
     }
 
 
+    
+    useEffect(function() {
+        const userId = localStorage.getItem('user_id');
+        if(!userId) navigate(-1);
+        if(userId.endsWith("-setup")) {
+            setIsReturned(true)
+        }
+    }, []);
+
+
+    // GET THE STORE CATEGORIES
+    useEffect(function() {
+        if(!storeCategories  || storeCategories.length < 1) {
+            getStoreCategories()
+        }
+    }, []);
+
+    // SANITIZE THE NAME AS THE LINK, REPLACING SPACES WITH -
     useEffect(function () {
         const sanitizedUrl = onboardingData?.name?.replace(/\s+/g, '-').toLowerCase();
         setOnboardingData({ ...onboardingData, url: sanitizedUrl })
     }, [onboardingData?.name]);
 
 
+    // ONLY WHEN WE RE-WRITE OUR LINK BEFORE WE CAN RECOPY IT
     useEffect(function () {
         // BAD PRACTICE
         handleResetResponse();
-        setIsCopied(false)
+        setIsCopied(false);
     }, [onboardingData?.url]);
 
+    
+    // KEEP TRACK OF THE TAB NUMBER
+    useEffect(function() {
+        localStorage.setItem("tab_num", JSON.stringify(onboardTabNum));
+    }, [onboardTabNum]);
 
 
+    async function getStoreCategories() {
+        try {
+            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/stores/category`);
+            const data = await res.json();
+            setStoreCategories(data.data.categories);
+        } catch(err) {
+            console.log(err.message);
+        }
+    }
+
+    async function handleSubmit(e) {
+        console.log(e)
+        try {
+
+            
+
+            navigate('/congratulations?next=dashboard');
+
+        } catch(err) {
+
+        } finally {
+
+        }
+    }
 
 
     return (
@@ -122,7 +174,10 @@ function index() {
                 <div className="onboarding--container">
 
                     <div className="onboarding--top">
-                        <p className='onboarding--numbering'>{onboardTabNum}/3 👈🏿</p>
+                        <span className='returned--box'>
+                            <p className='onboarding--numbering'>{onboardTabNum}/3 👈🏿</p>
+                            {isReturned && <p className='returned--text'>You have to set up your store</p>}
+                        </span>
                         <p className='onboarding--subtitle'>You are almost done</p>
                         <h2 className='form--heading' style={{ marginBottom: '.8rem' }}>
                             {onboardTabNum === 1 && "Let's setup your store and dashboard."}
@@ -140,29 +195,32 @@ function index() {
                         {onboardTabNum === 1 && (
                             <>
                                 <div className="form--item">
-                                    <label className="form--label">Business Logo (Optional)</label>
+                                    <label className="form--label" htmlFor='logo'>Business Logo (Optional)</label>
                                     <div className="form--element">
                                         <span>
                                             <img src={image.preview ? image.preview : logo_demo} alt="brand logo" />
                                         </span>
                                         
                                         <div className='form--item'>
-                                            <input type='file' id='form--logo' name='image' onChange={handleImageChange} accept="image/*" />
-                                            <label htmlFor="form--logo" className='form--upload-btn'>Upload Image</label>
+                                            <input type='file' id='logo' name='image' onChange={handleImageChange} accept="image/*" />
+                                            <label htmlFor="logo" className='form--upload-btn'>Upload Image</label>
                                             <p style={{ fontSize: '1.1rem', lineHeight: '1.4' }}>png, jpeg and jpg up to 2MB. Recommended size 256x256 (png)</p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="form--item">
-                                    <label htmlFor="" className="form--label">Business Name <Asterisk /></label>
-                                    <input type="text" className="form--input" placeholder='Business Name' onChange={handleOnboardDataChange} name="name" value={onboardingData.name} />
+                                    <label htmlFor="name" className="form--label">Business Name <Asterisk /></label>
+                                    <input type="text" className="form--input" placeholder='Business Name' onChange={handleOnboardDataChange} name="name" id='name' value={onboardingData.name} />
+                                    <span className="form--error-message">
+                                        {onboardingErrors.name && onboardingErrors.name}
+                                    </span>
                                 </div>
 
                                 <div className="form--item">
-                                    <label htmlFor="" className="form--label">Store URL</label>
+                                    <label htmlFor="url" className="form--label">Store URL</label>
                                     <div className="form--input-box">
-                                        <input type="text" className="form--input" placeholder='Store url' value={onboardingData.url} name='url' onChange={handleOnboardDataChange} />
+                                        <input type="text" id='url' className="form--input" placeholder='Store url' value={onboardingData.url} name='url' onChange={handleOnboardDataChange} />
 
                                         {(onboardingData.url && !isCopied) ? (
                                             <TooltipUI title="Copy URL" placement="top">
@@ -175,37 +233,17 @@ function index() {
                                 </div>
 
                                 <div className="form--item">
-                                    <label htmlFor="" className="form--label">What category best describes your business <Asterisk /></label>
+                                    <label htmlFor="category" className="form--label">What category best describes your business <Asterisk /></label>
 
-                                    <select className='form--select'>
-                                        <option disabled selected hidden>Pick a category / industry</option>
-                                        <option>Animals & Pets</option>
-                                        <option>Baby Products</option>
-                                        <option>Books and Media</option>
-                                        <option>Arts and Crafts</option>
-                                        <option>Beauty and Skincare</option>
-                                        <option>Building and Construction</option>
-                                        <option>Education</option>
-                                        <option>Groceries</option>
-                                        <option>Drinks</option>
-                                        <option>Mens Fashion</option>
-                                        <option>Gym and Fitness</option>
-                                        <option>Electronics</option>
-                                        <option>Food & Beverages</option>
-                                        <option>Others</option>
-                                        <option>Home & Kitchen</option>
-                                        <option>Gaming</option>
-                                        <option>Health & Pharmaceuticals</option>
-                                        <option>Makeup and Cosmetics</option>
-                                        <option>Kids Fashion</option>
-                                        <option>Office Equipment</option>
-                                        <option>Personal Care</option>
-                                        <option>Phones and Tablets</option>
-                                        <option>Professional Services</option>
-                                        <option>Restaurant</option>
-                                        <option>Toys & Games</option>
-                                        <option>Womens Fashion</option>
+                                    <select className='form--select' value={onboardingData.category} name='category' id='category' onChange={handleOnboardDataChange}>
+                                        <option disabled defaultValue hidden>Pick a category / industry</option>
+                                        {(storeCategories.length > 0) && storeCategories.map((storeCategory) => (
+                                            <option value={storeCategory?.slug} key={storeCategory.slug}>{storeCategory?.name}</option>
+                                        ))}
                                     </select>
+                                    <span className="form--error-message">
+                                        {onboardingErrors.category && onboardingErrors.category}
+                                    </span>
                                 </div>
                             </>
                         )}
@@ -213,14 +251,15 @@ function index() {
 
                         {onboardTabNum === 2 && (
                             <>
-                                coming...
+                                {/* remove soon */}
+                               <p className='returned--text'>coming soon...</p> 
                             </>
                         )}
 
 
                         {onboardTabNum === 3 && (
                             <>
-                                <iframe style={{ borderRadius: '.62rem' }} width="auto" height="350" src="https://www.youtube.com/embed/Siwlj-n1S6I?si=nFgeM6FI0OwAV2vQ&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                <iframe style={{ borderRadius: '.62rem' }} width="auto" height="350" src="https://www.youtube.com/embed/Siwlj-n1S6I?si=nFgeM6FI0OwAV2vQ&amp;controls=0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin"></iframe>
                             </>
                         )}
 
@@ -230,7 +269,7 @@ function index() {
                                     <button className='onboard--prev' onClick={handlePrevTab}>Go Back</button>
                                 ) : <p></p>}
 
-                                <button className='onboard--next' onClick={handleNextTab}>{onboardTabNum === 3 ? 'Finish' : 'Next Step'}</button>
+                                <button className='onboard--next' type='submit' onClick={handleNextTab}>{onboardTabNum === 3 ? 'Finish' : 'Next Step'}</button>
                             </span>
                         </div>
 

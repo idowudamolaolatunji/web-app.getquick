@@ -53,6 +53,16 @@ import Analytics from './pages/analytics';
 import CommunityForums from './pages/communityForums';
 
 function App() {
+
+
+    // COME BACK AND REMODIFY THIS OR NOT
+    if (window.location.pathname === '/verify-otp') {
+        window.onbeforeunload = function() {
+          return "Are you sure you want to leave this page?";
+        };
+    }
+
+
     return (
 
         // <Suspense fallback={<></>} >

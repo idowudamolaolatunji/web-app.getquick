@@ -30,7 +30,7 @@ function index() {
 
     const navigate = useNavigate();
     const { width } = useWindowSize();
-    const otpUser = localStorage.getItem("q_otp_user") ? JSON.parse(localStorage.getItem("q_otp_user")) : null;
+    const otpUser = localStorage.getItem("otp_user") ? JSON.parse(localStorage.getItem("otp_user")) : null;
 
     const handleResetResponse = function () {
         setResponse({ status: null, message: null });
@@ -41,7 +41,7 @@ function index() {
     }
 
     useEffect(function() {
-        if(!otpUser) navigate('/signup');
+        if(!otpUser) navigate('/');
         else {
             countdownTimer(113, setTimeLeft);
             setFormData({ ...formData, email: otpUser?.email})
@@ -53,15 +53,7 @@ function index() {
         if(resent) {
             countdownTimer(118, setTimeLeft);
         }
-    }, [resent])
-
-
-    // COME BACK AND REMODIFY THIS
-    if (window.location.pathname === '/verify-otp') {
-        window.onbeforeunload = function() {
-          return "Are you sure you want to leave this page?";
-        };
-    }      
+    }, [resent]);     
 
 
     async function handleSubmit() {
@@ -97,11 +89,11 @@ function index() {
             setResponse({ status: data.status, message: data.message });
             
             const userId = data.data.user._id;
-            localStorage.setItem("q_user_id", userId);
-            localStorage.setItem(`${import.meta.env.VITE_CONGRATS_KEY}`, true);
+            localStorage.setItem("user_id", userId);
+            localStorage.setItem(`${import.meta.env.VITE_CONGRATS_KEY}`, "access");
 
             setTimeout(function() {
-                localStorage.removeItem("q_otp_user");
+                localStorage.removeItem("otp_user");
                 navigate('/congratulations?next=onboarding');
             }, 1000);
         } catch (err) {

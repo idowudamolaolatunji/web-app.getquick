@@ -16,7 +16,7 @@ export const DataProvider = ({ children }) => {
     const [isMenuCollapsed, setIsMenuCollapsed] = useState(localStorage.getItem("menu_collapsed") ? JSON.parse(localStorage.getItem("menu_collapsed")) : false);
     const [showSidemenu, setShowSidemenu] = useState(false);
 
-    const storedDarkMode = localStorage.getItem("is_in_dark_mode");
+    const storedDarkMode = localStorage.getItem("dark_mode");
     const [isDarkMode, setIsDarkMode] = useState(storedDarkMode ? JSON.parse(storedDarkMode) : false);
     const [animateOut, setAnimateOut] = useState(false);
 
@@ -59,7 +59,7 @@ export const DataProvider = ({ children }) => {
     }, [pathname]);
 
     useEffect(function() {
-        localStorage.setItem("is_in_dark_mode", JSON.stringify(isDarkMode));
+        localStorage.setItem("dark_mode", JSON.stringify(isDarkMode));
 
         if(isDarkMode) {
             document.body.classList.add('dark-mode');

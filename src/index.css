@@ -164,6 +164,22 @@ input::-webkit-inner-spin-button {
     background-color: #d7ecd1b7;
 }
 
+.general--btn {
+	padding: 1rem 1.2rem;
+	background-color: var(--color-brand-500);
+	border: none;
+	font-size: 1.6rem;
+	font-weight: 500;
+	color: #fff;
+	border-radius: .4rem;
+
+	cursor: pointer;
+	transition: all .25s;
+}
+.general--btn:hover {
+	opacity: .85;
+}
+
 
 /* 600px === 37.5em */
 /* MIN WIDTH - DESKTOP MEDIA QUERY */

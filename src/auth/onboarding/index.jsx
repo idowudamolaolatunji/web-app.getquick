@@ -6,6 +6,8 @@ import TooltipUI from '../../components/TooltipUI';
 import Asterisk from '../../components/Asterisk';
 
 import logo_demo from '../../assets/images/resources/logo-demo.png'
+import ConfettiUI from '../../components/ConfettiUI';
+import { useNavigate } from 'react-router-dom';
 
 
 function index() {
@@ -35,6 +37,7 @@ function index() {
         preview: null
     });
 
+    const navigate = useNavigate()
 
     const handleResetResponse = function () {
         setResponse({ status: null, message: null });
@@ -87,7 +90,9 @@ function index() {
 
 
     function handleNextTab() {
-        if(onboardTabNum === 3) return;
+        if(onboardTabNum === 3) {
+            navigate('/congratulations?next=dashboard');
+        };
         setOnboardTabNum(prev => prev + 1)
     }
 
@@ -110,7 +115,6 @@ function index() {
 
     return (
         <>
-
             {(response.message || response.status) && (
                 <CustomAlert type={response.status} message={response.message} />
             )}

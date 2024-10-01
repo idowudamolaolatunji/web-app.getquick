@@ -14,6 +14,7 @@ import Signup from './auth/signup';
 import ForgotPassword from './auth/forgotPassword';
 import VerifyOtp from './auth/otpVerification';
 import Onboarding from './auth/onboarding';
+import Congrats from './auth/NextCongratsScreen';
 import Error from './pages/error';
 
 // const DashboardHome = lazy(() => import('./pages/home'));
@@ -62,6 +63,7 @@ function App() {
                     <Route path='/forgot-password' element={<ForgotPassword />}></Route>
                     <Route path='/verify-otp' element={<VerifyOtp />}></Route>
                     <Route path='/onboarding' element={<Onboarding />}></Route>
+                    <Route path='/congratulations' element={<Congrats />}></Route>
                     <Route path="*" element={<Error />} />
 
                     <Route element={<ProtectedRoute />}>

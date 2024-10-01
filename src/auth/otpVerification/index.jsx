@@ -98,10 +98,11 @@ function index() {
             
             const userId = data.data.user._id;
             localStorage.setItem("q_user_id", userId);
-            
+            localStorage.setItem(`${import.meta.env.VITE_CONGRATS_KEY}`, true);
+
             setTimeout(function() {
                 localStorage.removeItem("q_otp_user");
-                navigate('/onboarding')
+                navigate('/congratulations?next=onboarding');
             }, 1000);
         } catch (err) {
             setResponse({ status: 'error', message: err.message })

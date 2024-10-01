@@ -530,6 +530,15 @@ button.onboard--next {
         margin: 8rem 0 4rem;
     }
 
+    .congrats--section {
+        display: block;
+        padding: 15rem 2rem 8rem;
+    }
+    .congrats--container {
+        margin: 0 auto;
+        width: 100%;
+    }
+
 }
 
 

@@ -24,8 +24,10 @@
 }
 /* ========================================== */
 
+
 body:has(.dashboard--base) {
-    height: 100vh;
+    /* i'm lost */
+    height: 95vh;
     overflow: hidden;
 }
 

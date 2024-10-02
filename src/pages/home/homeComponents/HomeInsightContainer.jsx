@@ -21,7 +21,7 @@ function HomeInsightContainer() {
             <div className="section--top">
                 <div className="section--heading">
                     <h2>Brief Overview</h2>
-                    <p>This is what <span>"{store?.name}"</span> is up to today!</p>
+                    <p>This is what <span>{store?.name}</span> is up to today!</p>
                 </div>
 
                 <SelectAutoWidthDropdown menus={datePeriods} />

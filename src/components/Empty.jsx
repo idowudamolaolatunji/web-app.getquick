@@ -1,6 +1,7 @@
 import React from 'react';
 
-import empty from '../assets/images/png/empty-box.png'
+// import empty from '../assets/images/png/empty-box.png'
+import empty from '../assets/images/resources/orange-orange-folder-with-documents.png'
 
 function Empty({ customStyle, text }) {
   return (

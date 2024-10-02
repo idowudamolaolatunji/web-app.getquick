@@ -18,7 +18,7 @@ function DashboardHead() {
     const [isShownDropdown, setIsShownDropdown] = useState(false);
 
     const { width } = useWindowSize();
-    const { user } = useAuthContext();
+    const { user, store } = useAuthContext();
     const { isMenuCollapsed, handleMenuCollapse, handleShowSidemenu } = useDataContext();
 
     function handleShowDropdown() {
@@ -50,7 +50,7 @@ function DashboardHead() {
                 <div className=""></div>
 
                 <div className="nav--others">
-                    <a href="https://www.luxeware.quicka.store" target='_blank' className='store--btn'>
+                    <a href={store.storeUrl} target='_blank' className='store--btn'>
                         View Store <MdOutlineStorefront />
                     </a>
 

@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactApexChart from 'react-apexcharts';
 import { formatNumber } from '../../../utils/helper';
+import { useWindowSize } from 'react-use';
 
 function OverviewChart() {
+    const { width } = useWindowSize()
+    
+    // I DONNO HOW YOU'D DO IT BUT THIS STATE BELOW HERE SHOULD BE THE GUY HOLDING THE CHART DATA
+    const [salesChartData, setSalesChartData] = useState(null);
+
     const series = [
         {
             name: 'Total Sales',
@@ -60,7 +66,7 @@ function OverviewChart() {
                 color: '#333',
             },
             onDatasetHover: {
-                highlightDataSeries: true,
+                highlightDataSeries: false,
             },
             y: {
                 formatter: val => '₦' + formatNumber(val),
@@ -121,7 +127,7 @@ function OverviewChart() {
     return (
         <div className='sales-overview'>
             <div id="chart" className='bar-chart'>
-                <ReactApexChart options={options} series={series} type='bar' height={360} />
+                <ReactApexChart options={options} series={series} type='bar' height={salesChartData ? 360 : (width < 850) ? 270 : 300} />
             </div>
             <div id="html-dist"></div>
         </div>

@@ -23,29 +23,32 @@ function NextCongratsScreen() {
             setIsLoading(false);
             navigate(nextData.link);
             localStorage.removeItem(`${import.meta.env.VITE_CONGRATS_KEY}`);
+            if(search.includes("?next=dashboard")) {
+                localStorage.removeItem("user_id");
+            }
         }, 1500);
     }
 
 
     useEffect(function() {
-        const userId = localStorage.getItem("q_user_id");
+        const userId = localStorage.getItem("user_id");
         const accessKey = localStorage.getItem(`${import.meta.env.VITE_CONGRATS_KEY}`);
 
-        if(!userId && !accessKey) navigate(-1);
+        if(!userId || !accessKey) navigate(-1);
     }, []);
 
 
     useEffect(function() {
         if(search.includes("?next=onboarding")) setNextData({
             link: "/onboarding",
-            title: "Congrats",
+            title: "Congrats!",
             text:`Your Quicka account is successfully created! Set up your store in the next page 👉🏿`,
             buttonText: "Continue"
         });
         if(search.includes("?next=dashboard")) setNextData({
             link: "/dashboard",
-            title: "Congrats",
-            text: "Your store dashboard and website is ready!",
+            title: "Woo-hoo, You're all set!",
+            text: "Your store dashboard and website is ready..",
             buttonText: "Go to Dashboard"
         });
 

@@ -3,7 +3,7 @@ import './style.css'
 
 function index() {
     return (
-        <div class="simple-spinner"></div>
+        <div className="simple-spinner"></div>
     )
 }
 

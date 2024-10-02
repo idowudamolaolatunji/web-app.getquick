@@ -80,6 +80,7 @@
 .form--label {
     font-size: 1.4rem;
     font-weight: 600;
+    line-height: 1.4;
 }
 .form--input-box {
     position: relative;
@@ -341,7 +342,7 @@
 }
 .onboarding--container {
     max-width: 70rem;
-    padding: 8rem 2.4rem 10rem;
+    padding: 8rem 2rem 10rem;
     margin: 0 auto;
 }
 .onboarding--top {
@@ -350,15 +351,19 @@
 .onboarding--numbering {
     font-size: 1.4rem;
     font-weight: 500;
-    margin-bottom: .7rem;
+    margin-bottom: .8rem;
     opacity: .5;
 }
 .onboarding--subtitle {
     text-transform: uppercase;
     font-weight: 600;
     font-size: 1.4rem;
-    margin-bottom: 1rem;
+    margin-bottom: .4rem;
     color: #555;
+
+    display: flex;
+    align-items: center;
+    gap: .4rem;
 }
 .onboarding--actions {
     display: flex;
@@ -423,23 +428,6 @@ button.onboard--next {
 
 
 
-.returned--box {
-    display: flex;
-    align-items: center;
-    gap: 1.6rem;
-}
-.returned--text {
-    background-color: rgb(251, 190, 190);
-    font-size: 1.4rem;
-    font-weight: 500;
-    padding: .6rem 1rem;
-    width: fit-content !important;
-    border-radius: .4rem;
-    margin-bottom: 1rem;
-}
-
-
-
 
 
 
@@ -485,7 +473,59 @@ button.onboard--next {
 
 
 
+.form--clicks,
+.form--click-opts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+}
+.form--clicks {
+    gap: 4rem;
+}
+.form--click-opts {
+    gap: 2rem;
+}
+.form--click {
+    border: 1.4px solid #eee;
+    padding: 2.4rem 1.2rem;
 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: .4rem;
+
+    font-size: 1.4rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .35s;
+}
+.form--click:hover {
+    border-color: var(--color-brand-300);
+}
+.form--click span {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1.4px solid #eee;
+    position: relative;
+}
+.form--click.is-selected {
+    border-color: var(--color-brand-300);
+    background-color: var(--color-brand-100);
+    color: #994020;
+}
+.form--click.is-selected span {
+    border: 3px solid var(--color-brand-500);
+    background-color: #994020;
+}
+
+
+.form--subs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: .64rem;
+}
 
 
 
@@ -539,8 +579,12 @@ button.onboard--next {
         background-color: var(--color-brand-500);
     }
 
-    .onboarding--section {
-        /* height: auto !important; */
+}
+
+
+@media screen and (max-width: 600px) {
+    .form--click-opts {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -571,14 +615,15 @@ button.onboard--next {
         margin: 0 auto;
         width: 100%;
     }
-
-    .returned--box {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0;
+    .congrats--title {
+        font-size: 2.6rem;
     }
-    .returned--text {
-        font-size: 1.2rem;
+
+    .form--clicks {
+        gap: 1.6rem;
+    }
+    .form--click {
+        padding: 1.6rem 1.2rem;
     }
 }
 

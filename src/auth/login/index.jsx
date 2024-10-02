@@ -100,7 +100,7 @@ function index() {
             // USER MUST HAVE SETUP THEIR STORE TO LOGIN
             if(!data.data.user.isStoreSetup) {
                 const userId = data.data.user._id;
-                localStorage.setItem("user_id", userId+'-setup');
+                localStorage.setItem("user_id", userId);
 
                 setResponse({ status: data.status, message: data.message });
                 setTimeout(function() {
@@ -132,8 +132,9 @@ function index() {
 
     /*
     
-        Extras
-    
+        Extras: they are just extra inline-styles for certain pages
+        AuthsUI: the's are container ui components for auth pages
+
     
     */
 
@@ -143,7 +144,7 @@ function index() {
                 <CustomAlert type={response.status} message={response.message} />
             )}
 
-            {isLoading.mainLoading && <Spinner /> }
+            { isLoading.mainLoading && <Spinner /> }
             
             <AuthsUI backText="Back to home" backLink="https://www.getquicka.com" dataimg={data_img} heading={headingText} extras={{marginBottom: '5.6rem'}}>
                 <form className="auth--form" onSubmit={handleSubmit}>
@@ -156,6 +157,7 @@ function index() {
                             </div>
                         )}
                     </div>
+
                     <div className="form--item">
                         <label className='form--label' htmlFor="email">Email Adress <Asterisk /></label>
                         <input

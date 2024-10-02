@@ -9,13 +9,27 @@ import logo_demo from '../../assets/images/resources/logo-demo.png'
 import { useNavigate } from 'react-router-dom';
 import { validateOnboardForm } from '../../utils/helper';
 import { useAuthContext } from '../../context/AuthContext';
+import Line from '../../components/Line';
+
+
+const goalOptions = [
+    { id: 'automate', label: 'Automate my sales and orders' },
+    { id: 'detailed', label: 'Get well-detailed analytics' },
+    { id: 'notification', label: 'Instant notification on new order' },
+    { id: 'website', label: 'Create store website and run sales' },
+    { id: 'customer', label: 'Record new customer for future sales' },
+    { id: 'visitor', label: 'Track store visitor and purchases' },
+    { id: 'sales', label: 'Record Daily sales and expenses' },
+    { id: 'inventory', label: 'Manage inventory and track low stocks' },
+];
+
 
 
 function index() {
     const navigate = useNavigate();
-    const { handleChange } = useAuthContext()
-    const [isReturned, setIsReturned] = useState(false);
+    const { handleChange } = useAuthContext();
     const [storeCategories, setStoreCategories] = useState([]);
+    const [goals, setGoals] = useState([])
     const [onboardingErrors, setOnboardingErrors] = useState({});
     const [isCopied, setIsCopied] = useState(false);
     const [response, setResponse] = useState({
@@ -25,10 +39,12 @@ function index() {
 
     const [onboardingData, setOnboardingData] = useState({
         name: "",
-        url: "",
-        category: ""
+        storeUrl: "",
+        category: "",
+        isCoperated: "no",
+        type: "",
     });
-    
+
     const [onboardTabNum, setOnboardTabNum] = useState(localStorage.getItem("tab_num") ? JSON.parse(localStorage.getItem("tab_num")) : 1);
     const [image, setImage] = useState({
         file: null,
@@ -46,7 +62,7 @@ function index() {
         // HERE SANITIZES THE TEXT AND THE URL
         if (name === "name") {
             sanitizedValue = value.replace(/[^a-zA-Z0-9\s]/g, '').replace(/^\s+/, '');
-        } else if (name === "url") {
+        } else if (name === "storeUrl") {
             sanitizedValue = value.replace(/[^a-zA-Z0-9-]/g, '').replace(/^\s+|\s+$/g, '');
         } else {
             sanitizedValue = value;
@@ -60,8 +76,8 @@ function index() {
 
     function handleCopyLink() {
         handleResetResponse();
-        if (onboardingData.url) {
-            const url = onboardingData.url + ".quicka.store";
+        if (onboardingData.storeUrl) {
+            const url = onboardingData.storeUrl + ".quicka.store";
 
             navigator.clipboard.writeText(url);
             setIsCopied(true)
@@ -73,28 +89,28 @@ function index() {
         const file = event.target.files[0];
         if (file) {
             setImage({ ...image, file: file });
-            
+
             const imageUrl = URL.createObjectURL(file);
             setImage({ ...image, preview: imageUrl });
         }
     };
 
     function handlePrevTab() {
-        setIsReturned(false);
-        if(onboardTabNum === 1) return;
+        if (onboardTabNum === 1) return;
         setOnboardTabNum(prev => prev - 1)
     }
 
     function handleNextTab(e) {
-        setIsReturned(false);
-        if(onboardTabNum === 1) {
-            const newErrors = validateOnboardForm(onboardingData);
+        const isCoperated = onboardingData.isCoperated == "yes" ? true : false;
+        if (onboardTabNum === 1) {
+            const newErrors = validateOnboardForm(onboardingData, isCoperated);
             console.log(newErrors)
             setOnboardingErrors(newErrors);
 
             if (Object.keys(newErrors).length >= 1) return;
         }
-        if(onboardTabNum === 3) {
+        if (onboardTabNum === 2) {
+            if(goals.length < 3) return;
             handleSubmit(e);
             return;
         };
@@ -102,20 +118,28 @@ function index() {
     }
 
 
-    
-    useEffect(function() {
-        const userId = localStorage.getItem('user_id');
-        if(!userId) navigate(-1);
-        if(userId.endsWith("-setup")) {
-            setIsReturned(true);
-            localStorage.setItem('user_id', userId.replace("-setup", ""));
+    function handleAddGoals(goal) {
+        const isGoalAlreadyIncluded = goals.includes(goal);
+
+        if (isGoalAlreadyIncluded) {
+            setGoals(goals.filter((item) => item !== goal));
+        } else {
+            setGoals([...goals, goal]);
         }
+
+        // PLEASE COME BACK AND DO SOMETHING WITH THIS
+    }
+
+
+    const userId = localStorage.getItem('user_id');
+    useEffect(function () {
+        if(!userId) navigate(-1);
     }, []);
 
 
     // GET THE STORE CATEGORIES
-    useEffect(function() {
-        if(!storeCategories  || storeCategories.length < 1) {
+    useEffect(function () {
+        if (!storeCategories || storeCategories.length < 1) {
             getStoreCategories()
         }
     }, []);
@@ -123,7 +147,7 @@ function index() {
     // SANITIZE THE NAME AS THE LINK, REPLACING SPACES WITH -
     useEffect(function () {
         const sanitizedUrl = onboardingData?.name?.replace(/\s+/g, '-').toLowerCase();
-        setOnboardingData({ ...onboardingData, url: sanitizedUrl })
+        setOnboardingData({ ...onboardingData, storeUrl: sanitizedUrl })
     }, [onboardingData?.name]);
 
 
@@ -132,11 +156,11 @@ function index() {
         // BAD PRACTICE
         handleResetResponse();
         setIsCopied(false);
-    }, [onboardingData?.url]);
+    }, [onboardingData?.storeUrl]);
 
-    
+
     // KEEP TRACK OF THE TAB NUMBER
-    useEffect(function() {
+    useEffect(function () {
         localStorage.setItem("tab_num", JSON.stringify(onboardTabNum));
     }, [onboardTabNum]);
 
@@ -146,31 +170,52 @@ function index() {
             const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/stores/category`);
             const data = await res.json();
             setStoreCategories(data.data.categories);
-        } catch(err) {
+        } catch (err) {
             console.log(err.message);
         }
     }
 
+
+
+    // THIS GUY NEEDS A HUGE RE MODIFICATION
     async function handleSubmit(e) {
-        console.log(e)
         try {
+            console.log(onboardingData, userId);
+            console.log('I\'m here')
+            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/stores/onboard-store/${userId}`, {
+                method: 'PATCH',
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(onboardingData),
+            });
+            console.log(res)
+
+            if(!res.ok) throw new Error('Something went wrong! Check intenet connection');
+
+            // RESET THE RESPONSE STATE HERE
+            handleResetResponse();
+
+            const data = await res.json();
+            if(data.status !== 'success') {
+                // IF AND ELSE THROW NEW ERROR
+                throw new Error(data.message);
+            }
 
             // your logic....
-            
+
             localStorage.setItem(`${import.meta.env.VITE_CONGRATS_KEY}`, "access");
 
-            setTimeout(function() {
+            setTimeout(function () {
                 localStorage.removeItem("tab_num");
                 navigate('/congratulations?next=dashboard');
             }, 1000);
 
-            handleChange(userId, userId);
+            setResponse({ status: data.status, message: data.message });
+            handleChange(data.data.user, data.token);
             
-
-        } catch(err) {
-
-        } finally {
-
+        } catch (err) {
+            setResponse({ status: "error", message: err.message });
         }
     }
 
@@ -184,20 +229,21 @@ function index() {
                 <div className="onboarding--container">
 
                     <div className="onboarding--top">
-                        <span className='returned--box'>
-                            <p className='onboarding--numbering'>{onboardTabNum}/3 👈🏿</p>
-                            {isReturned && <p className='returned--text'>You have to set up your store</p>}
-                        </span>
-                        <p className='onboarding--subtitle'>You are almost done</p>
-                        <h2 className='form--heading' style={{ marginBottom: '.8rem' }}>
+                        <p className='onboarding--numbering'>{onboardTabNum}/2 👈🏿</p>
+                        <p className='onboarding--subtitle'>
+                            You are almost done
+                            <picture style={{ marginTop: '-1rem' }}>
+                                <source srcSet="https://fonts.gstatic.com/s/e/notoemoji/latest/1f389/512.webp" type="image/webp" />
+                                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f389/512.gif" alt="🎉" width="24" height="24" />
+                            </picture>
+                        </p>
+                        <h2 className='form--heading' style={{ marginBottom: '1rem', lineHeight: '1.2' }}>
                             {onboardTabNum === 1 && "Let's setup your store and dashboard."}
-                            {onboardTabNum === 2 && "Lorem ipsum dolor sit amet consectetur."}
-                            {onboardTabNum === 3 && "Dolor sit consectetur amet lorem ipsum."}
+                            {onboardTabNum === 2 && "Choose important goals you need Quicka for?"}
                         </h2>
                         <p className='auth--right-text'>
                             {onboardTabNum === 1 && "Tell us a bit about your business so that we can provide you a personalised experienced tailored to your business needs and prefenece."}
-                            {onboardTabNum === 2 && `What are 2 important things you want Quicka to do for ${onboardingData.name}'s unique business need met consectetur dolor sit amet adipisicing.`}
-                            {onboardTabNum === 3 && "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur cumque ipsam, molestias cupiditate corporis dolor sit amet consectetu eos."}
+                            {onboardTabNum === 2 && `What are the important things you want to use Quicka for. We need this data to create a perfect experience for you.`}
                         </p>
                     </div>
 
@@ -210,7 +256,7 @@ function index() {
                                         <span>
                                             <img src={image.preview ? image.preview : logo_demo} alt="brand logo" />
                                         </span>
-                                        
+
                                         <div className='form--item'>
                                             <input type='file' id='logo' name='image' onChange={handleImageChange} accept="image/*" />
                                             <label htmlFor="logo" className='form--upload-btn'>Upload Image</label>
@@ -228,11 +274,11 @@ function index() {
                                 </div>
 
                                 <div className="form--item">
-                                    <label htmlFor="url" className="form--label">Store URL</label>
+                                    <label htmlFor="storeUrl" className="form--label">Store URL</label>
                                     <div className="form--input-box">
-                                        <input type="text" id='url' className="form--input" placeholder='Store url' value={onboardingData.url} name='url' onChange={handleOnboardDataChange} />
+                                        <input type="text" id='storeUrl' className="form--input" placeholder='Store url' value={onboardingData.storeUrl} name='storeUrl' onChange={handleOnboardDataChange} />
 
-                                        {(onboardingData.url && !isCopied) ? (
+                                        {(onboardingData.storeUrl && !isCopied) ? (
                                             <TooltipUI title="Copy URL" placement="top">
                                                 <span className='url--box' onClick={handleCopyLink}>.quicka.store</span>
                                             </TooltipUI>
@@ -240,13 +286,47 @@ function index() {
                                             <span className='url--box' onClick={handleCopyLink}>.quicka.store</span>
                                         )}
                                     </div>
+                                    <span className="form--error-message">
+                                        {onboardingErrors.storeUrl && onboardingErrors.storeUrl}
+                                    </span>
                                 </div>
+
+                                <div className="form--item">
+                                    <label htmlFor="type" className="form--label">Is your business incorporated with the Corporate Affairs Commission (CAC)?</label>
+
+                                    <div className="form--clicks">
+                                        <div className={
+                                            `form--click ${onboardingData.isCoperated == "yes" ? 'is-selected' : ''}`}
+                                            onClick={() => setOnboardingData({ ...onboardingData, isCoperated: "yes" })}
+                                        >Yes <span></span></div>
+                                        <div className={`
+                                            form--click ${onboardingData.isCoperated == "no" ? 'is-selected' : ''}`}
+                                            onClick={() => setOnboardingData({ ...onboardingData, isCoperated: "no" })}
+                                        >No <span></span></div>
+                                    </div>
+                                </div>
+
+                                {onboardingData.isCoperated == "yes" && (
+                                    <div className="form--item">
+                                        <label htmlFor="type" className="form--label">Business registration type <Asterisk /></label>
+
+                                        <select className='form--select' name='type' id='type' onChange={handleOnboardDataChange} value={onboardingData.type}>
+                                            <option hidden>Select type</option>
+                                            <option value="limited-company">Limited Company</option>
+                                            <option value="sole-propreitorship">Sole Proprietorship</option>
+                                        </select>
+                                        <span className="form--error-message">
+                                            {onboardingErrors.type && onboardingErrors.type}
+                                        </span>
+                                    </div>
+
+                                )}
 
                                 <div className="form--item">
                                     <label htmlFor="category" className="form--label">What category best describes your business <Asterisk /></label>
 
                                     <select className='form--select' value={onboardingData.category} name='category' id='category' onChange={handleOnboardDataChange}>
-                                        <option disabled defaultValue hidden>Pick a category / industry</option>
+                                        <option hidden>Pick a category / industry</option>
                                         {(storeCategories.length > 0) && storeCategories.map((storeCategory) => (
                                             <option value={storeCategory?.slug} key={storeCategory.slug}>{storeCategory?.name}</option>
                                         ))}
@@ -261,17 +341,39 @@ function index() {
 
                         {onboardTabNum === 2 && (
                             <>
-                                {/* remove soon */}
-                               <p className='returned--text'>coming soon...</p> 
+                                <div className="form--item">
+                                    <p className="form--label" style={{ marginBottom: '1.2rem', opacity: '.65' }}>Choose all that apply: (At least 2)</p>
+                                    <div className="form--click-opts">
+                                        {goalOptions.map((option) => (
+                                            <div
+                                                key={(option.id)}
+                                                className={`form--click ${goals.includes((option.id)) ? 'is-selected' : ''}`}
+                                                onClick={() => handleAddGoals((option.id))}
+                                            >
+                                                <p>{option.label}</p>
+                                                <span></span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+
+                                <Line where="Top" value="3rem" border={1.4} />
+
+
+                                <div className="form--item">
+                                    <label className="form--label" style={{ fontSize: '1.8rem' }}>
+                                        One more thing, Before you go..
+                                        <picture>
+                                            <source srcSet="https://fonts.gstatic.com/s/e/notoemoji/latest/1f973/512.webp" type="image/webp" />
+                                            <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f973/512.gif" alt="🥳" width="24" height="24" />
+                                        </picture>
+                                    </label>
+                                    <p className='auth--right-text'>What plan has the features that suits your needs</p>
+                                </div>
                             </>
                         )}
 
-
-                        {onboardTabNum === 3 && (
-                            <>
-                                <iframe style={{ borderRadius: '.62rem' }} width="auto" height="350" src="https://www.youtube.com/embed/Siwlj-n1S6I?si=nFgeM6FI0OwAV2vQ&amp;controls=0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin"></iframe>
-                            </>
-                        )}
 
                         <div className="form--item">
                             <span className='onboarding--actions'>
@@ -279,7 +381,7 @@ function index() {
                                     <button className='onboard--prev' onClick={handlePrevTab}>Go Back</button>
                                 ) : <p></p>}
 
-                                <button className='onboard--next' type='submit' onClick={handleNextTab}>{onboardTabNum === 3 ? 'Finish' : 'Next Step'}</button>
+                                <button className='onboard--next' onClick={handleNextTab}>{onboardTabNum === 2 ? 'Finish' : 'Next Step'}</button>
                             </span>
                         </div>
 
@@ -293,23 +395,3 @@ function index() {
 }
 
 export default index
-
-
-
-/*
-
-<div className="">
-<h2>Business Location </h2>
-<div className="form--grid">
-    <div className="form--item">
-        <label htmlFor="" className="form--label">Country</label>
-        <input type="text" className="form--input" placeholder='Country' />
-    </div>
-    <div className="form--item">
-        <label htmlFor="" className="form--label">State</label>
-        <input type="text" className="form--input" placeholder='State' />
-    </div>
-</div>
-</div>
-*/
-

@@ -91,15 +91,20 @@ export function capitalizeFirstLetter(string) {
 
 
 
-export function validateOnboardForm(data) {
+export function validateOnboardForm(data, type) {
 	const errors = {};
 
 	if (!data.name.trim()) {
 		errors.name = "Business name is required";
 	} else if (data.name.length < 3) {
 		errors.name = "Business name must be more than 3 characters long";
+	} else if (data.name.trim() && !data.storeUrl) {
+		errors.storeUrl = "A URL is needed for your store";
 	}
 
+	if (type && !data.type) {
+		errors.type = "Registered Business type would be required";
+	}
 	if (!data.category) {
 		errors.category = "Picking a category is required";
 	}

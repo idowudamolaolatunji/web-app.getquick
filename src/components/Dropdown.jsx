@@ -34,7 +34,6 @@ function Dropdown({ setIsShown }) {
         setIsSuccess(true);
         setTimeout(function() {
             signoutUser();
-            setIsLoading(false);
         }, 2000);
     }
 

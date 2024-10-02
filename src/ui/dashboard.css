@@ -24,12 +24,18 @@
 }
 /* ========================================== */
 
-
 body:has(.dashboard--base) {
-    /* i'm lost */
     height: 95vh;
-    overflow: hidden;
+    overflow-x: hidden;
 }
+
+
+@media screen and (min-width: 1000px) {
+    body:has(.dashboard--base) {
+        overflow: hidden;
+    }
+} 
+
 
 
 /* ========================================== */

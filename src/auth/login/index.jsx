@@ -18,6 +18,11 @@ import Asterisk from '../../components/Asterisk';
 const headingText = "Manage your business online like the boss that you are."
 
 function index() {
+    const navigate = useNavigate();
+    const { width } = useWindowSize();
+    const { user, store, handleChange, handleStore } = useAuthContext();
+
+    
     const [showPassword, setShowPassword] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [formErrors, setFormErrors] = useState({});
@@ -35,9 +40,6 @@ function index() {
         password: '',
     });
 
-    const navigate = useNavigate();
-    const { width } = useWindowSize();
-    const { user, handleChange } = useAuthContext();
 
     const handleFormChange = function (e) {
         const { name, value } = e.target;
@@ -90,7 +92,7 @@ function index() {
             const data = await res.json();
             if(data.status !== 'success') {
                 // IF THE USER IS NOT VERIFIED, REDIRECT THE TO THE VERIFICATION PAGE
-                if(data.message === "Account not verified!") {
+                if(data.message.startsWith("Account not verified.")) {
                     localStorage.setItem("otp_user", JSON.stringify({ ...data.data.user, message: "not_verified" }));
 
                     setTimeout(function() {
@@ -118,6 +120,7 @@ function index() {
             setResponse({ status: data.status, message: data.message });
             setTimeout(function() {
                 handleChange(data.data.user, data.token);
+                handleStore(data.data.store);
             }, 2000);
         } catch (err) {
             console.log(err)
@@ -128,10 +131,10 @@ function index() {
     }
 
     useEffect(function() {
-        if (user) {
+        if (user && store) {
             navigate("/");
         }
-    }, [user])
+    }, [user, store])
 
 
 

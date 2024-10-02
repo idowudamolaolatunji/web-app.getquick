@@ -212,12 +212,12 @@ a.dropdown--item {
     background-color: var(--color-brand-50);
 }
 .dropdown--item:hover,
-.dropdown--item:hover svg {
+    .dropdown--item:hover svg {
     color: var(--color-brand-700);
 }
 .dropdown--item svg {
     font-size: 2rem;
-    opacity: .8;
+    opacity: .85;
     color: #555;
 }
 

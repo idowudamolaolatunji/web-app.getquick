@@ -1,8 +1,8 @@
 import moment from "moment";
 
-export function formatNumber(amount) {
+export function formatNumber(amount, dec=0) {
 	return Number(amount)
-		.toFixed(0)
+		.toFixed(dec)
 		.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 

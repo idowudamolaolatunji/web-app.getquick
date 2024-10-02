@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { facebook, online_store, physical_store, instagram,whatsapp, twitter, flutterwave_store, others, jiji, jumia, konga } from '../../../assets/images/index';
 import TooltipUI from '../../../components/TooltipUI';
+import Empty from '../../../components/Empty';
 
 
 function imgString(imgType) {
@@ -62,48 +63,50 @@ const columns = [
     },
 ];
 
-const data = [
-    {
-        id: '019875',
-        name: 'Damola Olatunji',
-        product: 'T-shirt polo xl',
-        amount: 10000,
-        status: 'success',
-        delivery: 'delivered',
-        date: new Date('2024-09-04T09:21:38Z'),
-        channel: 'your_online_store'
-    },
-    {
-        id: '0387663',
-        name: 'Idowu Olatunji',
-        product: 'Baggie Trousers',
-        amount: 10000,
-        status: 'pending',
-        delivery: 'pending',
-        date: new Date('2024-05-22T23:59:01Z'),
-        channel: 'facebook'
-    },
-    {
-        id: '0358673',
-        name: 'David Olatunji',
-        product: 'Baggie Sweater',
-        amount: 12000,
-        status: 'pending',
-        delivery: 'pending',
-        date: new Date('2024-05-22T23:59:01Z'),
-        channel: 'jiji'
-    },
-    {
-        id: '01162334',
-        name: 'Oyindamola Olatunji',
-        product: 'Luxury Trousers',
-        amount: 12000,
-        status: 'pending',
-        delivery: 'failed',
-        date: new Date('2024-09-22T23:59:01Z'),
-        channel: 'flutterwave_store'
-    },
-];
+// const data = [
+//     {
+//         id: '019875',
+//         name: 'Damola Olatunji',
+//         product: 'T-shirt polo xl',
+//         amount: 10000,
+//         status: 'success',
+//         delivery: 'delivered',
+//         date: new Date('2024-09-04T09:21:38Z'),
+//         channel: 'your_online_store'
+//     },
+//     {
+//         id: '0387663',
+//         name: 'Idowu Olatunji',
+//         product: 'Baggie Trousers',
+//         amount: 10000,
+//         status: 'pending',
+//         delivery: 'pending',
+//         date: new Date('2024-05-22T23:59:01Z'),
+//         channel: 'facebook'
+//     },
+//     {
+//         id: '0358673',
+//         name: 'David Olatunji',
+//         product: 'Baggie Sweater',
+//         amount: 12000,
+//         status: 'pending',
+//         delivery: 'pending',
+//         date: new Date('2024-05-22T23:59:01Z'),
+//         channel: 'jiji'
+//     },
+//     {
+//         id: '01162334',
+//         name: 'Oyindamola Olatunji',
+//         product: 'Luxury Trousers',
+//         amount: 12000,
+//         status: 'pending',
+//         delivery: 'failed',
+//         date: new Date('2024-09-22T23:59:01Z'),
+//         channel: 'flutterwave_store'
+//     },
+// ];
+
+const data = []
 
 const customStyles = {
     table: {
@@ -162,6 +165,7 @@ function RecentOrders() {
                 highlightOnHover
                 onRowClicked={(row) => navigate(`/dashboard/orders/${row.id}`)}
                 customStyles={customStyles}
+                noDataComponent={<Empty customStyle={{ margin: "3rem 0" }} text="recent orders yet!" />}
             />
         </div>
     )

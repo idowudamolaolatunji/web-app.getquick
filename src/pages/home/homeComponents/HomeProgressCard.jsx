@@ -13,7 +13,7 @@ function HomeProgressCard({ title, icon, value, upTrend=true, percent, days }) {
         </div>
 
         <div className='prog-figure-bottom'>
-            <span className='prog-figure-value'>₦{formatNumber(value)}</span>
+            <span className='prog-figure-value'>₦{formatNumber(value, 2)}</span>
             <div className='prog-figure-info'>
                 <span className='prog-figure-chart' style={ upTrend ? { color: 'green' } : { color: 'red' } }>
                     {upTrend ? <HiMiniArrowTrendingUp /> : <HiMiniArrowTrendingDown />}

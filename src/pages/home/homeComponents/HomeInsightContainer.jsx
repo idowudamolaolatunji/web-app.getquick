@@ -3,6 +3,7 @@ import HomeProgressGrid from './HomeProgressGrid';
 import SelectAutoWidthDropdown from '../../../components/SelectAutoWidthDropdown';
 import InsightGrid from './InsightGrid';
 import { useWindowSize } from 'react-use';
+import { useAuthContext } from '../../../context/AuthContext';
 
 const datePeriods = [
     { value: 'today', title: 'Today' },
@@ -13,13 +14,14 @@ const datePeriods = [
 
 function HomeInsightContainer() {
     const { width } = useWindowSize();
+    const { store } = useAuthContext()
 
     return (
         <div className={`insight--container ${width > 500 ? 'card' : ''}`}>
             <div className="section--top">
                 <div className="section--heading">
                     <h2>Brief Overview</h2>
-                    <p>This is what your business is up to today!</p>
+                    <p>This is what <span>"{store?.name}"</span> is up to today!</p>
                 </div>
 
                 <SelectAutoWidthDropdown menus={datePeriods} />

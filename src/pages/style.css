@@ -134,7 +134,7 @@
 }
 .prog-figure-detail {
     font-size: 1rem;
-    opacity: .8;
+    opacity: .85;
 }
 /* ============================================= */
 
@@ -236,6 +236,10 @@
     font-size: 1.2rem;
     color: #888;
     font-weight: 500;
+}
+.section--heading p span {
+    font-weight: 700;
+    color: #555;
 }
 /* ============================================= */
 
@@ -474,14 +478,38 @@
 }
 
 
-/* .dougnot-chart {
-    overflow: hidden;
-    width: 100% !important;
+.no--channel {
+    margin-top: 2.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
 }
-.dougnot-chart .apexcharts-canvas.apexchartsgqsehmok {
-    height: 0;
-    width: 0 !important;
-} */
+.no--channel p {
+    font-size: 1.4rem;
+    font-weight: 500;
+	color: #888;
+}
+
+.no--channel button {
+    border: none;
+    background-color: var(--color-brand-500);
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 400;
+    padding: .8rem 1.4rem;
+    border-radius: .4rem;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.no--channel button:hover {
+    opacity: .85;
+}
+
+
+
 
 
 /* bad parctices for the mui dropdown */

@@ -12,7 +12,7 @@ function Insight({ title, value, icon, link }) {
         >
             <div className='insight--info'>
                 <p className='text'>{title}</p>
-                <span className='value'>{formatNumber(value)}</span>
+                <span className='value'>{formatNumber(value, 1)}</span>
             </div>
             <span className='insight--icon'>{icon}</span>
         </figure>

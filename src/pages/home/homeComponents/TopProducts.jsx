@@ -2,6 +2,7 @@ import React from 'react'
 import SelectAutoWidthDropdown from '../../../components/SelectAutoWidthDropdown';
 
 import img_item from '../../../assets/images/resources/IMG_5336.jpg'
+import Empty from '../../../components/Empty';
 
 const datePeriods = [
     { value: 'this-week', title: 'This Week' },
@@ -40,9 +41,11 @@ function TopProducts() {
             </div>
 
             <div className='top-product--container'>
+                {/* <ProductFigure />
                 <ProductFigure />
-                <ProductFigure />
-                <ProductFigure />
+                <ProductFigure /> */}
+
+                <Empty text="best selling product yet!" />
             </div>
 
         </div>

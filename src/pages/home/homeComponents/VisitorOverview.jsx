@@ -4,7 +4,7 @@ import ReactApexChart from 'react-apexcharts';
 const series = [
     {
         name: 'Total Sales',
-        data: [ 56, 14, 40, null, null, null],
+        data: [ null, null, null, null, null ],
         color: '#FF6B35'
     },
 ];
@@ -47,7 +47,7 @@ const options = {
         },
     },
     xaxis: {
-        categories: [ 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
+        categories: [ 'Jul', 'Aug', 'Sep', 'Oct', 'Nov' ],
         labels: {
             style: {
                 fontSize: '11px',

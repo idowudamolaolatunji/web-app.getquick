@@ -26,7 +26,7 @@ const goalOptions = [
 
 function index() {
     const navigate = useNavigate();
-    const { handleChange } = useAuthContext();
+    const { handleChange, handleStore } = useAuthContext();
     const [storeCategories, setStoreCategories] = useState([]);
 
     const [isLoading, setIsLoading] = useState(false);
@@ -224,6 +224,7 @@ function index() {
             
             setTimeout(function () {
                 handleChange(data.data.user, data.token);
+                handleStore(data.data.store);
                 localStorage.removeItem("tab_num");
                 navigate('/congratulations?next=dashboard');
             }, 1000);

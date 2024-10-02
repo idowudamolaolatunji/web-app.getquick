@@ -8,7 +8,7 @@ import { useAuthContext } from '../../../context/AuthContext';
 
 
 function HomeTop() {
-    const { user } = useAuthContext();
+    const { user, store } = useAuthContext();
     const { width } = useWindowSize();
     
     return (
@@ -18,9 +18,9 @@ function HomeTop() {
                 <p className='heading--date'>{todayDate()}.</p>
             </div>
 
-            {(width > 700) && (
+            {(width > 700 && !store.isPremium) && (
                 <div className='top--upgrade'>
-                    <p className='upgrade--text'>You're on a Free plan</p>
+                    <p className='upgrade--text'>You're on a free plan</p>
                     <Link to={'/dashboard/subscription'} className='upgrade--link'><MdOutlineWorkspacePremium />Upgrade</Link>
                 </div>
             )}

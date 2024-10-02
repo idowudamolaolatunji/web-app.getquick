@@ -565,14 +565,21 @@ button.onboard--next {
 }
 
 @media screen and (max-width: 850px) {
+    /* MODIFY THE AUTH LAYOUT HERE */
     .auth__section {
         grid-template-columns: 1fr;
+        height: unset;
+        overflow-y: unset;
     }
+    .auth--left,
+    .auth--left-container {
+        overflow-y: unset !important;
+        height: auto !important;
+    }
+    /* ==================== */
+
     .auth--logo {
         margin-bottom: -.5rem;
-    }
-    .auth--left {
-        overflow-y: auto;
     }
     .auth--right {
         display: none;
@@ -580,7 +587,6 @@ button.onboard--next {
     .form--submit:hover {
         background-color: var(--color-brand-500);
     }
-
 }
 
 

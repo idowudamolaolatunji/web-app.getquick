@@ -167,7 +167,7 @@ function index() {
 
                 <form className="auth--form" onSubmit={handleSubmit} style={{ padding: '8rem 0', width: '90%' }}>
                     <div>
-                        <h2 className='form--heading' style={width > 850 ? { color: '#ff7a49' } : { color: 'inherit' }}>Create Account 🎉</h2>
+                        <h2 className='form--heading' style={width > 850 ? { color: '#ff7a49' } : { color: 'inherit' }}>Create {width > 362 && "an"} Account 🎉</h2>
                         {width <= 850 && (
                             <div className='auth--extra-info'>
                                 <p className='auth--right-text'>Simplify, Automate, Dominate: Business Made Easy with easy-to-use tools designed for entrepreneurs like you. Trusted by 100+ businesses</p>
@@ -268,12 +268,12 @@ function index() {
                     </div>
 
 
-                    <div className="form--item-flex">
+                    <div className="form--item-flex" onClick={() => width > 850 ? setIsChecked(!isChecked) : null}>
                         <div id="checkbox" className={isChecked ? 'is-selected' : ''} onClick={() => setIsChecked(!isChecked)}>
                             {isChecked && <FaCheck />}
                         </div>
                         <p className='form--info'>
-                            I agree to the <a href='#'>Terms of Use</a> and <a href='#'>Privacy Policy</a>
+                            I agree to the <a target='_blank' href='https://www.getquicka.com/terms'>Terms of Use</a> and <a target='_blank' href='https://www.getquicka.com/policy'>Privacy Policy</a>
                         </p>
                     </div>
 
@@ -283,7 +283,7 @@ function index() {
                         <p>Already have an account? <Link to='/login'>Sign in</Link></p>
                     </div>
 
-                    {width > 450 && <div style={{ paddingBottom: '6rem' }} />}
+                    {width > 850 && <div style={{ paddingBottom: '6rem' }} />}
                 </form>
 
             </AuthsUI>

@@ -56,7 +56,10 @@ function App() {
 
 
     // COME BACK AND REMODIFY THIS OR NOT
-    if (window.location.pathname === '/verify-otp') {
+    if (
+        window.location.pathname === '/verify-otp' ||
+        window.location.pathname === '/onboarding'
+    ) {
         window.onbeforeunload = function() {
           return "Are you sure you want to leave this page?";
         };

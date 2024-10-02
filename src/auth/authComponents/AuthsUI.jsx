@@ -9,7 +9,7 @@ import logo_black from '../../assets/images/logo/logo-black.png'
 import logo_white from '../../assets/images/logo/logo-white.png'
 import '../auth.css'
 
-function AuthsUI({ heading, backText, backLink, dataimg, centered= true, overflowLeft= false, children, extras }) {
+function AuthsUI({ heading, backText, backLink, dataimg, centered=true, overflowLeft=false, children, extras }) {
     const { width } = useWindowSize();
 
     const style = {
@@ -20,7 +20,7 @@ function AuthsUI({ heading, backText, backLink, dataimg, centered= true, overflo
 
     return (
         <section className='auth__section'>
-            <div className="auth--left" style={overflowLeft ? { overflow: 'auto' } : {}}>
+            <div className="auth--left" style={overflowLeft ? { overflowY: 'auto' } : {}}>
                 <div className='auth--left-top'>
                     {width <= 850 && (
                         <div className="auth--logo">

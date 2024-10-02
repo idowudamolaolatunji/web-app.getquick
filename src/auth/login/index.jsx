@@ -57,6 +57,11 @@ function index() {
         setResponse({ status: null, message: null });
     }
 
+    useEffect(function() {
+        document.title = "Quicka | Welcome back 👋🏿";
+    }, [])
+
+    
     async function handleSubmit(e) {
         e.preventDefault();
         const newErrors = validateForm(formData, 'login');
@@ -133,6 +138,9 @@ function index() {
     /*
     
         Extras: they are just extra inline-styles for certain pages
+            - On the extras we passed in marginBottom there for a reason that i don't understand here..
+            - Also note that the marginBottom style is also added on the OTP page, and forgot password page
+            - Anyother styles can be passed there..
         AuthsUI: the's are container ui components for auth pages
 
     

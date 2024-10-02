@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
-import CustomAlert from '../../components/CustomAlert';
+import Line from '../../components/Line';
 import Spinner from '../../components/spinner/spinner_two'
 import TooltipUI from '../../components/TooltipUI';
 import Asterisk from '../../components/Asterisk';
-
+import CustomAlert from '../../components/CustomAlert';
 import logo_demo from '../../assets/images/resources/logo-demo.png'
+
 import { useNavigate } from 'react-router-dom';
 import { validateOnboardForm } from '../../utils/helper';
 import { useAuthContext } from '../../context/AuthContext';
-import Line from '../../components/Line';
 
 
 const goalOptions = [
@@ -24,14 +24,16 @@ const goalOptions = [
 ];
 
 
-
 function index() {
     const navigate = useNavigate();
     const { handleChange } = useAuthContext();
     const [storeCategories, setStoreCategories] = useState([]);
-    const [goals, setGoals] = useState([])
-    const [onboardingErrors, setOnboardingErrors] = useState({});
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [goalsChoosen, setGoalsChoosen] = useState([]);
     const [isCopied, setIsCopied] = useState(false);
+
+    const [onboardingErrors, setOnboardingErrors] = useState({});
     const [response, setResponse] = useState({
         status: null,
         message: null
@@ -95,14 +97,17 @@ function index() {
         }
     };
 
+    // HNADLE GOING TO THE PREVIOUS FORM TAB
     function handlePrevTab() {
         if (onboardTabNum === 1) return;
         setOnboardTabNum(prev => prev - 1)
     }
 
+    // HNADLE GOING TO THE NEXT FORM TAB
     function handleNextTab(e) {
         const isCoperated = onboardingData.isCoperated == "yes" ? true : false;
         if (onboardTabNum === 1) {
+            // DO SOME VALIDATION AND IF ISCOPREATED IS YES, VALIDATE THE CONDITIONAL FIELD
             const newErrors = validateOnboardForm(onboardingData, isCoperated);
             console.log(newErrors)
             setOnboardingErrors(newErrors);
@@ -110,32 +115,50 @@ function index() {
             if (Object.keys(newErrors).length >= 1) return;
         }
         if (onboardTabNum === 2) {
-            if(goals.length < 3) return;
-            handleSubmit(e);
-            return;
+            if(goalsChoosen.length < 3) { 
+                return setResponse({ status: "error", message: `Select ${goalsChoosen.length < 1 ? '' : `more than ${goalsChoosen.length}`} at least 3 goal options!` });
+            } else {
+                return handleOnboading();
+            }
         };
         setOnboardTabNum(prev => prev + 1);
     }
 
-
-    function handleAddGoals(goal) {
-        const isGoalAlreadyIncluded = goals.includes(goal);
+    
+    // HANDLE THE GOALS CHOOSEN
+    function handleGoalsChoosen(goal) {
+        const isGoalAlreadyIncluded = goalsChoosen.includes(goal);
 
         if (isGoalAlreadyIncluded) {
-            setGoals(goals.filter((item) => item !== goal));
+            setGoalsChoosen(goalsChoosen.filter((item) => item !== goal));
         } else {
-            setGoals([...goals, goal]);
+            setGoalsChoosen([...goalsChoosen, goal]);
         }
-
-        // PLEASE COME BACK AND DO SOMETHING WITH THIS
     }
 
 
     const userId = localStorage.getItem('user_id');
     useEffect(function () {
+        document.title = "Quicka | Store Onboarding 🏪";
+
         if(!userId) navigate(-1);
     }, []);
+    
+    
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [onboardTabNum]);
 
+
+    useEffect(function() {
+        handleResetResponse()
+    }, [goalsChoosen]);
+
+    useEffect(function() {
+        if(onboardingData.isCoperated == "no") {
+            setOnboardingData({ ...onboardingData, type: "" })
+        }
+    }, [onboardingData.isCoperated])
 
     // GET THE STORE CATEGORIES
     useEffect(function () {
@@ -176,46 +199,38 @@ function index() {
     }
 
 
+    async function handleOnboading() {
+        // RESET THE RESPONSE STATE HERE
+        handleResetResponse();
 
-    // THIS GUY NEEDS A HUGE RE MODIFICATION
-    async function handleSubmit(e) {
+        setIsLoading(true);
         try {
-            console.log(onboardingData, userId);
-            console.log('I\'m here')
-            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/stores/onboard-store/${userId}`, {
+            const res = await fetch(
+                `${import.meta.env.VITE_SERVER_URL}/users/onboarding-store/${userId}`
+            , {
                 method: 'PATCH',
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify(onboardingData),
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify(onboardingData)
             });
-            console.log(res)
 
             if(!res.ok) throw new Error('Something went wrong! Check intenet connection');
 
-            // RESET THE RESPONSE STATE HERE
-            handleResetResponse();
-
             const data = await res.json();
-            if(data.status !== 'success') {
-                // IF AND ELSE THROW NEW ERROR
-                throw new Error(data.message);
-            }
+            if(data.status !== 'success') throw new Error(data.message);
 
-            // your logic....
-
+            // SET THE ACCESS STORAGE FOR THE CONGRATS PAGE
             localStorage.setItem(`${import.meta.env.VITE_CONGRATS_KEY}`, "access");
-
+            setResponse({ status: data.status, message: data.message });
+            
             setTimeout(function () {
+                handleChange(data.data.user, data.token);
                 localStorage.removeItem("tab_num");
                 navigate('/congratulations?next=dashboard');
             }, 1000);
-
-            setResponse({ status: data.status, message: data.message });
-            handleChange(data.data.user, data.token);
-            
         } catch (err) {
             setResponse({ status: "error", message: err.message });
+        } finally {
+            setIsLoading(true);
         }
     }
 
@@ -225,6 +240,9 @@ function index() {
             {(response.message || response.status) && (
                 <CustomAlert type={response.status} message={response.message} />
             )}
+            
+            { isLoading && <Spinner /> }
+
             <section className='onboarding--section'>
                 <div className="onboarding--container">
 
@@ -239,7 +257,7 @@ function index() {
                         </p>
                         <h2 className='form--heading' style={{ marginBottom: '1rem', lineHeight: '1.2' }}>
                             {onboardTabNum === 1 && "Let's setup your store and dashboard."}
-                            {onboardTabNum === 2 && "Choose important goals you need Quicka for?"}
+                            {onboardTabNum === 2 && "Choose important goals you need Quicka to achieve."}
                         </h2>
                         <p className='auth--right-text'>
                             {onboardTabNum === 1 && "Tell us a bit about your business so that we can provide you a personalised experienced tailored to your business needs and prefenece."}
@@ -342,24 +360,22 @@ function index() {
                         {onboardTabNum === 2 && (
                             <>
                                 <div className="form--item">
-                                    <p className="form--label" style={{ marginBottom: '1.2rem', opacity: '.65' }}>Choose all that apply: (At least 2)</p>
+                                    <p className="form--label" style={{ marginBottom: '1.2rem', opacity: '.65' }}>Choose all that apply: (At least 3)</p>
                                     <div className="form--click-opts">
-                                        {goalOptions.map((option) => (
+                                        {goalOptions.map((goal) => (
                                             <div
-                                                key={(option.id)}
-                                                className={`form--click ${goals.includes((option.id)) ? 'is-selected' : ''}`}
-                                                onClick={() => handleAddGoals((option.id))}
+                                                key={(goal.id)}
+                                                className={`form--click ${goalsChoosen.includes((goal.id)) ? 'is-selected' : ''}`}
+                                                onClick={() => handleGoalsChoosen((goal.id))}
                                             >
-                                                <p>{option.label}</p>
+                                                <p>{goal.label}</p>
                                                 <span></span>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
 
-
                                 <Line where="Top" value="3rem" border={1.4} />
-
 
                                 <div className="form--item">
                                     <label className="form--label" style={{ fontSize: '1.8rem' }}>
@@ -378,19 +394,20 @@ function index() {
                         <div className="form--item">
                             <span className='onboarding--actions'>
                                 {onboardTabNum > 1 ? (
-                                    <button className='onboard--prev' onClick={handlePrevTab}>Go Back</button>
+                                    <button className='onboard--prev'
+                                        onClick={handlePrevTab}>Go Back
+                                    </button>
                                 ) : <p></p>}
 
-                                <button className='onboard--next' onClick={handleNextTab}>{onboardTabNum === 2 ? 'Finish' : 'Next Step'}</button>
+                                <button className='onboard--next'
+                                    onClick={handleNextTab}>{onboardTabNum === 2 ? 'Finish' : 'Next Step'}
+                                </button>
                             </span>
                         </div>
-
                     </div>
                 </div>
-
             </section>
         </>
-
     )
 }
 

@@ -178,15 +178,8 @@ input::-webkit-inner-spin-button {
 }
 
 
-/* 600px === 37.5em */
-/* MIN WIDTH - DESKTOP MEDIA QUERY */
-@media screen and (min-width: 37.5em) {
-	body {
-		height: 100vh;
-		overflow: hidden;
-	}
-}
 
+/* 600px === 37.5em */
 /* MAX WIDTH - MOBILE MEDIA QUERY */
 @media screen and (max-width: 37.5em) {
     html {

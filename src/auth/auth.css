@@ -6,6 +6,7 @@
     width: 100%;
     height: 100vh;
     padding: 1.8rem;
+    overflow-y: hidden;
 }
 
 .auth--left {
@@ -337,8 +338,6 @@
 
 .onboarding--section {
     background-color: #fff;
-    height: 100vh;
-    overflow-y: auto !important;
 }
 .onboarding--container {
     max-width: 70rem;
@@ -572,6 +571,9 @@ button.onboard--next {
     .auth--logo {
         margin-bottom: -.5rem;
     }
+    .auth--left {
+        overflow-y: auto;
+    }
     .auth--right {
         display: none;
     }
@@ -591,20 +593,19 @@ button.onboard--next {
 
 @media screen and (max-width: 450px) {
     .auth__section {
-        padding: 2rem;
-        height: 99vh;
+        padding: 1.8rem 2rem 0;
     }
 
 
     .auth--left-container {
-        height: 90;
+        height: auto;
         display: unset;
     }
     .auth--left-container.centered {
         flex-direction: unset;
     }
     .auth--left-container.centered .auth--form {
-        margin: 8rem 0 4rem;
+        margin: 8rem 0 6rem;
     }
 
     .congrats--section {

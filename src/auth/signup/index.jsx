@@ -79,7 +79,13 @@ function index() {
         localStorage.setItem("otp_user", JSON.stringify(otpUser));
     }
 
-    // remove in a later version
+    
+
+    useEffect(function() {
+        document.title = "Quicka | Create an Account 🎉";
+    }, [])
+
+
     useEffect(function () {
         setFormData(prev => ({ ...prev, passwordConfirm: prev.password }));
     }, [formData.password]);
@@ -151,7 +157,6 @@ function index() {
 
     return (
         <>
-
             {(response.message || response.status) && (
                 <CustomAlert type={response.status} message={response.message} />
             )}
@@ -160,7 +165,7 @@ function index() {
 
             <AuthsUI backText="Back to home" backLink="https://www.getquicka.com" dataimg={data_img} heading={headingText} centered={false} overflowLeft={true}>
 
-                <form className="auth--form" onSubmit={handleSubmit} style={{ padding: '8rem 0 4rem', width: '90%' }}>
+                <form className="auth--form" onSubmit={handleSubmit} style={{ padding: '8rem 0', width: '90%' }}>
                     <div>
                         <h2 className='form--heading' style={width > 850 ? { color: '#ff7a49' } : { color: 'inherit' }}>Create Account 🎉</h2>
                         {width <= 850 && (
@@ -278,7 +283,7 @@ function index() {
                         <p>Already have an account? <Link to='/login'>Sign in</Link></p>
                     </div>
 
-                    <div style={{ paddingBottom: '6rem' }} />
+                    {width > 450 && <div style={{ paddingBottom: '6rem' }} />}
                 </form>
 
             </AuthsUI>

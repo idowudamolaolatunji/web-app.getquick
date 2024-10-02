@@ -30,7 +30,9 @@ function index() {
 
     const navigate = useNavigate();
     const { width } = useWindowSize();
-    const otpUser = localStorage.getItem("otp_user") ? JSON.parse(localStorage.getItem("otp_user")) : null;
+    const otpUser = localStorage.getItem("otp_user") 
+        ? JSON.parse(localStorage.getItem("otp_user"))
+        : null;
 
     const handleResetResponse = function () {
         setResponse({ status: null, message: null });
@@ -41,6 +43,8 @@ function index() {
     }
 
     useEffect(function() {
+        document.title = "Quicka | OTP Verification";
+        
         if(!otpUser) navigate('/');
         else {
             countdownTimer(113, setTimeLeft);
@@ -150,11 +154,11 @@ function index() {
 
 
             <AuthsUI backText="Back to signup" backLink="/signup" dataimg={data_img} heading={headingText} extras={{ marginBottom: '5.6rem' }}>
-                <form className="auth--form" onSubmit={(e) => e.preventDefault()} style={{ textAlign: 'center', width: '90%', ...(width > 850 && { marginTop: '-6rem' }) }}>
+                <form className="auth--form" onSubmit={(e) => e.preventDefault()} style={{ textAlign: 'center', width: '90%', ...(width > 850 && { marginTop: '-4rem' }) }}>
                     <div>
                         <HiFingerPrint style={{ fontSize: '3.4rem', marginBottom: '2rem' }} />
 
-                        <h2 className='form--heading'>Welcome Back! {otpUser?.name}</h2>
+                        <h2 className='form--heading' style={{ overflowWrap: 'normal', hyphens: "none" }}>Welcome Back! {otpUser?.name}</h2>
 
                         {otpUser?.message && (
                             <h4 style={{ margin: "-.8rem 0 1.2rem"}}>Verify your email first..</h4>

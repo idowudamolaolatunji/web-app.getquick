@@ -155,7 +155,7 @@ function RecentOrders() {
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing.</p>
                 </div>
 
-                <Link to="/dashboard/orders">View more</Link>
+                <Link to="/dashboard/orders">View-more</Link>
             </div>
 
             <DataTable

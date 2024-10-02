@@ -22,7 +22,7 @@
     text-transform: capitalize;
 }
 .heading--date {
-    font-size: 1.34rem;
+    font-size: 1.4rem;
     color: #888;
 }
 .top--upgrade {
@@ -31,14 +31,14 @@
     gap: 1.4rem;
 }
 .upgrade--text {
-    font-size: 1.28rem;
+    font-size: 1.3rem;
     font-weight: 500;
 }
 .upgrade--link {
     display: inline-flex;
     align-items: center;
     gap: .4rem;
-    font-size: 1.28rem;
+    font-size: 1.3rem;
     font-weight: 600;
     border-radius: .4rem;
     padding: .6rem 1.2rem;
@@ -97,7 +97,7 @@
     color: var(--color-brand-500);
 }
 .prog-figure-title {
-    font-size: 1.5rem;
+    font-size: 1.53rem;
     font-weight: 600;
 }
 
@@ -276,7 +276,7 @@
     font-weight: 600;
 }
 .insight--info .text {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
 }
 .insight--info .value {
     font-size: 1.8rem;
@@ -392,7 +392,7 @@
 
 
 .product--info-text {
-    font-size: 1.3rem;
+    font-size: 1.32rem;
     font-weight: 500;
 }
 .product--info-value {
@@ -401,11 +401,11 @@
     gap: .4rem;
 }
 .product--info-value span:nth-child(1) {
-    font-size: 1.3rem;
+    font-size: 1.32rem;
     
 }
 .product--info-value span:nth-child(2) {
-    font-size: 1.2rem;
+    font-size: 1.26rem;
     padding: .4rem .6rem;
     background-color: var(--color-brand-50);
     color: var(--color-brand-700);
@@ -430,7 +430,7 @@
     display: flex;
     align-items: center;
     gap: .6rem;
-    font-size: 1.34rem;
+    font-size: 1.36rem;
     width: 100%;
     font-weight: 500;
     font-family: inherit !important;
@@ -487,7 +487,7 @@
     flex-direction: column;
 }
 .no--channel p {
-    font-size: 1.4rem;
+    font-size: 1.42rem;
     font-weight: 500;
 	color: #888;
 }
@@ -496,7 +496,7 @@
     border: none;
     background-color: var(--color-brand-500);
     color: #fff;
-    font-size: 1.4rem;
+    font-size: 1.42rem;
     font-weight: 400;
     padding: .8rem 1.4rem;
     border-radius: .4rem;
@@ -590,13 +590,13 @@
         font-size: 2rem;
     }
     .prog-figure-value, .insight--info .value {
-        font-size: 1.7rem;
+        font-size: 1.72rem;
     }
     .prog-figure-value {
         opacity: .85;
     }
     .prog-figure-title {
-        font-size: 1.34rem;
+        font-size: 1.36rem;
     }
     .sales-section .section--top {
         flex-direction: column;
@@ -630,7 +630,7 @@
         width: 19rem;
     }
     .quick-container button {
-        font-size: 1.28rem;
+        font-size: 1.3rem;
     }
 }
 

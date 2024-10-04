@@ -600,10 +600,12 @@
 /* 650px === 40.625em */
 @media screen and (max-width: 40.625em) {
     .home--sub {
-        padding: 1rem 1.2rem;
+        padding: 1rem;
         flex-direction: column;
         align-items: flex-start;
         gap: 1.2rem;
+        width: 102.5%;
+        margin-left: -.5rem;
     }
     .sub--mini:first-child {
         flex-direction: row-reverse;
@@ -621,6 +623,21 @@
         font-size: 1.34rem;
         padding: .6rem .8rem;
     }
+    .home--top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+    }
+    .upgrade--link {
+        padding: .48rem .8rem;
+        font-size: 1.16rem;
+        font-weight: 500;
+    }
+    .upgrade--link svg {
+        font-size: 1.4rem;
+    }
+
+
     .prog--grid {
         grid-template-columns: 1fr 1fr;
     }

@@ -54,11 +54,15 @@ function HomeTop() {
 
 
                 
-                {(width > 700 && !store.isPremium && !showSub) && (
+                {(width > 650 && !store.isPremium && !showSub) && (
                     <div className='top--upgrade'>
                         <p className='upgrade--text'>You're on a free plan</p>
-                        <Link to={'/dashboard/subscription'} className='upgrade--link'><LuCheckCircle />Upgrade</Link>
+                        <Link to='/dashboard/subscription' className='upgrade--link'><LuCheckCircle />Upgrade</Link>
                     </div>
+                )}
+
+                {(width <= 650 && !store.isPremium && !showSub) && (
+                    <p className='upgrade--link' onClick={() => navigate('/dashboard/subscription')}><LuCheckCircle />You're on a free plan</p>
                 )}
             </div>
         </>

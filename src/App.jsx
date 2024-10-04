@@ -1,9 +1,8 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import DashboardBase from './ui/DashboardBase'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Spinner_two from './components/spinner/spinner_two';
 import ProtectedRoute from './utils/ProtectedRoute';
+import './pages/generalStyle.css';
 
 // const Login = lazy(() => import('./auth/login'));
 // const Signup = lazy(() => import('./auth/signup'));

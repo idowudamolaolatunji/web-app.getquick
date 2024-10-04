@@ -13,10 +13,11 @@ import { ImDisplay } from 'react-icons/im';
 
 
 function Dropdown({ setIsShown }) {
+    const { user, signoutUser } = useAuthContext();
+    
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const ref = useOutsideClick(handleClose);
-    const { user, signoutUser } = useAuthContext();
     
     function handleClose() {
         setIsShown(false);

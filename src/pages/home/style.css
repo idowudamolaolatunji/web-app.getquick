@@ -6,6 +6,40 @@
     flex-direction: column;
     gap: 4rem;
 }
+
+.home--sub {
+    width: 100%;
+    padding: 1.8rem 2rem;
+    border-radius: .48rem;
+
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: -1.4rem;
+}
+.sub--mini {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.sub--text {
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+.sub--btn {
+    font-size: 1.4rem;
+    font-weight: 600;
+    border: none;
+    color: #333;
+    border-radius: .4rem;
+
+    background-color: #fff;
+    padding: .8rem 1rem;
+    cursor: pointer;
+}
 .home--top {
     display: flex;
     align-items: flex-start;
@@ -41,13 +75,14 @@
     font-size: 1.3rem;
     font-weight: 600;
     border-radius: .4rem;
-    padding: .6rem 1.2rem;
-    background-color: var(--color-brand-500);
+    padding: .8rem 1.4rem;
+    /* background-color: var(--color-brand-500); */
     color: #fff;
-    text-transform: uppercase;
+    background-color: #333;
+    text-transform: capitalize;
 }
 .upgrade--link svg {
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 /* ============================================= */
 
@@ -509,9 +544,6 @@
 }
 
 
-
-
-
 /* bad parctices for the mui dropdown */
 .css-15k6ek6-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
     padding: .4rem !important;
@@ -567,12 +599,34 @@
 
 /* 650px === 40.625em */
 @media screen and (max-width: 40.625em) {
+    .home--sub {
+        padding: 1rem 1.2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+    }
+    .sub--mini:first-child {
+        flex-direction: row-reverse;
+        /* align-items: flex-start; */
+    }
+    .sub--mini:first-child svg {
+        display: none;
+    }
+    .sub--mini:last-child {
+        width: 100%;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    .sub--btn {
+        font-size: 1.34rem;
+        padding: .6rem .8rem;
+    }
     .prog--grid {
         grid-template-columns: 1fr 1fr;
     }
     .insight--grid {
         grid-template-columns: repeat(3, 1fr);
-    }    
+    }
 }
 /* 500px === 31.25em */
 @media screen and (max-width: 31.25em) {

@@ -200,6 +200,20 @@ input::-webkit-inner-spin-button {
 
 }
 
+.page__section-back {
+    background-color: #eee;
+    color: #333;
+    padding: .4rem .8rem;
+    border-radius: .4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page__section-back svg {
+    font-size: 2.4rem;
+}
+
 
 
 /* 600px === 37.5em */

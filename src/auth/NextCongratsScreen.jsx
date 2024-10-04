@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Spinner from '../components/spinner/simple'
 import ConfettiUI from '../components/ConfettiUI';
 import { GiPartyPopper } from 'react-icons/gi';
+import { useWindowSize } from 'react-use';
 
 function NextCongratsScreen() {
     const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +16,7 @@ function NextCongratsScreen() {
 
     const navigate = useNavigate();
     const { search } = useLocation();
+    const { width } = useWindowSize()
 
     function handleClick() {
         setIsLoading(true);
@@ -42,13 +44,13 @@ function NextCongratsScreen() {
         if(search.includes("?next=onboarding")) setNextData({
             link: "/onboarding",
             title: "Congrats!",
-            text:`Your Quicka account is successfully created! Set up your store in the next page 👉🏿`,
+            text: <>Your Quicka account is successfully created! { width > 400 ? <p>Set up your store in the next page 👉🏿</p> : 'Set up your store in the next page 👉🏿' }</>,
             buttonText: "Continue"
         });
         if(search.includes("?next=dashboard")) setNextData({
             link: "/dashboard",
             title: "Woo-hoo, You're all set!",
-            text: "Your store dashboard and website is ready..",
+            text: <>Your store and dashboard is ready. { width > 400 ? <p>Go to dashboard and launch your store website</p> : 'Go to dashboard and launch your store website' }</>,
             buttonText: "Go to Dashboard"
         });
 

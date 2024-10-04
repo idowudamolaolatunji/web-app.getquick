@@ -30,7 +30,7 @@ function HomeTop() {
             {(!store.isPremium && showSub) && (
                 <div className='home--sub'>
                     <div className="sub--mini">
-                        <p className='sub--text'>Select a plan and get your first year for 75% discount</p>
+                        <p className='sub--text'>Select a plan and get your first year for wooping 🥳 <span style={{ fontWeight: 600, fontSize: '1.6rem' }}>70%</span> discount</p>
                         <RiDiscountPercentFill style={{ fontSize: '2.4rem' }} />
                     </div>
 
@@ -56,13 +56,13 @@ function HomeTop() {
                 
                 {(width > 650 && !store.isPremium && !showSub) && (
                     <div className='top--upgrade'>
-                        <p className='upgrade--text'>You're on a free plan</p>
+                        <p className='upgrade--text'>Your account is currently on the free plan.</p>
                         <Link to='/dashboard/subscription' className='upgrade--link'><LuCheckCircle />Upgrade</Link>
                     </div>
                 )}
 
                 {(width <= 650 && !store.isPremium && !showSub) && (
-                    <p className='upgrade--link' onClick={() => navigate('/dashboard/subscription')}><LuCheckCircle />You're on a free plan</p>
+                    <p className='upgrade--link' onClick={() => navigate('/dashboard/subscription')}><LuCheckCircle />Your account is currently on the free plan.</p>
                 )}
             </div>
         </>

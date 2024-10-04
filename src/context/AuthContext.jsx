@@ -15,6 +15,8 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(Cookies.get('q_user_obj') ? JSON.parse(Cookies.get('q_user_obj')) : null);
     const [token, setToken] = useState(Cookies.get('q_user_jwt_token') ? Cookies.get('q_user_jwt_token') : null);
     const [store, setStore] = useState(Cookies.get("q_user_store") ? JSON.parse(Cookies.get("q_user_store")) : null);
+    const [isNewCustomer, setIsNewCustomer] = useState(true);
+
 
     function handleChange(user, token) {
 		setUser(user);
@@ -57,7 +59,10 @@ export const AuthProvider = ({ children }) => {
         signoutUser,
 
         store,
-        handleStore
+        handleStore,
+
+        isNewCustomer,
+        setIsNewCustomer
     }
 
 

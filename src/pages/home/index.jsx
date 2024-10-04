@@ -1,8 +1,10 @@
 import React from 'react'
 import { useWindowSize } from 'react-use';
+import { useAuthContext } from '../../context/AuthContext';
 
 import Line from '../../components/Line';
 import HomeTop from './homeComponents/HomeTop';
+import GetStarted from './homeComponents/GetStarted';
 import HomeProgressGrid from './homeComponents/HomeProgressGrid';
 import HomeLayoutGrid from './homeComponents/HomeLayoutGrid';
 import './style.css';
@@ -10,19 +12,36 @@ import './style.css';
 
 function index() {
     const { width } = useWindowSize();
+    const { isNewCustomer, setIsNewCustomer } = useAuthContext();
 
     return (
+
+        <>
+        <button onClick={() => setIsNewCustomer(!isNewCustomer)}>Show { isNewCustomer ? 'Old' : 'new'} view</button>
+        
         <section className='home--section'>
             <HomeTop />
 
-            {width > 500 && (
-                <HomeProgressGrid />
+
+            {isNewCustomer ? (
+                <>
+                    {/* <Line border={1.4} /> */}
+                    <GetStarted />
+                </>
+            ) : (
+                <>
+                    {width > 500 && (
+                        <HomeProgressGrid />
+                    )}
+        
+                    {width < 500 && <Line border={1.4} />}
+        
+                    <HomeLayoutGrid />
+                </>
             )}
-
-            {width < 500 && <Line border={1.4} />}
-
-            <HomeLayoutGrid />
         </section>
+
+        </>
     )
 }
 

@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    margin-bottom: 4rem;
 }
 
 .page__section--title {
@@ -33,3 +34,10 @@
     opacity: .9;
 }
 
+/* 
+.page__section--main {
+    background-color: #f1f1f1;
+    border-radius: .4rem;
+    height: 20rem;
+    border: 1px solid var(--border-color);
+} */

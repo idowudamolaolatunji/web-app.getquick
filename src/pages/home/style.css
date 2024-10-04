@@ -87,6 +87,23 @@
 /* ============================================= */
 
 
+.get-started {
+    width: 80%;
+}
+
+.get-started-opts {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+.opts--items {
+    padding: 2rem;
+    border-radius: .4rem;
+    background-color: #eee;
+}
+
+
 
 
 
@@ -574,6 +591,10 @@
 }
 
 @media screen and (max-width: 56.25em) {
+    .get-started {
+        width: 100% !important;
+    }
+
     .insights--container {
         grid-template-columns: 1fr;
     }
@@ -604,8 +625,8 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 1.2rem;
-        width: 102.5%;
-        margin-left: -.5rem;
+        width: 105%;
+        margin-left: -.72rem;
     }
     .sub--mini:first-child {
         flex-direction: row-reverse;

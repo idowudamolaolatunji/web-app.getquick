@@ -1,11 +1,14 @@
 import React from 'react'
+import { useAuthContext } from '../../../context/AuthContext'
 
 function GetStarted() {
+    const { isNewCustomer } = useAuthContext();
+
     return (
-        <div className="get-started">
-            <h2>Let get you started selling</h2>
-            <p>Finalize your setup to make your website visible to the world.</p>
-            <span>0 / 4 completed</span>
+        <div className="get-started" style={{ marginTop: '-1.4rem'}}>
+            <h2 className='get-started-title'>Let get you started selling</h2>
+            <p className='get-started-subtitle'>Finalize your setup to make your website visible to the world.</p>
+            <span className='get-started-nums'>0 / 4 completed</span>
 
             <div className="get-started-opts">
                 <div className="opts--items">
@@ -35,9 +38,10 @@ function GetStarted() {
                     <p>Bank details is needed to allow you start collecting payment when you make sales through your website</p>
                     <button>Set up payment</button>
                 </div>
-
-                <button>Completed</button>
             </div>
+
+
+            <button className={`get-started-btn ${isNewCustomer ? 'disabled' : ''}`} disabled>Completed</button>
         </div>
     )
 }

@@ -16,8 +16,8 @@ function index() {
 
     return (
 
-        <>
-        <button onClick={() => setIsNewCustomer(!isNewCustomer)}>Show { isNewCustomer ? 'Old' : 'new'} view</button>
+        // <>
+        // <button onClick={() => setIsNewCustomer(!isNewCustomer)}>Show { isNewCustomer ? 'Old' : 'new'}</button>
         
         <section className='home--section'>
             <HomeTop />
@@ -25,7 +25,7 @@ function index() {
 
             {isNewCustomer ? (
                 <>
-                    {/* <Line border={1.4} /> */}
+                    <Line border={1.4} where={"Top"} value={"-1.4rem"} />
                     <GetStarted />
                 </>
             ) : (
@@ -41,7 +41,7 @@ function index() {
             )}
         </section>
 
-        </>
+        // </>
     )
 }
 

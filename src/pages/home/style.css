@@ -88,14 +88,37 @@
 
 
 .get-started {
+    width: 100%;
+}
+.collapsed .get-started {
+    
     width: 80%;
 }
+.get-started-title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: .8rem;
+}
+.get-started-subtitle {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+}
+.get-started-nums {
+    font-size: 1.4rem;
+    border: 1px solid var(--border-color);
+    padding: .2rem .4rem;
+    border-radius: .4rem;
+}
+
+
+
 
 .get-started-opts {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
     gap: 1.4rem;
+    margin-bottom: 2.4rem;
 }
 .opts--items {
     padding: 2rem;
@@ -103,8 +126,55 @@
     background-color: #eee;
 }
 
+.opts--items h3 {
+    font-size: 1.68rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.opts--items p {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    margin-bottom: .8rem;
+}
 
+.get-started-btn,
+.opts--items button {
+    padding: .8rem 1.2rem;
+    border-radius: .4rem;
+    border: none;
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity .3s;
+}
+.opts--items button {
+    background-color: var(--color-brand-500);
+}
+.get-started-btn:hover,
+.opts--items button:hover {
+    opacity: .85;
+}
+.opts--items button:nth-child(2) {
+    background-color: #333;
+}
+.opts--btns {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+}
 
+.get-started-btn {
+    width: 50%;
+    background-color: #333;
+    font-size: 1.6rem;
+}
+.get-started-btn.disable {
+    opacity: .7;
+}
+.get-started-btn.disable:hover {
+    opacity: none;
+}
 
 
 /* ============================================= */
@@ -657,6 +727,27 @@
     .upgrade--link svg {
         font-size: 1.4rem;
     }
+
+
+    .opts--items {
+        padding: 1.6rem;
+    }
+    .opts--items h3 {
+        font-size: 1.56rem;
+        line-height: 1.2;
+    }
+    .opts--items p,
+    .get-started-subtitle {
+        font-size: 1.4rem;
+        line-height: 1.3;
+    }
+    .opts--items button {
+        padding: .48rem .64rem;
+    }
+    .get-started-btn {
+        width: 100%;
+    }
+    
 
 
     .prog--grid {

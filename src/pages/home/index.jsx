@@ -15,13 +15,11 @@ function index() {
     const { isNewCustomer, setIsNewCustomer } = useAuthContext();
 
     return (
-
         <>
         <button onClick={() => setIsNewCustomer(!isNewCustomer)}>{ isNewCustomer ? 'Old' : 'new'} cust.</button>
         
         <section className='home--section'>
             <HomeTop />
-
 
             {isNewCustomer ? (
                 <>
@@ -30,17 +28,11 @@ function index() {
                 </>
             ) : (
                 <>
-                    {width > 500 && (
-                        <HomeProgressGrid />
-                    )}
-        
-                    {width < 500 && <Line border={1.4} />}
-        
+                    {width > 500 ? <HomeProgressGrid /> : <Line border={1.4} />}
                     <HomeLayoutGrid />
                 </>
             )}
         </section>
-
         </>
     )
 }

@@ -17,29 +17,28 @@ function GetStarted() {
                 <div className="opts--items">
                     <div className="opts--heading">
                         <span className='opts--icon'><MdOutlineStorefront /></span>
-                        <h3>Customize your online store</h3>
+                        <h3>Customize your online store.</h3>
                     </div>
-                    <p>Select a theme, upload your logo, choose colors, and add images to customize your website</p>
+                    <p>Select a theme, upload your logo, choose colors, and add images to customize your website.</p>
                     <button>Customize store</button>
                 </div>
 
                 <div className="opts--items">
                     <div className="opts--heading">
                         <span className='opts--icon'><MdOutlineShoppingBag /></span>
-                        <h3>Add your first product</h3>
+                        <h3>Add your first product.</h3>
                     </div>
-                    <p>Write a description, add photos, and set pricing for the products you plan to sell, you can always add more later from the sidebar</p>
-
+                    <p>Write a description, add photos, and set pricing for the products you plan to sell, you can always add more later from the sidebar.</p>
                     <div className="opts--btns">
                         <button>Add product</button>
-                        <div>import product</div>
+                        <div>Import product</div>
                     </div>
                 </div>
 
                 <div className="opts--items">
                     <div className="opts--heading">
                         <span className='opts--icon'><MdOutlineDeliveryDining /></span>
-                        <h3>Add your delivery rates to your website</h3>
+                        <h3>Add your delivery rates to your website.</h3>
                     </div>
                     <p>Set up delivery areas and how much you charge so your customers can see their shipping costs at checkout.</p>
                     <button>Add delivery rates</button>
@@ -48,9 +47,9 @@ function GetStarted() {
                 <div className="opts--items">
                     <div className="opts--heading">
                         <span className='opts--icon'><RiBankLine /></span>
-                        <h3>Add bank details for payments</h3>
+                        <h3>Add bank details for payments.</h3>
                     </div>
-                    <p>Bank details is needed to allow you start collecting payment when you make sales through your website</p>
+                    <p>Bank details is needed to allow you start collecting payment when you make sales through your website.</p>
                     <button>Set up payment</button>
                 </div>
             </div>

@@ -126,10 +126,25 @@
     background-color: #eee;
 }
 
-.opts--items h3 {
-    font-size: 1.68rem;
-    font-weight: 600;
+.opts--heading {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
     margin-bottom: 1rem;
+}
+.opts--icon {
+    padding: .4rem .6rem;
+    border-radius: .4rem;
+    background-color: #fff;
+}
+.opts--icon svg {
+    font-size: 2rem;
+    color: var(--color-brand-500);
+}
+
+.opts--items h3 {
+    font-size: 1.7rem;
+    font-weight: 600;
 }
 .opts--items p {
     font-size: 1.5rem;
@@ -149,24 +164,31 @@
     transition: opacity .3s;
 }
 .opts--items button {
-    background-color: var(--color-brand-500);
+    background-color: #333;
 }
 .get-started-btn:hover,
+.opts--btns div:hover,
 .opts--items button:hover {
     opacity: .85;
-}
-.opts--items button:nth-child(2) {
-    background-color: #333;
 }
 .opts--btns {
     display: flex;
     align-items: center;
     gap: 1.6rem;
 }
+.opts--btns div {
+    font-size: 1.4rem;
+    font-weight: 600;
+    transition: opacity .3s;
+    cursor: pointer;
+    color: var(--color-brand-500);
+}
 
 .get-started-btn {
+    display: none;
     width: 50%;
-    background-color: #333;
+    /* background-color: #333; */
+    background-color: var(--color-brand-500);
     font-size: 1.6rem;
 }
 .get-started-btn.disable {
@@ -732,6 +754,14 @@
     .opts--items {
         padding: 1.6rem;
     }
+    .opts--heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .6rem;
+    }
+    .opts--icon svg {
+        font-size: 2.2rem;
+    }
     .opts--items h3 {
         font-size: 1.56rem;
         line-height: 1.2;
@@ -747,7 +777,9 @@
     .get-started-btn {
         width: 100%;
     }
-    
+    .get-started-btn {
+        display: block;
+    }
 
 
     .prog--grid {

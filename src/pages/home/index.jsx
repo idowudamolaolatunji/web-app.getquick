@@ -16,8 +16,8 @@ function index() {
 
     return (
 
-        // <>
-        // <button onClick={() => setIsNewCustomer(!isNewCustomer)}>Show { isNewCustomer ? 'Old' : 'new'}</button>
+        <>
+        <button onClick={() => setIsNewCustomer(!isNewCustomer)}>{ isNewCustomer ? 'Old' : 'new'} cust.</button>
         
         <section className='home--section'>
             <HomeTop />
@@ -41,7 +41,7 @@ function index() {
             )}
         </section>
 
-        // </>
+        </>
     )
 }
 

@@ -5,8 +5,11 @@ import { LuTag } from 'react-icons/lu';
 import { RiBankLine } from 'react-icons/ri';
 import TooltipUI from '../../../components/TooltipUI';
 import { IoCheckmarkDone } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 
 function GetStarted() {
+    const navigate = useNavigate();
+
     const [isCompletedSteps, setIsCompletedSteps] = useState(localStorage.getItem("q_step_progr") ? JSON.parse(localStorage.getItem("q_step_progr")) : [
         { name: 'Onboard', tipText: 'Store and Dashboard Created!', completed: true }, // This fisrt on is default
         { name: 'Store', tipText: 'Store Customized!', text: 'Customize your online store.', completed: false, shortText: 'Customize Store' },
@@ -68,7 +71,7 @@ function GetStarted() {
                         <h3>Customize your online store.</h3>
                     </div>
                     <p>Select a theme, upload your logo, choose colors, and add images to customize your website.</p>
-                    <button>{handleFindStep("Store") ? <CompletedTag /> : 'Customize store'}</button>
+                    <button onClick={() => navigate('/dashboard/store-info')}>{handleFindStep("Store") ? <CompletedTag /> : 'Customize store'}</button>
                 </div>
 
                 <div className={`opts--items ${handleFindStep("Product") ? 'is-completed' : ''}`}>
@@ -82,8 +85,8 @@ function GetStarted() {
                         <button><CompletedTag /></button>
                     ) : (
                         <div className="opts--btns">
-                            <button>Add product</button>
-                            <div>Import product</div>
+                            <button onClick={() => navigate('/dashboard/products/add')}>Add product</button>
+                            <div onClick={() => navigate('/dashboard/products/import/add')}>Import product</div>
                         </div>
                     )}
                 </div>
@@ -94,7 +97,7 @@ function GetStarted() {
                         <h3>Add your delivery rates to your website.</h3>
                     </div>
                     <p>Set up delivery areas and how much you charge so your customers can see their shipping costs at checkout.</p>
-                    <button>{handleFindStep("Delivery") ? <CompletedTag /> : ' Add delivery rates'}</button>
+                    <button onClick={() => navigate('/dashboard/delivery')}>{handleFindStep("Delivery") ? <CompletedTag /> : ' Add delivery rates'}</button>
                 </div>
 
                 <div className={`opts--items ${handleFindStep("Payment") ? 'is-completed' : ''}`}>
@@ -103,7 +106,7 @@ function GetStarted() {
                         <h3>Add bank details for payments.</h3>
                     </div>
                     <p>Bank details is needed to allow you start collecting payment when you make sales through your website.</p>
-                    <button>{handleFindStep("Payment") ? <CompletedTag /> : 'Set up payment'}</button>
+                    <button onClick={() => navigate('/dashboard/bank-details')}>{handleFindStep("Payment") ? <CompletedTag /> : 'Set up payment'}</button>
                 </div>
             </div>
 

@@ -75,7 +75,10 @@ function index() {
             <div className='page__section--heading' style={widthandProduct600 ? {flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start'} : {}}>
                 <h2 className="page__section--title">Orders</h2>
 
-                <span className='page__section--btns'>
+                <span className='page__section--btns' style={widthandProduct600 ? { width: "100%",
+        display: "grid",
+        gap: "1.6rem",
+        gridTemplateColumns: "1fr 1fr" } : {}}>
                     {(orders && orders.length > 0) && (
                         <button className="page__section-top-btn add">Add Product <BiPlus /></button>
                     )}

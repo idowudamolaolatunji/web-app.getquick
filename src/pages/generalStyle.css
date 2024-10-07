@@ -17,10 +17,11 @@
     gap: 1.2rem;
 }
 .page__section-top-btn {
-    padding: .8rem 1.4rem;
+    justify-content: center;
+    font-weight: 500;
+    padding: .6rem 1.2rem;
     color: #FFF;
     font-size: 1.4rem;
-    font-weight: 600;
     border: none;
     border-radius: .4rem;
     cursor: pointer;
@@ -56,11 +57,19 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 @media screen and (max-width: 450px) {
     .page__section-top-btn {
-        justify-content: center;
-        font-weight: 500;
-        padding: .6rem 1.2rem;
+       
         font-size: 1.34rem;
     }
     
@@ -70,17 +79,10 @@
     }
 }
 
-
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 375px) {
     .page__section--heading {
         flex-direction: column;
         align-items: flex-start;
         gap: 1.2rem;
-    }
-    .page__section--btns {
-        width: 100% !important;
-        display: grid;
-        gap: 1.6rem;
-        grid-template-columns: 1fr 1fr;
     }
 }

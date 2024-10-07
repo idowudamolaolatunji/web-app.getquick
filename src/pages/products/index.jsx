@@ -18,9 +18,9 @@ const emptyBtns = [
 
 function index() {
     const [isLoading, setIsLoading] = useState(false);
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState(["sxnsjsn"]);
     const { width } = useWindowSize();
-    const widthandProduct600 = (products && products.length > 0 && width < 600);
+    const widthandProduct500 = (products && products.length > 0 && width < 500);
 
     const columns = [
         { 
@@ -70,10 +70,13 @@ function index() {
 
     return (
         <>
-            <div className='page__section--heading' style={widthandProduct600 ? {flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start'} : {}}>
+            <div className='page__section--heading' style={widthandProduct500 ? {flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start'} : {}}>
                 <h2 className="page__section--title">Products</h2>
 
-                <span className='page__section--btns'>
+                <span className='page__section--btns' style={widthandProduct500 ? { width: "100%",
+        display: "grid",
+        gap: "1.6rem",
+        gridTemplateColumns: "1fr 1fr" } : {}}>
                     {(products && products.length > 0) && (
                         <button className="page__section-top-btn add">Add Product <BiPlus /></button>
                     )}

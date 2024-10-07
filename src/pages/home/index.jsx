@@ -14,20 +14,23 @@ function index() {
     const { width } = useWindowSize();
     const { user } = useAuthContext();
 
+    const { isStoreSetupStep1, isStoreSetupStep2 } = user;
+    const userStoreSetup = (isStoreSetupStep1 && isStoreSetupStep2);
+
     return (
         <section className='home--section'>
             <HomeTop />
 
-            {!user.isStoreSetupStep2 ? (
-                <>
-                    <Line border={1.4} />
-                    <GetStarted />
-                </>
-            ) : (
+            {userStoreSetup ? (
                 <>
                     <Line border={1.4} />
                     {width > 500 && <HomeProgressGrid />}
                     <HomeLayoutGrid />
+                </>
+            ) : (
+                <>
+                    <Line border={1.4} />
+                    <GetStarted />
                 </>
             )}
         </section>

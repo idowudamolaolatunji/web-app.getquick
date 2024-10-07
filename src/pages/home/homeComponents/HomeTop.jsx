@@ -30,7 +30,7 @@ function HomeTop() {
             {(!store.isPremium && showSub) && (
                 <div className='home--sub'>
                     <div className="sub--mini">
-                        <p className='sub--text'>Select a plan and get your first year for wooping 🥳 <span style={{ fontWeight: 600, fontSize: '1.6rem' }}>70%</span> discount</p>
+                        <p className='sub--text'>Select a plan and get your first year at a whooping 🥳 <span style={{ fontWeight: 600, fontSize: '1.6rem' }}>70%</span> discount</p>
                         <RiDiscountPercentFill style={{ fontSize: '2.4rem' }} />
                     </div>
 

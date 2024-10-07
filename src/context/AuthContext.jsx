@@ -17,13 +17,13 @@ export const AuthProvider = ({ children }) => {
     const [store, setStore] = useState(Cookies.get("q_user_store") ? JSON.parse(Cookies.get("q_user_store")) : null);
 
     function handleChange(user, token) {
-		setUser(user);
-		setToken(token);
-	};
+        setUser(user);
+        setToken(token);
+    };
 
-	function handleUser(user) {
-		setUser(user);
-	};
+    function handleUser(user) {
+        setUser(user);
+    };
 
     function handleStore(store) {
         setStore(store);
@@ -32,29 +32,41 @@ export const AuthProvider = ({ children }) => {
     async function signoutUser() {
         try {
             const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/logout`);
-            if(!res.ok) throw new Error('Check internet connection');
-            
+            if (!res.ok) throw new Error('Check internet connection');
+
             handleChange(null, null);
-            handleStore(null);
-        } catch(err) {
+            Cookies.remove("q_user_obj");
+            Cookies.remove("q_user_jwt_token");
+            Cookies.remove("q_user_store");
+        } catch (err) {
             console.log(err.message);
         }
     }
 
+    function shouldKick(e) {
+        if (e.response.status === 401 || e.response.status === 403) {
+            Cookies.remove("q_user_obj");
+            Cookies.remove("q_user_jwt_token");
+            Cookies.remove("q_user_store");
+            window.location.href = "/login";
+        }
+    };
 
-    useEffect(function() {
+
+    useEffect(function () {
         Cookies.set("q_user_obj", JSON.stringify(user), { expires: 365 });
-		Cookies.set("q_user_jwt_token", token, { expires: 365 });
+        Cookies.set("q_user_jwt_token", token, { expires: 365 });
         Cookies.set("q_user_store", JSON.stringify(store), { expires: 365 });
     }, [user, token, store]);
 
- // CREATE CONTEXT DATA
+    // CREATE CONTEXT DATA
     let contextData = {
         user,
         token,
         handleChange,
         handleUser,
         signoutUser,
+        shouldKick,
 
         store,
         handleStore,

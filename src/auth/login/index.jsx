@@ -103,9 +103,8 @@ function index() {
                 // IF AND ELSE THROW NEW ERROR
                 throw new Error(data.message);
             }
-
             // USER MUST HAVE SETUP THEIR STORE TO LOGIN
-            if(!data.data.user.isStoreSetupStep1) {
+            if(!data.data.user.storeBasicSetup) {
                 const userId = data.data.user._id;
                 localStorage.setItem("user_id", userId);
 

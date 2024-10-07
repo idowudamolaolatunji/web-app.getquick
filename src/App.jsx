@@ -23,7 +23,7 @@ import Error from './pages/error';
 // const Settings = lazy(() => import('./pages/settings'));
 // const Profile = lazy(() => import('./pages/profile'));
 // const ConnectedApps = lazy(() => import('./pages/connectedApps'));
-// const StoreCustomization = lazy(() => import('./pages/storeCustomization'));
+// const StoreCustomisation = lazy(() => import('./pages/storeCustomization'));
 // const CustomDomain = lazy(() => import('./pages/customDomain'));
 // const StoreInformation = lazy(() => import('./pages/storeInfo'));
 // const Customers = lazy(() => import('./pages/customers'));
@@ -40,7 +40,7 @@ import Transaction from './pages/transactions';
 import Settings from './pages/settings';
 import Profile from './pages/profile';
 import ConnectedApps from './pages/connectedApps';
-import StoreCustomization from './pages/storeCustomization';
+import StoreCustomisation from './pages/storeCustomization';
 import CustomDomain from './pages/customDomain';
 import StoreInformation from './pages/storeInfo';
 import Customers from './pages/customers';
@@ -87,7 +87,7 @@ function App() {
                         <Route path='/dashboard/settings' element={<Settings />}></Route>
                         <Route path='/dashboard/custom-domain' element={<CustomDomain />}></Route>
                         <Route path='/dashboard/connected-apps' element={<ConnectedApps />}></Route>
-                        <Route path='/dashboard/store-customization' element={<StoreCustomization />}></Route>
+                        <Route path='/dashboard/store-customisation' element={<StoreCustomisation />}></Route>
                         <Route path='/dashboard/bank-details' element={<BankDetails />}></Route>
                         <Route path='/dashboard/store-info' element={<StoreInformation />}></Route>
                         <Route path='/dashboard/run-sales' element={<RunSales />}></Route>

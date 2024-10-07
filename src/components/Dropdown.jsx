@@ -3,13 +3,11 @@ import { Link } from 'react-router-dom';
 
 import CustomAlert from './CustomAlert';
 import Spinner from './spinner/spinner_two'
-import { getInitials } from '../utils/helper';
-
-import { TbLogout2 } from 'react-icons/tb'
-import { useOutsideClick } from '../hooks/useOutsideClick';
-import { useAuthContext } from '../context/AuthContext';
-import { IoLogOutOutline, IoSettingsOutline } from 'react-icons/io5';
 import { ImDisplay } from 'react-icons/im';
+import { getInitials } from '../utils/helper';
+import { useAuthContext } from '../context/AuthContext';
+import { useOutsideClick } from '../hooks/useOutsideClick';
+import { IoLogOutOutline, IoSettingsOutline } from 'react-icons/io5';
 
 
 function Dropdown({ setIsShown }) {

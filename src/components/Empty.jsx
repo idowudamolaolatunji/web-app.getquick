@@ -1,6 +1,5 @@
 import React from 'react';
 
-// import empty from '../assets/images/png/empty-box.png'
 import empty from '../assets/images/resources/orange-charts-and-calculations-for-business-analytics-1.png'
 
 function Empty({ customStyle, text }) {

@@ -13,15 +13,16 @@ import './style.css';
 function index() {
     const { width } = useWindowSize();
     const { user } = useAuthContext();
-
-    const { isStoreSetupStep1, isStoreSetupStep2 } = user;
-    const userStoreSetup = (isStoreSetupStep1 && isStoreSetupStep2);
+    
+    
+    const { storeBasicSetup, storeFinalSetup } = user;
+    const userStoreIsSetup = (storeBasicSetup && storeFinalSetup);
 
     return (
         <section className='home--section'>
             <HomeTop />
 
-            {userStoreSetup ? (
+            {userStoreIsSetup ? (
                 <>
                     <Line border={1.4} />
                     {width > 500 && <HomeProgressGrid />}

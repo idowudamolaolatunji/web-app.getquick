@@ -13,15 +13,15 @@ import { useAuthContext } from '../../context/AuthContext';
 
 
 const goalOptions = [
-    { id: 'automate', label: 'Automate my sales and orders' },
-    { id: 'detailed', label: 'Get well-detailed analytics' },
-    { id: 'notification', label: 'Instant notification on new order' },
-    { id: 'website', label: 'Create store website and run sales' },
-    { id: 'customer', label: 'Record new customer for future sales' },
-    { id: 'visitor', label: 'Track store visitor and purchases' },
-    { id: 'sales', label: 'Record Daily sales and expenses' },
-    { id: 'inventory', label: 'Manage inventory and track low stocks' },
-];
+    { id: 'automate-my-sales-and-orders', label: 'Automate my sales and orders' },
+    { id: 'get-well-detailed-analytics', label: 'Get well-detailed analytics' },
+    { id: 'instant-notification-on-new-order', label: 'Instant notification on new order' },
+    { id: 'create-store-website-and-run-sales', label: 'Create store website and run sales' },
+    { id: 'record-new-customer-for-future-sales', label: 'Record new customer for future sales' },
+    { id: 'track-store-visitor-and-purchases', label: 'Track store visitor and purchases' },
+    { id: 'record-daily-sales-and-expenses', label: 'Record Daily sales and expenses' },
+    { id: 'manage-inventory-and-track-low-stocks', label: 'Manage inventory and track low stocks' },
+];  
 
 
 function index() {
@@ -117,25 +117,25 @@ function index() {
         if (onboardTabNum === 2) {
             if(goalsChoosen.length < 3) { 
                 return setResponse({ status: "error", message: `Select ${goalsChoosen.length < 1 ? '' : `more than ${goalsChoosen.length}`} at least 3 goal options!` });
+            } else if(goalsChoosen.length > 5) {
+                return setResponse({ status: "error", message: `Select at most only 5 goal options!` });
             } else {
                 return handleOnboading();
             }
         };
         setOnboardTabNum(prev => prev + 1);
     }
-
     
     // HANDLE THE GOALS CHOOSEN
     function handleGoalsChoosen(goal) {
         const isGoalAlreadyIncluded = goalsChoosen.includes(goal);
-
+        
         if (isGoalAlreadyIncluded) {
             setGoalsChoosen(goalsChoosen.filter((item) => item !== goal));
         } else {
             setGoalsChoosen([...goalsChoosen, goal]);
         }
     }
-
 
     const userId = localStorage.getItem('user_id');
     useEffect(function () {
@@ -210,7 +210,7 @@ function index() {
             , {
                 method: 'PATCH',
                 headers: { "Content-type": "application/json" },
-                body: JSON.stringify(onboardingData)
+                body: JSON.stringify({...onboardingData, goalsChoosen })
             });
 
             if(!res.ok) throw new Error('Something went wrong! Check intenet connection');
@@ -361,7 +361,7 @@ function index() {
                         {onboardTabNum === 2 && (
                             <>
                                 <div className="form--item">
-                                    <p className="form--label" style={{ marginBottom: '1.2rem', opacity: '.65' }}>Choose all that apply: (At least 3)</p>
+                                    <p className="form--label" style={{ marginBottom: '1.2rem', opacity: '.65' }}>Choose all that apply: (At least 3, Max 5)</p>
                                     <div className="form--click-opts">
                                         {goalOptions.map((goal) => (
                                             <div

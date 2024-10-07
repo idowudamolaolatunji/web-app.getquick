@@ -1,16 +1,16 @@
 
 
-import facebook from './png/facebook-48.png'
-import online_store from './png/online-shop-48.png'
-import physical_store from './png/store-48.png'
-import instagram from './png/instagram-48.png'
-import whatsapp from './png/whatsapp-48.png'
-import twitter from './png/twitterx-48.png'
-import flutterwave_store from './png/flutterwave-store.png'
-import others from './png/others-48.png'
-import jiji from './png/jiji.png'
-import jumia from './png/jumia.jpeg'
-import konga from './png/konga.jpeg'
+import facebook from './png_elements/facebook-48.png'
+import online_store from './png_elements/online-shop-48.png'
+import physical_store from './png_elements/store-48.png'
+import instagram from './png_elements/instagram-48.png'
+import whatsapp from './png_elements/whatsapp-48.png'
+import twitter from './png_elements/twitterx-48.png'
+import flutterwave_store from './png_elements/flutterwave-store.png'
+import others from './png_elements/others-48.png'
+import jiji from './png_elements/jiji.png'
+import jumia from './png_elements/jumia.jpeg'
+import konga from './png_elements/konga.jpeg'
 
 
 export {

@@ -428,7 +428,7 @@ button.menu--button {
     font-size: 2rem;
 }
 .menu--text {
-    font-size: 1.28rem;
+    font-size: 1.284rem;
     font-weight: 500;
     color: inherit;
     display: flex;
@@ -617,6 +617,11 @@ button.menu--button {
     }
     .nav--others {
         gap: .8rem;
+    }
+
+    .menu--text {
+        font-size: 1.34rem;
+        font-weight: 500;
     }
     .content--block {
         padding-left:2rem;

@@ -125,13 +125,16 @@
     }
 }
 
+@media screen and (max-width: 385px) {
+    .page__section--insights.insight--grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media screen and (max-width: 375px) {
     .page__section--heading {
         flex-direction: column;
         align-items: flex-start;
         gap: 1.2rem;
-    }
-    .page__section--insights.insight--grid {
-        grid-template-columns: 1fr;
     }
 }

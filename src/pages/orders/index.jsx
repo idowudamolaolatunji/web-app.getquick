@@ -9,6 +9,8 @@ import { LuMousePointerClick } from 'react-icons/lu';
 import Insight from '../../components/Insight';
 import { PiShareFatFill } from 'react-icons/pi';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
+import { TbNotes, TbNotesOff } from 'react-icons/tb';
+import { MdOutlineNoteAlt, MdOutlineShoppingBag } from 'react-icons/md';
 
 
 
@@ -25,7 +27,7 @@ function index() {
     const { width } = useWindowSize();
     const [orders, setOrders] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [showInsights, setShowInsights] = useState(true);
+    const [showInsights, setShowInsights] = useState(false);
     const [showMoreActions, setShowMoreActions] = useState(false);
     const widthandProduct600 = (orders && orders.length > 0 && width < 600);
     
@@ -102,11 +104,11 @@ function index() {
             </div>
 
             {showInsights && (
-                <div className='page__section--insights insight--grid' style={{ marginBottom: '2.8rem', ...(width > 900 && {width: '80%'}) }}>
-                    <Insight title='Total Orders' value={10} icon={<LuMousePointerClick />} />
-                    <Insight title='New Orders' value={4} icon={<LuMousePointerClick />} />
-                    <Insight title='Completed Orders' value={4} icon={<LuMousePointerClick />} />
-                    <Insight title='Uncompleted Orders' value={2} icon={<LuMousePointerClick />} />
+                <div className='page__section--insights insight--grid' style={{ marginBottom: '2.4rem', ...(width > 900 && {width: '85%'}) }}>
+                    <Insight title='Total Orders' value={0} icon={<MdOutlineShoppingBag />} />
+                    <Insight title='New Orders' value={0} icon={<MdOutlineNoteAlt />} />
+                    <Insight title='Completed Orders' value={0} icon={<TbNotes />} />
+                    <Insight title='Uncompleted Orders' value={0} icon={<TbNotesOff />} />
                 </div>
             )}
 

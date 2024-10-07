@@ -206,7 +206,7 @@ input::-webkit-inner-spin-button {
 	flex-direction: row-reverse;
 	align-items: center;
 	gap: 6rem;
-	padding: 4rem 2.4rem;
+	padding: 3rem 2.4rem;
 }
 .empty--info h3 {
 	font-size: 1.8rem;

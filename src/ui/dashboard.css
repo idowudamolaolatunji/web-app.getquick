@@ -508,6 +508,7 @@ button.menu--button {
 .content--block {
     padding: 3.6rem 2.4rem 6.4rem;
     overflow-x: hidden;
+    overflow-y: scroll;
     height: 90vh;
 }
 /* ========================================== */

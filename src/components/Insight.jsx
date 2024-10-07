@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { formatNumber } from '../utils/helper';
 
-function Insight({ title, value, icon, link }) {
+function Insight({ title, value, icon, link, pre="", dec=0 }) {
     const navigate = useNavigate();
 
     return (
@@ -12,7 +12,7 @@ function Insight({ title, value, icon, link }) {
         >
             <div className='insight--info'>
                 <p className='text'>{title}</p>
-                <span className='value'>{formatNumber(value, 1)}</span>
+                <span className='value'>{pre}{formatNumber(value, dec)}</span>
             </div>
             <span className='insight--icon'>{icon}</span>
         </figure>

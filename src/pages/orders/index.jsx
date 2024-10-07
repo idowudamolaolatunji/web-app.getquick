@@ -5,12 +5,16 @@ import { formatDate, formatNumber } from '../../utils/helper';
 import EmptyTableComponent from '../../components/EmptyTableComponent'
 import emptyImg from '../../assets/images/resources/orange-happy-valentines-day-greetings-and-gift.png';
 import { useWindowSize } from 'react-use';
+import { LuMousePointerClick } from 'react-icons/lu';
+import Insight from '../../components/Insight';
+import { PiShareFatFill } from 'react-icons/pi';
+import { ImEye, ImEyeBlocked } from 'react-icons/im';
 
 
 
 //////////////////////////////////////////////////////
 const emptyTitle = "Record a new sale!";
-const emptyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat aliquam vero perferendis sapiente iste assumenda nam, vel dicta ducimus at.";
+const emptyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat aliquam vero perferendis sapiente iste assumenda nam, vel dicta ducimus at perferendis sapiente iste.";
 const emptyBtns = [
     { title: "Record Order", link: "/dashboard/order/add" },
     { title: "Import Order", link: "/dashboard/order/import/add" }
@@ -18,9 +22,11 @@ const emptyBtns = [
 
 
 function index() {
-    const [isLoading, setIsLoading] = useState(false);
-    const [orders, setOrders] = useState([]);
     const { width } = useWindowSize();
+    const [orders, setOrders] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [showInsights, setShowInsights] = useState(true);
+    const [showMoreActions, setShowMoreActions] = useState(false);
     const widthandProduct600 = (orders && orders.length > 0 && width < 600);
     
     const columns = [
@@ -68,23 +74,41 @@ function index() {
         // }
     ];
 
-
     
     return (
         <>
             <div className='page__section--heading' style={widthandProduct600 ? {flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start'} : {}}>
                 <h2 className="page__section--title">Orders</h2>
 
-                <span className='page__section--btns' style={widthandProduct600 ? { width: "100%",
-        display: "grid",
-        gap: "1.6rem",
-        gridTemplateColumns: "1fr 1fr" } : {}}>
+                <span className='page__section--btns' style={widthandProduct600 ? { width: "100%", display: "grid", gap: "1.6rem", gridTemplateColumns: "1fr 1fr" } : {}}>
                     {(orders && orders.length > 0) && (
                         <button className="page__section-top-btn add">Add Product <BiPlus /></button>
                     )}
-                    <button className="page__section-top-btn more">More Actions <BiChevronDown /></button>
+                    <span className="page__section--action" onMouseLeave={() => setShowMoreActions(false)}>
+                        <button onClick={() => setShowMoreActions(!showMoreActions)} className="page__section-top-btn more">More Actions <BiChevronDown /></button>
+                        {showMoreActions && (
+                            <ul className="page__section--dropdown">
+                                <li onClick={() => setShowInsights(!showInsights)}>
+                                    <span>
+                                        {showInsights ? <ImEyeBlocked /> : <ImEye />}
+                                    </span>
+                                    {showInsights ? 'Hide' : 'Show'} Insights
+                                </li>
+                                <li><span><PiShareFatFill /></span>Export CSV</li>
+                            </ul>
+                        )}
+                    </span>
                 </span>
             </div>
+
+            {showInsights && (
+                <div className='page__section--insights insight--grid' style={{ marginBottom: '2.8rem', ...(width > 900 && {width: '80%'}) }}>
+                    <Insight title='Total Orders' value={10} icon={<LuMousePointerClick />} />
+                    <Insight title='New Orders' value={4} icon={<LuMousePointerClick />} />
+                    <Insight title='Completed Orders' value={4} icon={<LuMousePointerClick />} />
+                    <Insight title='Uncompleted Orders' value={2} icon={<LuMousePointerClick />} />
+                </div>
+            )}
 
             <div className="page__section--main card" style={{ padding: 0 }}>
                 <TableUI

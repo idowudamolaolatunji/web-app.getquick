@@ -12,28 +12,25 @@ import './style.css';
 
 function index() {
     const { width } = useWindowSize();
-    const { isNewCustomer, setIsNewCustomer } = useAuthContext();
+    const { user } = useAuthContext();
 
     return (
-        <>
-        <button onClick={() => setIsNewCustomer(!isNewCustomer)}>{ isNewCustomer ? 'Old' : 'new'} cust.</button>
-        
         <section className='home--section'>
             <HomeTop />
 
-            {isNewCustomer ? (
+            {!user.isStoreSetupStep2 ? (
                 <>
-                    <Line border={1.4} where={"Top"} value={"-1.4rem"} />
+                    <Line border={1.4} />
                     <GetStarted />
                 </>
             ) : (
                 <>
-                    {width > 500 ? <HomeProgressGrid /> : <Line border={1.4} />}
+                    <Line border={1.4} />
+                    {width > 500 && <HomeProgressGrid />}
                     <HomeLayoutGrid />
                 </>
             )}
         </section>
-        </>
     )
 }
 

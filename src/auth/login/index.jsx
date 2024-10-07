@@ -105,7 +105,7 @@ function index() {
             }
 
             // USER MUST HAVE SETUP THEIR STORE TO LOGIN
-            if(!data.data.user.isStoreSetup) {
+            if(!data.data.user.isStoreSetupStep1) {
                 const userId = data.data.user._id;
                 localStorage.setItem("user_id", userId);
 

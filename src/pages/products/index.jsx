@@ -3,7 +3,7 @@ import { BiChevronDown, BiPlus } from 'react-icons/bi'
 import TableUI from '../../components/TableUI'
 import { formatDate, formatNumber } from '../../utils/helper';
 import EmptyTableComponent from '../../components/EmptyTableComponent';
-import emptyImg from '../../assets/images/png/empty-box.png';
+import emptyImg from '../../assets/images/resources/orange-woman-with-packages-in-shopping-cart.png';
 import { useWindowSize } from 'react-use';
 
 
@@ -18,7 +18,7 @@ const emptyBtns = [
 
 function index() {
     const [isLoading, setIsLoading] = useState(false);
-    const [products, setProducts] = useState(["sxnsjsn"]);
+    const [products, setProducts] = useState([]);
     const { width } = useWindowSize();
     const widthandProduct500 = (products && products.length > 0 && width < 500);
 

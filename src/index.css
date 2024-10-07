@@ -284,7 +284,11 @@ input::-webkit-inner-spin-button {
 		gap: 4rem;
 	}
 	.empty--img {
-		max-width: 24rem;
+		max-width: 22rem;
+		padding: 2.4rem;
+	}
+	.empty--img img {
+		width: 18rem;
 	}
 }
 

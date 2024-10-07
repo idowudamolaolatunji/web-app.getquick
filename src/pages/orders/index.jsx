@@ -3,7 +3,7 @@ import { BiChevronDown, BiPlus } from 'react-icons/bi'
 import TableUI from '../../components/TableUI'
 import { formatDate, formatNumber } from '../../utils/helper';
 import EmptyTableComponent from '../../components/EmptyTableComponent'
-import emptyImg from '../../assets/images/png/empty-box.png';
+import emptyImg from '../../assets/images/resources/orange-happy-valentines-day-greetings-and-gift.png';
 import { useWindowSize } from 'react-use';
 
 

@@ -1,7 +1,9 @@
 import React from 'react';
 
-import main_theme from '../../assets/images/themes/original-5fd4642ef1335c41fba6b920ab037b3d.png';
-import main_theme2 from '../../assets/images/themes/original-fedd2a318fd98d7b8ab74db4971a841e.png';
+import main_theme_desktop from '../../assets/images/themes/original-becb3b20d4a98dc486c4e97053701f41.jpg';
+import main_theme_phone from '../../assets/images/themes/original-7d222ce93cbc3ec4c1a6445f6d02142c.jpg';
+
+import main_theme2 from '../../assets/images/themes/original-5fd4642ef1335c41fba6b920ab037b3d.png';
 import './style.css'
 import Line from '../../components/Line';
 
@@ -17,72 +19,70 @@ function index() {
                 </span>
             </div>
 
-            <div className='theme--grid' style={{ marginBottom: '6rem' }}>
-                <figure className='theme__main'>
-                    <img className='theme__main--img' src={main_theme} alt="main theme" />
+            <figure className='theme__main'>
+                <div className="theme__img--flex">
+                    <span className='theme__main--img desktop'>
+                        <img src={main_theme_desktop} alt="main theme desktop" />
+                    </span>
+                    <span className='theme__main--img phone'>
+                        <img src={main_theme_phone} alt="main theme phone" />
+                    </span>
+                </div>
 
-                    <figcaption className='theme__main--detail'>
-                        <div className="">
-                            <h3>Default Theme</h3>
-                        </div>
-                        <button>Customise!</button>
-                    </figcaption>
-                </figure>
-
-
-                <figure className='theme__main'>
-                    <img className='theme__main--img' src={main_theme2} alt="main theme" />
-
-                    <figcaption className='theme__main--detail'>
-                        <div className="">
-                            <h3>Default Theme</h3>
-                        </div>
-                        <button>Customise!</button>
-                    </figcaption>
-                </figure>
-            </div>
+                <figcaption className='theme__main--detail'>
+                    <div className="">
+                        <h3>Main Default Theme</h3>
+                    </div>
+                    <button>Customise!</button>
+                </figcaption>
+            </figure>
 
 
 
-            <Line where="Bottom" value="4rem" border={1.4} />
+            <section className="card">
+                <div className="section--heading" style={{ marginBottom: '2.8rem' }}>
+                    <h2>Other free themes</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum placeat quam consectetur.</p>
+                </div>
 
 
-            <div className="card theme--grid">
-                <figure className='theme__main'>
-                    <img className='theme__main--img' src={main_theme2} alt="main theme" />
+                <div className="theme--grid">
+                    <figure className='theme__others'>
+                        <img className='theme__others--img' src={main_theme2} alt="main theme" />
 
-                    <figcaption className='theme__main--detail'>
-                        <div className="">
-                            <h3>Default Theme</h3>
-                        </div>
-                        <button>Customise!</button>
-                    </figcaption>
-                </figure>
-
-
-                <figure className='theme__main'>
-                    <img className='theme__main--img' src={main_theme2} alt="main theme" />
-
-                    <figcaption className='theme__main--detail'>
-                        <div className="">
-                            <h3>Default Theme</h3>
-                        </div>
-                        <button>Customise!</button>
-                    </figcaption>
-                </figure>
+                        <figcaption className='theme__others--detail'>
+                            <div className="">
+                                <h3>Default Theme</h3>
+                            </div>
+                            <button>Customise!</button>
+                        </figcaption>
+                    </figure>
 
 
-                <figure className='theme__main'>
-                    <img className='theme__main--img' src={main_theme2} alt="main theme" />
+                    <figure className='theme__others'>
+                        <img className='theme__others--img' src={main_theme2} alt="main theme" />
 
-                    <figcaption className='theme__main--detail'>
-                        <div className="">
-                            <h3>Default Theme</h3>
-                        </div>
-                        <button>Customise!</button>
-                    </figcaption>
-                </figure>
-            </div>
+                        <figcaption className='theme__others--detail'>
+                            <div className="">
+                                <h3>Default Theme</h3>
+                            </div>
+                            <button>Customise!</button>
+                        </figcaption>
+                    </figure>
+
+
+                    <figure className='theme__others'>
+                        <img className='theme__others--img' src={main_theme2} alt="main theme" />
+
+                        <figcaption className='theme__others--detail'>
+                            <div className="">
+                                <h3>Default Theme</h3>
+                            </div>
+                            <button>Customise!</button>
+                        </figcaption>
+                    </figure>
+                </div>
+            </section>
 
         </>
     )

@@ -1,6 +1,6 @@
 
 .theme__main {
-    height: 48rem;
+    height: 42rem;
     margin-bottom: 4.2rem;
 }
 
@@ -48,9 +48,11 @@
 
 .theme__main--detail {
     height: 8rem;
+    padding: 2.4rem;
 }
 .theme__others--detail {
     height: 6rem;
+    padding: 1rem;
 }
 
 .theme__main--detail,
@@ -61,13 +63,38 @@
     border: 4px solid #333;
     background-color: #333;
     color: #fff;
-    padding: 1rem;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
+.theme__main--detail h3,
+.theme__others--detail h3 {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.more--theme-box {
+    background-color: #f1f1f1;
+    padding: 2.4rem;
+    margin-top: 4rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    border-radius: .4rem;
+}
+.more--theme-box img {
+    width: 10rem;
+}
+.more--theme-box p {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #555;
+}
 
 
 
@@ -87,13 +114,22 @@
     }
 
     .theme__img--flex {
-        width: 100%;
+        width: 95%;
         gap: 1rem;
+    }
+
+    .theme__main--img img {
+        height: 110%;
     }
 
 
     .theme__others {
         height: auto;
+    }
+
+
+    .more--theme-box img {
+        width: 8rem;
     }
 
 }

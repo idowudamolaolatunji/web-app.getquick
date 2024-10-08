@@ -30,7 +30,7 @@ function MenuButton({ title, icon, action }) {
                             </DefaultButton>
                         </TooltipUI>
                     ) : (
-                        <DefaultButton customStyle={{ width: '100%' }}>
+                        <DefaultButton customStyle={{ width: '100%', fontFamily: "inherit" }}>
                             <button className='menu--button' style={{ alignItems: 'center'}} onClick={action}>
                                 <span className='menu--icon'>{icon}</span>
                                 <p className='menu--text'>{title}</p>

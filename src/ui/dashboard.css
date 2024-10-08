@@ -436,6 +436,7 @@ button.menu--button {
 }
 .menu--list.last--menu {
     margin-top: 2.4rem;
+    /* margin-top: auto; */
 }
 /* ========================================== */
 

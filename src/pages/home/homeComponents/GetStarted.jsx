@@ -16,15 +16,16 @@ function GetStarted() {
         miniLoading: false
     });
     const [isCompletedSteps, setIsCompletedSteps] = useState(localStorage.getItem("q_step_progr") ? JSON.parse(localStorage.getItem("q_step_progr")) : [
-        { name: 'Onboard', tipText: 'Store and Dashboard Created!', completed: true }, // This fisrt on is default
-        { name: 'hasCustomisedStore', tipText: 'Store Customized!', text: 'Customize your online store.', completed: false, shortText: 'Customize Store' },
-        { name: 'hasFirstProduct', tipText: 'First Product Added!', text: 'Add your first product', completed: false, shortText: 'First Product' },
-        { name: 'hasShippingRates', tipText: 'Delivery Rates Added!', text: 'Add your delivery rates to your website', completed: false, shortText: 'Delivery Rates' },
-        { name: 'hasBankDetails', tipText: 'Bank Details Updated!', text: 'Add bank details for payments', completed: false, shortText: 'Bank Details' }
+        { id: 1, name: 'Onboard', tipText: 'Store and Dashboard Created!', completed: true },
+        { id: 2, name: 'hasCustomisedStore', tipText: 'Store Customized!', text: 'Customize your online store.', completed: false, shortText: 'Customize your Store' },
+        { id: 3, name: 'hasFirstProduct', tipText: 'First Product Uploaded!', text: 'Add your first product', completed: false, shortText: 'Upload First Product' },
+        { id: 4, name: 'hasShippingRates', tipText: 'Delivery Rates Set!', text: 'Add your delivery rates to your website', completed: false, shortText: 'Set Delivery Rates' },
+        { id: 5, name: 'hasBankDetails', tipText: 'Bank Details Added!', text: 'Add bank details for payments', completed: false, shortText: 'Set Bank Info' }
     ]);
 
     const completedSteps = isCompletedSteps.filter(step => step.completed);
     const stepsSorted = isCompletedSteps.sort((a, b) => b.completed - a.completed);
+
     function handleFindStep(name) {
         return isCompletedSteps.find(step => (step.name === name && step.completed === true))
     }
@@ -83,7 +84,16 @@ function GetStarted() {
             <h2 className='get-started-title'>Let get you started selling</h2>
             <p className='get-started-subtitle'>Finalize your setup to make your website visible to the world.</p>
             <span className='get-started-nums'>
-                <p>{completedSteps.length} / 5 completed - <strong>Next Step 👉🏿</strong> {stepsSorted[completedSteps.length + 1]?.shortText}</p>
+                <p>{
+                    // HERE WE MODIFY THE TEXT BASED ON THE COMPLETED STEPS
+                    (completedSteps?.length < 5) ? (
+                        <>
+                            {completedSteps.length} / 5 completed - <strong>{completedSteps.length == 4 ? 'Final' : 'Next'} Step 👉🏿</strong> {stepsSorted[completedSteps.length]?.shortText}
+                        </>
+                    ) : (
+                        <>Completed all Step 🎉 - <strong>Click Finish!</strong> </>
+                    )
+                }</p>
 
                 <div className="get-started-tabs">
                     {stepsSorted.map((step, i) => (
@@ -99,13 +109,13 @@ function GetStarted() {
             </span>
 
             <div className="get-started-opts">
-                <div className={`opts--items ${handleFindStep("Store") ? 'is-completed' : ''}`}>
+                <div className={`opts--items ${handleFindStep("hasCustomisedStore") ? 'is-completed' : ''}`}>
                     <div className="opts--heading">
                         <span className='opts--icon'><MdOutlineStorefront /></span>
                         <h3>Customize your online store.</h3>
                     </div>
                     <p>Select a theme, upload your logo, choose colors, and add images to customize your website.</p>
-                    <button onClick={() => navigate('/dashboard/store-info')}>{handleFindStep("Store") ? <CompletedTag /> : 'Customize store'}</button>
+                    <button onClick={() => navigate('/dashboard/store-info')}>{handleFindStep("hasCustomisedStore") ? <CompletedTag /> : 'Customize store'}</button>
                 </div>
 
                 <div className={`opts--items ${handleFindStep("hasFirstProduct") ? 'is-completed' : ''}`}>
@@ -115,7 +125,7 @@ function GetStarted() {
                     </div>
                     <p>Write a description, add photos, and set pricing for the products you plan to sell, you can always add more later from the sidebar.</p>
 
-                    {handleFindStep("Product") ? (
+                    {handleFindStep("hasFirstProduct") ? (
                         <button><CompletedTag /></button>
                     ) : (
                         <div className="opts--btns">
@@ -131,7 +141,7 @@ function GetStarted() {
                         <h3>Add your delivery rates to your website.</h3>
                     </div>
                     <p>Set up delivery areas and how much you charge so your customers can see their shipping costs at checkout.</p>
-                    <button onClick={() => navigate('/dashboard/delivery')}>{handleFindStep("Delivery") ? <CompletedTag /> : ' Add delivery rates'}</button>
+                    <button onClick={() => navigate('/dashboard/delivery')}>{handleFindStep("hasShippingRates") ? <CompletedTag /> : ' Add delivery rates'}</button>
                 </div>
 
                 <div className={`opts--items ${handleFindStep("hasBankDetails") ? 'is-completed' : ''}`}>
@@ -140,7 +150,7 @@ function GetStarted() {
                         <h3>Add bank details for payments.</h3>
                     </div>
                     <p>Bank details is needed to allow you start collecting payment when you make sales through your website.</p>
-                    <button onClick={() => navigate('/dashboard/bank-details')}>{handleFindStep("Payment") ? <CompletedTag /> : 'Set up payment'}</button>
+                    <button onClick={() => navigate('/dashboard/bank-details')}>{handleFindStep("hasBankDetails") ? <CompletedTag /> : 'Set up payment'}</button>
                 </div>
             </div>
 

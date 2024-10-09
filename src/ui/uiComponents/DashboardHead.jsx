@@ -33,8 +33,6 @@ function DashboardHead() {
                     <img src={logo_img} alt='Quick logo' />
                 </Link>
 
-
-
                 <DefaultButton>
                     <span className='hamburger--icon' onClick={(width > 900) ? handleMenuCollapse : handleShowSidemenu}>
                         {(width > 900) ? (
@@ -51,7 +49,7 @@ function DashboardHead() {
                 <div className=""></div>
 
                 <div className="nav--others">
-                    <a href={store.storeUrl} target='_blank' className='store--btn'>
+                    <a href={store?.storeUrl} target='_blank' className='store--btn'>
                         View Store <MdOutlineStorefront />
                     </a>
 

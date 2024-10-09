@@ -106,9 +106,54 @@ input::-webkit-inner-spin-button {
 	z-index: 110;
 
 	background-color: rgba(0, 0, 0, 0.15);
-	-webkit-backdrop-filter: blur(2px);
-	backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(4px);
+	backdrop-filter: blur(4px);
+	cursor: pointer;
 }
+
+.modal {
+	padding: 2.4rem;
+	background-color: #fff;
+	position: fixed;
+	min-height: 40rem;
+	width: 50rem;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1);
+	border-radius: 0.6rem;
+	box-shadow: 0 0 2px #00000040, 0 0 10px #0000000d;
+	z-index: 150;
+	animation: zoom-in 1s ease-in-out;
+}
+
+@keyframes zoom-in {
+	0% {
+		transform: translate(-50%, -50%) scale(0.35);
+		opacity: 0;
+	}
+	15% {
+		transform: translate(-50%, -50%) scale(1);
+		opacity: 1;
+	}
+}
+.modal--head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 1.2rem;
+	padding-bottom: 1rem;
+	border-bottom: 1.4px solid #eee;
+}
+.modal--head h3 {
+	font-weight: 600;
+	font-size: 1.8rem;
+}
+.modal--head svg {
+	font-size: 2.4rem;
+	cursor: pointer;
+}
+
+
 
 .button-animated {
     animation: 0.1s ease 0s 1 normal none running launcher;
@@ -160,6 +205,13 @@ input::-webkit-inner-spin-button {
 .status--delivered p {
     color: #008001;
     background-color: #d7ecd1b7;
+}
+
+
+.flex {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
 }
 
 .general--btn {
@@ -270,6 +322,81 @@ input::-webkit-inner-spin-button {
 
 
 
+/* ============================================= */
+/* QUILL RICH TEXT EDITOR STYLES */
+/* ============================================= */
+
+/* For the main box */
+.quill {
+	width: 100% !important;
+	border: 1.4px solid #eee !important;
+	border-radius: .4rem;
+	transition: all .3s;
+}
+.quill:hover,
+.quill:hover .ql-toolbar.ql-snow {
+	border-color: var(--color-brand-500) !important;
+}
+
+/* for the top toolbar section */
+.quill .ql-toolbar.ql-snow {
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center;
+	gap: 1rem;
+	font-family: inherit !important;
+	border: none !important;
+    border-bottom: 1.4px solid #eee !important;
+	transition: all .3s;
+}
+
+/* for the heading color */
+.quill  .ql-picker.ql-header .ql-picker-item,
+.quill .ql-toolbar.ql-snow .ql-picker-label,
+.quill .ql-toolbar.ql-snow .ql-picker-label.ql-active,
+.quill .ql-toolbar.ql-snow .ql-picker-label:hover {
+	/* color: #444 !important; */
+	color: var(--color-brand-500) !important;
+}
+
+/* For all the formats on the toolbar */
+.quill .ql-toolbar.ql-snow .ql-formats {
+	margin-right: 0;
+}
+
+/* for the svgs, specificly the line on the svg on the toolbar */
+.quill .ql-toolbar.ql-snow .ql-formats svg .ql-stroke {
+	stroke: #595959;
+}
+
+/* for the editor field container */
+.quill .ql-container.ql-snow {
+    border: none !important;
+    min-height: 12rem !important;
+}
+
+
+/* the editor field itself */
+.quill .ql-editor {
+	width: 100% !important;
+	font-family: inherit !important;
+}
+.quill .ql-editor * {
+	overflow-wrap: normal;
+	hyphens: unset;
+	font-family: "Raleway", sans-serif !important;
+}
+
+
+
+
+
+
+
+
+
+
+
 /* 600px === 37.5em */
 /* MAX WIDTH - MOBILE MEDIA QUERY */
 @media screen and (max-width: 37.5em) {
@@ -290,6 +417,11 @@ input::-webkit-inner-spin-button {
 	.empty--img img {
 		width: 18rem;
 	}
+
+	.modal {
+		width: 100%;
+		height: 100%;
+	}
 }
 
 
@@ -297,5 +429,12 @@ input::-webkit-inner-spin-button {
 	.empty--order,
 	.empty--product {
 		padding: 0;
+	}
+
+	.quill .ql-toolbar.ql-snow {
+		gap: 0;
+	}
+	.quill .ql-toolbar.ql-snow .ql-formats button {
+		padding: 3px 0;
 	}
 }

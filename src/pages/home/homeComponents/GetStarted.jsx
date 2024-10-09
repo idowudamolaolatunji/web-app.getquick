@@ -129,7 +129,7 @@ function GetStarted() {
                         <button><CompletedTag /></button>
                     ) : (
                         <div className="opts--btns">
-                            <button onClick={() => navigate('/dashboard/products/add')}>Add product</button>
+                            <button onClick={() => navigate('/dashboard/products/upload')}>Add product</button>
                             <div onClick={() => navigate('/dashboard/products/import/add')}>Import product</div>
                         </div>
                     )}

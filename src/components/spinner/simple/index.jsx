@@ -1,9 +1,9 @@
 import React from 'react';
 import './style.css'
 
-function index() {
+function index({ style }) {
     return (
-        <div className="simple-spinner"></div>
+        <div className="simple-spinner" style={style}></div>
     )
 }
 

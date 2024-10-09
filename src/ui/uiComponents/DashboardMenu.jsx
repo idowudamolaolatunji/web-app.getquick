@@ -40,12 +40,12 @@ function DashboardMenu() {
                         )}
                         <ul className='menu--list'>
                             <MenuLink icon={<LuLayoutPanelLeft />} title='Dashboard' link='/' />
-                            <MenuLink icon={<MdOutlineShoppingBag />} title='Orders' link='/orders' />
-                            <MenuLink icon={<LuTags />} title='Products' link='/products' />
-                            <MenuLink icon={<BiLineChart />} title='Analytics' link='/analytics' />
-                            <MenuLink icon={<RiCoupon3Line />} title='Run sales / coupon' link='/run-sales' />
-                            <MenuLink icon={<FiUsers />} title='Customers' link='/customers' />
-                            <MenuLink icon={<LuRotate3D />} title='Transactions' link='/transactions' />
+                            <MenuLink icon={<MdOutlineShoppingBag />} title='Your Orders' link='/orders' />
+                            <MenuLink icon={<LuTags />} title='Your Products' link='/products' />
+                            <MenuLink icon={<BiLineChart />} title='Store Analytics' link='/analytics' />
+                            <MenuLink icon={<RiCoupon3Line />} title='Run sales and coupon' link='/run-sales' />
+                            <MenuLink icon={<FiUsers />} title='Your Customers' link='/customers' />
+                            <MenuLink icon={<LuRotate3D />} title='All Transactions' link='/transactions' />
                             <MenuLink icon={<MdOutlineWebhook />} title='Connected platforms' link='/connected-apps' />
                         </ul>
                     </div>

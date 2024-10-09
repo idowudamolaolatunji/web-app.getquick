@@ -35,7 +35,9 @@ import Error from './pages/error';
 
 import DashboardHome from './pages/home';
 import Orders from './pages/orders';
+import RecordOrders from './pages/orders/orderComponents/RecordOrder';
 import Products from './pages/products';
+import UploadProduct from './pages/products/productComponents/UploadProduct';
 import Transaction from './pages/transactions';
 import Settings from './pages/settings';
 import Profile from './pages/profile';
@@ -83,6 +85,11 @@ function App() {
                         <Route path='/dashboard' element={<DashboardHome />}></Route>
                         <Route path='/dashboard/orders' element={<Orders />}></Route>
                         <Route path='/dashboard/products' element={<Products />}></Route>
+
+                        <Route path='/dashboard/orders/record' element={<RecordOrders />}></Route>
+                        <Route path='/dashboard/products/upload' element={<UploadProduct />}></Route>
+
+
                         <Route path='/dashboard/transactions' element={<Transaction />}></Route>
                         <Route path='/dashboard/settings' element={<Settings />}></Route>
                         <Route path='/dashboard/custom-domain' element={<CustomDomain />}></Route>

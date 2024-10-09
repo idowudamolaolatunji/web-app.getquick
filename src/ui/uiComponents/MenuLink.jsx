@@ -12,7 +12,10 @@ function MenuLink({ icon, title, link }) {
     const { pathname } = useLocation();
     const { width } = useWindowSize();
 
-    const isActiveClass = `menu--link ${(title === 'Dashboard' && (pathname === '/dashboard' || pathname === '/')) ? 'is-active' : pathname === `/dashboard${link}` ? 'is-active' : ''}`;
+    
+    // const isActiveClass = `menu--link ${(title === 'Dashboard' && (pathname === '/dashboard' || pathname === '/')) ? 'is-active' : pathname === `/dashboard${link}` ? 'is-active' : ''}`;
+    const isActiveClass = `menu--link ${(title === 'Dashboard' && (pathname === '/dashboard' || pathname === '/' || pathname === '/dashboard/')) && 'is-active' || (title !== "Dashboard" && pathname?.includes(link)) ? 'is-active' : ''}`;
+
 
     return (
         <>

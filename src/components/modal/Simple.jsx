@@ -10,7 +10,7 @@ function Simple({ title, icon, setClose, children }) {
   return (
     <>
         <Overlay handleClose={handleClose}/>
-        <div className='simple--modal modal'>
+        <div className='simple modal'>
             <div className="modal--head">
                 <h3>{title}</h3>
                 <span onClick={handleClose}>{icon}</span>

@@ -7,6 +7,8 @@ import { IoCheckmarkDone } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { TbTruckDelivery } from 'react-icons/tb';
 import Spinner from '../../../components/spinner/spinner_two'
+import FullScreen from '../../../components/modal/FullScreen';
+import UploadProduct from '../../products/productComponents/UploadProduct';
 
 function GetStarted() {
     const navigate = useNavigate();
@@ -22,6 +24,13 @@ function GetStarted() {
         { id: 4, name: 'hasShippingRates', tipText: 'Delivery Rates Set!', text: 'Add your delivery rates to your website', completed: false, shortText: 'Set Delivery Rates' },
         { id: 5, name: 'hasBankDetails', tipText: 'Bank Details Added!', text: 'Add bank details for payments', completed: false, shortText: 'Set Bank Info' }
     ]);
+
+    const [showModal, setShowModal] = useState({
+        store: false,
+        product: false,
+        bank: false,
+        delivery: false
+    })
 
     const completedSteps = isCompletedSteps.filter(step => step.completed);
     const stepsSorted = isCompletedSteps.sort((a, b) => b.completed - a.completed);
@@ -48,15 +57,26 @@ function GetStarted() {
         });
     }
 
-    useEffect(function() {
+    function handleOpenModal(e) {
+        const { name } = e.target;
+        console.log(name);
+
+        setShowModal({...showModal, [name]: true });
+    }
+
+    function handleCloseModal(name) {
+        setShowModal({...showModal, [name]: false });
+    }
+
+    useEffect(function () {
         document.title = 'Final onboarding steps!!'
     }, []);
 
-    useEffect(function() {
+    useEffect(function () {
         localStorage.setItem("q_step_progr", JSON.stringify(isCompletedSteps));
     }, [isCompletedSteps]);
 
-    useEffect(function() {
+    useEffect(function () {
         handleLoading("mainLoading", true);
 
         const {
@@ -71,7 +91,7 @@ function GetStarted() {
         updateState("hasFirstProduct", hasFirstProduct);
         updateState("hasCustomisedStore", hasCustomisedStore);
 
-        setTimeout(function() {
+        setTimeout(function () {
             handleLoading("mainLoading", false);
         }, 500);
     }, []);
@@ -79,84 +99,91 @@ function GetStarted() {
     return (
 
         <>
-            { loading.mainLoading && <Spinner /> }
-        <div className="get-started">
-            <h2 className='get-started-title'>Let get you started selling</h2>
-            <p className='get-started-subtitle'>Finalize your setup to make your website visible to the world.</p>
-            <span className='get-started-nums'>
-                <p>{
-                    // HERE WE MODIFY THE TEXT BASED ON THE COMPLETED STEPS
-                    (completedSteps?.length < 5) ? (
-                        <>
-                            {completedSteps.length} / 5 completed - <strong>{completedSteps.length == 4 ? 'Final' : 'Next'} Step 👉🏿</strong> {stepsSorted[completedSteps.length]?.shortText}
-                        </>
-                    ) : (
-                        <>Completed all Step 🎉 - <strong>Click Finish!</strong> </>
-                    )
-                }</p>
-
-                <div className="get-started-tabs">
-                    {stepsSorted.map((step, i) => (
-                        (step.completed ? (
-                            <TooltipUI title={step.tipText} key={i} placement='bottom'>
-                                <span className='is-completed' />
-                            </TooltipUI>
+            {loading.mainLoading && <Spinner />}
+            <div className="get-started">
+                <h2 className='get-started-title'>Let get you started selling</h2>
+                <p className='get-started-subtitle'>Finalize your setup to make your website visible to the world.</p>
+                <span className='get-started-nums'>
+                    <p>{
+                        // HERE WE MODIFY THE TEXT BASED ON THE COMPLETED STEPS
+                        (completedSteps?.length < 5) ? (
+                            <>
+                                {completedSteps.length} / 5 completed - <strong>{completedSteps.length == 4 ? 'Final' : 'Next'} Step 👉🏿</strong> {stepsSorted[completedSteps.length]?.shortText}
+                            </>
                         ) : (
-                            <span key={i} />
+                            <>Completed all Step 🎉 - <strong>Click Finish!</strong> </>
                         )
-                        )))}
-                </div>
-            </span>
+                    }</p>
 
-            <div className="get-started-opts">
-                <div className={`opts--items ${handleFindStep("hasCustomisedStore") ? 'is-completed' : ''}`}>
-                    <div className="opts--heading">
-                        <span className='opts--icon'><MdOutlineStorefront /></span>
-                        <h3>Customize your online store.</h3>
+                    <div className="get-started-tabs">
+                        {stepsSorted.map((step, i) => (
+                            (step.completed ? (
+                                <TooltipUI title={step.tipText} key={i} placement='bottom'>
+                                    <span className='is-completed' />
+                                </TooltipUI>
+                            ) : (
+                                <span key={i} />
+                            )
+                            )))}
                     </div>
-                    <p>Select a theme, upload your logo, choose colors, and add images to customize your website.</p>
-                    <button onClick={() => navigate('/dashboard/store-info')}>{handleFindStep("hasCustomisedStore") ? <CompletedTag /> : 'Customize store'}</button>
-                </div>
+                </span>
 
-                <div className={`opts--items ${handleFindStep("hasFirstProduct") ? 'is-completed' : ''}`}>
-                    <div className="opts--heading">
-                        <span className='opts--icon'><MdOutlineShoppingBag /></span>
-                        <h3>Add your first product.</h3>
-                    </div>
-                    <p>Write a description, add photos, and set pricing for the products you plan to sell, you can always add more later from the sidebar.</p>
-
-                    {handleFindStep("hasFirstProduct") ? (
-                        <button><CompletedTag /></button>
-                    ) : (
-                        <div className="opts--btns">
-                            <button onClick={() => navigate('/dashboard/products/upload')}>Add product</button>
-                            <div onClick={() => navigate('/dashboard/products/import/add')}>Import product</div>
+                <div className="get-started-opts">
+                    <div className={`opts--items ${handleFindStep("hasCustomisedStore") ? 'is-completed' : ''}`}>
+                        <div className="opts--heading">
+                            <span className='opts--icon'><MdOutlineStorefront /></span>
+                            <h3>Customize your online store.</h3>
                         </div>
-                    )}
+                        <p>Select a theme, upload your logo, choose colors, and add images to customize your website.</p>
+                        <button name='store' onClick={handleOpenModal}>{handleFindStep("hasCustomisedStore") ? <CompletedTag /> : 'Customize store'}</button>
+                    </div>
+
+                    <div className={`opts--items ${handleFindStep("hasFirstProduct") ? 'is-completed' : ''}`}>
+                        <div className="opts--heading">
+                            <span className='opts--icon'><MdOutlineShoppingBag /></span>
+                            <h3>Add your first product.</h3>
+                        </div>
+                        <p>Write a description, add photos, and set pricing for the products you plan to sell, you can always add more later from the sidebar.</p>
+
+                        {handleFindStep("hasFirstProduct") ? (
+                            <button><CompletedTag /></button>
+                        ) : (
+                            <div className="opts--btns">
+                                <button name='product' onClick={handleOpenModal}>Add product</button>
+                                <div onClick={() => navigate('/dashboard/products/import/add')}>Import product</div>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className={`opts--items ${handleFindStep("hasShippingRates") ? 'is-completed' : ''}`}>
+                        <div className="opts--heading">
+                            <span className='opts--icon'><TbTruckDelivery /></span>
+                            <h3>Add your delivery rates to your website.</h3>
+                        </div>
+                        <p>Set up delivery areas and how much you charge so your customers can see their shipping costs at checkout.</p>
+                        <button name="delivery" onClick={handleOpenModal}>{handleFindStep("hasShippingRates") ? <CompletedTag /> : ' Add delivery rates'}</button>
+                    </div>
+
+                    <div className={`opts--items ${handleFindStep("hasBankDetails") ? 'is-completed' : ''}`}>
+                        <div className="opts--heading">
+                            <span className='opts--icon'><RiBankLine /></span>
+                            <h3>Add bank details for payments.</h3>
+                        </div>
+                        <p>Bank details is needed to allow you start collecting payment when you make sales through your website.</p>
+                        <button name="bank" onClick={handleOpenModal}>{handleFindStep("hasBankDetails") ? <CompletedTag /> : 'Set up payment'}</button>
+                    </div>
                 </div>
 
-                <div className={`opts--items ${handleFindStep("hasShippingRates") ? 'is-completed' : ''}`}>
-                    <div className="opts--heading">
-                        <span className='opts--icon'><TbTruckDelivery /></span>
-                        <h3>Add your delivery rates to your website.</h3>
-                    </div>
-                    <p>Set up delivery areas and how much you charge so your customers can see their shipping costs at checkout.</p>
-                    <button onClick={() => navigate('/dashboard/delivery')}>{handleFindStep("hasShippingRates") ? <CompletedTag /> : ' Add delivery rates'}</button>
-                </div>
 
-                <div className={`opts--items ${handleFindStep("hasBankDetails") ? 'is-completed' : ''}`}>
-                    <div className="opts--heading">
-                        <span className='opts--icon'><RiBankLine /></span>
-                        <h3>Add bank details for payments.</h3>
-                    </div>
-                    <p>Bank details is needed to allow you start collecting payment when you make sales through your website.</p>
-                    <button onClick={() => navigate('/dashboard/bank-details')}>{handleFindStep("hasBankDetails") ? <CompletedTag /> : 'Set up payment'}</button>
-                </div>
+                <button className={`get-started-btn ${completedSteps.length < 5 ? 'disabled' : ''}`} disabled>Finish!</button>
             </div>
 
 
-            <button className={`get-started-btn ${completedSteps.length < 5 ? 'disabled' : ''}`} disabled>Finish!</button>
-        </div>
+            {(showModal.bank || showModal.delivery || showModal.product || showModal.store) && (
+                <FullScreen style={{ maxWidth: '100rem', margin: '0 auto' }} >
+                    {showModal.product && <UploadProduct isnew={true} close={() => handleCloseModal('product')} />}
+                </FullScreen>
+            )}
         </>
     )
 }

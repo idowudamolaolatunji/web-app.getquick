@@ -25,7 +25,7 @@ import { FaCheck } from 'react-icons/fa';
 import Line from '../../../components/Line';
 
 
-function UploadProduct() {
+function UploadProduct({ isnew, close }) {
     const { width } = useWindowSize();
     const { store } = useAuthContext();
     const currency = "₦"
@@ -40,7 +40,9 @@ function UploadProduct() {
     const [productData, setProductData] = useState({
 
         price: null,
-        cost: null
+        cost: null,
+        quantity: null,
+        status: "publish"
     });
 
     const [checks, setChecks] = useState({
@@ -108,7 +110,7 @@ function UploadProduct() {
 
 
     useEffect(function () {
-        // window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
     }, []);
 
 
@@ -117,8 +119,8 @@ function UploadProduct() {
             <section className='product__upload-section'>
                 <div className='page__section--heading'>
                     <span className='flex'>
-                        <BackButton />
-                        <h2 className="page__section--title">Upload new product</h2>
+                        <BackButton close={close} />
+                        <h2 className="page__section--title">Upload {isnew ? "First" : "new"} product</h2>
                     </span>
                 </div>
 
@@ -245,7 +247,7 @@ function UploadProduct() {
                         <div className="card form">
                             <div className="section--heading">
                                 <h2>Pricings & Inventory</h2>
-                                <p>Lorem ipsum dolor sit amet.</p>
+                                {width > 400 && <Line border={1.4} where="Top" value="1rem" />}
                             </div>
 
                             <div className="form--item">
@@ -305,8 +307,16 @@ function UploadProduct() {
                             </div>
 
                             <div className="form--item">
-                                <label htmlFor="" className="form--label">Stock Quantity <Asterisk /></label>
-                                <input type="number" name="" id="" className="form--input" />
+                                <label htmlFor="quantity" className="form--label">Stock Quantity <Asterisk /></label>
+                                <CurrencyInput
+                                    id="quantity"
+                                    name="quantity"
+                                    className="form--input"
+                                    placeholder="Quantity"
+                                    prefix="Qty. "
+                                    decimalsLimit={0}
+                                    onValueChange={(value, name, _) => setProductData({ ...productData, [name]: value })}
+                                />
                             </div>
 
                         </div>
@@ -317,8 +327,30 @@ function UploadProduct() {
 
                         <div className="card form">
                             <div className="section--heading">
+                                <div className="flex" style={{ justifyContent: "space-between" }}>
+                                    <h2>Visibility Status</h2>
+                                    <span className={`status--dot ${productData.status}`}></span>
+                                </div>
+                                {width > 400 && <Line border={1.4} where="Top" value="1rem" />}
+                            </div>
+
+                            <div className="form--item">
+                                <label htmlFor='status' className='form--label'>Set Status</label>
+                                <select name="status" id='status' value={productData.status} className="form--select" onChange={handleProductDataChange}>
+                                    <option value="publish">Publish</option>
+                                    <option value="draft">Draft</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        {width < 400 && <Line border={1.4} />}
+
+
+                        <div className="card form">
+                            <div className="section--heading">
                                 <h2>Product Variations</h2>
-                                <p>Lorem ipsum dolor sit amet.</p>
+                                {width > 400 && <Line border={1.4} where="Top" value="1rem" />}
                             </div>
 
                             <div className="form--item">

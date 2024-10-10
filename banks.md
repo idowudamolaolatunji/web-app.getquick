@@ -136,3 +136,17 @@
     "completed_store_info": false,
     "created_first_product": false
 },
+
+
+
+{/* <div className="form--item">
+                            <label className="form--label">Item Images</label>
+                            <input type="file" id="form-img" accept="image/*" multiple max={4} name='images' onChange={handleImageChange} />
+                            <label htmlFor="form-img" className='form--img-box'>
+                                <span className='img--container'>
+                                    <IoCloudDownloadOutline />
+                                    <h3>Upload or Drag n drop Image</h3>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, cumque.</p>
+                                </span>
+                            </label>
+                        </div> */}

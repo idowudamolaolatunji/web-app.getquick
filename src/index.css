@@ -431,6 +431,10 @@ input::-webkit-inner-spin-button {
 		padding: 0;
 	}
 
+	.modal {
+		padding: 2rem 1.4rem;
+	}
+
 	.quill .ql-toolbar.ql-snow {
 		gap: 0;
 	}

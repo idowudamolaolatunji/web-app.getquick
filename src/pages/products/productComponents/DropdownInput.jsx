@@ -23,7 +23,7 @@ function DropdownInput() {
     }
 
     useEffect(function() {
-        handleFetchCollection()
+        // handleFetchCollection()
     },  [])
 
     return (

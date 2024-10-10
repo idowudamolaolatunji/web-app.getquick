@@ -9,6 +9,8 @@ import { TbTruckDelivery } from 'react-icons/tb';
 import Spinner from '../../../components/spinner/spinner_two'
 import FullScreen from '../../../components/modal/FullScreen';
 import UploadProduct from '../../products/productComponents/UploadProduct';
+import CreateDelivery from '../../delivery/deliveryComponents/CreateDelivery';
+import BankDetails from '../../storeInfo/storeInfoComponents/BankDetails';
 
 function GetStarted() {
     const navigate = useNavigate();
@@ -182,6 +184,9 @@ function GetStarted() {
             {(showModal.bank || showModal.delivery || showModal.product || showModal.store) && (
                 <FullScreen style={{ maxWidth: '100rem', margin: '0 auto' }} >
                     {showModal.product && <UploadProduct isnew={true} close={() => handleCloseModal('product')} />}
+                    {showModal.delivery && <CreateDelivery isnew={true} close={() => handleCloseModal('delivery')} />}
+                    {showModal.bank && <BankDetails isnew={true} close={() => handleCloseModal('bank')} />}
+                    {showModal.store && <p>Hi Store</p>}
                 </FullScreen>
             )}
         </>

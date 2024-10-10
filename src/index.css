@@ -373,6 +373,9 @@ input::-webkit-inner-spin-button {
 .quill .ql-toolbar.ql-snow .ql-formats {
 	margin-right: 0;
 }
+.quill .ql-toolbar.ql-snow .ql-formats .ql-clean {
+	display: none;
+}
 
 /* for the svgs, specificly the line on the svg on the toolbar */
 .quill .ql-toolbar.ql-snow .ql-formats svg .ql-stroke {

@@ -38,7 +38,6 @@ function UploadProduct({ isnew, close }) {
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
     const [productData, setProductData] = useState({
-
         price: null,
         cost: null,
         quantity: null,
@@ -108,9 +107,8 @@ function UploadProduct({ isnew, close }) {
     }
 
 
-
     useEffect(function () {
-        window.scrollTo(0, 0);
+        !isnew && window.scrollTo(0, 0);
     }, []);
 
 
@@ -120,8 +118,15 @@ function UploadProduct({ isnew, close }) {
                 <div className='page__section--heading'>
                     <span className='flex'>
                         <BackButton close={close} />
-                        <h2 className="page__section--title">Upload {isnew ? "First" : "new"} product</h2>
+                        <h2 className="page__section--title">Upload {isnew ? "first" : "new"} product</h2>
                     </span>
+
+                    {width > 600 && (
+                        <div className="page__section--actions">
+                            <button className='button clear--button'>Clear Fields</button>
+                            <button className='button submit--button'>Submit</button>
+                        </div>
+                    )}
                 </div>
 
 
@@ -231,7 +236,7 @@ function UploadProduct({ isnew, close }) {
                                 <label htmlFor="category" className="form--label">Collection <Asterisk /></label>
                                 <DropdownInput />
 
-                                <button className='form--click'>
+                                <button className='form--add'>
                                     <AiOutlinePlus />
                                     <p>Create Collection</p>
                                 </button>
@@ -240,7 +245,6 @@ function UploadProduct({ isnew, close }) {
                         </div>
                     </div>
 
-                    
                     {width < 400 && <Line border={1.4} />}
 
                     <div className='right--container containers'>
@@ -343,9 +347,7 @@ function UploadProduct({ isnew, close }) {
                             </div>
                         </div>
 
-
                         {width < 400 && <Line border={1.4} />}
-
 
                         <div className="card form">
                             <div className="section--heading">
@@ -354,19 +356,24 @@ function UploadProduct({ isnew, close }) {
                             </div>
 
                             <div className="form--item">
-                            <button className="form--click">
-                                <AiOutlinePlus />
-                                <p>Add options like size or color</p>
-                            </button>
+                                <button className="form--add">
+                                    <AiOutlinePlus />
+                                    <p>Add options like size or color</p>
+                                </button>
                             </div>
 
                         </div>
                     </div>
                 </div>
+
+
+                {width < 600 && (
+                    <div className="page__section--actions" style={{ marginTop: "4rem" }}>
+                        <button className='button clear--button'>Clear Fields</button>
+                        <button className='button submit--button'>Submit</button>
+                    </div>
+                )}
             </section>
-
-
-
 
             {cropModal && (
                 <SimpleModal setClose={setCropModal} title="Crop Image" icon={<AiOutlineClose />}>

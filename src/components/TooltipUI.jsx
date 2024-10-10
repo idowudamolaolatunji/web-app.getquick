@@ -18,6 +18,7 @@ const TooltipStyled = styled(({ className, ...props }) => (
 function TooltipUI({ title, placement="right", children }) {
     return (
         <TooltipStyled
+            arrow={placement == "bottom" ? true : false}
             title={title}
             TransitionComponent={Zoom}
             enterDelay={250}

@@ -289,6 +289,18 @@
         padding: 0;
     }
 
+    .product__upload--container,
+    .product__upload--container .containers {
+        gap: 2.8rem;
+    }
+    
+    .product__upload--container .form--grid {
+        grid-template-columns: 1fr;
+    }
+    .product__upload--container .form--text {
+        font-size: 1.34rem !important;
+    }
+
     .form--img-box,
     .form--image .img--spinner,
     .form--image .img--item {

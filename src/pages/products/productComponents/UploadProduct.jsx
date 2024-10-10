@@ -22,6 +22,7 @@ import DropdownInput from './DropdownInput';
 import CurrencyInput from 'react-currency-input-field';
 import { useAuthContext } from '../../../context/AuthContext';
 import { FaCheck } from 'react-icons/fa';
+import Line from '../../../components/Line';
 
 
 function UploadProduct() {
@@ -233,9 +234,12 @@ function UploadProduct() {
                                     <p>Create Collection</p>
                                 </button>
                             </div>
+
                         </div>
                     </div>
 
+                    
+                    {width < 400 && <Line border={1.4} />}
 
                     <div className='right--container containers'>
                         <div className="card form">
@@ -306,6 +310,9 @@ function UploadProduct() {
                             </div>
 
                         </div>
+
+
+                        {width < 400 && <Line border={1.4} />}
 
 
                         <div className="card form">

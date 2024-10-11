@@ -44,7 +44,7 @@ function CreateDelivery({ close, isnew }) {
                 <span className='flex'>
                     <BackButton close={close} />
                     <h2 className="page__section--title">
-                        Create Delivery Rate
+                        Add Delivery Rate
                         <TbTruckDelivery />
                     </h2>
                 </span>
@@ -126,7 +126,7 @@ function CreateDelivery({ close, isnew }) {
                             <div id="checkbox" className={deliveryData.visibility ? 'is-selected' : ''}>
                                 {deliveryData.visibility && <FaCheck />}
                             </div>
-                            <label className='form--text' style={{ fontSize: '1.24rem', fontWeight: '500' }}>Display delivery rate at website checkout</label>
+                            <label className='form--text' style={{ fontSize: '1.24rem', fontWeight: '500' }}>Display this rate at website checkout</label>
                         </div>
                     </div>
                 </div>

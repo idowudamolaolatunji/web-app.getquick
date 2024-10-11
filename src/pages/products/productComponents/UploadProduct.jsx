@@ -7,10 +7,9 @@ import Asterisk from '../../../components/Asterisk';
 import TooltipUI from '../../../components/TooltipUI';
 import QuillEditor from '../../../components/QuillEditor';
 import BackButton from '../../../components/button/BackButton';
-import Spinner_Simple from '../../../components/spinner/simple'
 import SimpleModal from '../../../components/modal/Simple';
 
-import { MdClose, MdOutlineShoppingBag } from 'react-icons/md';
+import { MdClose } from 'react-icons/md';
 import { RxUpdate } from 'react-icons/rx';
 import { GoStack } from 'react-icons/go';
 import { PiFrameCorners } from 'react-icons/pi';
@@ -23,6 +22,7 @@ import CurrencyInput from 'react-currency-input-field';
 import { useAuthContext } from '../../../context/AuthContext';
 import { FaCheck } from 'react-icons/fa';
 import Line from '../../../components/Line';
+import { LuTags } from 'react-icons/lu';
 
 
 function UploadProduct({ isnew, close }) {
@@ -45,7 +45,8 @@ function UploadProduct({ isnew, close }) {
         quantity: null,
         status: "publish"
     });
-    const [description, setDescription] = useState('')
+    const [description, setDescription] = useState('');
+    const [productCollection, setProductCollection] = useState(null);
 
     const [checks, setChecks] = useState({
         inventory: false,
@@ -118,7 +119,7 @@ function UploadProduct({ isnew, close }) {
             status: "publish"
         });
         setDescription("")
-
+        setProductCollection(null)
 
         setImages([])
         setCropModal(false)
@@ -144,8 +145,8 @@ function UploadProduct({ isnew, close }) {
                     <span className='flex'>
                         <BackButton close={close} />
                         <h2 className="page__section--title">
-                            Upload {width > 400 ? (isnew ? "first product" : "new product") : "Product"}  
-                            <MdOutlineShoppingBag />
+                            Upload New Product  
+                            <LuTags />
                         </h2>
                     </span>
 
@@ -262,7 +263,7 @@ function UploadProduct({ isnew, close }) {
 
                             <div className="form--item">
                                 <label htmlFor="category" className="form--label">Collection <Asterisk /></label>
-                                <DropdownInput />
+                                <DropdownInput dataTitle="Collection" selected={productCollection} setSelected={setProductCollection} />
 
                                 <button className='form--add'>
                                     <AiOutlinePlus />

@@ -402,8 +402,6 @@ input::-webkit-inner-spin-button {
 
 
 
-
-
 /* 600px === 37.5em */
 /* MAX WIDTH - MOBILE MEDIA QUERY */
 @media screen and (max-width: 37.5em) {
@@ -442,10 +440,29 @@ input::-webkit-inner-spin-button {
 		padding: 2rem 1.4rem;
 	}
 
+	.ql-toolbar.ql-snow .ql-formats {
+		margin-right: 8px;
+	}
 	.quill .ql-toolbar.ql-snow {
-		gap: 0;
+		display: flex !important;
+		flex-wrap: wrap;
 	}
 	.quill .ql-toolbar.ql-snow .ql-formats button {
 		padding: 3px 0;
+	}
+}
+
+
+@media screen and (max-width: 400px) {
+	.flex {
+		align-items: flex-start;
+    	flex-direction: column;
+	}
+}
+
+
+@media screen and (max-width: 360px) {
+	.ql-toolbar.ql-snow .ql-formats {
+		margin-right: 2px;
 	}
 }

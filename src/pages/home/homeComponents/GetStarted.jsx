@@ -11,6 +11,7 @@ import FullScreen from '../../../components/modal/FullScreen';
 import UploadProduct from '../../products/productComponents/UploadProduct';
 import CreateDelivery from '../../delivery/deliveryComponents/CreateDelivery';
 import BankDetails from '../../storeInfo/storeInfoComponents/BankDetails';
+import StoreCustom from '../../storeInfo/storeInfoComponents/StoreCustom';
 
 function GetStarted() {
     const navigate = useNavigate();
@@ -183,10 +184,10 @@ function GetStarted() {
 
             {(showModal.bank || showModal.delivery || showModal.product || showModal.store) && (
                 <FullScreen style={{ maxWidth: '100rem', margin: '0 auto' }} >
-                    {showModal.product && <UploadProduct isnew={true} close={() => handleCloseModal('product')} />}
-                    {showModal.delivery && <CreateDelivery isnew={true} close={() => handleCloseModal('delivery')} />}
-                    {showModal.bank && <BankDetails isnew={true} close={() => handleCloseModal('bank')} />}
-                    {showModal.store && <p>Hi Store</p>}
+                    {showModal.bank && <BankDetails isnew close={() => handleCloseModal('bank')} />}
+                    {showModal.store && <StoreCustom isnew  close={() => handleCloseModal('store')} />}
+                    {showModal.product && <UploadProduct isnew close={() => handleCloseModal('product')} />}
+                    {showModal.delivery && <CreateDelivery isnew close={() => handleCloseModal('delivery')} />}
                 </FullScreen>
             )}
         </>

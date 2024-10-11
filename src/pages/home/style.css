@@ -805,7 +805,7 @@
 
     .opts--items {
         padding: 1.6rem;
-        background-color: var(--color-brand-50);
+        background-color: var(--color-brand-70);
     }
     .opts--heading {
         flex-direction: column;

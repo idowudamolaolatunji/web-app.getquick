@@ -14,7 +14,7 @@ import { RxUpdate } from 'react-icons/rx';
 import { GoStack } from 'react-icons/go';
 import { PiFrameCorners } from 'react-icons/pi';
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
-import { IoCloseOutline, IoCloudDownloadOutline } from 'react-icons/io5';
+import { IoCloseOutline, IoCloudDownloadOutline, IoTrashBinOutline } from 'react-icons/io5';
 import '../../uploadStyle.css';
 import { Slider } from '@mui/material';
 import DropdownInput from './DropdownInput';
@@ -217,7 +217,7 @@ function UploadProduct({ isnew, close }) {
                                                                     <button onClick={() => onImageUpdate(index)}><RxUpdate /> </button>
                                                                 </TooltipUI>
                                                                 <TooltipUI placement='bottom' title="Remove Image">
-                                                                    <button onClick={() => onImageRemove(index)}><MdClose /></button>
+                                                                    <button onClick={() => onImageRemove(index)}><IoTrashBinOutline /></button>
                                                                 </TooltipUI>
                                                                 <TooltipUI placement='bottom' title="Crop Image">
                                                                     <button onClick={() => handleEdit(image.data_url)}><PiFrameCorners /> </button>
@@ -250,6 +250,7 @@ function UploadProduct({ isnew, close }) {
                                         </div>
                                     )}
                                 </ReactImageUploading>
+                                
                             </div>
 
                             <div className="form--item">

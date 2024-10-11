@@ -9,7 +9,7 @@ const TooltipStyled = styled(({ className, ...props }) => (
 ))(({ theme }) => ({
     [`& .${tooltipClasses.tooltip}`]: {
         boxShadow: theme.shadows[1],
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: 500,
         fontFamily: 'inherit'
     },

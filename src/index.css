@@ -350,10 +350,7 @@ input::-webkit-inner-spin-button {
 
 /* for the top toolbar section */
 .quill .ql-toolbar.ql-snow {
-	display: flex !important;
-	flex-direction: row !important;
-	align-items: center;
-	gap: 1rem;
+	display: block !important;
 	font-family: inherit !important;
 	border: none !important;
     border-bottom: 1.4px solid #eee !important;
@@ -370,9 +367,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* For all the formats on the toolbar */
-.quill .ql-toolbar.ql-snow .ql-formats {
-	margin-right: 0;
-}
 .quill .ql-toolbar.ql-snow .ql-formats .ql-clean {
 	display: none;
 }

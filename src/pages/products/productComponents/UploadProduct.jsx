@@ -10,7 +10,7 @@ import BackButton from '../../../components/button/BackButton';
 import Spinner_Simple from '../../../components/spinner/simple'
 import SimpleModal from '../../../components/modal/Simple';
 
-import { MdClose } from 'react-icons/md';
+import { MdClose, MdOutlineShoppingBag } from 'react-icons/md';
 import { RxUpdate } from 'react-icons/rx';
 import { GoStack } from 'react-icons/go';
 import { PiFrameCorners } from 'react-icons/pi';
@@ -38,17 +38,19 @@ function UploadProduct({ isnew, close }) {
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
     const [productData, setProductData] = useState({
+        title: "",
+        shortDescription: "",
         price: null,
         cost: null,
         quantity: null,
         status: "publish"
     });
+    const [description, setDescription] = useState('')
 
     const [checks, setChecks] = useState({
         inventory: false,
         physical: true
     });
-
 
     const [loading, setLoading] = useState({
         mainLoading: false,
@@ -106,6 +108,29 @@ function UploadProduct({ isnew, close }) {
         });
     }
 
+    function handleClearFields() {
+        setProductData({
+            title: "",
+            shortDescription: "",
+            price: null,
+            cost: null,
+            quantity: null,
+            status: "publish"
+        });
+        setDescription("")
+
+
+        setImages([])
+        setCropModal(false)
+        setSelectedImage(null)
+        setCrop({ x: 0, y: 0 })
+        setZoom(1)
+        setCroppedAreaPixels(null)
+        setChecks({
+            inventory: false,
+            physical: true
+        });
+    }
 
     useEffect(function () {
         !isnew && window.scrollTo(0, 0);
@@ -118,12 +143,15 @@ function UploadProduct({ isnew, close }) {
                 <div className='page__section--heading'>
                     <span className='flex'>
                         <BackButton close={close} />
-                        <h2 className="page__section--title">Upload {isnew ? "first" : "new"} product</h2>
+                        <h2 className="page__section--title">
+                            Upload {width > 400 ? (isnew ? "first product" : "new product") : "Product"}  
+                            <MdOutlineShoppingBag />
+                        </h2>
                     </span>
 
                     {width > 600 && (
                         <div className="page__section--actions">
-                            <button className='button clear--button'>Clear Fields</button>
+                            <button className='button clear--button' onClick={handleClearFields}>Clear Fields</button>
                             <button className='button submit--button'>Submit</button>
                         </div>
                     )}
@@ -142,7 +170,7 @@ function UploadProduct({ isnew, close }) {
                                 <label htmlFor="" className="form--label">Title <Asterisk /></label>
                                 <input type="text" name="" id="" className="form--input" placeholder='White Flat Shoe - Big Size 39, 42' />
                             </div>
-                           
+
                             <div className="form--item">
                                 <label className="form--label">Product Images (Min 1 & Max 4) <Asterisk /></label>
 
@@ -229,7 +257,7 @@ function UploadProduct({ isnew, close }) {
                             </div>
                             <div className="form--item">
                                 <label htmlFor="" className="form--label">Product Description <Asterisk /></label>
-                                <QuillEditor />
+                                <QuillEditor value={description} setValue={setDescription} />
                             </div>
 
                             <div className="form--item">
@@ -263,6 +291,7 @@ function UploadProduct({ isnew, close }) {
                                     placeholder="₦15,000"
                                     prefix={currency}
                                     decimalsLimit={2}
+                                    value={productData.price}
                                     onValueChange={(value, name, _) => setProductData({ ...productData, [name]: value })}
                                 />
                             </div>
@@ -277,6 +306,7 @@ function UploadProduct({ isnew, close }) {
                                         placeholder="₦10,000"
                                         prefix={currency}
                                         decimalsLimit={2}
+                                        value={productData.cost}
                                         onValueChange={(value, name, _) => setProductData({ ...productData, [name]: value })}
                                     />
                                 </div>
@@ -319,6 +349,7 @@ function UploadProduct({ isnew, close }) {
                                     placeholder="Quantity"
                                     prefix="Qty. "
                                     decimalsLimit={0}
+                                    value={productData.quantity}
                                     onValueChange={(value, name, _) => setProductData({ ...productData, [name]: value })}
                                 />
                             </div>
@@ -369,7 +400,7 @@ function UploadProduct({ isnew, close }) {
 
                 {width < 600 && (
                     <div className="page__section--actions" style={{ marginTop: "4rem" }}>
-                        <button className='button clear--button'>Clear Fields</button>
+                        <button className='button clear--button' onClick={handleClearFields}>Clear Fields</button>
                         <button className='button submit--button'>Submit</button>
                     </div>
                 )}

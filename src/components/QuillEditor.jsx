@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-function QuillEditor() {
-    const [value, setValue] = useState("");
-
-    useEffect(function() {
-        console.log(value)
-    }, [value]);
+function QuillEditor({ value, setValue }) {
     
     return (
         <ReactQuill

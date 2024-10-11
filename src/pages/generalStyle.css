@@ -9,6 +9,12 @@
 .page__section--title {
     font-size: 2.4rem;
     font-weight: 600;
+
+}
+.page__section--title svg {
+    font-size: 2.4rem;
+    color: var(--color-brand-500);
+    margin: 0 0 -.4rem .8rem;
 }
 .page__section--text {
     font-size: 1.3rem;

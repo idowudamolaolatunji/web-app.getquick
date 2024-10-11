@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useWindowSize } from 'react-use';
 import BackButton from '../../../components/button/BackButton';
+import { RiBankLine } from 'react-icons/ri';
 
 function BankDetails({ isnew, close }) {
     const { width } = useWindowSize();
@@ -14,7 +15,10 @@ function BankDetails({ isnew, close }) {
             <div className='page__section--heading'>
                 <span className='flex'>
                     <BackButton close={close} />
-                    <h2 className="page__section--title">Payment Details</h2>
+                    <h2 className="page__section--title">
+                        Payment Details
+                        <RiBankLine />
+                    </h2>
                 </span>
 
                 {width > 600 && (

@@ -295,11 +295,19 @@
 
 
 
+@media screen and (max-width: 850px) {
+    .product__upload--container .form--grid {
+        grid-template-columns: 1fr;
+    }
+}
 
 
 @media screen and (max-width: 750px) {
     .product__upload--container {
         grid-template-columns: 1fr;
+    }
+    .product__upload--container .form--grid {
+        grid-template-columns: 1fr 1fr;
     }
 }
 

@@ -109,19 +109,18 @@ function RecordOrder() {
                             <div className="form--item">
                                 <label className="form--label">Order / Sales Channel <Asterisk /></label>
                                 <select name="" id="" className="form--select">
+                                    <option hidden selected>Select a channel</option>
                                     <option value="">Facebook</option>
-                                    <option value="">Facebook</option>
-                                    <option value="">Facebook</option>
-                                    <option value="">Facebook</option>
-                                    <option value="">Facebook</option>
-                                    <option value="">Facebook</option>
-                                    <option value="">Facebook</option>
+                                    <option value="">Instagram</option>
+                                    <option value="">Jiji</option>
+                                    <option value="">Physical Store</option>
+                                    <option value="">Flutterwave Store</option>
                                 </select>
                             </div>
 
                             <div className="form--item">
                                 <label className="form--label">Order Date <Asterisk /></label>
-                                <input type="date" className='form--input' max={new Date().toISOString().split('T')[0]} name="" id="" />
+                                <input type="date" className='form--input' placeholder='Select date' max={new Date().toISOString().split('T')[0]} name="" id="" />
                             </div>
                         </div>
 

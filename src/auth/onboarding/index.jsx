@@ -314,12 +314,10 @@ function index() {
                                     <label htmlFor="type" className="form--label">Is your business incorporated with the Corporate Affairs Commission (CAC)?</label>
 
                                     <div className="form--clicks">
-                                        <div className={
-                                            `form--click ${onboardingData.isCoperated == "yes" ? 'is-selected' : ''}`}
+                                        <div className={`form--click ${onboardingData.isCoperated == "yes" ? 'is-selected' : ''}`}
                                             onClick={() => setOnboardingData({ ...onboardingData, isCoperated: "yes" })}
                                         >Yes <span></span></div>
-                                        <div className={`
-                                            form--click ${onboardingData.isCoperated == "no" ? 'is-selected' : ''}`}
+                                        <div className={`form--click ${onboardingData.isCoperated == "no" ? 'is-selected' : ''}`}
                                             onClick={() => setOnboardingData({ ...onboardingData, isCoperated: "no" })}
                                         >No <span></span></div>
                                     </div>

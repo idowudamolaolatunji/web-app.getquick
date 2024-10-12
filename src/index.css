@@ -439,6 +439,9 @@ input::-webkit-inner-spin-button {
 	.modal {
 		padding: 2rem 1.4rem;
 	}
+	.modal.full--screen {
+		padding: 4.8rem 2rem;
+	}
 
 	.ql-toolbar.ql-snow .ql-formats {
 		margin-right: 8px;

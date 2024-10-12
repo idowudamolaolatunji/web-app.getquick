@@ -364,7 +364,7 @@ function UploadProduct({ isnew, close }) {
 
                         <div className="card form">
                             <div className="section--heading">
-                                <div className="flex" style={{ justifyContent: "space-between" }}>
+                                <div className="flex" style={{ justifyContent: "space-between", flexDirection: "row" }}>
                                     <h2>Visibility Status</h2>
                                     <span className={`status--dot ${productData.status}`}></span>
                                 </div>

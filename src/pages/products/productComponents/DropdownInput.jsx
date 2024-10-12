@@ -27,7 +27,7 @@ function DropdownInput({ data=dataArr, dataTitle, selected, setSelected }) {
 
             <div className={`dropdown--input-body ${isOpen ? 'open' : ''}`}>
                 {data.map(data => (
-                    <div className="dropdown--input-item" onClick={e => handleItemClick(e.target.id)} id={data.id}>
+                    <div className="dropdown--input-item" onClick={e => handleItemClick(e.target.id)} id={data.id} key={data.id}>
                         <span className={`dropdown--input-item-dot ${data.id == selected ? 'selected' : ''}`}>• </span>
                         {data.label}
                     </div>

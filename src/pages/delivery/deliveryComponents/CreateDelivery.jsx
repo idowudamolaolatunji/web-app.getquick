@@ -73,7 +73,7 @@ function CreateDelivery({ close, isnew }) {
                         </div>
 
                         <div className="form--item">
-                            <label className="form--label">Delivery pricing (optional)</label>
+                            <label className="form--label">Delivery Pricing (optional)</label>
                             <div className="form--clicks">
                                 <div className={
                                     `form--click ${deliveryData.type == "paid" ? 'is-selected' : ''}`} 

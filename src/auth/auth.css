@@ -113,6 +113,7 @@
     padding: 1.2rem;
     width: 100%;
     border: 1.4px solid #eee ;
+    background-color: #fff;
     border-radius: .4rem;
     transition: all .35s;
     font-family: inherit;

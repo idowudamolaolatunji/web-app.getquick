@@ -41,12 +41,9 @@ function CreateDelivery({ close, isnew }) {
     return (
         <section className='product__upload-section'>
             <div className='page__section--heading'>
-                <span className='flex'>
+                <span className='flex justify'>
                     <BackButton close={close} />
-                    <h2 className="page__section--title">
-                        Add Delivery Rate
-                        <TbTruckDelivery />
-                    </h2>
+                    <h2 className="page__section--title">Add Delivery Rate<TbTruckDelivery /></h2>
                 </span>
 
                {width > 600 && (

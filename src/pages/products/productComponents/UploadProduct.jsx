@@ -17,7 +17,7 @@ import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 import { IoCloseOutline, IoCloudDownloadOutline, IoTrashBinOutline } from 'react-icons/io5';
 import '../../uploadStyle.css';
 import { Slider } from '@mui/material';
-import DropdownInput from './DropdownInput';
+import DropdownInput from '../../../components/DropdownInput';
 import CurrencyInput from 'react-currency-input-field';
 import { useAuthContext } from '../../../context/AuthContext';
 import { FaCheck } from 'react-icons/fa';
@@ -144,10 +144,7 @@ function UploadProduct({ isnew, close }) {
                 <div className='page__section--heading'>
                     <span className='flex'>
                         <BackButton close={close} />
-                        <h2 className="page__section--title">
-                            Upload New Product  
-                            <LuTags />
-                        </h2>
+                        <h2 className="page__section--title">Upload Product <LuTags /></h2>
                     </span>
 
                     {width > 600 && (
@@ -365,7 +362,7 @@ function UploadProduct({ isnew, close }) {
                         <div className="card form">
                             <div className="section--heading">
                                 <div className="flex" style={{ justifyContent: "space-between", flexDirection: "row" }}>
-                                    <h2>Visibility Status</h2>
+                                    <h2>Product Status</h2>
                                     <span className={`status--dot ${productData.status}`}></span>
                                 </div>
                                 {width > 400 && <Line border={1.4} where="Top" value="1rem" />}

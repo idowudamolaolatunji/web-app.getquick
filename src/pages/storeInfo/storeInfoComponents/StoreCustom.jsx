@@ -15,12 +15,9 @@ function StoreCustom({ isnew, close }) {
   return (
     <section className='product__upload-section'>
             <div className='page__section--heading'>
-                <span className='flex'>
+                <span className='flex justify'>
                     <BackButton close={close} />
-                    <h2 className="page__section--title">
-                        Customize Your Store
-                        <MdOutlineStorefront />
-                    </h2>
+                    <h2 className="page__section--title">Customize Your Store<MdOutlineStorefront /></h2>
                 </span>
 
                 {width > 600 && (

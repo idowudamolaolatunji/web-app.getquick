@@ -15,10 +15,7 @@ function BankDetails({ isnew, close }) {
             <div className='page__section--heading'>
                 <span className='flex'>
                     <BackButton close={close} />
-                    <h2 className="page__section--title">
-                        Payment Details
-                        <RiBankLine />
-                    </h2>
+                    <h2 className="page__section--title">Payment Details<RiBankLine /></h2>
                 </span>
 
                 {width > 600 && (
@@ -35,7 +32,7 @@ function BankDetails({ isnew, close }) {
                 <div className='left--container containers'>
                     <div className="card form">
                         <div className="section--heading">
-                            <h2>Delivery Details</h2>
+                            <h2>Bank Details</h2>
                             <p>Lorem ipsum dolor sit amet.</p>
                         </div>
 
@@ -47,7 +44,7 @@ function BankDetails({ isnew, close }) {
                 <div className='right--container containers'>
                     <div className="card form">
                         <div className="section--heading">
-                            <h2>Delivery Details</h2>
+                            <h2>Payment Settings</h2>
                             <p>Lorem ipsum dolor sit amet.</p>
                         </div>
 

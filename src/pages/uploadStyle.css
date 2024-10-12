@@ -192,12 +192,14 @@
     padding: .6rem 1rem;
     justify-content: flex-start;
     cursor: pointer;
+    color: var(--color-brand-700);
 }
 .form--add svg {
     font-size: 1.8rem;
 }
 .form--add p {
     font-size: 1.28rem;
+    font-weight: 500;
 }
 
 
@@ -286,6 +288,18 @@
 }
 
 
+.product__upload--container .form--clicks {
+    grid-template-columns: 1fr 1.3fr 1fr;
+    gap: 1rem;
+}
+.product__upload--container .form--click {
+    font-size: 1.24rem;
+    padding: 1rem .6rem;
+}
+.product__upload--container .form--click span {
+    width: 2rem;
+    height: 2rem;
+}
 
 
 
@@ -309,6 +323,13 @@
     .product__upload--container .form--grid {
         grid-template-columns: 1fr 1fr;
     }
+    .product__upload--container .form--clicks {
+        gap: 1.2rem;
+    }
+
+    .product__upload--container .form--click {
+        padding: 1.4rem 1rem;
+    }
 }
 
 
@@ -328,6 +349,13 @@
     .form--image .img--spinner,
     .form--image .img--item {
         height: 12rem;
+    }
+
+    .product__upload--container .form--clicks {
+        gap: .8rem;
+    }
+    .product__upload--container .form--click {
+        padding: .8rem .6rem;
     }
 }
 
@@ -355,5 +383,8 @@
     .form--image .img--spinner,
     .form--image .img--item {
         height: 16rem;
+    }
+    .form.card {
+        gap: 2rem;
     }
 }

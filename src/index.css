@@ -360,6 +360,7 @@ input::-webkit-inner-spin-button {
 	border: 1.4px solid #eee !important;
 	border-radius: .4rem;
 	transition: all .3s;
+	-webkit-touch-callout: none !important;
 }
 .quill:hover,
 .quill:hover .ql-toolbar.ql-snow {
@@ -410,6 +411,7 @@ input::-webkit-inner-spin-button {
 	overflow-wrap: normal;
 	hyphens: unset;
 	font-family: "Raleway", sans-serif !important;
+	-webkit-touch-callout: none !important;
 }
 
 

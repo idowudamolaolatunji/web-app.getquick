@@ -11,10 +11,6 @@ html {
 	scroll-behavior: smooth;
 }
 
-:root {
-	--border-color: #eeeff1;
-}
-
 body {
 	font-family: "Raleway", sans-serif;
 	background-color: #fff;
@@ -66,6 +62,10 @@ h6 {
 
 input[type="file"] {
     display: none;
+}
+
+width-100 {
+	width: 100%;
 }
 
 img {
@@ -413,6 +413,41 @@ input::-webkit-inner-spin-button {
 	font-family: "Raleway", sans-serif !important;
 }
 
+
+
+/*  */
+.react-dropdown-select.form--select {
+	border: 1.4px solid #eee !important;
+	border-radius: .4rem !important;
+	padding: .8rem 1.2rem !important;
+}
+.react-dropdown-select.form--select input {
+	font-size: 1.4rem !important;
+	font-weight: 500;
+	color: #888;
+}
+
+.react-dropdown-select.form--select:focus,
+.react-dropdown-select.form--select:focus-within {
+	border-color: var(--color-brand-500) !important;
+	box-shadow: unset !important;
+	padding: .8rem 1.2rem !important;
+}
+.react-dropdown-select-clear {
+	font-size: 2rem !important;
+}
+.react-dropdown-select-separator {
+	height: 2rem !important;
+	border-left: 1.4px solid #eee !important;
+}
+.react-dropdown-select-dropdown {
+	top: 45px !important;
+	border-radius: .4rem !important;
+	border: 1.2px solid #eee !important;
+}
+.react-dropdown-select-item {
+	padding: 1rem 1.2rem !important;
+}
 
 
 

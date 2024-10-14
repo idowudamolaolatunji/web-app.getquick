@@ -7,30 +7,50 @@ import BackButton from '../../../components/button/BackButton';
 import SimpleModal from '../../../components/modal/Simple';
 
 import { MdOutlineShoppingBag } from 'react-icons/md';
-import CurrencyInput from 'react-currency-input-field';
 import { useAuthContext } from '../../../context/AuthContext';
-import { FaCheck } from 'react-icons/fa';
 import Line from '../../../components/Line';
 import '../../uploadStyle.css';
 import DropdownInput from '../../../components/DropdownInput';
-import { AiFillInfoCircle, AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlinePlus } from 'react-icons/ai';
 import Info from '../../../components/Info';
+import MainDropdownSelect from '../../../components/MainDropdownSelect';
+import { BsCash } from 'react-icons/bs';
+
+const paymentMethodData = [
+    { id: 0, label: "Cash", value: "cash", icon: <BsCash /> },
+    { id: 1, label: "Bank Transfer", value: "bank-transfer", icon: <BsCash />  },
+    { id: 2, label: "POS", value: "pos", icon: <BsCash />  },
+];
+
+const deliveryStatusData = [
+    { id: 0, label: "In Transit", value: "in-transit", icon: <BsCash /> },
+    { id: 1, label: "Pending", value: "pending", icon: <BsCash />  },
+    { id: 2, label: "Delivery", value: "delivery", icon: <BsCash />  },
+];
 
 
 function RecordOrder() {
     const [orderData, setOrderData] = useState({
         title: "",
         paymentType: "paid",
-        status: 'publish'
     });
+
+    const [paymentMethod, setPaymentMethod] = useState('');
+    const [deliveryStatus, setDeliveryStatus] = useState('');
     const [description, setDescription] = useState('');
-    const [orderUser, setOrderUser] = useState('');
-    const [orderProduct, setOrderProduct] = useState('');
+    const [orderCustomer, setOrderCustomer] = useState([]);
+    const [orderProduct, setOrderProduct] = useState([]);
+
+    const [customers, setCustomers] = useState([{ name: "Idowu Olatunji" }, { name: "Damola David" }])
+    const [products, setProducts] = useState([{ name: "Tee-shirt" }, { name: "Baggie Jeans" }])
 
     const [loading, setLoading] = useState({
         mainLoading: false,
         imageLoading: false
     });
+
+    console.log(deliveryStatus, paymentMethod);
+
 
     const { width } = useWindowSize();
     const { store } = useAuthContext();
@@ -49,12 +69,23 @@ function RecordOrder() {
         setOrderData({
             quantity: null,
         });
-        setDescription("")
+
+        setDescription("");
+        setPaymentMethod("");
+        setDeliveryStatus("");
+        setOrderCustomer([]);
+        setOrderProduct([]);
     }
 
     useEffect(function () {
         window.scrollTo(0, 0);
     }, []);
+
+    useEffect(function() {
+        if(orderData.paymentType == "unpaid") {
+            setPaymentMethod("");
+        }
+    }, [orderData.paymentType]);
 
 
     return (
@@ -85,7 +116,7 @@ function RecordOrder() {
 
                         <div className="form--item">
                             <label className="form--label">Product <Asterisk /></label>
-                            <DropdownInput dataTitle="Product" selected={orderProduct} setSelected={setOrderProduct} />
+                            <MainDropdownSelect title="Product" options={products} field="name" value={orderProduct} setValue={setOrderProduct} />
 
                             <button className='form--add'>
                                 <AiOutlinePlus />
@@ -127,7 +158,7 @@ function RecordOrder() {
 
                         <div className="form--item">
                             <label className="form--label">Customer (optional)</label>
-                            <DropdownInput dataTitle="Customer" selected={orderUser} setSelected={setOrderUser} />
+                            <MainDropdownSelect title="Customer" options={customers} field="name" value={orderCustomer} setValue={setOrderCustomer} />
                             <Info text="If you don't have customer's details, Leave blank" />
 
                             <button className='form--add'>
@@ -167,26 +198,18 @@ function RecordOrder() {
                         </div>
 
 
-                        {orderData.paymentType == "paid" && (
+                        {orderData.paymentType != "unpaid" && (
                             <div className="form--item">
                                 <label className="form--label">Payment Method <Asterisk /></label>
-                                <select name="" id="" className="form--select">
-                                    <option hidden selected>Select a payment method</option>
-                                    <option value="">Cash</option>
-                                    <option value="">Bank Transfer</option>
-                                    <option value="">POS</option>
-                                </select>
+
+                                <DropdownInput data={paymentMethodData} dataTitle="a Payment Method" selected={paymentMethod} setSelected={setPaymentMethod} />
                             </div>
                         )}
 
                         <div className="form--item"> 
                             <label htmlFor='status' className='form--label'>Delivery Status <Asterisk /></label>
-                            <select name="status" id='status' className="form--select">
-                                <option hidden selected>Select Delivery Status</option>
-                                <option value="publish">In Transit</option>
-                                <option value="draft">Pending</option>
-                                <option value="draft">Delivery</option>
-                            </select>
+
+                            <DropdownInput data={deliveryStatusData} dataTitle="a Delivery Status" selected={deliveryStatus} setSelected={setDeliveryStatus} />
                         </div>
 
 

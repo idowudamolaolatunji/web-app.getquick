@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { IoChevronDownSharp, IoChevronForwardSharp } from 'react-icons/io5';
 
-const dataArr = [{ id: 0, label: "Istanbul, TR (AHL)" }, { id: 1, label: "Paris, FR (CDG)" }];
 
-function DropdownInput({ data=dataArr, dataTitle, selected, setSelected }) {
+function DropdownInput({ data, dataTitle, selected, setSelected }) {
     const [isOpen, setOpen] = useState(false);
 
-    const toggleDropdown = function() {
+    function toggleDropdown() {
         setOpen(!isOpen);
     }
 
-    const handleItemClick = function(id) {
-        selected == id ? setSelected(null) : setSelected(id);
+    function handleItemClick(value) {
+        selected == value ? setSelected(null) : setSelected(value);
         setOpen(false);
     }
 
@@ -19,7 +18,7 @@ function DropdownInput({ data=dataArr, dataTitle, selected, setSelected }) {
     return (
         <div className='dropdown--input'>
             <div className='dropdown--input-head' onClick={toggleDropdown}>
-                <p>{selected ? data.find(data => data.id == selected).label 
+                <p>{selected ? data.find(data => data.value == selected).label 
                 : <span className='default'>Select {dataTitle}</span>}</p>
                 {isOpen ? <IoChevronDownSharp /> : <IoChevronForwardSharp />}
             </div>
@@ -27,8 +26,8 @@ function DropdownInput({ data=dataArr, dataTitle, selected, setSelected }) {
 
             <div className={`dropdown--input-body ${isOpen ? 'open' : ''}`}>
                 {data.map(data => (
-                    <div className="dropdown--input-item" onClick={e => handleItemClick(e.target.id)} id={data.id} key={data.id}>
-                        <span className={`dropdown--input-item-dot ${data.id == selected ? 'selected' : ''}`}>• </span>
+                    <div className={`dropdown--input-item ${data.value == selected ? 'selected' : ''}`} onClick={() => handleItemClick(data.value)} id={data.value} key={data.value}>
+                        <span>{data.icon}</span>
                         {data.label}
                     </div>
                 ))}

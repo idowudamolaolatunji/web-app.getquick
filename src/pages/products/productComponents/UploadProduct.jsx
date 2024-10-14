@@ -24,6 +24,7 @@ import { FaCheck } from 'react-icons/fa';
 import Line from '../../../components/Line';
 import { LuTags } from 'react-icons/lu';
 import Info from '../../../components/Info';
+import MainDropdownSelect from '../../../components/MainDropdownSelect';
 
 
 function UploadProduct({ isnew, close }) {
@@ -48,8 +49,10 @@ function UploadProduct({ isnew, close }) {
         discount: "",
         discountType: "no-discount"
     });
+
+    const [collections, setCollections] = useState([{ name: 'Sweeter' }, { name: 'Vest' }, { name: "Sneakers" }]); // can move this to context later
     const [description, setDescription] = useState('');
-    const [productCollection, setProductCollection] = useState(null);
+    const [productCollection, setProductCollection] = useState([]); // the react-select lybrary needs that array
 
     const [checks, setChecks] = useState({
         inventory: false,
@@ -80,12 +83,11 @@ function UploadProduct({ isnew, close }) {
     function onCropChange(crop) {
         setCrop(crop)
     }
+
     function onZoomChange(zoom) {
         console.log(zoom)
         setZoom(Number(zoom))
     }
-    console.log(zoom)
-
 
     const onAspectChange = (e) => {
         const value = e.target.value;
@@ -102,7 +104,6 @@ function UploadProduct({ isnew, close }) {
     //     const croppedImageUrl = await getCroppedImg(imageUrl, croppedAreaPixels);
     //     setCroppedImageFor(id, crop, zoom, aspect, croppedImageUrl);
     //   };
-
 
     function handleProductDataChange(e) {
         const { name, value } = e?.target;
@@ -149,6 +150,8 @@ function UploadProduct({ isnew, close }) {
             setProductData({ ...productData, discount: "" });
         }
     }, [productData.discountType]);
+
+    console.log(productCollection)
 
 
     return (
@@ -274,7 +277,7 @@ function UploadProduct({ isnew, close }) {
 
                             <div className="form--item">
                                 <label htmlFor="category" className="form--label">Collection <Asterisk /></label>
-                                <DropdownInput dataTitle="Collection" selected={productCollection} setSelected={setProductCollection} />
+                                <MainDropdownSelect title="Collection" options={collections} field="name" value={productCollection} setValue={setProductCollection} />
 
                                 <button className='form--add'>
                                     <AiOutlinePlus />
@@ -411,14 +414,12 @@ function UploadProduct({ isnew, close }) {
                             </div>
 
                             {productData.status == "publish" && (
-                                <div className="form--grid">
                                     <div className="form--item-flex" onClick={() => setChecks({ ...checks, display: !checks.display })}>
                                         <div id="checkbox" className={checks.display ? 'is-selected' : ''}>
                                             {checks.display && <FaCheck />}
                                         </div>
                                         <label className='form--text flex' style={{ fontSize: '1.24rem', fontWeight: '500', gap: '.4rem', width: "auto" }}>Hide this Product <Info /></label>
                                     </div>
-                                </div>
                             )}
                         </div>
 

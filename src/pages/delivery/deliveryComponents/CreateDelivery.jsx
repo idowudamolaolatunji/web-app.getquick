@@ -46,12 +46,12 @@ function CreateDelivery({ close, isnew }) {
                     <h2 className="page__section--title">Add Delivery Rate<TbTruckDelivery /></h2>
                 </span>
 
-               {width > 600 && (
+                {width > 600 && (
                     <div className="page__section--actions">
-                        <button className='button clear--button'onClick={handleClearFields}>Clear Fields</button>
+                        <button className='button clear--button' onClick={handleClearFields}>Clear Fields</button>
                         <button className='button submit--button'>Submit</button>
                     </div>
-               )}
+                )}
             </div>
 
 
@@ -63,7 +63,7 @@ function CreateDelivery({ close, isnew }) {
                             <h2>Delivery Details</h2>
                             <p>Lorem ipsum dolor sit amet.</p>
                         </div>
-                    
+
                         <div className="form--item">
                             <label htmlFor="title" className="form--label">Delivery Title <Asterisk /></label>
                             <input type="text" id="title" className="form--input" placeholder='Lorem ipsum dolor sit amet consectetur.' value={deliveryData.title} onChange={e => setDeliveryData({ ...deliveryData, title: e.target.value })} />
@@ -72,14 +72,10 @@ function CreateDelivery({ close, isnew }) {
                         <div className="form--item">
                             <label className="form--label">Delivery Pricing (optional)</label>
                             <div className="form--clicks">
-                                <div className={
-                                    `form--click ${deliveryData.type == "paid" ? 'is-selected' : ''}`} 
-                                    onClick={() => setDeliveryData({ ...deliveryData, type: "paid" })}
+                                <div className={`form--click ${deliveryData.type == "paid" ? 'is-selected' : ''}`} onClick={() => setDeliveryData({ ...deliveryData, type: "paid" })}
                                 >Paid <span></span>
                                 </div>
-                                <div className={`
-                                    form--click ${deliveryData.type == "free" ? 'is-selected' : ''}`}
-                                    onClick={() => setDeliveryData({ ...deliveryData, type: "free" })}
+                                <div className={`form--click ${deliveryData.type == "free" ? 'is-selected' : ''}`} onClick={() => setDeliveryData({ ...deliveryData, type: "free" })}
                                 >Free Delivery<span></span>
                                 </div>
                             </div>
@@ -132,7 +128,7 @@ function CreateDelivery({ close, isnew }) {
 
             {width < 600 && (
                 <div className="page__section--actions" style={{ marginTop: "4rem" }}>
-                    <button className='button clear--button'onClick={handleClearFields}>Clear Fields</button>
+                    <button className='button clear--button' onClick={handleClearFields}>Clear Fields</button>
                     <button className='button submit--button'>Submit</button>
                 </div>
             )}

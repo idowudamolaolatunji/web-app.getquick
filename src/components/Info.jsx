@@ -1,9 +1,10 @@
 import React from 'react'
+import { AiFillInfoCircle } from 'react-icons/ai'
 
-function Info({ icon, text}) {
+function Info({ text }) {
   return (
     <span className='info--item'>
-        {icon}
+        <AiFillInfoCircle />
         <p>{text}</p>
     </span>
   )

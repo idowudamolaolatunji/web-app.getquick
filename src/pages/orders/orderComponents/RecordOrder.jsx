@@ -128,7 +128,7 @@ function RecordOrder() {
                         <div className="form--item">
                             <label className="form--label">Customer (optional)</label>
                             <DropdownInput dataTitle="Customer" selected={orderUser} setSelected={setOrderUser} />
-                            <Info text="If you don't have customer's details, Leave blank" icon={<AiFillInfoCircle />} />
+                            <Info text="If you don't have customer's details, Leave blank" />
 
                             <button className='form--add'>
                                 <AiOutlinePlus />

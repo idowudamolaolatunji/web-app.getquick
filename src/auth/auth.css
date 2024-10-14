@@ -75,7 +75,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: .8rem;
+    gap: .7rem;
     width: 100%;
 }
 .form--label {
@@ -204,6 +204,7 @@
 #checkbox.is-selected svg {
     font-size: 1rem;
 }
+
 
 .form--grid {
     display: grid;

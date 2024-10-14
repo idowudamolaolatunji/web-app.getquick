@@ -23,6 +23,7 @@ import { useAuthContext } from '../../../context/AuthContext';
 import { FaCheck } from 'react-icons/fa';
 import Line from '../../../components/Line';
 import { LuTags } from 'react-icons/lu';
+import Info from '../../../components/Info';
 
 
 function UploadProduct({ isnew, close }) {
@@ -43,14 +44,17 @@ function UploadProduct({ isnew, close }) {
         price: null,
         cost: null,
         quantity: null,
-        status: "publish"
+        status: "publish",
+        discount: "",
+        discountType: "no-discount"
     });
     const [description, setDescription] = useState('');
     const [productCollection, setProductCollection] = useState(null);
 
     const [checks, setChecks] = useState({
         inventory: false,
-        physical: true
+        physical: true,
+        display: false,
     });
 
     const [loading, setLoading] = useState({
@@ -136,6 +140,15 @@ function UploadProduct({ isnew, close }) {
     useEffect(function () {
         !isnew && window.scrollTo(0, 0);
     }, []);
+
+
+    useEffect(function() {
+        const type = productData.discountType;
+        console.log(type)
+        if(type != "no-discount" ) {
+            setProductData({ ...productData, discount: "" });
+        }
+    }, [productData.discountType]);
 
 
     return (
@@ -281,21 +294,22 @@ function UploadProduct({ isnew, close }) {
                                 {width > 400 && <Line border={1.4} where="Top" value="1rem" />}
                             </div>
 
-                            <div className="form--item">
-                                <label htmlFor="" className="form--label">Price per item <Asterisk /></label>
-                                <CurrencyInput
-                                    id="price"
-                                    name="price"
-                                    className="form--input"
-                                    placeholder="₦15,000"
-                                    prefix={currency}
-                                    decimalsLimit={2}
-                                    value={productData.price}
-                                    onValueChange={(value, name, _) => setProductData({ ...productData, [name]: value })}
-                                />
-                            </div>
 
                             <div className="form--grid">
+                                <div className="form--item">
+                                    <label htmlFor="" className="form--label">Price per item <Asterisk /></label>
+                                    <CurrencyInput
+                                        id="price"
+                                        name="price"
+                                        className="form--input"
+                                        placeholder="₦15,000"
+                                        prefix={currency}
+                                        decimalsLimit={2}
+                                        value={productData.price}
+                                        onValueChange={(value, name, _) => setProductData({ ...productData, [name]: value })}
+                                    />
+                                </div>
+                                
                                 <div className="form--item">
                                     <label htmlFor="cost-price" className="form--label">Cost per item (optional)</label>
                                     <CurrencyInput
@@ -309,20 +323,40 @@ function UploadProduct({ isnew, close }) {
                                         onValueChange={(value, name, _) => setProductData({ ...productData, [name]: value })}
                                     />
                                 </div>
+                            </div>
 
+
+                            <div className="form--item">
+                                <label htmlFor="discount-price" className="form--label">Discount Type (optional)</label>
+                                <div className="form--clicks" style={ width < 500 ? { gridTemplateColumns: "repeat(2, 1fr)" } : { gridTemplateColumns: "repeat(3, 1fr)" }}>
+                                    <div className={`form--click ${productData.discountType == "no-discount" ? 'is-selected' : ''}`} onClick={() => setProductData({ ...productData, discountType: "no-discount" })}
+                                    >No Discount<span></span>
+                                    </div>
+                                    <div className={`form--click ${productData.discountType == "percentage" ? 'is-selected' : ''}`} onClick={() => setProductData({ ...productData, discountType: "percentage" })}
+                                    >Percentage {width < 750 && "%"}<span></span>
+                                    </div>
+                                    <div className={`form--click ${productData.discountType == "fixed-price" ? 'is-selected' : ''}`} onClick={() => setProductData({ ...productData, discountType: "fixed-price" })}
+                                    >Fixed Price {width < 750 && "₦"}<span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            {(productData.discountType !== "no-discount") && (
                                 <div className="form--item">
-                                    <label htmlFor="discount-price" className="form--label">Discount Price (optional)</label>
+                                    <label htmlFor="discount-price" className="form--label">Discount Price <Asterisk /></label>
                                     <CurrencyInput
                                         id="discount-price"
                                         name="discount"
                                         className="form--input"
-                                        placeholder="₦7,000"
-                                        prefix={currency}
-                                        decimalsLimit={2}
+                                        placeholder={productData.discountType == "fixed-price" ? "₦7,000" : "20%"}
+                                        value={productData.discount}
+                                        {...(productData.discountType == "fixed-price") ? {prefix: currency} : {suffix: "%"}}
+                                        decimalsLimit={productData.discountType == "fixed-price" ? 2 : 0}
                                         onValueChange={(value, name, _) => setProductData({ ...productData, [name]: value })}
                                     />
                                 </div>
-                            </div>
+                            )}
 
                             <div className="form--grid">
                                 <div className="form--item-flex" onClick={() => setChecks({ ...checks, physical: !checks.physical })}>
@@ -375,6 +409,17 @@ function UploadProduct({ isnew, close }) {
                                     <option value="draft">Draft</option>
                                 </select>
                             </div>
+
+                            {productData.status == "publish" && (
+                                <div className="form--grid">
+                                    <div className="form--item-flex" onClick={() => setChecks({ ...checks, display: !checks.display })}>
+                                        <div id="checkbox" className={checks.display ? 'is-selected' : ''}>
+                                            {checks.display && <FaCheck />}
+                                        </div>
+                                        <label className='form--text flex' style={{ fontSize: '1.24rem', fontWeight: '500', gap: '.4rem', width: "auto" }}>Hide this Product <Info /></label>
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         {width < 400 && <Line border={1.4} />}

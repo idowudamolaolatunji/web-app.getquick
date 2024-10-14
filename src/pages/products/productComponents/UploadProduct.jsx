@@ -9,7 +9,6 @@ import QuillEditor from '../../../components/QuillEditor';
 import BackButton from '../../../components/button/BackButton';
 import SimpleModal from '../../../components/modal/Simple';
 
-import { MdClose } from 'react-icons/md';
 import { RxUpdate } from 'react-icons/rx';
 import { GoStack } from 'react-icons/go';
 import { PiFrameCorners } from 'react-icons/pi';
@@ -17,7 +16,6 @@ import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 import { IoCloseOutline, IoCloudDownloadOutline, IoTrashBinOutline } from 'react-icons/io5';
 import '../../uploadStyle.css';
 import { Slider } from '@mui/material';
-import DropdownInput from '../../../components/DropdownInput';
 import CurrencyInput from 'react-currency-input-field';
 import { useAuthContext } from '../../../context/AuthContext';
 import { FaCheck } from 'react-icons/fa';

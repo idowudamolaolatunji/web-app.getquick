@@ -6,27 +6,44 @@ import QuillEditor from '../../../components/QuillEditor';
 import BackButton from '../../../components/button/BackButton';
 import SimpleModal from '../../../components/modal/Simple';
 
-import { MdOutlineShoppingBag } from 'react-icons/md';
+import { MdOutlinePendingActions, MdOutlineShoppingBag } from 'react-icons/md';
 import { useAuthContext } from '../../../context/AuthContext';
 import Line from '../../../components/Line';
 import '../../uploadStyle.css';
-import DropdownInput from '../../../components/DropdownInput';
 import { AiOutlinePlus } from 'react-icons/ai';
 import Info from '../../../components/Info';
 import MainDropdownSelect from '../../../components/MainDropdownSelect';
 import { BsCash } from 'react-icons/bs';
+import { TbCashRegister, TbTruckDelivery } from 'react-icons/tb';
+import { RiBankLine } from 'react-icons/ri';
+import { LuPackageCheck } from 'react-icons/lu';
+// import Pos from '../../../assets/svgs/Pos.svg'
 
 const paymentMethodData = [
-    { id: 0, label: "Cash", value: "cash", icon: <BsCash /> },
-    { id: 1, label: "Bank Transfer", value: "bank-transfer", icon: <BsCash />  },
-    { id: 2, label: "POS", value: "pos", icon: <BsCash />  },
+    { label: <p className='flex align'><BsCash /> Cash</p>, value: "cash" },
+    { label: <p className='flex align'><RiBankLine /> Bank Transfer</p>, value: "bank-transfer", },
+    { label: <p className='flex align'><TbCashRegister /> POS</p>, value: "pos" },
 ];
 
 const deliveryStatusData = [
-    { id: 0, label: "In Transit", value: "in-transit", icon: <BsCash /> },
-    { id: 1, label: "Pending", value: "pending", icon: <BsCash />  },
-    { id: 2, label: "Delivery", value: "delivery", icon: <BsCash />  },
+    { label: <p className='flex align'><TbTruckDelivery /> In Transit</p>, value: "in-transit" },
+    { label: <p className='flex align'><MdOutlinePendingActions /> Pending</p>, value: "pending" },
+    { label: <p className='flex align'><LuPackageCheck /> Delivered</p>, value: "delivered" },
 ];
+
+
+const channelData = [
+    { label: "facebook", value: "facebook" },
+    { label: "instagram", value: "instagram" },
+    { label: "jiji", value: "jiji" },
+    { label: "physical store", value: "physical-store" },
+    { label: "whatsapp", value: "whatsapp" },
+    { label: "flutterwave Store", value: "flutterwave-store" },
+    { label: "twitter", value: "twitter" },
+    { label: "jumia", value: "jumia" },
+    { label: "konga", value: "konga" },
+    { label: "others", value: "others" },
+]
 
 
 function RecordOrder() {
@@ -35,21 +52,23 @@ function RecordOrder() {
         paymentType: "paid",
     });
 
-    const [paymentMethod, setPaymentMethod] = useState('');
-    const [deliveryStatus, setDeliveryStatus] = useState('');
-    const [description, setDescription] = useState('');
-    const [orderCustomer, setOrderCustomer] = useState([]);
-    const [orderProduct, setOrderProduct] = useState([]);
-
-    const [customers, setCustomers] = useState([{ name: "Idowu Olatunji" }, { name: "Damola David" }])
-    const [products, setProducts] = useState([{ name: "Tee-shirt" }, { name: "Baggie Jeans" }])
-
     const [loading, setLoading] = useState({
         mainLoading: false,
         imageLoading: false
     });
 
-    console.log(deliveryStatus, paymentMethod);
+    const [description, setDescription] = useState('');
+    const [orderProduct, setOrderProduct] = useState([]);
+    const [orderCustomer, setOrderCustomer] = useState([]);
+
+    const [paymentMethod, setPaymentMethod] = useState([]);
+    const [deliveryStatus, setDeliveryStatus] = useState([]);
+    const [channel, setChannel] = useState([]);
+    console.log(paymentMethod, deliveryStatus)
+
+    // VALUES AND DATA FOR DROPDOWN
+    const [customers, setCustomers] = useState([{ name: "Idowu Olatunji" }, { name: "Damola David" }])
+    const [products, setProducts] = useState([{ name: "Tee-shirt" }, { name: "Baggie Jeans" }])
 
 
     const { width } = useWindowSize();
@@ -81,8 +100,8 @@ function RecordOrder() {
         window.scrollTo(0, 0);
     }, []);
 
-    useEffect(function() {
-        if(orderData.paymentType == "unpaid") {
+    useEffect(function () {
+        if (orderData.paymentType == "unpaid") {
             setPaymentMethod("");
         }
     }, [orderData.paymentType]);
@@ -139,14 +158,8 @@ function RecordOrder() {
                         <div className="form--grid">
                             <div className="form--item">
                                 <label className="form--label">Order / Sales Channel <Asterisk /></label>
-                                <select name="" id="" className="form--select">
-                                    <option hidden selected>Select a channel</option>
-                                    <option value="">Facebook</option>
-                                    <option value="">Instagram</option>
-                                    <option value="">Jiji</option>
-                                    <option value="">Physical Store</option>
-                                    <option value="">Flutterwave Store</option>
-                                </select>
+
+                                <MainDropdownSelect title="a Channel" options={channelData} field="label" value={channel} setValue={setChannel} />
                             </div>
 
                             <div className="form--item">
@@ -202,14 +215,14 @@ function RecordOrder() {
                             <div className="form--item">
                                 <label className="form--label">Payment Method <Asterisk /></label>
 
-                                <DropdownInput data={paymentMethodData} dataTitle="a Payment Method" selected={paymentMethod} setSelected={setPaymentMethod} />
+                                <MainDropdownSelect title="a Payment Method" options={paymentMethodData} field="label" value={paymentMethod} setValue={setPaymentMethod} searchable={false} />
                             </div>
                         )}
 
-                        <div className="form--item"> 
+                        <div className="form--item">
                             <label htmlFor='status' className='form--label'>Delivery Status <Asterisk /></label>
 
-                            <DropdownInput data={deliveryStatusData} dataTitle="a Delivery Status" selected={deliveryStatus} setSelected={setDeliveryStatus} />
+                            <MainDropdownSelect title="a Delivery Status" options={deliveryStatusData} field="label" value={deliveryStatus} setValue={setDeliveryStatus} searchable={false} />
                         </div>
 
 

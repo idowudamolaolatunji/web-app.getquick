@@ -71,6 +71,7 @@ width-100 {
 img {
 	max-width: 100%;
 }
+  
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -240,6 +241,15 @@ input::-webkit-inner-spin-button {
 	display: flex;
 	align-items: center;
 	gap: 1rem;
+}
+.align {
+	flex-direction: row !important;
+	align-items: center;
+}
+.align svg {
+	font-size: 1.6rem;
+    margin-bottom: -.16rem;
+	opacity: .85;
 }
 
 .general--btn {
@@ -415,11 +425,12 @@ input::-webkit-inner-spin-button {
 
 
 
-/*  */
+/* MAIN REACT DROPDOWN */
 .react-dropdown-select.form--select {
 	border: 1.4px solid #eee !important;
 	border-radius: .4rem !important;
 	padding: .8rem 1.2rem !important;
+	text-transform: capitalize !important;
 }
 .react-dropdown-select.form--select input {
 	font-size: 1.4rem !important;
@@ -444,6 +455,7 @@ input::-webkit-inner-spin-button {
 	top: 45px !important;
 	border-radius: .4rem !important;
 	border: 1.2px solid #eee !important;
+	width: 100% !important;
 }
 .react-dropdown-select-item {
 	padding: 1rem 1.2rem !important;
@@ -476,7 +488,7 @@ input::-webkit-inner-spin-button {
 	}
 
 	.modal {
-		width: 100%;
+		width: 100% !important;
 		height: 100%;
 	}
 }

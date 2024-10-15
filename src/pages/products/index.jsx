@@ -11,6 +11,7 @@ import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import { PiExport, PiShareFatFill } from 'react-icons/pi';
 import { GrTag } from 'react-icons/gr';
 import { TbArrowWaveRightDown, TbListSearch } from 'react-icons/tb';
+import { useFetchedContext } from '../../context/FetchedContext';
 
 
 //////////////////////////////////////////////////////
@@ -24,7 +25,8 @@ const emptyBtns = [
 
 function index() {
     const { width } = useWindowSize();
-    const [products, setProducts] = useState([]);
+    const { products } = useFetchedContext();
+    // const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [showInsights, setShowInsights] = useState(false);
     const [showMoreActions, setShowMoreActions] = useState(false);
@@ -61,18 +63,6 @@ function index() {
         { 
             name: 'Date', selector: row => formatDate(row.createdAt)
         },
-    ];
-
-    const data = [
-        // {
-        //     name: 'T-shirt polo xl',
-        //     productCollection: 'Shirt',
-        //     variations: 10,
-        //     stock: 25,
-        //     price: 10000,
-        //     status: 'success',
-        //     date: new Date('2024-09-04T09:21:38Z'),
-        // }
     ];
 
 
@@ -114,7 +104,7 @@ function index() {
 
             <div className="page__section--main card" style={{ padding: 0 }}>
                 <TableUI 
-                    data={data}
+                    data={products}
                     columns={columns}
                     loading={isLoading}
                     selectableRows={true}

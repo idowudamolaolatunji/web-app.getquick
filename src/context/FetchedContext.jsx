@@ -14,11 +14,18 @@ export default FetchedContext;
 //////////////////////////////////////////////
 export const FetchedProvider = ({ children }) => {
     const [collections, setCollections] = useState([]);
+    const [products, setProducts] = useState([]);
 
     async function handleFetchCollections() {
-        const res = await fetch(`${BASE_URL}/products/collection/all`)
+        const res = await fetch(`${BASE_URL}/collections/all`)
         const data = await res.json();
         if(data?.data) setCollections(data?.data?.collections);
+    }
+
+    async function handleFetchProducts() {
+        const res = await fetch(`${BASE_URL}/products/all`);
+        const data = await res.json();
+        if(data?.data) setProducts(data?.data?.products);
     }
 
 
@@ -45,12 +52,14 @@ export const FetchedProvider = ({ children }) => {
 
     useEffect(function() {
         handleFetchCollections();
+        handleFetchProducts()
     }, [])
 
 
     // CREATE CONTEXT DATA
     let contextData = {
         collections,
+        products,
 
         handleImageUpload
     }

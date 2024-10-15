@@ -27,18 +27,25 @@ import { IoCloseOutline, IoCloudDownloadOutline, IoTrashBinOutline } from 'react
 import { validateProductForm } from '../../../utils/validationHelper';
 import '../../uploadStyle.css';
 import CustomAlert from '../../../components/CustomAlert';
+import ConfettiUI from '../../../components/ConfettiUI';
+import { useNavigate } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 
-const headers = {
-    "Content-Type": "application/json"
-}
+
 const BASE_URL = import.meta.env.VITE_SERVER_URL;
 
 function UploadProduct({ isnew, close }) {
     const currency = "₦";
     const maxNumber = 4;
+    const navigate = useNavigate();
     const { width } = useWindowSize();
     const { token, handleUser, handleStore } = useAuthContext();
     const { collections, handleImageUpload } = useFetchedContext();
+
+    const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+    }
 
     const [loading, setLoading] = useState({
         mainLoading: false,
@@ -57,6 +64,7 @@ function UploadProduct({ isnew, close }) {
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
+    const [showConfetti, setShowConfetti] = useState(false)
     const [productFormErrors, setProductFormErrors] = useState({})
     const [productData, setProductData] = useState({
         name: "",
@@ -69,26 +77,23 @@ function UploadProduct({ isnew, close }) {
         discountType: "no-discount"
     });
 
-    const [variations, setVariations] = useState([]);
-    const [description, setDescription] = useState('');
-    const [productCollection, setProductCollection] = useState([]); // the react-select lybrary needs that array
-
     const [checks, setChecks] = useState({
         trackInventory: false,
         isPhysical: true,
         isVisible: false,
     });
 
+    const [variations, setVariations] = useState([]);
+    const [description, setDescription] = useState('');
+    const [productCollection, setProductCollection] = useState([]);
     const [images, setImages] = useState([]);
-    let formData = { ...productData, images, description, productCollection, inventory: checks.trackInventory }
+    const imageFiles = images.map(img => img.file);
 
-
+    
     function handleOnChangeImage(imageList, addUpdateIndex) {
         console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
-    const imageFiles = images.map(img => img.file);
-    // console.log(imageFiles)
 
     function handleEdit(img) {
         setCropModal(true);
@@ -104,21 +109,9 @@ function UploadProduct({ isnew, close }) {
         setZoom(Number(zoom))
     }
 
-    const onAspectChange = (e) => {
-        const value = e.target.value;
-        console.log(value)
-        const ratio = aspectRatios.find((ratio) => ratio.value == value);
-        setAspect(ratio);
-    };
-
     const onCropComplete = (croppedArea, croppedAreaPixels) => {
         setCroppedAreaPixels(croppedAreaPixels);
     };
-
-    //   const onCrop = async () => {
-    //     const croppedImageUrl = await getCroppedImg(imageUrl, croppedAreaPixels);
-    //     setCroppedImageFor(id, crop, zoom, aspect, croppedImageUrl);
-    //   };
 
     function handleProductDataChange(e) {
         const { name, value } = e?.target;
@@ -174,6 +167,13 @@ function UploadProduct({ isnew, close }) {
     
     async function handleCreateProduct() {
         // FORM VALIDATIONS 
+        let formData = { 
+            ...productData,
+            productCollection,
+            images, description,
+            inventory: checks.trackInventory
+        }
+
         const newErrors = validateProductForm(formData);
         setProductFormErrors(newErrors);
         if (Object.keys(newErrors).length >= 1) {
@@ -181,7 +181,6 @@ function UploadProduct({ isnew, close }) {
             setTimeout(() => setResponse({ status: "", message: "" }), 1500);
             return;
         };
-
 
         // SET LOADER
         setResponse({ status: "", message: "" });
@@ -193,8 +192,8 @@ function UploadProduct({ isnew, close }) {
         // MAKE REQUEST
         try {
             const res = await fetch(`${BASE_URL}/products`, {
+                headers,
                 method: "POST",
-                headers: { ...headers, Authorization: `Bearer ${token}` },
                 body: JSON.stringify({
                     ...checks,
                     description,
@@ -217,7 +216,9 @@ function UploadProduct({ isnew, close }) {
             if(status !== 'success') throw new Error(message);
 
             // SET RESPONSE MESSAGE
+            if(width < 600) window.scrollY = 0;
             setResponse({ status: "success", message });
+            setShowConfetti(true)
 
             // UPLOAD PRODUCT IMAGES
             const url = `products/upload-image/${data.data.product._id}`
@@ -228,9 +229,10 @@ function UploadProduct({ isnew, close }) {
             handleUser(owner);
             handleClearFields();
 
-            if(isnew) {
-                close()
-            }
+            setTimeout(function() {
+                if(isnew) close();
+                else navigate(-1)
+            }, 5000);
 
         } catch(err) {
             setResponse({ status: "error", message: err.message });
@@ -239,16 +241,16 @@ function UploadProduct({ isnew, close }) {
         }
     }
 
-   
-
 
     return (
         <>
+            {showConfetti &&  <ConfettiUI />}
+            {loading.mainLoading && (isnew ? createPortal(<Spinner />, document.body) : <Spinner />)}
+
             {(response.message || response.status) && (
-                <CustomAlert type={response.status} message={response.message} />
+                isnew ? createPortal(<CustomAlert type={response.status} message={response.message} />, document.body) 
+                : <CustomAlert type={response.status} message={response.message} />
             )}
-            
-            { loading.mainLoading && <Spinner /> }
 
             <section className='product__upload-section'>
                 <div className='page__section--heading'>
@@ -389,7 +391,6 @@ function UploadProduct({ isnew, close }) {
                                     <p>Create Collection</p>
                                 </button>
                             </div>
-
                         </div>
                     </div>
 

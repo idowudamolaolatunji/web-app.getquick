@@ -130,3 +130,20 @@ export function validateProductForm(data, _) {
 
 	return errors;
 }
+
+
+export function validateDeliveryForm(data, _) {
+	const errors = {};
+
+	if (!data.title.trim()) {
+		errors.title = "Deliovery title is required";
+	} else if (data.title.length < 3) {
+		errors.title = "Deliovery title must be more than 3 characters!";
+	}
+	
+	if (data.deliveryType == "paid" && !+data.fee) {
+		errors.fee = "A fee is required";
+	}
+
+	return errors;
+}

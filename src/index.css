@@ -131,6 +131,8 @@ input::-webkit-inner-spin-button {
 	height: 100%;
 	overflow-y: auto;
 }
+
+
 .modal.simple {
 	min-height: 40rem;
 	border-radius: 0.6rem;
@@ -192,6 +194,7 @@ input::-webkit-inner-spin-button {
 	background-color: rgba(0, 0, 0, 0.1);
 	-webkit-backdrop-filter: blur(2px);
 	backdrop-filter: blur(2px);
+	transition: all .2s;
 }
 
 

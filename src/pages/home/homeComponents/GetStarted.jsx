@@ -24,7 +24,7 @@ function GetStarted() {
         { id: 1, name: 'Onboard', tipText: 'Store and Dashboard Created!', completed: true },
         { id: 2, name: 'hasCustomisedStore', tipText: 'Store Customized!', text: 'Customize your online store.', completed: false, shortText: 'Customize your Store' },
         { id: 3, name: 'hasFirstProduct', tipText: 'First Product Uploaded!', text: 'Add your first product', completed: false, shortText: 'Upload First Product' },
-        { id: 4, name: 'hasShippingRates', tipText: 'Delivery Rates Set!', text: 'Add your delivery rates to your website', completed: false, shortText: 'Set Delivery Rates' },
+        { id: 4, name: 'hasDeliveryRate', tipText: 'Delivery Rate Created!', text: 'Add your delivery rates to your website', completed: false, shortText: 'Set Delivery Rates' },
         { id: 5, name: 'hasBankDetails', tipText: 'Bank Details Added!', text: 'Add bank details for payments', completed: false, shortText: 'Set Bank Info' }
     ]);
 
@@ -83,21 +83,21 @@ function GetStarted() {
         handleLoading("mainLoading", true);
 
         const {
-            hasShippingRates,
             hasBankDetails,
             hasFirstProduct,
+            hasDeliveryRate,
             hasCustomisedStore
         } = store.storeOnboard;
 
-        updateState("hasShippingRates", hasShippingRates);
         updateState("hasBankDetails", hasBankDetails);
         updateState("hasFirstProduct", hasFirstProduct);
+        updateState("hasDeliveryRate", hasDeliveryRate);
         updateState("hasCustomisedStore", hasCustomisedStore);
 
         setTimeout(function () {
             handleLoading("mainLoading", false);
-        }, 500);
-    }, []);
+        }, 200);
+    }, [showModal]);
 
     return (
 
@@ -110,9 +110,7 @@ function GetStarted() {
                     <p>{
                         // HERE WE MODIFY THE TEXT BASED ON THE COMPLETED STEPS
                         (completedSteps?.length < 5) ? (
-                            <>
-                                {completedSteps.length} / 5 completed - <strong>{completedSteps.length == 4 ? 'Final' : 'Next'} Step 👉🏿</strong> {stepsSorted[completedSteps.length]?.shortText}
-                            </>
+                            <>{completedSteps.length} / 5 completed - <strong>{completedSteps.length == 4 ? 'Final' : 'Next'} Step 👉🏿</strong> {stepsSorted[completedSteps.length]?.shortText}</>
                         ) : (
                             <>Completed all Step 🎉 - <strong>Click Finish!</strong> </>
                         )
@@ -158,13 +156,13 @@ function GetStarted() {
                         )}
                     </div>
 
-                    <div className={`opts--items ${handleFindStep("hasShippingRates") ? 'is-completed' : ''}`}>
+                    <div className={`opts--items ${handleFindStep("hasDeliveryRate") ? 'is-completed' : ''}`}>
                         <div className="opts--heading">
                             <span className='opts--icon'><TbTruckDelivery /></span>
                             <h3>Add your delivery rates to your website.</h3>
                         </div>
                         <p>Set up delivery areas and how much you charge so your customers can see their shipping costs at checkout.</p>
-                        <button name="delivery" onClick={handleOpenModal}>{handleFindStep("hasShippingRates") ? <CompletedTag /> : ' Add delivery rates'}</button>
+                        <button name="delivery" onClick={handleOpenModal}>{handleFindStep("hasDeliveryRate") ? <CompletedTag /> : ' Add delivery rates'}</button>
                     </div>
 
                     <div className={`opts--items ${handleFindStep("hasBankDetails") ? 'is-completed' : ''}`}>
@@ -183,7 +181,7 @@ function GetStarted() {
 
 
             {(showModal.bank || showModal.delivery || showModal.product || showModal.store) && (
-                <FullScreen style={{ maxWidth: '100rem', margin: '0 auto' }} >
+                <FullScreen style={{ maxWidth: '100rem', margin: '0 auto' }}>
                     {showModal.bank && <BankDetails isnew close={() => handleCloseModal('bank')} />}
                     {showModal.store && <StoreCustom isnew  close={() => handleCloseModal('store')} />}
                     {showModal.product && <UploadProduct isnew close={() => handleCloseModal('product')} />}

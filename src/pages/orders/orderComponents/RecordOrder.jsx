@@ -15,6 +15,11 @@ import Info from '../../../components/Info';
 import MainDropdownSelect from '../../../components/MainDropdownSelect';
 
 import { paymentMethodData, deliveryStatusData, channelData } from '../../../utils/data'
+import { useFetchedContext } from '../../../context/FetchedContext';
+import UploadProduct from '../../products/productComponents/UploadProduct';
+import FullScreen from '../../../components/modal/FullScreen';
+import Drawer from '../../../components/modal/Drawer';
+import AddCustomer from './AddCustomer';
 
 
 function RecordOrder() {
@@ -35,15 +40,21 @@ function RecordOrder() {
     const [paymentMethod, setPaymentMethod] = useState([]);
     const [deliveryStatus, setDeliveryStatus] = useState([]);
     const [channel, setChannel] = useState([]);
-    console.log(paymentMethod, deliveryStatus)
+    
+    const [showModal, setShowModal] = useState({
+        product: false,
+        customer: false
+    });
+
 
     // VALUES AND DATA FOR DROPDOWN
     const [customers, setCustomers] = useState([{ name: "Idowu Olatunji" }, { name: "Damola David" }])
-    const [products, setProducts] = useState([{ name: "Tee-shirt" }, { name: "Baggie Jeans" }])
+    // const [products, setProducts] = useState([{ name: "Tee-shirt" }, { name: "Baggie Jeans" }])
 
 
     const { width } = useWindowSize();
     const { store } = useAuthContext();
+    const { products } = useFetchedContext();
     const currency = "₦";
 
     function handleOrderDataChange(e) {
@@ -53,6 +64,10 @@ function RecordOrder() {
             ...orderData,
             [name]: value,
         });
+    }
+
+    function handleCloseModal(name) {
+        setShowModal({...showModal, [name]: false });
     }
 
     function handleClearFields() {
@@ -79,6 +94,20 @@ function RecordOrder() {
 
 
     return (
+        <>
+        
+        {showModal.product && (
+            <FullScreen style={{ maxWidth: '100rem', margin: '0 auto' }}>
+                <UploadProduct isnew close={() => handleCloseModal("product")} />
+            </FullScreen>
+        )}
+
+        {showModal.customer && (
+            <Drawer title='Add Customer'>
+                <AddCustomer />
+            </Drawer>
+        )}
+
         <section className='product__upload-section'>
             <div className='page__section--heading'>
                 <span className='flex'>
@@ -108,7 +137,7 @@ function RecordOrder() {
                             <label className="form--label">Product <Asterisk /></label>
                             <MainDropdownSelect title="Product" options={products} field="name" value={orderProduct} setValue={setOrderProduct} />
 
-                            <button className='form--add'>
+                            <button className='form--add' onClick={() => setShowModal({...showModal, product: true })}>
                                 <AiOutlinePlus />
                                 <p>Add New Product</p>
                             </button>
@@ -134,8 +163,8 @@ function RecordOrder() {
                             </div>
 
                             <div className="form--item">
-                                <label className="form--label">Order Date <Asterisk /></label>
-                                <input type="date" className='form--input' placeholder='Select date' max={new Date().toISOString().split('T')[0]} name="" id="" />
+                                <label id='date' className="form--label">Order Date <Asterisk /></label>
+                                <input type="date" className='form--input' placeholder='Select date' max={new Date().toISOString().split('T')[0]} name="" id="date" />
                             </div>
                         </div>
 
@@ -145,7 +174,7 @@ function RecordOrder() {
                             <MainDropdownSelect title="Customer" options={customers} field="name" value={orderCustomer} setValue={setOrderCustomer} />
                             <Info text="If you don't have customer's details, Leave blank" />
 
-                            <button className='form--add'>
+                            <button className='form--add' onClick={() => setShowModal({...showModal, customer: true })}>
                                 <AiOutlinePlus />
                                 <p>Add Customer</p>
                             </button>
@@ -213,7 +242,7 @@ function RecordOrder() {
                 </div>
             )}
         </section>
-
+        </>
     )
 }
 

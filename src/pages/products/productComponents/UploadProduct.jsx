@@ -41,7 +41,7 @@ function UploadProduct({ isnew, close }) {
     const { collections, handleImageUpload } = useFetchedContext();
 
     const [loading, setLoading] = useState({
-        mainLoading: true,
+        mainLoading: false,
         imageLoading: false
     });
 
@@ -182,6 +182,7 @@ function UploadProduct({ isnew, close }) {
             return;
         };
 
+
         // SET LOADER
         setResponse({ status: "", message: "" });
         setLoading({ ...loading, mainLoading: true });
@@ -226,6 +227,7 @@ function UploadProduct({ isnew, close }) {
             handleStore(store);
             handleUser(owner);
             handleClearFields();
+
             if(isnew) {
                 close()
             }

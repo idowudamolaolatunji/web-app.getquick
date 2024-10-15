@@ -10,10 +10,10 @@ function AuthUserRating() {
     return (
         <div className='auth--right-details'>
             <div className="auth--right-users">
-                <img src={img_user0} alt="" />
-                <img src={img_user1} alt="" />
-                <img src={img_user2} alt="" />
-                <img src={img_user3} alt="" />
+                <img src={img_user0} />
+                <img src={img_user1} />
+                <img src={img_user2} />
+                <img src={img_user3} />
             </div>
 
             <span className='auth--right-rating'>

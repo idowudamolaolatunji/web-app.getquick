@@ -15,7 +15,6 @@ import img_user2 from '../../assets/images/resources/user-img2.jpg'
 import img_user3 from '../../assets/images/resources/user-img3.jpg'
 import img_user0 from '../../assets/images/resources/user-img4.jpg'
 import '../auth.css'
-import { validateForm } from '../../utils/helper';
 import CustomAlert from '../../components/CustomAlert';
 import { useAuthContext } from '../../context/AuthContext';
 

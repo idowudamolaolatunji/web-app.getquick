@@ -145,7 +145,7 @@
                             <label htmlFor="form-img" className='form--img-box'>
                                 <span className='img--container'>
                                     <IoCloudDownloadOutline />
-                                    <h3>Upload or Drag n drop Image</h3>
+                                    <h3>Click to upload or Drag n drop Image</h3>
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, cumque.</p>
                                 </span>
                             </label>

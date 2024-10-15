@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import AuthsUI from '../authComponents/AuthsUI';
 import CustomAlert from '../../components/CustomAlert';
 import Spinner from '../../components/spinner/spinner_two'
-import { countdownTimer, validateForm } from '../../utils/helper';
+import { countdownTimer } from '../../utils/helper';
+import { validateForm } from '../../utils/validationHelper';
 
 import { HiFingerPrint } from 'react-icons/hi';
 import data_img from '../../assets/images/resources/good-faces-lhMdsnK_KWk-unsplash.jpg'

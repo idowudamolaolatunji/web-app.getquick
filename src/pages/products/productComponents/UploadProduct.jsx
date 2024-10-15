@@ -1,34 +1,54 @@
 import React, { useEffect, useState } from 'react'
+import { Slider } from '@mui/material';
 import Cropper from 'react-easy-crop';
 import { useWindowSize } from 'react-use';
+import CurrencyInput from 'react-currency-input-field';
 import ReactImageUploading from 'react-images-uploading';
 
+import Info from '../../../components/Info';
+import Line from '../../../components/Line';
 import Asterisk from '../../../components/Asterisk';
 import TooltipUI from '../../../components/TooltipUI';
 import QuillEditor from '../../../components/QuillEditor';
-import BackButton from '../../../components/button/BackButton';
 import SimpleModal from '../../../components/modal/Simple';
+import { useAuthContext } from '../../../context/AuthContext';
+import Spinner from '../../../components/spinner/spinner_two';
+import BackButton from '../../../components/button/BackButton';
+import { useFetchedContext } from '../../../context/FetchedContext';
+import MainDropdownSelect from '../../../components/MainDropdownSelect';
 
-import { RxUpdate } from 'react-icons/rx';
+import { LuTags } from 'react-icons/lu';
 import { GoStack } from 'react-icons/go';
+import { FaCheck } from 'react-icons/fa';
+import { RxUpdate } from 'react-icons/rx';
 import { PiFrameCorners } from 'react-icons/pi';
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 import { IoCloseOutline, IoCloudDownloadOutline, IoTrashBinOutline } from 'react-icons/io5';
+import { validateProductForm } from '../../../utils/validationHelper';
 import '../../uploadStyle.css';
-import { Slider } from '@mui/material';
-import CurrencyInput from 'react-currency-input-field';
-import { useAuthContext } from '../../../context/AuthContext';
-import { FaCheck } from 'react-icons/fa';
-import Line from '../../../components/Line';
-import { LuTags } from 'react-icons/lu';
-import Info from '../../../components/Info';
-import MainDropdownSelect from '../../../components/MainDropdownSelect';
+import CustomAlert from '../../../components/CustomAlert';
 
+const headers = {
+    "Content-Type": "application/json"
+}
+const BASE_URL = import.meta.env.VITE_SERVER_URL;
 
 function UploadProduct({ isnew, close }) {
+    const currency = "₦";
+    const maxNumber = 4;
     const { width } = useWindowSize();
-    const { store } = useAuthContext();
-    const currency = "₦"
+    const { token, handleUser, handleStore } = useAuthContext();
+    const { collections, handleImageUpload } = useFetchedContext();
+
+    const [loading, setLoading] = useState({
+        mainLoading: true,
+        imageLoading: false
+    });
+
+    const [response, setResponse] = useState({
+        status: null,
+        message: null
+    });
 
     const [cropModal, setCropModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -37,41 +57,38 @@ function UploadProduct({ isnew, close }) {
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
+    const [productFormErrors, setProductFormErrors] = useState({})
     const [productData, setProductData] = useState({
-        title: "",
+        name: "",
         shortDescription: "",
         price: null,
-        cost: null,
-        quantity: null,
+        itemCost: null,
+        stockAmount: null,
         status: "publish",
-        discount: "",
+        discount: null,
         discountType: "no-discount"
     });
 
-    const [collections, setCollections] = useState([{ name: 'Sweeter' }, { name: 'Vest' }, { name: "Sneakers" }]); // can move this to context later
+    const [variations, setVariations] = useState([]);
     const [description, setDescription] = useState('');
     const [productCollection, setProductCollection] = useState([]); // the react-select lybrary needs that array
 
     const [checks, setChecks] = useState({
-        inventory: false,
-        physical: true,
-        display: false,
+        trackInventory: false,
+        isPhysical: true,
+        isVisible: false,
     });
 
-    const [loading, setLoading] = useState({
-        mainLoading: false,
-        imageLoading: false
-    })
     const [images, setImages] = useState([]);
-    const maxNumber = 4;
+    let formData = { ...productData, images, description, productCollection, inventory: checks.trackInventory }
 
 
     function handleOnChangeImage(imageList, addUpdateIndex) {
         console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
-    // const imageArray = images.map(img => img.file);
-    // console.log(imageArray)
+    const imageFiles = images.map(img => img.file);
+    // console.log(imageFiles)
 
     function handleEdit(img) {
         setCropModal(true);
@@ -114,15 +131,23 @@ function UploadProduct({ isnew, close }) {
 
     function handleClearFields() {
         setProductData({
-            title: "",
+            ...productData,
+            name: "",
             shortDescription: "",
             price: null,
-            cost: null,
-            quantity: null,
+            itemCost: null,
+            discount: null,
+            stockAmount: null,
             status: "publish"
         });
         setDescription("")
-        setProductCollection(null)
+        setProductCollection([])
+        setChecks({
+            trackInventory: false,
+            isPhysical: true,
+            isVisible: false,
+        });
+        setProductFormErrors({});
 
         setImages([])
         setCropModal(false)
@@ -130,11 +155,8 @@ function UploadProduct({ isnew, close }) {
         setCrop({ x: 0, y: 0 })
         setZoom(1)
         setCroppedAreaPixels(null)
-        setChecks({
-            inventory: false,
-            physical: true
-        });
     }
+
 
     useEffect(function () {
         !isnew && window.scrollTo(0, 0);
@@ -149,11 +171,83 @@ function UploadProduct({ isnew, close }) {
         }
     }, [productData.discountType]);
 
-    console.log(productCollection)
+    
+    async function handleCreateProduct() {
+        // FORM VALIDATIONS 
+        const newErrors = validateProductForm(formData);
+        setProductFormErrors(newErrors);
+        if (Object.keys(newErrors).length >= 1) {
+            setResponse({ status: "error", message: "Fill up all required fields!" });
+            setTimeout(() => setResponse({ status: "", message: "" }), 1500);
+            return;
+        };
+
+        // SET LOADER
+        setResponse({ status: "", message: "" });
+        setLoading({ ...loading, mainLoading: true });
+        
+        // GET COLLECTION NAMES
+        const names = productCollection.map(collection => collection.name);
+
+        // MAKE REQUEST
+        try {
+            const res = await fetch(`${BASE_URL}/products`, {
+                method: "POST",
+                headers: { ...headers, Authorization: `Bearer ${token}` },
+                body: JSON.stringify({
+                    ...checks,
+                    description,
+                    ...productData, 
+                    price: +productData.price,
+                    itemCost: +productData.itemCost,
+                    discount: +productData.discount,
+                    stockAmount: +productData.stockAmount,
+                    productCollection: names,
+                })
+            });
+            if(!res.ok) throw new Error('Something went wrong! Check intenet connection');
+
+            const data = await res.json();
+            console.log(res, data)
+            
+            const { status, message } = data;
+            const { store, owner } = data.useful.data;
+
+            if(status !== 'success') throw new Error(message);
+
+            // SET RESPONSE MESSAGE
+            setResponse({ status: "success", message });
+
+            // UPLOAD PRODUCT IMAGES
+            const url = `products/upload-image/${data.data.product._id}`
+            await handleImageUpload(imageFiles, url, token);
+
+            // MODIFY THE USER OBJECT AND STORE IN THE COOKIE and clear the form
+            handleStore(store);
+            handleUser(owner);
+            handleClearFields();
+            if(isnew) {
+                close()
+            }
+
+        } catch(err) {
+            setResponse({ status: "error", message: err.message });
+        } finally {
+            setLoading({ ...loading, mainLoading: false })
+        }
+    }
+
+   
 
 
     return (
         <>
+            {(response.message || response.status) && (
+                <CustomAlert type={response.status} message={response.message} />
+            )}
+            
+            { loading.mainLoading && <Spinner /> }
+
             <section className='product__upload-section'>
                 <div className='page__section--heading'>
                     <span className='flex'>
@@ -164,13 +258,13 @@ function UploadProduct({ isnew, close }) {
                     {width > 600 && (
                         <div className="page__section--actions">
                             <button className='button clear--button' onClick={handleClearFields}>Clear Fields</button>
-                            <button className='button submit--button'>Submit</button>
+                            <button className='button submit--button' onClick={handleCreateProduct}>Submit</button>
                         </div>
                     )}
                 </div>
 
 
-                <div className="product__upload--container">
+                <form className="product__upload--container" onSubmit={e => e.preventDefault()}>
                     <div className='left--container containers'>
                         <div className="card form">
                             <div className="section--heading">
@@ -179,8 +273,11 @@ function UploadProduct({ isnew, close }) {
                             </div>
 
                             <div className="form--item">
-                                <label htmlFor="" className="form--label">Title <Asterisk /></label>
-                                <input type="text" name="" id="" className="form--input" placeholder='White Flat Shoe - Big Size 39, 42' />
+                                <label htmlFor="name" className="form--label">Title <Asterisk /></label>
+                                <input type="text" name="name" id="name" value={productData.name} onChange={handleProductDataChange} className="form--input" placeholder='White Flat Shoe - Big Size 39, 42' />
+                                <span className="form--error-message">
+                                    {productFormErrors.name && productFormErrors.name}
+                                </span>
                             </div>
 
                             <div className="form--item">
@@ -211,7 +308,7 @@ function UploadProduct({ isnew, close }) {
                                                     ) : (
                                                         <span className='img--container' {...dragProps}>
                                                             <IoCloudDownloadOutline style={{ color: '#ff7a49' }} />
-                                                            <h3>Upload or Drag n drop Image</h3>
+                                                            <h3>Click to upload or Drag n drop Image</h3>
                                                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, cumque.</p>
                                                         </span>
                                                     )}
@@ -247,7 +344,7 @@ function UploadProduct({ isnew, close }) {
                                                             ) : (
                                                                 <span className='img--container' {...dragProps}>
                                                                     <IoCloudDownloadOutline />
-                                                                    <p>Upload or drop more!</p>
+                                                                    <p>Click or drop more!</p>
                                                                 </span>
                                                             )}
                                                         </div>
@@ -261,7 +358,9 @@ function UploadProduct({ isnew, close }) {
                                         </div>
                                     )}
                                 </ReactImageUploading>
-                                
+                                <span className="form--error-message">
+                                    {productFormErrors.images && productFormErrors.images}
+                                </span>
                             </div>
 
                             <div className="form--item">
@@ -271,11 +370,17 @@ function UploadProduct({ isnew, close }) {
                             <div className="form--item">
                                 <label htmlFor="" className="form--label">Product Description <Asterisk /></label>
                                 <QuillEditor value={description} setValue={setDescription} />
+                                <span className="form--error-message">
+                                    {productFormErrors.description && productFormErrors.description}
+                                </span>
                             </div>
 
                             <div className="form--item">
                                 <label htmlFor="category" className="form--label">Collection <Asterisk /></label>
-                                <MainDropdownSelect title="Collection" options={collections} field="name" value={productCollection} setValue={setProductCollection} />
+                                <MainDropdownSelect title="Collection" options={collections} field="name" value={productCollection} setValue={setProductCollection} multiple={true} />
+                                <span className="form--error-message">
+                                    {productFormErrors.productCollection && productFormErrors.productCollection}
+                                </span>
 
                                 <button className='form--add'>
                                     <AiOutlinePlus />
@@ -309,20 +414,26 @@ function UploadProduct({ isnew, close }) {
                                         value={productData.price}
                                         onValueChange={(value, name, _) => setProductData({ ...productData, [name]: value })}
                                     />
+                                    <span className="form--error-message">
+                                        {productFormErrors.price && productFormErrors.price}
+                                    </span>
                                 </div>
                                 
                                 <div className="form--item">
                                     <label htmlFor="cost-price" className="form--label">Cost per item (optional)</label>
                                     <CurrencyInput
                                         id="cost-price"
-                                        name="cost"
+                                        name="itemCost"
                                         className="form--input"
                                         placeholder="₦10,000"
                                         prefix={currency}
                                         decimalsLimit={2}
-                                        value={productData.cost}
+                                        value={productData.itemCost}
                                         onValueChange={(value, name, _) => setProductData({ ...productData, [name]: value })}
                                     />
+                                    <span className="form--error-message">
+                                        {productFormErrors.itemCost && productFormErrors.itemCost}
+                                    </span>
                                 </div>
                             </div>
 
@@ -356,36 +467,42 @@ function UploadProduct({ isnew, close }) {
                                         decimalsLimit={productData.discountType == "fixed-price" ? 2 : 0}
                                         onValueChange={(value, name, _) => setProductData({ ...productData, [name]: value })}
                                     />
+                                    <span className="form--error-message">
+                                        {productFormErrors.discount && productFormErrors.discount}
+                                    </span>
                                 </div>
                             )}
 
                             <div className="form--grid">
-                                <div className="form--item-flex" onClick={() => setChecks({ ...checks, physical: !checks.physical })}>
-                                    <div id="checkbox" className={checks.physical ? 'is-selected' : ''}>
-                                        {checks.physical && <FaCheck />}
+                                <div className="form--item-flex" onClick={() => setChecks({ ...checks, isPhysical: !checks.isPhysical })}>
+                                    <div id="checkbox" className={checks.isPhysical ? 'is-selected' : ''}>
+                                        {checks.isPhysical && <FaCheck />}
                                     </div>
                                     <label className='form--text' style={{ fontSize: '1.24rem', fontWeight: '500' }}>This is a physical product</label>
                                 </div>
-                                <div className="form--item-flex" onClick={() => setChecks({ ...checks, inventory: !checks.inventory })}>
-                                    <div id="checkbox" className={checks.inventory ? 'is-selected' : ''}>
-                                        {checks.inventory && <FaCheck />}
+                                <div className="form--item-flex" onClick={() => setChecks({ ...checks, trackInventory: !checks.trackInventory })}>
+                                    <div id="checkbox" className={checks.trackInventory ? 'is-selected' : ''}>
+                                        {checks.trackInventory && <FaCheck />}
                                     </div>
                                     <label className='form--text' style={{ fontSize: '1.24rem', fontWeight: '500' }}>Track Inventory</label>
                                 </div>
                             </div>
 
                             <div className="form--item">
-                                <label htmlFor="quantity" className="form--label">Stock Quantity <Asterisk /></label>
+                                <label htmlFor="quantity" className="form--label">Stock Quantity {checks.trackInventory ? <Asterisk /> : "(optional)" }</label>
                                 <CurrencyInput
                                     id="quantity"
-                                    name="quantity"
+                                    name="stockAmount"
                                     className="form--input"
                                     placeholder="Quantity"
                                     prefix="Qty. "
                                     decimalsLimit={0}
-                                    value={productData.quantity}
+                                    value={productData.stockAmount}
                                     onValueChange={(value, name, _) => setProductData({ ...productData, [name]: value })}
                                 />
+                                <span className="form--error-message">
+                                    {productFormErrors.stockAmount && productFormErrors.stockAmount}
+                                </span>
                             </div>
 
                         </div>
@@ -412,9 +529,9 @@ function UploadProduct({ isnew, close }) {
                             </div>
 
                             {productData.status == "publish" && (
-                                    <div className="form--item-flex" onClick={() => setChecks({ ...checks, display: !checks.display })}>
-                                        <div id="checkbox" className={checks.display ? 'is-selected' : ''}>
-                                            {checks.display && <FaCheck />}
+                                    <div className="form--item-flex" onClick={() => setChecks({ ...checks, isVisible: !checks.isVisible })}>
+                                        <div id="checkbox" className={checks.isVisible ? 'is-selected' : ''}>
+                                            {checks.isVisible && <FaCheck />}
                                         </div>
                                         <label className='form--text flex' style={{ fontSize: '1.24rem', fontWeight: '500', gap: '.4rem', width: "auto" }}>Hide this Product <Info /></label>
                                     </div>
@@ -438,13 +555,13 @@ function UploadProduct({ isnew, close }) {
 
                         </div>
                     </div>
-                </div>
+                </form>
 
 
                 {width < 600 && (
                     <div className="page__section--actions" style={{ marginTop: "4rem" }}>
                         <button className='button clear--button' onClick={handleClearFields}>Clear Fields</button>
-                        <button className='button submit--button'>Submit</button>
+                        <button className='button submit--button' onClick={handleCreateProduct}>Submit</button>
                     </div>
                 )}
             </section>

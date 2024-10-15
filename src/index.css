@@ -186,6 +186,7 @@ input::-webkit-inner-spin-button {
 	position: fixed;
 	top: 0;
 	left: 0;
+	bottom: 0;
 
 	z-index: 200;
 	background-color: rgba(0, 0, 0, 0.1);
@@ -409,6 +410,7 @@ input::-webkit-inner-spin-button {
 .quill .ql-container.ql-snow {
     border: none !important;
     min-height: 12rem !important;
+	height: 70% !important;
 }
 
 

@@ -302,6 +302,7 @@
     height: 4rem;
     border-radius: 50%;
     border: 1.4px solid #fff;
+    background-color: #eee;
 }
 .auth--right-users img:not(:last-child) {
     margin-right: -1rem;

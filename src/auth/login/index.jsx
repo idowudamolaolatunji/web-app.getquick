@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useWindowSize } from 'react-use';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
-import { validateForm } from '../../utils/helper';
+import { validateForm } from '../../utils/validationHelper';
 
 import AuthsUI from '../authComponents/AuthsUI';
 import CustomAlert from '../../components/CustomAlert';

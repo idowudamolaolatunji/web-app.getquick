@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import CustomAlert from '../../components/CustomAlert';
 import Spinner from '../../components/spinner/spinner_two'
 import AuthUserRating from '../authComponents/AuthUserRating';
-import { validateForm } from '../../utils/helper';
+import { validateForm } from '../../utils/validationHelper';
 
 import { useWindowSize } from 'react-use';
 import { FaCheck } from 'react-icons/fa';

@@ -8,8 +8,8 @@ import CustomAlert from '../../components/CustomAlert';
 import logo_demo from '../../assets/images/resources/logo-demo.png'
 
 import { useNavigate } from 'react-router-dom';
-import { validateOnboardForm } from '../../utils/helper';
 import { useAuthContext } from '../../context/AuthContext';
+import { validateOnboardForm } from '../../utils/validationHelper';
 
 
 const goalOptions = [

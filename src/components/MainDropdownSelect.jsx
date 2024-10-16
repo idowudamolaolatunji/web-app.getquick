@@ -1,7 +1,7 @@
 import React from 'react'
 import Select from 'react-dropdown-select'
 
-function MainDropdownSelect({ options, multiple=false, field, title, value, searchable = true, setValue }) {
+function MainDropdownSelect({ options, multiple=false, field, title, value, searchable = true, setValue, noDataLabel="No Data" }) {
     return (
         <div style={{ width: "100%", textTransform: "capitalize" }}>
             <Select
@@ -18,6 +18,7 @@ function MainDropdownSelect({ options, multiple=false, field, title, value, sear
                 clearable
                 color='#ff7a49'
                 placeholder={`Select ${title}`}
+                noDataLabel={noDataLabel}
             />
         </div>
     )

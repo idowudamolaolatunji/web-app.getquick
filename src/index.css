@@ -437,6 +437,9 @@ input::-webkit-inner-spin-button {
 	padding: .8rem 1.2rem !important;
 	text-transform: capitalize !important;
 }
+.react-dropdown-select.form--select:hover {
+	border-color: var(--color-brand-500) !important;
+}
 .react-dropdown-select.form--select input {
 	font-size: 1.4rem !important;
 	font-weight: 500;

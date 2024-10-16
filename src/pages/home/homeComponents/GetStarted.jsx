@@ -72,8 +72,11 @@ function GetStarted() {
     }
 
     useEffect(function () {
-        document.title = 'Final onboarding steps!!'
+        document.title = 'Final onboarding steps!!';
+
+        localStorage.removeItem("q_step_progr");
     }, []);
+
 
     useEffect(function () {
         localStorage.setItem("q_step_progr", JSON.stringify(isCompletedSteps));

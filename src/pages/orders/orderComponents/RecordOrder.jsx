@@ -14,7 +14,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import Info from '../../../components/Info';
 import MainDropdownSelect from '../../../components/MainDropdownSelect';
 
-import { paymentMethodData, deliveryStatusData, channelData } from '../../../utils/data'
+import { paymentMethodData, deliveryStatusData, channelData } from '../../../utils/data.jsx'
 import { useFetchedContext } from '../../../context/FetchedContext';
 import UploadProduct from '../../products/productComponents/UploadProduct';
 import FullScreen from '../../../components/modal/FullScreen';

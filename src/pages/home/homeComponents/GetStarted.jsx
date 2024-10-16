@@ -79,29 +79,29 @@ function GetStarted() {
     }, []);
 
 
-    // useEffect(function () {
-    //     localStorage.setItem("q_step_progr", JSON.stringify(isCompletedSteps));
-    // }, [isCompletedSteps]);
+    useEffect(function () {
+        localStorage.setItem("q_step_progr", JSON.stringify(isCompletedSteps));
+    }, [isCompletedSteps]);
 
-    // useEffect(function () {
-    //     handleLoading("mainLoading", true);
+    useEffect(function () {
+        handleLoading("mainLoading", true);
 
-    //     const {
-    //         hasBankDetails,
-    //         hasFirstProduct,
-    //         hasDeliveryRate,
-    //         hasCustomisedStore
-    //     } = store.storeOnboard;
+        const {
+            hasBankDetails,
+            hasFirstProduct,
+            hasDeliveryRate,
+            hasCustomisedStore
+        } = store.storeOnboard;
 
-    //     updateState("hasBankDetails", hasBankDetails);
-    //     updateState("hasFirstProduct", hasFirstProduct);
-    //     updateState("hasDeliveryRate", hasDeliveryRate);
-    //     updateState("hasCustomisedStore", hasCustomisedStore);
+        updateState("hasBankDetails", hasBankDetails);
+        updateState("hasFirstProduct", hasFirstProduct);
+        updateState("hasDeliveryRate", hasDeliveryRate);
+        updateState("hasCustomisedStore", hasCustomisedStore);
 
-    //     setTimeout(function () {
-    //         handleLoading("mainLoading", false);
-    //     }, 200);
-    // }, [showModal]);
+        setTimeout(function () {
+            handleLoading("mainLoading", false);
+        }, 200);
+    }, [showModal]);
 
     return (
 

@@ -470,6 +470,11 @@ input::-webkit-inner-spin-button {
 }
 
 
+#launcher-frame {
+	max-width: 8.6rem !important;
+	border: 1px solid #000;
+}
+
 
 
 

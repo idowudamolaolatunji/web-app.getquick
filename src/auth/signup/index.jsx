@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import CustomAlert from '../../components/CustomAlert';
 import Spinner from '../../components/spinner/spinner_two'
 import AuthUserRating from '../authComponents/AuthUserRating';
-import { validateForm } from '../../utils/validationHelper';
+import { validateAuthForm } from '../../utils/validationHelper';
 
 import { useWindowSize } from 'react-use';
 import { FaCheck } from 'react-icons/fa';
@@ -23,7 +23,7 @@ function index() {
     const [showPassword, setShowPassword] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [formErrors, setFormErrors] = useState({});
-    const [isLoading, setIsLoading] = useState({
+    const [loading, setLoading] = useState({
         authLoading: false,
         mainLoading: false
     });
@@ -64,8 +64,8 @@ function index() {
     };
 
     const handleLoading = function (key, value) {
-        setIsLoading({
-            ...isLoading, [key]: value,
+        setLoading({
+            ...loading, [key]: value,
         });
     }
 
@@ -92,16 +92,16 @@ function index() {
 
 
     useEffect(function() {
-        if(isLoading.mainLoading) {
+        if(loading.mainLoading) {
             handleResetResponse()
         }
-    }, [isLoading.mainLoading]);
+    }, [loading.mainLoading]);
 
 
     async function handleSubmit(e) {
         e.preventDefault();
 
-        const newErrors = validateForm(formData, 'signup');
+        const newErrors = validateAuthForm(formData, 'signup');
         setFormErrors(newErrors);
 
         if (Object.keys(newErrors).length >= 1) return;
@@ -161,7 +161,7 @@ function index() {
                 <CustomAlert type={response.status} message={response.message} />
             )}
 
-            {isLoading.mainLoading && <Spinner />}
+            {loading.mainLoading && <Spinner />}
 
             <AuthsUI backText="Back to home" backLink="https://www.getquicka.com" dataimg={data_img} heading={headingText} centered={false} overflowLeft={true}>
 

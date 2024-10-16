@@ -1,10 +1,11 @@
 import React from 'react'
 import Select from 'react-dropdown-select'
 
-function MainDropdownSelect({ options, multiple=false, field, title, value, searchable = true, setValue, noDataLabel="No Data" }) {
+function MainDropdownSelect({ options, multiple=false, field, title, value, searchable = true, setValue, noDataLabel="No Data", disabled=false }) {
     return (
         <div style={{ width: "100%", textTransform: "capitalize" }}>
             <Select
+                disabled={disabled}
                 multi={multiple}
                 className='form--select'
                 options={options}

@@ -10,28 +10,21 @@ import logo_demo from '../../assets/images/resources/logo-demo.png'
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
 import { validateOnboardForm } from '../../utils/validationHelper';
-
-
-const goalOptions = [
-    { id: 'automate-my-sales-and-orders', label: 'Automate my sales and orders' },
-    { id: 'get-well-detailed-analytics', label: 'Get well-detailed analytics' },
-    { id: 'instant-notification-on-new-order', label: 'Instant notification on new order' },
-    { id: 'create-store-website-and-run-sales', label: 'Create store website and run sales' },
-    { id: 'record-new-customer-for-future-sales', label: 'Record new customer for future sales' },
-    { id: 'track-store-visitor-and-purchases', label: 'Track store visitor and purchases' },
-    { id: 'record-daily-sales-and-expenses', label: 'Record Daily sales and expenses' },
-    { id: 'manage-inventory-and-track-low-stocks', label: 'Manage inventory and track low stocks' },
-];  
+import { useFetchedContext } from '../../context/FetchedContext';
+import { goalOptions } from '../../utils/data';
+import MainDropdownSelect from '../../components/MainDropdownSelect';
+ 
 
 
 function index() {
     const navigate = useNavigate();
-    const { handleChange, handleStore } = useAuthContext();
-    const [storeCategories, setStoreCategories] = useState([]);
-
+    const { handleChange, handleStore, handleBank } = useAuthContext();
+    const { handleImageUpload, storeCategories, handleFetchStoreCategories } = useFetchedContext();
+    
     const [isLoading, setIsLoading] = useState(false);
-    const [goalsChoosen, setGoalsChoosen] = useState([]);
     const [isCopied, setIsCopied] = useState(false);
+    
+    const [goalsChoosen, setGoalsChoosen] = useState([]);
 
     const [onboardingErrors, setOnboardingErrors] = useState({});
     const [response, setResponse] = useState({
@@ -42,10 +35,13 @@ function index() {
     const [onboardingData, setOnboardingData] = useState({
         name: "",
         storeUrl: "",
-        category: "",
-        isCoperated: "no",
-        type: "",
+        isRegistered: "no",
+        regType: "",
+        
+
     });
+    const [selectedCategory, setSelectedCategory] = useState([]);
+
 
     const [onboardTabNum, setOnboardTabNum] = useState(localStorage.getItem("tab_num") ? JSON.parse(localStorage.getItem("tab_num")) : 1);
     const [image, setImage] = useState({
@@ -87,13 +83,12 @@ function index() {
         }
     }
 
-    const handleImageChange = (event) => {
+    const handleImageChange = function (event) {
         const file = event.target.files[0];
+        console.log(file)
         if (file) {
-            setImage({ ...image, file: file });
-
             const imageUrl = URL.createObjectURL(file);
-            setImage({ ...image, preview: imageUrl });
+            setImage({ file, preview: imageUrl });
         }
     };
 
@@ -105,10 +100,11 @@ function index() {
 
     // HNADLE GOING TO THE NEXT FORM TAB
     function handleNextTab(e) {
-        const isCoperated = onboardingData.isCoperated == "yes" ? true : false;
+        const formData = { ...onboardingData, selectedCategory }
+        
         if (onboardTabNum === 1) {
             // DO SOME VALIDATION AND IF ISCOPREATED IS YES, VALIDATE THE CONDITIONAL FIELD
-            const newErrors = validateOnboardForm(onboardingData, isCoperated);
+            const newErrors = validateOnboardForm(formData);
             console.log(newErrors)
             setOnboardingErrors(newErrors);
 
@@ -155,15 +151,15 @@ function index() {
     }, [goalsChoosen]);
 
     useEffect(function() {
-        if(onboardingData.isCoperated == "no") {
+        if(onboardingData.isRegistered == "no") {
             setOnboardingData({ ...onboardingData, type: "" })
         }
-    }, [onboardingData.isCoperated])
+    }, [onboardingData.isRegistered])
 
     // GET THE STORE CATEGORIES
     useEffect(function () {
         if (!storeCategories || storeCategories.length < 1) {
-            getStoreCategories()
+            handleFetchStoreCategories()
         }
     }, []);
 
@@ -188,17 +184,6 @@ function index() {
     }, [onboardTabNum]);
 
 
-    async function getStoreCategories() {
-        try {
-            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/stores/category`);
-            const data = await res.json();
-            setStoreCategories(data.data.categories);
-        } catch (err) {
-            console.log(err.message);
-        }
-    }
-
-
     async function handleOnboading() {
         // RESET THE RESPONSE STATE HERE
         handleResetResponse();
@@ -210,28 +195,42 @@ function index() {
             , {
                 method: 'PATCH',
                 headers: { "Content-type": "application/json" },
-                body: JSON.stringify({...onboardingData, goalsChoosen })
+                body: JSON.stringify({
+                    goalsChoosen,
+                    ...onboardingData, 
+                    category: selectedCategory.slug
+                })
             });
 
             if(!res.ok) throw new Error('Something went wrong! Check intenet connection');
 
             const data = await res.json();
-            if(data.status !== 'success') throw new Error(data.message);
+            const { status, message, token} = data;
+            if(!status || status !== 'success') throw new Error(message);
 
             // SET THE ACCESS STORAGE FOR THE CONGRATS PAGE
             localStorage.setItem(`${import.meta.env.VITE_CONGRATS_KEY}`, "access");
             setResponse({ status: data.status, message: data.message });
-            
+            const { user, store, bankInfo } = data.data;
+
+            // IF THER'S A LOGO, UPLOAD LOGO
+            if(image.file) {
+                const url = `stores/upload-logo/${store._id}`
+                await handleImageUpload(image, url, token)
+            }
+
             setTimeout(function () {
-                handleChange(data.data.user, data.token);
-                handleStore(data.data.store);
+                handleChange(user, token);
+                handleStore(store);
+                handleBank(bankInfo);
+
                 localStorage.removeItem("tab_num");
                 navigate('/congratulations?next=dashboard');
             }, 1000);
         } catch (err) {
             setResponse({ status: "error", message: err.message });
         } finally {
-            setIsLoading(true);
+            setIsLoading(false);
         }
     }
 
@@ -279,7 +278,7 @@ function index() {
                                         <div className='form--item'>
                                             <input type='file' id='logo' name='image' onChange={handleImageChange} accept="image/*" />
                                             <label htmlFor="logo" className='form--upload-btn'>Upload Image</label>
-                                            <p style={{ fontSize: '1.1rem', lineHeight: '1.4' }}>png, jpeg and jpg up to 2MB. Recommended size 256x256 (png)</p>
+                                            <p style={{ fontSize: '1.1rem', lineHeight: '1.4' }}>png or jpg up to 2MB. Recommended size 256x256</p>
                                         </div>
                                     </div>
                                 </div>
@@ -314,20 +313,20 @@ function index() {
                                     <label htmlFor="type" className="form--label">Is your business incorporated with the Corporate Affairs Commission (CAC)?</label>
 
                                     <div className="form--clicks">
-                                        <div className={`form--click ${onboardingData.isCoperated == "yes" ? 'is-selected' : ''}`}
-                                            onClick={() => setOnboardingData({ ...onboardingData, isCoperated: "yes" })}
+                                        <div className={`form--click ${onboardingData.isRegistered == "yes" ? 'is-selected' : ''}`}
+                                            onClick={() => setOnboardingData({ ...onboardingData, isRegistered: "yes" })}
                                         >Yes <span></span></div>
-                                        <div className={`form--click ${onboardingData.isCoperated == "no" ? 'is-selected' : ''}`}
-                                            onClick={() => setOnboardingData({ ...onboardingData, isCoperated: "no" })}
+                                        <div className={`form--click ${onboardingData.isRegistered == "no" ? 'is-selected' : ''}`}
+                                            onClick={() => setOnboardingData({ ...onboardingData, isRegistered: "no" })}
                                         >No <span></span></div>
                                     </div>
                                 </div>
 
-                                {onboardingData.isCoperated == "yes" && (
+                                {onboardingData.isRegistered == "yes" && (
                                     <div className="form--item">
                                         <label htmlFor="type" className="form--label">Business registration type <Asterisk /></label>
 
-                                        <select className='form--select' name='type' id='type' onChange={handleOnboardDataChange} value={onboardingData.type}>
+                                        <select className='form--select' name='regType' id='type' onChange={handleOnboardDataChange} value={onboardingData.regType}>
                                             <option hidden>Select type</option>
                                             <option value="limited-company">Limited Company</option>
                                             <option value="sole-propreitorship">Sole Proprietorship</option>
@@ -342,12 +341,8 @@ function index() {
                                 <div className="form--item">
                                     <label htmlFor="category" className="form--label">What category best describes your business <Asterisk /></label>
 
-                                    <select className='form--select' value={onboardingData.category} name='category' id='category' onChange={handleOnboardDataChange}>
-                                        <option hidden>Pick a category / industry</option>
-                                        {(storeCategories.length > 0) && storeCategories.map((storeCategory) => (
-                                            <option value={storeCategory?.slug} key={storeCategory.slug}>{storeCategory?.name}</option>
-                                        ))}
-                                    </select>
+                                    <MainDropdownSelect title="a category" options={storeCategories} field="name" value={selectedCategory} setValue={setSelectedCategory} noDataLabel="No Category Found!"/>
+
                                     <span className="form--error-message">
                                         {onboardingErrors.category && onboardingErrors.category}
                                     </span>

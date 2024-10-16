@@ -15,6 +15,18 @@ export default FetchedContext;
 export const FetchedProvider = ({ children }) => {
     const [collections, setCollections] = useState([]);
     const [products, setProducts] = useState([]);
+    const [storeCategories, setStoreCategories] = useState([]);
+    
+
+    async function handleFetchStoreCategories() {
+        try {
+            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/stores/category`);
+            const data = await res.json();
+            setStoreCategories(data.data.categories);
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
 
     async function handleFetchCollections() {
         const res = await fetch(`${BASE_URL}/collections/all`)
@@ -29,11 +41,15 @@ export const FetchedProvider = ({ children }) => {
     }
 
 
-    async function handleImageUpload(images, url, token) {
+    async function handleImageUpload(Imgfile, url, token) {
         const formData = new FormData();
-        for (let i = 0; i < images.length; i++) {
-            console.log(images[i])
-            formData.append('images', images[i]);
+        if (Array.isArray(Imgfile)) {
+            for (let i = 0; i < Imgfile.length; i++) {
+                console.log(Imgfile[i])
+                formData.append("images", Imgfile[i]);
+            }
+        } else {
+            formData.append("image", Imgfile);
         }
 
         const res = await fetch(`${BASE_URL}/${url}`, {
@@ -52,7 +68,7 @@ export const FetchedProvider = ({ children }) => {
 
     useEffect(function() {
         handleFetchCollections();
-        handleFetchProducts()
+        handleFetchProducts();
     }, [])
 
 
@@ -61,7 +77,10 @@ export const FetchedProvider = ({ children }) => {
         collections,
         products,
 
-        handleImageUpload
+        handleImageUpload,
+
+        storeCategories,
+        handleFetchStoreCategories
     }
 
 

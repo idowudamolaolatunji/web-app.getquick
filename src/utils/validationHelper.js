@@ -9,17 +9,17 @@ export function validateOnboardForm(data, type) {
 		errors.storeUrl = "A URL is needed for your store";
 	}
 
-	if (type && !data.type) {
-		errors.type = "Registered Business type would be required";
+	if (data.isRegistered == "yes" && !data.regType) {
+		errors.type = "Registeration type is required";
 	}
-	if (!data.category) {
+	if (data.selectedCategory.length < 1 && !data.selectedCategory.name) {
 		errors.category = "Picking a category is required";
 	}
 
 	return errors;
 }
 
-export function validateForm(data, type) {
+export function validateAuthForm(data, type) {
 	const errors = {};
 
 	if (type === "login") {
@@ -131,18 +131,39 @@ export function validateProductForm(data, _) {
 	return errors;
 }
 
-
 export function validateDeliveryForm(data, _) {
 	const errors = {};
 
 	if (!data.title.trim()) {
-		errors.title = "Deliovery title is required";
+		errors.title = "Delivery title is required";
 	} else if (data.title.length < 3) {
-		errors.title = "Deliovery title must be more than 3 characters!";
+		errors.title = "Delivery title must be more than 3 characters!";
 	}
 	
 	if (data.deliveryType == "paid" && !+data.fee) {
 		errors.fee = "A fee is required";
+	}
+
+	return errors;
+}
+
+export function validateBankForm(data, _) {
+	const errors = {};
+
+	if (data.bankName.length < 1 && !data.bankName.bankname) {
+		errors.bankName = "Bank Name is required";
+	}
+
+	if (!data.accountNumber) {
+		errors.accountNumber = "Password is required";
+	} else if (data.accountNumber.length < 10) {
+		errors.accountNumber = "Account Number must be 10 Numbers";
+	}
+	
+	if (!data.accountName.trim()) {
+		errors.accountName = "Account Name is required";
+	} else if (data.accountName.length < 3) {
+		errors.accountName = "Account Name must be more than 3 Letters!";
 	}
 
 	return errors;

@@ -6,7 +6,7 @@ import AuthsUI from '../authComponents/AuthsUI';
 import CustomAlert from '../../components/CustomAlert';
 import Spinner from '../../components/spinner/spinner_two'
 import { countdownTimer } from '../../utils/helper';
-import { validateForm } from '../../utils/validationHelper';
+import { validateAuthForm } from '../../utils/validationHelper';
 
 import { HiFingerPrint } from 'react-icons/hi';
 import data_img from '../../assets/images/resources/good-faces-lhMdsnK_KWk-unsplash.jpg'
@@ -62,7 +62,7 @@ function index() {
 
 
     async function handleSubmit() {
-        const newErrors = validateForm(formData, 'verifyOtp');
+        const newErrors = validateAuthForm(formData, 'verifyOtp');
         setFormErrors(newErrors);
 
         if (Object.keys(newErrors).length >= 1) return;

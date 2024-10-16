@@ -114,7 +114,7 @@ function GetStarted() {
                     <p>{
                         // HERE WE MODIFY THE TEXT BASED ON THE COMPLETED STEPS
                         (completedSteps?.length < 5) ? (
-                            <>{completedSteps.length} / 5 completed - <strong>{completedSteps.length == 4 ? 'Final' : 'Next'} Step 👉🏿</strong> {stepsSorted[completedSteps.length]?.shortText}</>
+                            <><span style={{ fontFamily: "sans-serif" }}>{completedSteps.length}<strong>/</strong>5</span> completed - <strong>{completedSteps.length == 4 ? 'Final' : 'Next'} Step 👉🏿</strong> {stepsSorted[completedSteps.length]?.shortText}</>
                         ) : (
                             <>Completed all Step 🎉 - <strong>Click Finish!</strong> </>
                         )

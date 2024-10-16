@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useWindowSize } from 'react-use';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
-import { validateForm } from '../../utils/validationHelper';
+import { validateAuthForm } from '../../utils/validationHelper';
 
 import AuthsUI from '../authComponents/AuthsUI';
 import CustomAlert from '../../components/CustomAlert';
@@ -20,13 +20,13 @@ const headingText = "Manage your business online like the boss that you are."
 function index() {
     const navigate = useNavigate();
     const { width } = useWindowSize();
-    const { user, store, handleChange, handleStore } = useAuthContext();
+    const { user, store, handleChange, handleStore, handleBank } = useAuthContext();
 
     
     const [showPassword, setShowPassword] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [formErrors, setFormErrors] = useState({});
-    const [isLoading, setIsLoading] = useState({
+    const [loading, setLoading] = useState({
         authLoading: false,
         mainLoading: false
     });
@@ -50,8 +50,8 @@ function index() {
     };
 
     const handleLoading = function (key, value) {
-        setIsLoading({
-            ...isLoading, [key]: value,
+        setLoading({
+            ...loading, [key]: value,
         });
     }
 
@@ -66,7 +66,7 @@ function index() {
     
     async function handleSubmit(e) {
         e.preventDefault();
-        const newErrors = validateForm(formData, 'login');
+        const newErrors = validateAuthForm(formData, 'login');
         setFormErrors(newErrors);
 
         if (Object.keys(newErrors).length >= 1) return;
@@ -90,10 +90,12 @@ function index() {
             handleResetResponse();
 
             const data = await res.json();
-            if(data.status !== 'success') {
+            const { status, message, token } = data;
+            const { user, store, bankInfo } = data.data;
+            if(status !== 'success') {
                 // IF THE USER IS NOT VERIFIED, REDIRECT THE TO THE VERIFICATION PAGE
                 if(data.message.startsWith("Account not verified.")) {
-                    localStorage.setItem("otp_user", JSON.stringify({ ...data.data.user, message: "not_verified" }));
+                    localStorage.setItem("otp_user", JSON.stringify({ ...user, message: "not_verified" }));
 
                     setTimeout(function() {
                         navigate('/verify-otp');
@@ -101,14 +103,13 @@ function index() {
                 }
 
                 // IF AND ELSE THROW NEW ERROR
-                throw new Error(data.message);
+                throw new Error(message);
             }
             // USER MUST HAVE SETUP THEIR STORE TO LOGIN
-            if(!data.data.user.storeBasicSetup) {
-                const userId = data.data.user._id;
-                localStorage.setItem("user_id", userId);
+            if(!user.storeBasicSetup) {
+                localStorage.setItem("user_id", user._id);
 
-                setResponse({ status: data.status, message: data.message });
+                setResponse({ status, message });
                 setTimeout(function() {
                     navigate('/onboarding');
                 }, 1200);
@@ -116,10 +117,12 @@ function index() {
             }
 
             // UPDATE THE RESPONSE STATE WITH THE NEW VALUE
-            setResponse({ status: data.status, message: data.message });
+            setResponse({ status, message });
             setTimeout(function() {
-                handleChange(data.data.user, data.token);
-                handleStore(data.data.store);
+                handleChange(user, token);
+                handleStore(store);
+                handleBank(bankInfo);
+
             }, 2000);
         } catch (err) {
             console.log(err)
@@ -154,7 +157,7 @@ function index() {
                 <CustomAlert type={response.status} message={response.message} />
             )}
 
-            { isLoading.mainLoading && <Spinner /> }
+            { loading.mainLoading && <Spinner /> }
             
             <AuthsUI backText="Back to home" backLink="https://www.getquicka.com" dataimg={data_img} heading={headingText} extras={{marginBottom: '5.6rem'}}>
                 <form className="auth--form" onSubmit={handleSubmit}>

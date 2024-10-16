@@ -25,8 +25,8 @@ const emptyBtns = [
 
 function index() {
     const { width } = useWindowSize();
-    const { products } = useFetchedContext();
-    // const [products, setProducts] = useState([]);
+    // const { products } = useFetchedContext();
+    const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [showInsights, setShowInsights] = useState(false);
     const [showMoreActions, setShowMoreActions] = useState(false);

@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 
 import CustomAlert from './CustomAlert';
 import Spinner from './spinner/spinner_two'
-import { ImDisplay } from 'react-icons/im';
-import { getInitials } from '../utils/helper';
+import UserIntialsImage from './UserIntialsImage';
 import { useAuthContext } from '../context/AuthContext';
 import { useOutsideClick } from '../hooks/useOutsideClick';
+
+import { ImDisplay } from 'react-icons/im';
 import { IoLogOutOutline, IoSettingsOutline } from 'react-icons/io5';
 
 
@@ -45,11 +46,7 @@ function Dropdown({ setIsShown }) {
             <div className={`dropdown`} ref={ref} onClick={handleCloseByLink}>
                 <Link className='dropdown--item' to='/dashboard/profile'>
                     <span className='item--user'>
-                        {user.avatar ? (
-                            <img className='item--user-img' src={`${import.meta.env.VITE_SERVER_ASSET_URL}/users/${user.avatar}`} alt="" />
-                        ) : (
-                            <span className='item--user-img'>{getInitials(user?.fullname)}</span>
-                        )}
+                        <UserIntialsImage />
                         <span className='item--user-info'>
                             <p>{user?.fullname}</p>
                             <p>{user.email}</p>

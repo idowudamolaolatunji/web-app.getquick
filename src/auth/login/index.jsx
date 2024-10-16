@@ -91,11 +91,10 @@ function index() {
 
             const data = await res.json();
             const { status, message, token } = data;
-            const { user, store, bankInfo } = data.data;
             if(status !== 'success') {
                 // IF THE USER IS NOT VERIFIED, REDIRECT THE TO THE VERIFICATION PAGE
                 if(data.message.startsWith("Account not verified.")) {
-                    localStorage.setItem("otp_user", JSON.stringify({ ...user, message: "not_verified" }));
+                    localStorage.setItem("otp_user", JSON.stringify({ ...data.data.user, message: "not_verified" }));
 
                     setTimeout(function() {
                         navigate('/verify-otp');
@@ -105,6 +104,8 @@ function index() {
                 // IF AND ELSE THROW NEW ERROR
                 throw new Error(message);
             }
+            const { user, store, bankInfo } = data?.data;
+
             // USER MUST HAVE SETUP THEIR STORE TO LOGIN
             if(!user.storeBasicSetup) {
                 localStorage.setItem("user_id", user._id);

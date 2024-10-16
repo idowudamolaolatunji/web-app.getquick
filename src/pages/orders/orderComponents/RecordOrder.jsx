@@ -72,14 +72,16 @@ function RecordOrder() {
 
     function handleClearFields() {
         setOrderData({
-            quantity: null,
+            title: "",
+            paymentType: "paid",
         });
 
         setDescription("");
-        setPaymentMethod("");
-        setDeliveryStatus("");
+        setPaymentMethod([]);
+        setDeliveryStatus([]);
         setOrderCustomer([]);
         setOrderProduct([]);
+        setChannel([]);
     }
 
     useEffect(function () {

@@ -125,7 +125,7 @@
 .otp--item input:hover, .otp--item input:focus-visible,
 .otp--item input:active, .form--select:hover, .form--select:focus,
 .form--input-box:hover .form--input {
-    border-color: var(--color-brand-300) !important;
+    border-color: var(--color-brand-500) !important;
     outline: none;
 }
 .form--flex {

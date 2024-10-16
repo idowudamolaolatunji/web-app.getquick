@@ -35,7 +35,7 @@ function BankDetails({ isnew, close }) {
         message: null
     });
 
-    const [bankName, setBankName] = useState(bank ? [bank] : []);
+    const [bankName, setBankName] = useState(bank?.bankname ? [bank] : []);
     const [bankFormErrors, setBankFormErrors] = useState({})
 
     const [bankData, setBankData] = useState({
@@ -95,6 +95,33 @@ function BankDetails({ isnew, close }) {
         const [bankname, slug, code] = bankName;
 
         try {
+            const res = await fetch(`${BASE_URL}/stores/add-payment-details/${bank._id}`, {
+                method: "PATCH",
+                headers,
+                body: JSON.stringify({
+                    bankname,
+                    slug, code,
+                    ...bankData,
+                })
+            });
+
+            if (!res.ok) throw new Error('Something went wrong! Check intenet connection');
+            console.log(res)
+
+            const data = await res.json();
+            const { status, message } = data;
+            if (!status || status != 'success') throw new Error(message);
+
+            // SET RESPONSE MESSAGE
+            setResponse({ status: "success", message });
+
+            // handleBank(owner);
+
+            setTimeout(function () {
+                if (isnew) close();
+                else navigate(-1)
+            }, 5000);
+
 
         } catch (err) {
 
@@ -130,7 +157,7 @@ function BankDetails({ isnew, close }) {
 
                         <div className="form--item">
                             <label className="form--label">Bank Name <Asterisk /></label>
-                            <MainDropdownSelect title="Bank" options={banks} field="bankname" value={bankName} setValue={setBankName} noDataLabel="No Bank found with that name" disabled={bank ? true : false} />
+                            <MainDropdownSelect title="Bank" options={banks} field="bankname" value={bankName} setValue={setBankName} noDataLabel="No Bank found with that name" disabled={bank?.bankname ? true : false} />
                             <span className="form--error-message">
                                 {bankFormErrors.bankName && bankFormErrors.bankName}
                             </span>
@@ -141,7 +168,7 @@ function BankDetails({ isnew, close }) {
                             <div className="form--item">
                                 <label htmlFor='number' className="form--label">Account Number <Asterisk /></label>
 
-                                <input type="number" name="accountNumber" id="number" className='form--input' value={bankData.accountNumber} onChange={handleBankFormChange} placeholder='1234567890' readOnly={bank ? true : false} />
+                                <input type="number" name="accountNumber" id="number" className='form--input' value={bankData.accountNumber} onChange={handleBankFormChange} placeholder='1234567890' readOnly={bank?.accountNumber ? true : false} />
                                 <span className="form--error-message">
                                     {bankFormErrors.accountNumber && bankFormErrors.accountNumber}
                                 </span>
@@ -149,7 +176,7 @@ function BankDetails({ isnew, close }) {
 
                             <div className="form--item">
                                 <label htmlFor='name' className="form--label">Account Name <Asterisk /></label>
-                                <input type="text" name="accountName" id="name" className='form--input' value={bankData.accountName} onChange={handleBankFormChange} placeholder='Jane Doe Martha' readOnly={bank ? true : false} />
+                                <input type="text" name="accountName" id="name" className='form--input' value={bankData.accountName} onChange={handleBankFormChange} placeholder='Jane Doe Martha' readOnly={bank?.accountName ? true : false} />
                                 {bankFormErrors.accountName && (
                                     <span className="form--error-message">
                                         {bankFormErrors.accountName}
@@ -165,7 +192,7 @@ function BankDetails({ isnew, close }) {
                     </div>
                 </div>
 
-                {!bank && (
+                {(!bank.bankname || !bank.accountName || !bank.accountName) && (
                     <div className="page__section--actions" style={{ marginTop: "4rem", justifyContent: width > 600 ? "flex-end" : "" }}>
                         <button className='button clear--button' onClick={handleClearFields}>Clear Fields</button>
                         <button className='button submit--button' onClick={handleSubmitDetails}>Submit</button>

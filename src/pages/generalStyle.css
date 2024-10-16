@@ -45,11 +45,11 @@
     gap: .6rem;
 }
 
-.page__section-top-btn:last-child {
-    background-color: #333;
-}
-.page__section-top-btn:first-child {
+.page__section-top-btn.more {
     background-color: var(--color-brand-500);
+}
+.page__section-top-btn.add {
+    background-color: #333;
 }
 
 .page__section-top-btn svg {
@@ -71,6 +71,7 @@
     padding: .6rem;
     border-radius: .4rem;
     position: absolute;
+    z-index: 50;
     top: 100%;
     left: 0;
 

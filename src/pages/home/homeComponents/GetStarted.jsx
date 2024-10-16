@@ -179,7 +179,6 @@ function GetStarted() {
                     </div>
                 </div>
 
-
                 <button className={`get-started-btn ${completedSteps.length < 5 ? 'disabled' : ''}`} disabled>Finish!</button>
             </div>
 

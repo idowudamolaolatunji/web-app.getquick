@@ -12,6 +12,7 @@ import Dropdown from '../../components/Dropdown';
 import { Link } from 'react-router-dom';
 import DefaultButton from '../../components/button/DefaultButton';
 import { useAuthContext } from '../../context/AuthContext';
+import UserIntialsImage from '../../components/UserIntialsImage';
 
 
 function DashboardHead() {
@@ -25,10 +26,9 @@ function DashboardHead() {
         setIsShownDropdown(true)
     }
 
-
     return (
         <header className='dashboard--header'>
-            <div className='logo--container' style={isMenuCollapsed ? { borderBottomColor: '#eeeff1' } : {}}>
+            <div className='logo--container' style={isMenuCollapsed ? { borderBottomColor: '#d4d7db' } : {}}>
                 <Link to='/'>
                     <img src={logo_img} alt='Quick logo' />
                 </Link>
@@ -61,8 +61,8 @@ function DashboardHead() {
 
                     <DefaultButton customStyle={{ fontFamily: 'inherit' }}>
                         <div className='nav--user' onClick={handleShowDropdown}>
-                            <div className="nav--icon user--icon">
-                                <LuUser />
+                            <div className="user--box">
+                                <UserIntialsImage />
                             </div>
                             <div className='user--info'>
                                 <p className='user--name'>{`${user.firstname} ${user.lastname}`}</p>

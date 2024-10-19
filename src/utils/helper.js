@@ -10,6 +10,14 @@ export function todayDate() {
 	return moment().format("dddd, MMMM D, YYYY");
 }
 
+export function truncateString(input, num=25) {
+    if (input?.length > num) {
+        return input.substring(0, num) + "...";
+    } else {
+        return input;
+    }
+}
+
 const currentTime = moment().hours();
 export function getGreeting() {
 	if (currentTime < 12) {

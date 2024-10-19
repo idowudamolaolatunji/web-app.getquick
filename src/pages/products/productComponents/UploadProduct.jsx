@@ -72,7 +72,7 @@ function UploadProduct({ isnew, close }) {
         price: null,
         itemCost: null,
         stockAmount: null,
-        status: "publish",
+        status: "published",
         discount: null,
         discountType: "no-discount"
     });
@@ -131,7 +131,7 @@ function UploadProduct({ isnew, close }) {
             itemCost: null,
             discount: null,
             stockAmount: null,
-            status: "publish"
+            status: "published"
         });
         setDescription("")
         setProductCollection([])
@@ -527,12 +527,12 @@ function UploadProduct({ isnew, close }) {
                             <div className="form--item">
                                 <label htmlFor='status' className='form--label'>Set Status</label>
                                 <select name="status" id='status' value={productData.status} className="form--select" onChange={handleProductDataChange}>
-                                    <option value="publish">Publish</option>
+                                    <option value="published">Publish</option>
                                     <option value="draft">Draft</option>
                                 </select>
                             </div>
 
-                            {productData.status == "publish" && (
+                            {productData.status == "published" && (
                                     <div className="form--item-flex" onClick={() => setChecks({ ...checks, isVisible: !checks.isVisible })}>
                                         <div id="checkbox" className={checks.isVisible ? 'is-selected' : ''}>
                                             {checks.isVisible && <FaCheck />}

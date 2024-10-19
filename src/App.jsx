@@ -52,6 +52,8 @@ import Delivery from './pages/delivery';
 import Subscription from './pages/subscription';
 import Analytics from './pages/analytics';
 import CommunityForums from './pages/communityForums';
+import ProductItem from './pages/products/productComponents/ProductItem';
+import OrderItem from './pages/orders/orderComponents/OrderItem';
 
 function App() {
 
@@ -88,6 +90,9 @@ function App() {
 
                         <Route path='/dashboard/orders/record' element={<RecordOrders />}></Route>
                         <Route path='/dashboard/products/upload' element={<UploadProduct />}></Route>
+
+                        <Route path='/dashboard/products/:id' element={<ProductItem />}></Route>
+                        <Route path='/dashboard/orders/:id' element={<OrderItem />}></Route>
 
 
                         <Route path='/dashboard/transactions' element={<Transaction />}></Route>

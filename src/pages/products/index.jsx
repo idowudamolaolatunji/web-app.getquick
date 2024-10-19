@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BiChevronDown, BiPlus } from 'react-icons/bi'
 import TableUI from '../../components/TableUI'
-import { formatDate, formatNumber } from '../../utils/helper';
+import { formatNumber } from '../../utils/helper';
 import EmptyTableComponent from '../../components/EmptyTableComponent';
 import emptyImg from '../../assets/images/resources/orange-woman-with-packages-in-shopping-cart.png';
 import { useWindowSize } from 'react-use';
 import Insight from '../../components/Insight';
-import { LuClipboardList, LuMousePointerClick } from 'react-icons/lu';
+import { LuClipboardList } from 'react-icons/lu';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import { PiExport, PiShareFatFill } from 'react-icons/pi';
 import { GrTag } from 'react-icons/gr';
@@ -14,6 +14,11 @@ import { TbArrowWaveRightDown, TbListSearch } from 'react-icons/tb';
 import { useFetchedContext } from '../../context/FetchedContext';
 import { useDataContext } from '../../context/DataContext';
 import { useNavigate } from 'react-router-dom';
+import { MdOutlineRefresh } from 'react-icons/md';
+import { RiDeleteBin5Line, RiEdit2Line } from 'react-icons/ri';
+import { BsFillGrid3X3GapFill, BsTable } from 'react-icons/bs';
+import DefaultButton from '../../components/button/DefaultButton';
+import TooltipUI from '../../components/TooltipUI';
 
 
 //////////////////////////////////////////////////////
@@ -30,16 +35,21 @@ const emptyBtns = [
 function index() {
     const navigate = useNavigate();
     const { width } = useWindowSize();
-    const { products, collections } = useFetchedContext();
+    const { products, collections,
+        handleFetchUserStoreProducts,
+        handleFetchUserStoreCollections
+    } = useFetchedContext();
     const { handleToggleInsights, showInsights } = useDataContext();
     const productsSold = 2;
     const outOfStock = 0;
     const collectionAmount = collections?.length;
     const totalInventoryWorth = products?.reduce((acc, product) => acc + product.price, 0);
+    const widthandProduct500 = (products && products.length > 0 && width < 500);
 
     const [isLoading, setIsLoading] = useState(false);
     const [showMoreActions, setShowMoreActions] = useState(false);
-    const widthandProduct500 = (products && products.length > 0 && width < 500);
+    const [tableSearch, setTableSearch] = useState('');
+    const [activeDisplayTab, setActiveDisplayTab] = useState("table");
 
     const columns = [
         { 
@@ -54,20 +64,22 @@ function index() {
 
                 </div>
             ),
-            width: "35%"
+            width: width > 600 ? "35%" : "25%"
         },
         { 
             name: 'Price',
-            selector: row => '₦'+formatNumber(row.price),
+            selector: row => (
+                <p className='value' style={{ fontSize: "1.3rem" }}>{'₦'+formatNumber(row.price)}</p>
+            ),
             width: "10%"
         },
         { 
             name: 'Inventory',
             selector: row => (
-                <span className="flex table--info">
-                    <p>{row.stockAmount} <span>Stocks</span></p>
+                <span className="flex table--info" style={{ gap: ".4rem" }}>
+                    <p  className='value'>{row.stockAmount} <span>Stocks</span></p>
                     <span>/</span>
-                    <p>{row.variations.length} <span>Variations</span></p>
+                    <p  className='value'>{row.variations.length} <span>Variations</span></p>
                 </span>
             ),
             width: "20%"
@@ -81,15 +93,43 @@ function index() {
             )
         },
         { 
-            name: "",
             selector: () => (
-                <span>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                <span className='flex'>
+                    <button className='table--btn'><RiEdit2Line /></button>
+                    <button className='table--btn'><RiDeleteBin5Line /></button>
                 </span>
             )
         },
     ];
+
+    const handleDisplayTab = function(type) {
+        setActiveDisplayTab(type)
+    }
+
+    const HeadTabs = function() {
+        return (
+            <div>
+                <span className='flex'>
+                    <TooltipUI placement='top' title="Refresh">
+                        <button className='table--btn' onClick={handleFetchUserStoreProducts}><MdOutlineRefresh /></button>
+                    </TooltipUI>
+                    <input type="text" className="table--form form--input" placeholder='search' style={{ maxWidth: "30rem"}} />
+                </span>
+
+                <span className='table--tabs'>
+                    <TooltipUI placement='top' title="Table View">
+                        <span className={activeDisplayTab == "table" ? "active" : ""} onClick={() => handleDisplayTab("table")}><BsTable /> </span>
+                    </TooltipUI>
+
+
+                    <TooltipUI placement='top' title="Grid View">
+                        <span className={activeDisplayTab == "grid" ? "active" : ""} onClick={() => handleDisplayTab("grid")}><BsFillGrid3X3GapFill /> </span>
+                    </TooltipUI>
+                </span>
+            </div>
+        );
+    }
+
 
     return (
         <>
@@ -133,7 +173,7 @@ function index() {
                     columns={columns}
                     loading={isLoading}
                     selectableRows={true}
-                    // toLink="/dashboard/products"
+                    toLink="/dashboard/products"
                     emptyComponent={
                         <EmptyTableComponent
                             img={emptyImg}
@@ -143,6 +183,8 @@ function index() {
                             className="empty--product"
                         />
                     }
+                    headTabs={<HeadTabs />}
+                    displayType={activeDisplayTab}
                 />
             </div>
         </>

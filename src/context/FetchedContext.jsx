@@ -91,6 +91,8 @@ export const FetchedProvider = ({ children }) => {
     let contextData = {
         collections,
         products,
+        handleFetchUserStoreCollection,
+        handleFetchUserStoreProducts,
 
         handleImageUpload,
 

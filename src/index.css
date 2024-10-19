@@ -87,6 +87,9 @@ input::-webkit-inner-spin-button {
 	background: #aaa;
 }
 
+.value {
+	font-family: 'Montserrat', 'Raleway', sans-serif;
+}
 
 .global--overlay {
 	position: fixed;
@@ -223,14 +226,19 @@ input::-webkit-inner-spin-button {
     background-color: #ff9797b7;
     color: red;
 }
-.status--pending p {
-    background-color: #aba7fa94;
-    color: #4e48f0;
+.status--pending p,
+.status--published p {
+	background-color: #EEF1FF;
+    color: #655DBB;
 }
 .status--success p,
 .status--delivered p {
     color: #008001;
     background-color: #d7ecd1b7;
+}
+.status--draft p {
+    background-color: #f1f1f1;
+    color: #888;
 }
 
 
@@ -362,6 +370,9 @@ input::-webkit-inner-spin-button {
 
 
 
+
+
+
 /* ============================================= */
 /* QUILL RICH TEXT EDITOR STYLES */
 /* ============================================= */
@@ -468,11 +479,17 @@ input::-webkit-inner-spin-button {
 }
 
 
+/* FRESH WORK */
 #launcher-frame {
 	max-width: 8.6rem !important;
 	border: 1px solid #000;
 }
 
+
+/* REACT DATA TABLE */
+.page__section--main .hZZlND {
+	border-radius: unset !important;
+}
 
 
 

@@ -2,13 +2,14 @@ import React from 'react';
 import { formatNumber, truncateString } from '../utils/helper';
 import { RiDeleteBin5Line, RiEdit2Line } from 'react-icons/ri';
 import { useWindowSize } from 'react-use';
+import { Link } from 'react-router-dom';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function ProductCard({ product }) {
     const { width } = useWindowSize()
     return (
-        <figure className="product__figure">
+        <Link to={`/dashboard/products/${product._id}`} className="product__figure">
             <div className="product__figure--img">
                 <span className={`product__figure--stat status status--${(product.status)}`}>
                     <p>{product.status}</p>
@@ -35,7 +36,7 @@ function ProductCard({ product }) {
                 </span>
 
             </figcaption>
-        </figure>
+        </Link>
     )
 }
 

@@ -558,6 +558,14 @@ input::-webkit-inner-spin-button {
 		align-items: flex-start;
 		flex-direction: column;
 	}
+
+	.empty--img {
+		max-width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
 }
 
 

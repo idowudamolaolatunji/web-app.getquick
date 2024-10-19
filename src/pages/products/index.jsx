@@ -113,7 +113,7 @@ function index() {
                     <TooltipUI placement='top' title="Refresh">
                         <button className='table--btn' onClick={handleFetchUserStoreProducts}><MdOutlineRefresh /></button>
                     </TooltipUI>
-                    <input type="text" className="table--form form--input" placeholder='search' style={{ maxWidth: "30rem"}} />
+                    <input type="text" className="table--input form--input" placeholder='search..' style={{ minWidth: "20rem"}} />
                 </span>
 
                 <span className='table--tabs'>
@@ -136,7 +136,7 @@ function index() {
             <div className='page__section--heading' style={widthandProduct500 ? {flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start'} : {}}>
                 <h2 className="page__section--title">Products</h2>
 
-                <span className='page__section--btns' style={widthandProduct500 ? { width: "100%", display: "grid", gap: "1.6rem", gridTemplateColumns: "1fr 1fr" } : {}}>
+                <span className='page__section--btns' style={widthandProduct500 ? { width: "100%", display: "grid", gridTemplateColumns: "1fr 1fr" } : {}}>
                     {(products && products.length > 0) && (
                         <button className="page__section-top-btn add" onClick={() => navigate("/dashboard/products/upload")}>Add Product <BiPlus /></button>
                     )}

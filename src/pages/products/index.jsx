@@ -14,7 +14,7 @@ import { TbArrowWaveRightDown, TbListSearch } from 'react-icons/tb';
 import { useFetchedContext } from '../../context/FetchedContext';
 import { useDataContext } from '../../context/DataContext';
 import { useNavigate } from 'react-router-dom';
-import { MdOutlineRefresh } from 'react-icons/md';
+import { MdOutlineRefresh, MdTableRows } from 'react-icons/md';
 import { RiDeleteBin5Line, RiEdit2Line } from 'react-icons/ri';
 import { BsFillGrid3X3GapFill, BsTable } from 'react-icons/bs';
 import DefaultButton from '../../components/button/DefaultButton';
@@ -94,7 +94,7 @@ function index() {
         },
         { 
             selector: () => (
-                <span className='flex'>
+                <span className='flex table--actions'>
                     <button className='table--btn'><RiEdit2Line /></button>
                     <button className='table--btn'><RiDeleteBin5Line /></button>
                 </span>
@@ -113,7 +113,7 @@ function index() {
                     <TooltipUI placement='top' title="Refresh">
                         <button className='table--btn' onClick={handleFetchUserStoreProducts}><MdOutlineRefresh /></button>
                     </TooltipUI>
-                    <input type="text" className="table--input form--input" placeholder='search..' style={{ minWidth: "20rem"}} />
+                    <input type="text" className="table--input form--input" placeholder='search..' />
                 </span>
 
                 <span className='table--tabs'>
@@ -123,7 +123,7 @@ function index() {
 
 
                     <TooltipUI placement='top' title="Grid View">
-                        <span className={activeDisplayTab == "grid" ? "active" : ""} onClick={() => handleDisplayTab("grid")}><BsFillGrid3X3GapFill /> </span>
+                        <span className={activeDisplayTab == "grid" ? "active" : ""} onClick={() => handleDisplayTab("grid")}>{width < 400 ? <MdTableRows /> : <BsFillGrid3X3GapFill />} </span>
                     </TooltipUI>
                 </span>
             </div>

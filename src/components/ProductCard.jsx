@@ -9,21 +9,21 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 function ProductCard({ product }) {
     const { width } = useWindowSize()
     return (
-        <Link to={`/dashboard/products/${product._id}`} className="product__figure">
-            <div className="product__figure--img">
+        <figure className="product__figure">
+            <Link to={`/dashboard/products/${product._id}`} className="product__figure--img">
                 <span className={`product__figure--stat status status--${(product.status)}`}>
                     <p>{product.status}</p>
                 </span>
                 <img src={BASE_URL + product?.images[0]} />
-            </div>
+            </Link>
 
             <figcaption className="product__details">
-                <div className="">
+                <Link to={`/dashboard/products/${product._id}`} className="">
                     <span className="product__figure--name">
                         {truncateString(product?.name, width < 400 ? 25 : 18)}
                     </span>
                     <p className='product__figure--price value'>₦{formatNumber(product.price)}</p>
-                </div>
+                </Link>
 
                 <div className="product__figure--details">
                     <p>Variations<span>200</span></p>
@@ -36,7 +36,7 @@ function ProductCard({ product }) {
                 </span>
 
             </figcaption>
-        </Link>
+        </figure>
     )
 }
 

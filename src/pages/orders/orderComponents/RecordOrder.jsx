@@ -20,7 +20,6 @@ import UploadProduct from '../../products/productComponents/UploadProduct';
 import FullScreen from '../../../components/modal/FullScreen';
 import Drawer from '../../../components/modal/Drawer';
 import AddCustomer from './AddCustomer';
-import {parse, stringify, toJSON, fromJSON} from 'flatted';
 
 
 const BASE_API_URL = import.meta.env.VITE_API_URL

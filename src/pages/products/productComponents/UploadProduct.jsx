@@ -32,7 +32,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 
 
-const BASE_URL = import.meta.env.VITE_SERVER_URL;
+const BASE_API_URL = import.meta.env.VITE_API_URL;
 
 function UploadProduct({ isnew, close }) {
     const currency = "₦";
@@ -191,7 +191,7 @@ function UploadProduct({ isnew, close }) {
 
         // MAKE REQUEST
         try {
-            const res = await fetch(`${BASE_URL}/products`, {
+            const res = await fetch(`${BASE_API_URL}/products`, {
                 headers,
                 method: "POST",
                 body: JSON.stringify({
@@ -222,7 +222,8 @@ function UploadProduct({ isnew, close }) {
 
             // UPLOAD PRODUCT IMAGES
             const url = `products/upload-image/${data.data.product._id}`
-            await handleImageUpload(imageFiles, url, token);
+            await handleImageUpload(imageFiles, url);
+            window.scrollTo(0, 0)
 
             // MODIFY THE USER OBJECT AND STORE IN THE COOKIE and clear the form
             handleStore(store);
@@ -273,7 +274,7 @@ function UploadProduct({ isnew, close }) {
                         <div className="card form">
                             <div className="section--heading">
                                 <h2>Product Details</h2>
-                                <p>Lorem ipsum dolor sit amet.</p>
+                                {width > 400 && <Line border={1.4} where="Top" value="1rem" />}
                             </div>
 
                             <div className="form--item">
@@ -292,7 +293,7 @@ function UploadProduct({ isnew, close }) {
                                     value={images}
                                     maxNumber={maxNumber}
                                     dataURLKey="data_url"
-                                    acceptType={["jpg", "png"]}
+                                    acceptType={["jpg", "png", "jpeg"]}
                                     onChange={handleOnChangeImage}
                                 >
                                     {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps
@@ -381,7 +382,7 @@ function UploadProduct({ isnew, close }) {
 
                             <div className="form--item">
                                 <label htmlFor="category" className="form--label">Collection <Asterisk /></label>
-                                <MainDropdownSelect title="Collection" options={collections} field="name" value={productCollection} setValue={setProductCollection} multiple={true} />
+                                <MainDropdownSelect title="Collection" options={collections} field="name" value={productCollection} setValue={setProductCollection} multiple={true} noDataLabel="No collection found!" />
                                 <span className="form--error-message">
                                     {productFormErrors.productCollection && productFormErrors.productCollection}
                                 </span>

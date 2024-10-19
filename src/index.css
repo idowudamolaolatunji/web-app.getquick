@@ -22,13 +22,6 @@ body {
 	transition: none !important;
 }
 
-@media (prefers-color-scheme: dark) {
-	body.dark-mode {
-		background-color: #161616;
-		color: #fff;
-	}
-}
-
 ul,
 ol {
 	list-style: none;
@@ -254,6 +247,11 @@ input::-webkit-inner-spin-button {
 	font-size: 1.6rem;
     margin-bottom: -.16rem;
 	opacity: .85;
+}
+.align img {
+	width: 2.8rem;
+	height: 2.8rem;
+	border-radius: .2rem;
 }
 
 .general--btn {

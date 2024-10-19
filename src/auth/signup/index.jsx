@@ -119,7 +119,7 @@ function index() {
             // RUN THE LOADING SPINNER
             handleLoading('mainLoading', true);
 
-            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/signup`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/users/signup`, {
                 method: 'POST',
                 headers: {
                     "Content-type": "application/json"

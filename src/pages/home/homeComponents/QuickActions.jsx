@@ -18,7 +18,7 @@ function QuickButton({ icon, text, action }) {
 
 function QuickActions() {
     const navigate = useNavigate();
-    
+
     return (
         <div className='card quick-section'>
             <div className="section--heading" >
@@ -26,8 +26,8 @@ function QuickActions() {
             </div>
 
             <div className="quick-container">
-                <QuickButton icon={<MdOutlineShoppingBag />} text='Record a sale' action={() => navigate('/dashboard/order/add')} />
-                <QuickButton icon={<LuTags />} text='Add product' action={() => navigate('/dashboard/product/add')} />
+                <QuickButton icon={<MdOutlineShoppingBag />} text='Record a sale' action={() => navigate('/dashboard/orders/record')} />
+                <QuickButton icon={<LuTags />} text='Add product' action={() => navigate('/dashboard/products/upload')} />
                 <QuickButton icon={<MdOutlineHelpOutline />} text='Help Center' action={openWidget} />
             </div>
         </div>

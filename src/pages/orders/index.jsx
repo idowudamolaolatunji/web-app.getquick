@@ -11,6 +11,7 @@ import { PiShareFatFill } from 'react-icons/pi';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import { TbNotes, TbNotesOff } from 'react-icons/tb';
 import { MdOutlineNoteAlt, MdOutlineShoppingBag } from 'react-icons/md';
+import { useDataContext } from '../../context/DataContext';
 
 
 
@@ -25,9 +26,10 @@ const emptyBtns = [
 
 function index() {
     const { width } = useWindowSize();
+    const { handleToggleInsights, showInsights } = useDataContext();
+
     const [orders, setOrders] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [showInsights, setShowInsights] = useState(false);
     const [showMoreActions, setShowMoreActions] = useState(false);
     const widthandProduct600 = (orders && orders.length > 0 && width < 600);
     
@@ -90,11 +92,11 @@ function index() {
                         <button onClick={() => setShowMoreActions(!showMoreActions)} className="page__section-top-btn more">More Actions <BiChevronDown /></button>
                         {showMoreActions && (
                             <ul className="page__section--dropdown">
-                                <li onClick={() => setShowInsights(!showInsights)}>
+                                <li onClick={() => handleToggleInsights("order")}>
                                     <span>
-                                        {showInsights ? <ImEyeBlocked /> : <ImEye />}
+                                        {showInsights?.order ? <ImEyeBlocked /> : <ImEye />}
                                     </span>
-                                    {showInsights ? 'Hide' : 'Show'} Insights
+                                    {showInsights?.order ? 'Hide' : 'Show'} Insights
                                 </li>
                                 <li><span><PiShareFatFill /></span>Export CSV</li>
                             </ul>
@@ -103,8 +105,8 @@ function index() {
                 </span>
             </div>
 
-            {showInsights && (
-                <div className='page__section--insights insight--grid' style={{ marginBottom: '2.4rem', ...(width > 900 && {width: '85%'}) }}>
+            {showInsights?.order && (
+                <div className='page__section--insights insight--grid' style={{ marginBottom: '3rem', ...(width > 900 && {width: '85%'}) }}>
                     <Insight title='Total Orders' value={0} icon={<MdOutlineShoppingBag />} />
                     <Insight title='New Orders' value={0} icon={<MdOutlineNoteAlt />} />
                     <Insight title='Completed Orders' value={0} icon={<TbNotes />} />

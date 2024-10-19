@@ -95,7 +95,7 @@ function BankDetails({ isnew, close }) {
         const [bankname, slug, code] = bankName;
 
         try {
-            const res = await fetch(`${BASE_URL}/stores/add-payment-details/${bank._id}`, {
+            const res = await fetch(`${BASE_API_URL}/stores/add-payment-details/${bank._id}`, {
                 method: "PATCH",
                 headers,
                 body: JSON.stringify({
@@ -152,7 +152,7 @@ function BankDetails({ isnew, close }) {
                     <div className="card form">
                         <div className="section--heading">
                             <h2>Bank Details</h2>
-                            <p>Lorem ipsum dolor sit amet.</p>
+                            {width > 400 && <Line border={1.4} where="Top" value="1rem" />}
                         </div>
 
                         <div className="form--item">

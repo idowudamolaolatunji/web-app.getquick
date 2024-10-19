@@ -15,7 +15,7 @@ import { createPortal } from 'react-dom';
 import Spinner from '../../../components/spinner/spinner_two';
 
 
-const BASE_URL = import.meta.env.VITE_SERVER_URL;
+const BASE_API_URL = import.meta.env.VITE_API_URL;
 
 
 function CreateDelivery({ close, isnew }) {
@@ -83,7 +83,7 @@ function CreateDelivery({ close, isnew }) {
 
         // MAKE REQUEST
         try {
-            const res = await fetch(`${BASE_URL}/delivery-rates`, {
+            const res = await fetch(`${BASE_API_URL}/delivery-rates`, {
                 headers,
                 method: "POST",
                 body: JSON.stringify({
@@ -156,7 +156,7 @@ function CreateDelivery({ close, isnew }) {
                         <div className="card form">
                             <div className="section--heading">
                                 <h2>Delivery Details</h2>
-                                <p>Lorem ipsum dolor sit amet.</p>
+                                {width > 400 && <Line border={1.4} where="Top" value="1rem" />}
                             </div>
 
                             <div className="form--item">

@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
 
     async function signoutUser() {
         try {
-            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/logout`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/users/logout`);
             if (!res.ok) throw new Error('Check internet connection');
 
             handleChange(null, null);

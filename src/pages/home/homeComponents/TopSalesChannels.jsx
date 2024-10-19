@@ -22,7 +22,7 @@ function TopSalesChannels() {
                 <TopSalesChannelsChart />
             ) : (
                 <div className="no--channel">
-                    <button onClick={() => navigate('/dashboard/order/add')}>Record new sales</button>
+                    <button onClick={() => navigate('/dashboard/orders/record')}>Record new sales</button>
                     <p className="">There's no sales data yet!</p>
                 </div>
             )}

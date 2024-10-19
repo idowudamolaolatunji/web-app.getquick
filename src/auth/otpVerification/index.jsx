@@ -70,7 +70,7 @@ function index() {
         setIsLoading(true);
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/verify-otp`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/users/verify-otp`, {
                 method: 'PATCH',
                 headers: {
                     "Content-type": "application/json"
@@ -114,7 +114,7 @@ function index() {
         setResent(false);
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/request-otp`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/users/request-otp`, {
                 method: 'PATCH',
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({ email: formData.email }),

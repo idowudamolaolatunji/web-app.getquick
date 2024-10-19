@@ -191,7 +191,7 @@ function index() {
         setIsLoading(true);
         try {
             const res = await fetch(
-                `${import.meta.env.VITE_SERVER_URL}/users/onboarding-store/${userId}`
+                `${import.meta.env.VITE_API_URL}/users/onboarding-store/${userId}`
             , {
                 method: 'PATCH',
                 headers: { "Content-type": "application/json" },
@@ -216,7 +216,7 @@ function index() {
             // IF THER'S A LOGO, UPLOAD LOGO
             if(image.file) {
                 const url = `stores/upload-logo/${store._id}`
-                await handleImageUpload(image, url, token)
+                await handleImageUpload(image, url)
             }
 
             setTimeout(function () {

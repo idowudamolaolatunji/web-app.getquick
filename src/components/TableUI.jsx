@@ -24,8 +24,8 @@ const customStyles = {
     headCells: {
         style: {
             paddingRight: '5px',
-            backgroundColor: '#eee',
-            color: '#555',
+            backgroundColor: '#444',
+            color: '#fff',
             height: '60px'
         },
     },
@@ -52,7 +52,7 @@ function TableUI({ columns, data, toLink, emptyComponent, selectableRows, loadin
                     noDataComponent={false}
                     customStyles={customStyles}
                     selectableRows={selectableRows}
-                    onRowClicked={(row) => navigate(`${toLink}/${row.id}`)}
+                    // onRowClicked={(row) => navigate(`${toLink}/${row.id}`)}
                 />
             ) : (
                 <>

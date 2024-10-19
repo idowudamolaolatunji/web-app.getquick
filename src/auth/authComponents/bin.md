@@ -71,7 +71,7 @@ function index() {
         try {
             handleLoading('mainLoading', true);
 
-            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/users/login`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/users/login`, {
                 method: 'POST',
                 headers: {
                     "Content-type": "application/json"

@@ -2,7 +2,7 @@
 
 .product__upload--container {
     display: grid;
-    grid-template-columns: 2.25fr 1.5fr;
+    grid-template-columns: 2.2fr 1.6fr;
     gap: 1.4rem;
 }
 .product__upload--container .containers {

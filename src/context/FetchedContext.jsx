@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect, useContext } from "react";
-const BASE_URL = import.meta.env.VITE_SERVER_URL;
+import { useAuthContext } from "./AuthContext";
+const BASE_API_URL = import.meta.env.VITE_API_URL;
 
 
 //////////////////////////////////////////////
@@ -13,14 +14,21 @@ export default FetchedContext;
 //// CREATING PROVIDER ////
 //////////////////////////////////////////////
 export const FetchedProvider = ({ children }) => {
+    const { token } = useAuthContext();
     const [collections, setCollections] = useState([]);
     const [products, setProducts] = useState([]);
+    const [customers, setCustomers] = useState([]);
     const [storeCategories, setStoreCategories] = useState([]);
+
+    const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+    }
     
 
     async function handleFetchStoreCategories() {
         try {
-            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/stores/category`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/stores/category`);
             const data = await res.json();
             setStoreCategories(data.data.categories);
         } catch (err) {
@@ -28,20 +36,26 @@ export const FetchedProvider = ({ children }) => {
         }
     }
 
-    async function handleFetchCollections() {
-        const res = await fetch(`${BASE_URL}/collections/all`)
+    async function handleFetchUserStoreCollection() {
+        const res = await fetch(`${BASE_API_URL}/collections/mine/all`, { method: "GET", headers })
         const data = await res.json();
         if(data?.data) setCollections(data?.data?.collections);
     }
 
-    async function handleFetchProducts() {
-        const res = await fetch(`${BASE_URL}/products/all`);
+    async function handleFetchUserStoreProducts() {
+        const res = await fetch(`${BASE_API_URL}/products/mine/all`, { method: "GET", headers });
         const data = await res.json();
         if(data?.data) setProducts(data?.data?.products);
     }
 
+    async function handleFetchUserStoreCustomers() {
+        const res = await fetch(`${BASE_API_URL}/customers/mine/all`, { method: "GET", headers });
+        const data = await res.json();
+        if(data?.data) setCustomers(data?.data?.customers);
+    }
 
-    async function handleImageUpload(Imgfile, url, token) {
+
+    async function handleImageUpload(Imgfile, url) {
         const formData = new FormData();
         if (Array.isArray(Imgfile)) {
             for (let i = 0; i < Imgfile.length; i++) {
@@ -52,7 +66,7 @@ export const FetchedProvider = ({ children }) => {
             formData.append("image", Imgfile);
         }
 
-        const res = await fetch(`${BASE_URL}/${url}`, {
+        const res = await fetch(`${BASE_API_URL}/${url}`, {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${token}`
@@ -67,8 +81,9 @@ export const FetchedProvider = ({ children }) => {
 
 
     useEffect(function() {
-        handleFetchCollections();
-        handleFetchProducts();
+        handleFetchUserStoreCollection();
+        handleFetchUserStoreProducts();
+        // handleFetchUserStoreCustomers();
     }, [])
 
 

@@ -14,18 +14,25 @@ export default DataContext;
 //////////////////////////////////////////////
 export const DataProvider = ({ children }) => {
     const [isMenuCollapsed, setIsMenuCollapsed] = useState(localStorage.getItem("menu_collapsed") ? JSON.parse(localStorage.getItem("menu_collapsed")) : false);
+
     const [showSidemenu, setShowSidemenu] = useState(false);
     const [animateOut, setAnimateOut] = useState(false);
+
+    const [activeDisplayTab, setActiveDisplayTab] = useState(localStorage.getItem("p_active_tab") ? JSON.parse(localStorage.getItem("p_active_tab")) : "table");
+
     const [showInsights, setShowInsights] = useState(
         localStorage.getItem("show_ins") ? JSON.parse(localStorage.getItem("show_ins")) : {
         product: false,
         order: false,
+        customer: false,
     });
-
 
     const { pathname } = useLocation();
     const { width } = useWindowSize();
 
+    const handleDisplayTab = function(type) {
+        setActiveDisplayTab(type)
+    }
 
     function handleMenuCollapse() {
         setIsMenuCollapsed(!isMenuCollapsed);
@@ -74,10 +81,13 @@ export const DataProvider = ({ children }) => {
         localStorage.setItem("menu_collapsed", JSON.stringify(isMenuCollapsed));
     }, [isMenuCollapsed]);
 
-
     useEffect(function() {
         localStorage.setItem("show_ins", JSON.stringify(showInsights))
     }, [showInsights]);
+
+    useEffect(function() {
+        localStorage.setItem("p_active_tab", JSON.stringify(activeDisplayTab))
+    }, [activeDisplayTab]);
 
     
 
@@ -92,7 +102,10 @@ export const DataProvider = ({ children }) => {
         animateOut,
 
         handleToggleInsights,
-        showInsights
+        showInsights,
+
+        activeDisplayTab,
+        handleDisplayTab,
     }
 
 

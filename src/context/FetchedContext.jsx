@@ -35,6 +35,8 @@ export const FetchedProvider = ({ children }) => {
         collection: false
     });
 
+    console.log(loader)
+
     const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`
@@ -69,32 +71,32 @@ export const FetchedProvider = ({ children }) => {
         const data = await res.json();
         if (data?.data) setCollections(data?.data?.collections);
         handleLoader("collection", false);
-
     }
 
+
     async function handleFetchUserStoreProducts() {
-        handleResetLE("product")
+        handleResetLE("product");
         try {
             const res = await fetch(`${BASE_API_URL}/products/mine/all`, { method: "GET", headers });
             const data = await res.json();
             if (data?.data) setProducts(data?.data?.products);
+            handleLoader("product", false);
         } catch (err) {
-            handleError("product", true)
-        } finally {
-            setLoader("product", false);
+            handleError("product", true);
+            handleLoader("product", false);
         }
     }
 
     async function handleFetchUserStoreOrders() {
-        handleResetLE("order")
+        handleResetLE("order");
         try {
             const res = await fetch(`${BASE_API_URL}/orders/mine/all`, { method: "GET", headers });
             const data = await res.json();
             if (data?.data) setOrders(data?.data?.orders);
+            handleLoader("order", false);
         } catch (err) {
-            handleError("error", true)
-        } finally {
-            setLoader("error", false);
+            handleError("order", true);
+            handleLoader("order", false);
         }
 
     }

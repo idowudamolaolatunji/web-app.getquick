@@ -37,7 +37,7 @@ const emptyBtns = [
 function index() {
     const navigate = useNavigate();
     const { width } = useWindowSize();
-    const { handleToggleInsights, showInsights } = useDataContext();
+    const { handleToggleInsights, showInsights, activeDisplayTab, handleDisplayTab } = useDataContext();
 
     const { loader, error, products, collections, handleFetchUserStoreProducts, handleFetchUserStoreCollections } = useFetchedContext();
 
@@ -49,7 +49,6 @@ function index() {
 
     const [showMoreActions, setShowMoreActions] = useState(false);
     const [tableSearch, setTableSearch] = useState('');
-    const [activeDisplayTab, setActiveDisplayTab] = useState("table");
 
     const columns = [
         { 
@@ -102,10 +101,6 @@ function index() {
         },
     ];
 
-    const handleDisplayTab = function(type) {
-        setActiveDisplayTab(type)
-    }
-
     const HeadTabs = function() {
         return (
             <div>
@@ -131,7 +126,7 @@ function index() {
     }
 
     useEffect(function() {
-        if(products?.length < 1 && error.product) handleFetchUserStoreProducts();
+        if(products?.length < 1 && error?.product) handleFetchUserStoreProducts();
     }, []);
 
 

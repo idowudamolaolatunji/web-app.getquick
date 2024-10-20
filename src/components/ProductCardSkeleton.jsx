@@ -1,10 +1,13 @@
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
+import { useWindowSize } from 'react-use'
 
 function ProductCardSkeleton() {
+  const { width } = useWindowSize();
+
   return (
     <div className='product__figure'>
-        <Skeleton height={230} />
+        <Skeleton height={width < 450 ? 120 : 230} />
         <div>
             <Skeleton height={10} />
             <Skeleton height={10} />
@@ -15,8 +18,8 @@ function ProductCardSkeleton() {
         </div>
 
         <div className='product__figure--actions'>
-            <Skeleton height={40} width={75} />
-            <Skeleton height={40} width={75} />
+            <Skeleton height={40} width={width < 450 ? 35 : 75} />
+            <Skeleton height={40} width={width < 450 ? 35 : 75} />
         </div>
     </div>
   )

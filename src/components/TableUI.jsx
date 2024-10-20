@@ -95,7 +95,7 @@ function TableUI({ columns, data, toLink, emptyComponent, selectableRows, headTa
                     {displayType == "grid" ? (
                         <div className='product__grid'>
                             {data.map(data => (
-                                <ProductCard product={data} />
+                                <ProductCard key={data._id} product={data} />
                             ))}
                         </div>
                     ) : (

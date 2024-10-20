@@ -16,7 +16,7 @@ import { useDataContext } from '../../context/DataContext';
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineRefresh, MdTableRows } from 'react-icons/md';
 import { RiDeleteBin5Line, RiEdit2Line } from 'react-icons/ri';
-import { BsFillGrid3X3GapFill, BsTable } from 'react-icons/bs';
+import { BsFillGrid3X3GapFill, BsFillGridFill, BsTable } from 'react-icons/bs';
 import DefaultButton from '../../components/button/DefaultButton';
 import TooltipUI from '../../components/TooltipUI';
 import Spinner from '../../components/spinner/spinner_two';
@@ -123,7 +123,7 @@ function index() {
 
 
                     <TooltipUI placement='top' title="Grid View">
-                        <span className={activeDisplayTab == "grid" ? "active" : ""} onClick={() => handleDisplayTab("grid")}>{width < 400 ? <MdTableRows /> : <BsFillGrid3X3GapFill />} </span>
+                        <span className={activeDisplayTab == "grid" ? "active" : ""} onClick={() => handleDisplayTab("grid")}>{width < 365 ? <MdTableRows /> : width <= 620 ? <BsFillGridFill /> : <BsFillGrid3X3GapFill />} </span>
                     </TooltipUI>
                 </span>
             </div>
@@ -131,13 +131,12 @@ function index() {
     }
 
     useEffect(function() {
-        if(products?.length < 1 && error) handleFetchUserStoreProducts();
-    }, [])
+        if(products?.length < 1 && error.product) handleFetchUserStoreProducts();
+    }, []);
 
 
     return (
         <>
-            {/* {loader && <Spinner />} */}
             <div className='page__section--heading' style={widthandProduct500 ? {flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start'} : {}}>
                 <h2 className="page__section--title">Products</h2>
 
@@ -165,10 +164,10 @@ function index() {
 
             {showInsights?.product && (
                 <div className='page__section--insights insight--grid' style={{ marginBottom: '3rem', ...(width > 900 && {width: '85%'}) }}>
-                    <Insight loader={loader} title='Total Inventory worth' pre='₦' value={totalInventoryWorth} dec={totalInventoryWorth ? 0 : 2} icon={<LuClipboardList />} />
-                    <Insight loader={loader} title='Total Products Sold' value={productsSold} icon={<GrTag />} />
-                    <Insight loader={loader} title='Total Collection' value={collectionAmount} icon={<TbListSearch />} />
-                    <Insight loader={loader} title='Out of stock' value={outOfStock} icon={<TbArrowWaveRightDown />} />
+                    <Insight loader={loader?.product} title='Total Inventory worth' pre='₦' value={totalInventoryWorth} dec={totalInventoryWorth ? 0 : 2} icon={<LuClipboardList />} />
+                    <Insight loader={loader?.product} title='Total Products Sold' value={productsSold} icon={<GrTag />} />
+                    <Insight loader={loader?.product} title='Total Collection' value={collectionAmount} icon={<TbListSearch />} />
+                    <Insight loader={loader?.product} title='Out of stock' value={outOfStock} icon={<TbArrowWaveRightDown />} />
                 </div>
             )}
 
@@ -189,8 +188,8 @@ function index() {
                     }
                     headTabs={<HeadTabs />}
                     displayType={activeDisplayTab}
-                    loader={loader}
-                    error={error}
+                    loader={loader?.product}
+                    error={error?.product}
                 />
             </div>
         </>

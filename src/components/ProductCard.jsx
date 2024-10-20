@@ -7,12 +7,13 @@ import { Link } from 'react-router-dom';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function ProductCard({ product }) {
-    const { width } = useWindowSize()
+    const { width } = useWindowSize();
+
     return (
         <figure className="product__figure">
             <Link to={`/dashboard/products/${product._id}`} className="product__figure--img">
                 <span className={`product__figure--stat status status--${(product.status)}`}>
-                    <p>{product.status}</p>
+                    <p style={{ minWidth: "0" }}>{product.status}</p>
                 </span>
                 <img src={BASE_URL + product?.images[0]} />
             </Link>
@@ -31,8 +32,8 @@ function ProductCard({ product }) {
                 </div>
 
                 <span className='product__figure--actions'>
-                    <button className='table--btn'><RiEdit2Line />Edit</button>
-                    <button className='table--btn'><RiDeleteBin5Line />Delete</button>
+                    <button className='table--btn'><RiEdit2Line />{width > 450 ? "Edit" : ""}</button>
+                    <button className='table--btn'><RiDeleteBin5Line />{width > 450 ? "Delete" : ""}</button>
                 </span>
 
             </figcaption>

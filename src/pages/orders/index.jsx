@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BiChevronDown, BiPlus } from 'react-icons/bi'
 import TableUI from '../../components/TableUI'
 import { formatDate, formatNumber } from '../../utils/helper';
@@ -12,6 +12,7 @@ import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import { TbNotes, TbNotesOff } from 'react-icons/tb';
 import { MdOutlineNoteAlt, MdOutlineShoppingBag } from 'react-icons/md';
 import { useDataContext } from '../../context/DataContext';
+import { useFetchedContext } from '../../context/FetchedContext';
 
 
 
@@ -26,12 +27,12 @@ const emptyBtns = [
 
 function index() {
     const { width } = useWindowSize();
-    const { handleToggleInsights, showInsights } = useDataContext();
+    const { handleToggleInsights, showInsights,  } = useDataContext();
+    const { loader, error, orders, products, handleFetchUserStoreOrders } = useFetchedContext()
+    const widthandOrder600 = (orders && orders.length > 0 && width < 600);
 
-    const [orders, setOrders] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
     const [showMoreActions, setShowMoreActions] = useState(false);
-    const widthandProduct600 = (orders && orders.length > 0 && width < 600);
+    const [tableSearch, setTableSearch] = useState('');
     
     const columns = [
         { 
@@ -66,27 +67,32 @@ function index() {
         },
     ];
 
-    const data = [
-        // {
-        //     name: 'T-shirt polo xl',
-        //     productCollection: 'Shirt',
-        //     variations: 10,
-        //     stock: 25,
-        //     price: 10000,
-        //     status: 'success',
-        //     date: new Date('2024-09-04T09:21:38Z'),
-        // }
-    ];
+    const HeadTabs = function() {
+        return (
+            <div>
+                <span className='flex'>
+                    <TooltipUI placement='top' title="Refresh">
+                        <button className='table--btn' onClick={handleFetchUserStoreOrders}><MdOutlineRefresh /></button>
+                    </TooltipUI>
+                    <input type="text" className="table--input form--input" placeholder='search..' />
+                </span>
+            </div>
+        );
+    }
+
+    useEffect(function() {
+        if(orders?.length < 1 && error.order) handleFetchUserStoreOrders();
+    }, [])
 
     
     return (
         <>
-            <div className='page__section--heading' style={widthandProduct600 ? {flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start'} : {}}>
+            <div className='page__section--heading' style={widthandOrder600 ? {flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start'} : {}}>
                 <h2 className="page__section--title">Orders</h2>
 
-                <span className='page__section--btns' style={widthandProduct600 ? { width: "100%", display: "grid", gap: "1.6rem", gridTemplateColumns: "1fr 1fr" } : {}}>
+                <span className='page__section--btns' style={widthandOrder600 ? { width: "100%", display: "grid", gap: "1.6rem", gridTemplateColumns: "1fr 1fr" } : {}}>
                     {(orders && orders.length > 0) && (
-                        <button className="page__section-top-btn add">Add Product <BiPlus /></button>
+                        <button className="page__section-top-btn add">Add Orders <BiPlus /></button>
                     )}
                     <span className="page__section--action" onMouseLeave={() => setShowMoreActions(false)}>
                         <button onClick={() => setShowMoreActions(!showMoreActions)} className="page__section-top-btn more">More Actions <BiChevronDown /></button>
@@ -107,20 +113,22 @@ function index() {
 
             {showInsights?.order && (
                 <div className='page__section--insights insight--grid' style={{ marginBottom: '3rem', ...(width > 900 && {width: '85%'}) }}>
-                    <Insight title='Total Orders' value={0} icon={<MdOutlineShoppingBag />} />
-                    <Insight title='New Orders' value={0} icon={<MdOutlineNoteAlt />} />
-                    <Insight title='Completed Orders' value={0} icon={<TbNotes />} />
-                    <Insight title='Uncompleted Orders' value={0} icon={<TbNotesOff />} />
+                    <Insight title='Total Orders' loader={loader?.order} value={orders?.length} icon={<MdOutlineShoppingBag />} />
+                    <Insight title='New Orders' loader={loader?.order} value={0} icon={<MdOutlineNoteAlt />} />
+                    <Insight title='Completed Orders' loader={loader?.order} value={0} icon={<TbNotes />} />
+                    <Insight title='Uncompleted Orders' loader={loader?.order} value={0} icon={<TbNotesOff />} />
                 </div>
             )}
 
             <div className="page__section--main card" style={{ padding: 0 }}>
                 <TableUI
-                    data={data}
+                    data={orders}
                     columns={columns}
-                    loading={isLoading}
+                    loader={loader?.order}
+                    error={error?.order}
                     selectableRows={true}
                     toLink="/dashboard/orders"
+                    headTabs={<HeadTabs />}
                     emptyComponent={
                         <EmptyTableComponent
                             img={emptyImg}

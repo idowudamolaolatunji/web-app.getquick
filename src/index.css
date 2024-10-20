@@ -488,7 +488,7 @@ input::-webkit-inner-spin-button {
 
 /* REACT DATA TABLE */
 .page__section--main .hZZlND {
-	border-radius: unset !important;
+	border-radius: 0 !important;
 }
 
 

@@ -18,17 +18,40 @@ export const FetchedProvider = ({ children }) => {
     const [collections, setCollections] = useState([]);
     const [products, setProducts] = useState([]);
     const [customers, setCustomers] = useState([]);
+    const [orders, setOrders] = useState([]);
     const [storeCategories, setStoreCategories] = useState([]);
 
     // THIS STATES SERVES AS HELPER IN THE INDIVIDUAL COMPONENTS
-    const [loader, setLoader] = useState(true)
-    const [error, setError] = useState(false);
+    const [loader, setLoader] = useState({
+        product: true,
+        order: true,
+        customer: true,
+        collection: true
+    })
+    const [error, setError] = useState({
+        product: false,
+        order: false,
+        customer: false,
+        collection: false
+    });
 
     const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`
     }
-    
+
+    function handleLoader(name, value) {
+        setLoader({...loader, [name]: value});
+    }
+
+    function handleError(name, value) {
+        setError({...error, [name]: value});
+    }
+
+    function handleResetLE(name) {
+        handleError(name, false);
+        handleLoader(name, true);
+    }
 
     async function handleFetchStoreCategories() {
         try {
@@ -41,30 +64,45 @@ export const FetchedProvider = ({ children }) => {
     }
 
     async function handleFetchUserStoreCollection() {
-        setLoader(true);
+        handleLoader("collection", true);
         const res = await fetch(`${BASE_API_URL}/collections/mine/all`, { method: "GET", headers })
         const data = await res.json();
-        if(data?.data) setCollections(data?.data?.collections);
-        setLoader(false);
+        if (data?.data) setCollections(data?.data?.collections);
+        handleLoader("collection", false);
+
     }
 
     async function handleFetchUserStoreProducts() {
-        setLoader(true);
+        handleResetLE("product")
         try {
             const res = await fetch(`${BASE_API_URL}/products/mine/all`, { method: "GET", headers });
             const data = await res.json();
-            if(data?.data) setProducts(data?.data?.products);
-        } catch(err) {
-            setError(true)
+            if (data?.data) setProducts(data?.data?.products);
+        } catch (err) {
+            handleError("product", true)
         } finally {
-            setLoader(false);
+            setLoader("product", false);
         }
+    }
+
+    async function handleFetchUserStoreOrders() {
+        handleResetLE("order")
+        try {
+            const res = await fetch(`${BASE_API_URL}/orders/mine/all`, { method: "GET", headers });
+            const data = await res.json();
+            if (data?.data) setOrders(data?.data?.orders);
+        } catch (err) {
+            handleError("error", true)
+        } finally {
+            setLoader("error", false);
+        }
+
     }
 
     async function handleFetchUserStoreCustomers() {
         const res = await fetch(`${BASE_API_URL}/customers/mine/all`, { method: "GET", headers });
         const data = await res.json();
-        if(data?.data) setCustomers(data?.data?.customers);
+        if (data?.data) setCustomers(data?.data?.customers);
     }
 
 
@@ -93,9 +131,10 @@ export const FetchedProvider = ({ children }) => {
     }
 
 
-    useEffect(function() {
+    useEffect(function () {
         handleFetchUserStoreCollection();
         handleFetchUserStoreProducts();
+        handleFetchUserStoreOrders()
         // handleFetchUserStoreCustomers();
     }, [])
 
@@ -106,8 +145,10 @@ export const FetchedProvider = ({ children }) => {
         error,
         loader,
 
+        orders,
         products,
         collections,
+        handleFetchUserStoreOrders,
         handleFetchUserStoreProducts,
         handleFetchUserStoreCollection,
 

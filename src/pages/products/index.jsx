@@ -19,6 +19,8 @@ import { RiDeleteBin5Line, RiEdit2Line } from 'react-icons/ri';
 import { BsFillGrid3X3GapFill, BsTable } from 'react-icons/bs';
 import DefaultButton from '../../components/button/DefaultButton';
 import TooltipUI from '../../components/TooltipUI';
+import Spinner from '../../components/spinner/spinner_two';
+import Skeleton from 'react-loading-skeleton';
 
 
 //////////////////////////////////////////////////////
@@ -35,7 +37,7 @@ const emptyBtns = [
 function index() {
     const navigate = useNavigate();
     const { width } = useWindowSize();
-    const { products, collections,
+    const { loader, products, collections,
         handleFetchUserStoreProducts,
         handleFetchUserStoreCollections
     } = useFetchedContext();
@@ -46,7 +48,6 @@ function index() {
     const totalInventoryWorth = products?.reduce((acc, product) => acc + product.price, 0);
     const widthandProduct500 = (products && products.length > 0 && width < 500);
 
-    const [isLoading, setIsLoading] = useState(false);
     const [showMoreActions, setShowMoreActions] = useState(false);
     const [tableSearch, setTableSearch] = useState('');
     const [activeDisplayTab, setActiveDisplayTab] = useState("table");
@@ -133,6 +134,7 @@ function index() {
 
     return (
         <>
+            {/* {loader && <Spinner />} */}
             <div className='page__section--heading' style={widthandProduct500 ? {flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start'} : {}}>
                 <h2 className="page__section--title">Products</h2>
 
@@ -160,10 +162,10 @@ function index() {
 
             {showInsights?.product && (
                 <div className='page__section--insights insight--grid' style={{ marginBottom: '3rem', ...(width > 900 && {width: '85%'}) }}>
-                    <Insight title='Total Inventory worth' pre='₦' value={totalInventoryWorth} dec={totalInventoryWorth ? 0 : 2} icon={<LuClipboardList />} />
-                    <Insight title='Total Products Sold' value={productsSold} icon={<GrTag />} />
-                    <Insight title='Total Collection' value={collectionAmount} icon={<TbListSearch />} />
-                    <Insight title='Out of stock' value={outOfStock} icon={<TbArrowWaveRightDown />} />
+                    <Insight loader={loader} title='Total Inventory worth' pre='₦' value={totalInventoryWorth} dec={totalInventoryWorth ? 0 : 2} icon={<LuClipboardList />} />
+                    <Insight loader={loader} title='Total Products Sold' value={productsSold} icon={<GrTag />} />
+                    <Insight loader={loader} title='Total Collection' value={collectionAmount} icon={<TbListSearch />} />
+                    <Insight loader={loader} title='Out of stock' value={outOfStock} icon={<TbArrowWaveRightDown />} />
                 </div>
             )}
 
@@ -171,7 +173,6 @@ function index() {
                 <TableUI 
                     data={products}
                     columns={columns}
-                    loading={isLoading}
                     selectableRows={true}
                     toLink="/dashboard/products"
                     emptyComponent={
@@ -185,6 +186,7 @@ function index() {
                     }
                     headTabs={<HeadTabs />}
                     displayType={activeDisplayTab}
+                    loader={loader}
                 />
             </div>
         </>

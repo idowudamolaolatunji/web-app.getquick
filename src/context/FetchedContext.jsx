@@ -19,6 +19,7 @@ export const FetchedProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [storeCategories, setStoreCategories] = useState([]);
+    const [loader, setLoader] = useState(false)
 
     const headers = {
         "Content-Type": "application/json",
@@ -37,15 +38,24 @@ export const FetchedProvider = ({ children }) => {
     }
 
     async function handleFetchUserStoreCollection() {
+        setLoader(true);
         const res = await fetch(`${BASE_API_URL}/collections/mine/all`, { method: "GET", headers })
         const data = await res.json();
         if(data?.data) setCollections(data?.data?.collections);
+        setLoader(false);
     }
 
     async function handleFetchUserStoreProducts() {
-        const res = await fetch(`${BASE_API_URL}/products/mine/all`, { method: "GET", headers });
-        const data = await res.json();
-        if(data?.data) setProducts(data?.data?.products);
+        setLoader(true);
+        try {
+            const res = await fetch(`${BASE_API_URL}/products/mine/all`, { method: "GET", headers });
+            const data = await res.json();
+            if(data?.data) setProducts(data?.data?.products);
+        } catch(err) {
+            console.log(err)
+        } finally {
+            setLoader(false);
+        }
     }
 
     async function handleFetchUserStoreCustomers() {
@@ -89,6 +99,7 @@ export const FetchedProvider = ({ children }) => {
 
     // CREATE CONTEXT DATA
     let contextData = {
+        loader,
         collections,
         products,
         handleFetchUserStoreCollection,

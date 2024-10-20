@@ -24,9 +24,9 @@ export const FetchedProvider = ({ children }) => {
     // THIS STATES SERVES AS HELPER IN THE INDIVIDUAL COMPONENTS
     const [loader, setLoader] = useState({
         product: true,
-        order: true,
-        customer: true,
-        collection: true
+        order: false,
+        customer: false,
+        collection: false
     })
     const [error, setError] = useState({
         product: false,

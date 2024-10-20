@@ -37,11 +37,10 @@ const emptyBtns = [
 function index() {
     const navigate = useNavigate();
     const { width } = useWindowSize();
-    const { loader, products, collections,
-        handleFetchUserStoreProducts,
-        handleFetchUserStoreCollections
-    } = useFetchedContext();
     const { handleToggleInsights, showInsights } = useDataContext();
+
+    const { loader, error, products, collections, handleFetchUserStoreProducts, handleFetchUserStoreCollections } = useFetchedContext();
+
     const productsSold = 2;
     const outOfStock = 0;
     const collectionAmount = collections?.length;
@@ -131,6 +130,10 @@ function index() {
         );
     }
 
+    useEffect(function() {
+        if(products?.length < 1 && error) handleFetchUserStoreProducts();
+    }, [])
+
 
     return (
         <>
@@ -187,6 +190,7 @@ function index() {
                     headTabs={<HeadTabs />}
                     displayType={activeDisplayTab}
                     loader={loader}
+                    error={error}
                 />
             </div>
         </>

@@ -1,13 +1,13 @@
-import { Checkbox } from '@mui/material';
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { useNavigate } from 'react-router-dom';
 import { useWindowSize } from 'react-use';
 import CheckBoxInput from './CheckBoxInput';
-import DefaultButton from './button/DefaultButton';
 import { RiDeleteBin5Line } from 'react-icons/ri';
 import ProductCard from './ProductCard';
-import Skeleton from 'react-loading-skeleton';
+import TableError from './TableError';
+import ProductCardSkeleton from './ProductCardSkeleton';
+import { TableHead, TableSkeleton } from './TableSkeleton';
 
 const customStyles = {
     table: {
@@ -44,7 +44,7 @@ const customStyles = {
 };
 
 
-function TableUI({ columns, data, toLink, emptyComponent, selectableRows, headTabs, displayType = "table", loader }) {
+function TableUI({ columns, data, toLink, emptyComponent, selectableRows, headTabs, displayType = "table", loader, error }) {
     const isData = data?.length > 0;
     const navigate = useNavigate();
     const { width } = useWindowSize();
@@ -58,50 +58,63 @@ function TableUI({ columns, data, toLink, emptyComponent, selectableRows, headTa
 
     return (
         <>
-            {loader ? (
-                <Skeleton height={200} />
-            ) : (
-                (isData) ? (
-                    <>
-                        <div className='table--head'>
-                            {selectedRowsId.length > 0 ? (
-                                <span className='flex'>
-                                    <p>Selected: {selectedRowsId.length}</p>
-                                    <button className='table--btn'>delete <RiDeleteBin5Line /></button>
-                                </span>
-                            ) : (
-                                <>{headTabs}</>
-                            )}
+            {(error && !isData && !loader) && <TableError text="Unable to fetch, Check Connection" />}
+            {((!isData && !error && !loader) && <>{emptyComponent}</>)}
 
+            {loader && (
+                <>
+                    <TableHead />
+                    {displayType == "grid" ? (
+                        <div className="product__grid">
+                            <ProductCardSkeleton />
+                            <ProductCardSkeleton />
+                            <ProductCardSkeleton />
                         </div>
+                    ) : (
+                        <div style={{ overflow: "hidden" }}>
+                            <TableSkeleton />
+                        </div>
+                    )}
+                </>
+            )}
 
-                        {displayType == "grid" ? (
-                            <div className='product__grid'>
-                                {data.map(data => (
-                                    <ProductCard product={data} />
-                                ))}
-                            </div>
+            {(!loader && isData) && (
+                <>
+                    <div className='table--head'>
+                        {selectedRowsId.length > 0 ? (
+                            <span className='flex'>
+                                <p>Selected: {selectedRowsId.length}</p>
+                                <button className='table--btn'>delete <RiDeleteBin5Line /></button>
+                            </span>
                         ) : (
-                            <DataTable
-                                data={data}
-                                columns={columns}
-                                pointerOnHover
-                                highlightOnHover={width > 600 ? true : false}
-                                persistTableHead
-                                noDataComponent={false}
-                                customStyles={customStyles}
-                                selectableRows={selectableRows}
-                                onSelectedRowsChange={handleSelectedRow}
-                                pagination
-                                onRowClicked={(row) => navigate(`${toLink}/${row._id}`)}
-                            />
+                            <>{headTabs}</>
                         )}
-                    </>
-                ) : (
-                    <>
-                        {emptyComponent}
-                    </>
-                ))}
+
+                    </div>
+
+                    {displayType == "grid" ? (
+                        <div className='product__grid'>
+                            {data.map(data => (
+                                <ProductCard product={data} />
+                            ))}
+                        </div>
+                    ) : (
+                        <DataTable
+                            data={data}
+                            columns={columns}
+                            pointerOnHover
+                            highlightOnHover={width > 600 ? true : false}
+                            persistTableHead
+                            noDataComponent={false}
+                            customStyles={customStyles}
+                            selectableRows={selectableRows}
+                            onSelectedRowsChange={handleSelectedRow}
+                            pagination
+                            onRowClicked={(row) => navigate(`${toLink}/${row._id}`)}
+                        />
+                    )}
+                </>
+            )}
         </>
     )
 }

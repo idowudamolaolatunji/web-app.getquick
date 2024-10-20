@@ -19,7 +19,10 @@ export const FetchedProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [storeCategories, setStoreCategories] = useState([]);
-    const [loader, setLoader] = useState(false)
+
+    // THIS STATES SERVES AS HELPER IN THE INDIVIDUAL COMPONENTS
+    const [loader, setLoader] = useState(true)
+    const [error, setError] = useState(false);
 
     const headers = {
         "Content-Type": "application/json",
@@ -52,7 +55,7 @@ export const FetchedProvider = ({ children }) => {
             const data = await res.json();
             if(data?.data) setProducts(data?.data?.products);
         } catch(err) {
-            console.log(err)
+            setError(true)
         } finally {
             setLoader(false);
         }
@@ -99,13 +102,15 @@ export const FetchedProvider = ({ children }) => {
 
     // CREATE CONTEXT DATA
     let contextData = {
-        loader,
-        collections,
-        products,
-        handleFetchUserStoreCollection,
-        handleFetchUserStoreProducts,
-
         handleImageUpload,
+        error,
+        loader,
+
+        products,
+        collections,
+        handleFetchUserStoreProducts,
+        handleFetchUserStoreCollection,
+
 
         storeCategories,
         handleFetchStoreCategories

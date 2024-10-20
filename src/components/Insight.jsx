@@ -9,7 +9,7 @@ function Insight({ title, value, icon, link, pre = "", dec = 0, loader }) {
     return (
         <>
             {loader ? (
-                <Skeleton count={3} height={10} />
+                <Skeleton count={5} height={10} />
             ) : (
                 <figure className='insight--figure'
                     onClick={() => link && navigate(`/dashboard${link}`)}

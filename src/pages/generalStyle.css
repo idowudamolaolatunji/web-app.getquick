@@ -196,6 +196,12 @@
 	background-color: #fff;
 	max-width: 20rem;
 }
+.table--grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 2.4rem;
+	padding: 1rem 2rem;
+}
 
 .table--tabs {
 	background-color: #e9e9e9;

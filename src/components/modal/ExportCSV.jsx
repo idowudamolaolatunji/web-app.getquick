@@ -38,6 +38,9 @@ function ExportCSV({ title, data, setClose }) {
 
 
     function handleDownloadExport() {
+        if(!hasConvert) {
+            return setResponse({ status: "error", message: "Free Exports Used Up!" })
+        }
 
 
         setResponse({ status: "success", message: "success!" })
@@ -79,12 +82,12 @@ function ExportCSV({ title, data, setClose }) {
 
                     <div className='modal--form'>
                         <span>
-                            <input type="email" className='form--input' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Provide email address for CSV export' />
+                            <input type="email" className='form--input' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Provide email address for CSV export' {...(!hasConvert && { readOnly: true, disabled: true })} />
                             <span className="form--error-message">
                                 {modalInputError && modalInputError}
                             </span>
                         </span>
-                        <button onClick={handleSendExport}>Export to email! <SiMinutemailer /></button>
+                        <button onClick={handleSendExport} {...(!hasConvert && { disabled: true })}>Export to email! <SiMinutemailer /></button>
                     </div>
 
                     <div className='modal--others'>

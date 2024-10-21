@@ -116,7 +116,7 @@ function TableUI({ columns, data, toLink, emptyComponent, selectableRows, headTa
                             selectableRows={selectableRows}
                             onSelectedRowsChange={handleSelectedRow}
                             onRowClicked={(row) => handleNavigate(row)}
-                            {...(width < 600 && { onRowMouseEnter: (row => handleNavigate(row)), })}
+                            // {...(width < 600 && { onRowMouseEnter: (row => handleNavigate(row)), })}
                         />
                     )}
                 </>

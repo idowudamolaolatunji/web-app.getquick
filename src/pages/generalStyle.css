@@ -4,6 +4,7 @@
 	align-items: center;
 	width: 100%;
 	margin-bottom: 4.4rem;
+	text-transform: capitalize;
 }
 
 .page__section--title {
@@ -31,7 +32,6 @@
 .page__section-top-btn {
 	justify-content: center;
 	font-weight: 500;
-	/* padding: .6rem 1.2rem; */
 	padding: 0.8rem 1.2rem;
 	color: #fff;
 	font-size: 1.4rem;
@@ -46,10 +46,12 @@
 }
 
 .page__section-top-btn.more {
-	background-color: var(--color-brand-500);
+	background-color: #333;
 }
 .page__section-top-btn.add {
-	background-color: #333;
+	background-color: transparent;
+	color: var(--color-brand-500);
+	box-shadow: inset 0 0 0 1.4px var(--color-brand-500);
 }
 
 .page__section-top-btn svg {
@@ -130,6 +132,10 @@
 	gap: 1rem;
 }
 
+
+.table--link {
+	color: initial;
+}
 .table--flex {
 	display: flex;
 	align-items: center;
@@ -169,6 +175,12 @@
 	color: #888;
 }
 
+.table--actions {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: .4rem;
+}
 .table--btn {
 	border: none;
 	display: flex;
@@ -354,6 +366,7 @@
 	.page__section-top-btn {
 		font-size: 1.34rem;
 		width: 100%;
+		padding: 0.6rem 1.2rem;
 	}
 
 	.page__section--main.card {

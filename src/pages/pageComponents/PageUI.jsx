@@ -25,7 +25,6 @@ function PageUI({ items, pageName, columns, data, addUrl, emptyTitle, emptyText,
 
 
     function handleShowExportModal() {
-        console.log(items?.length);
         if(!items || items?.length == 0) {
             setResponse({ status: "error", message: `You have no ${pageName} to export! ` });
             setTimeout(() => setResponse({ status: null, message: null }), 2500)
@@ -47,12 +46,14 @@ function PageUI({ items, pageName, columns, data, addUrl, emptyTitle, emptyText,
                 </span>
 
                 <span className='page__section--btns' style={widthandItem500 ? { width: "100%", display: "grid", gridTemplateColumns: "1fr 1fr" } : {}}>
+
                     {(items && items?.length > 0) && (
                         <button className="page__section-top-btn add" onClick={() => navigate(`/dashboard/${addUrl}`)}>Add {pageName} <BiPlus /></button>
                     )}
 
                     <span className="page__section--action" onMouseLeave={() => setShowMoreActions(false)}>
                         <button onClick={() => setShowMoreActions(!showMoreActions)} className="page__section-top-btn more">More Actions <BiChevronDown /></button>
+
                         {showMoreActions && (
                             <ul className="page__section--dropdown">
                                 <li onClick={() => handleToggleInsights(pageName)}>
@@ -72,7 +73,6 @@ function PageUI({ items, pageName, columns, data, addUrl, emptyTitle, emptyText,
             
 
             {children}
-
 
             <div className="page__section--main card" style={{ padding: 0 }}>
                 <TableUI

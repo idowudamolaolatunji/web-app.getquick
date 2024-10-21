@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MenuLink from './MenuLink';
 import Line from '../../components/Line';
 
@@ -16,16 +16,31 @@ import MenuButton from './MenuButton';
 import { openWidget } from '../../utils/helper';
 import DefaultButton from '../../components/button/DefaultButton';
 import { TbTruckDelivery } from 'react-icons/tb';
+import { useLocation } from 'react-router-dom';
 
 
 function DashboardMenu() {
     const [showRemains, setShowRemains] = useState(false);
     const { isMenuCollapsed, showSidemenu, handleShowSidemenu, animateOut } = useDataContext();
     const { width } = useWindowSize()
+    const { pathname } = useLocation();
 
     function handleShowRemains() {
         setShowRemains(!showRemains)
     }
+
+
+    useEffect(function() {
+        if(
+            pathname.includes("delivery") 
+            || pathname.includes("store-info") 
+            || pathname.includes("subscription")
+            || pathname.includes("custom-domain")
+            || pathname.includes("store-customisation")
+        ) {
+            setShowRemains(true);
+        }
+    }, [pathname]);
     
 
     return (

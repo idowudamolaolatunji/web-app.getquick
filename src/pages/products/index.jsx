@@ -14,6 +14,7 @@ import { BsFillGrid3X3GapFill, BsFillGridFill, BsTable } from 'react-icons/bs';
 import TooltipUI from '../../components/TooltipUI';
 import PageUI from '../pageComponents/PageUI';
 import emptyImg from '../../assets/images/resources/orange-woman-with-packages-in-shopping-cart.png';
+import { Link } from 'react-router-dom';
 
 
 //////////////////////////////////////////////////////
@@ -23,7 +24,7 @@ const emptyTitle = "Add new product!";
 const emptyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat aliquam vero perferendis sapiente iste assumenda nam, vel dicta ducimus at perferendis sapiente iste.";
 const emptyBtns = [
     { title: "Add Product", link: "/dashboard/products/upload" },
-    { title: "Import Product", link: "/dashboard/products/import/upload" }
+    // { title: "Import Product", link: "/dashboard/products/import/upload" }
 ];
 
 
@@ -42,34 +43,34 @@ function index() {
         { 
             name: 'Prduct',
             selector: row => (
-                <div className="table--flex">
+                <Link className="table--flex table--link" to={`/dashboard/products/${row._id}`}>
                     <img alt={row.name} src={BASE_URL + row.images[0]} />
                     <span className='table--info'>
                         <h3>{row.name}</h3>
                         <span>{row.productCollection}</span>
                     </span>
 
-                </div>
+                </Link>
             ),
-            width: width > 600 ? "35%" : "25%"
+            width: width > 600 ? "32%" : "25%"
         },
         { 
             name: 'Price',
             selector: row => (
                 <p className='value' style={{ fontSize: "1.3rem" }}>{'₦'+formatNumber(row.price)}</p>
             ),
-            width: "10%"
+            width: width > 600 ? "10%" : ""
         },
         { 
             name: 'Inventory',
             selector: row => (
-                <span className="flex table--info" style={{ gap: ".4rem" }}>
+                <span className="flex table--info" style={{ gap: ".4rem", alignItems: "center" }}>
                     <p  className='value'>{row.stockAmount} <span>Stocks</span></p>
                     <span>/</span>
                     <p  className='value'>{row.variations.length} <span>Variations</span></p>
                 </span>
             ),
-            width: "20%"
+            width: width > 600 ? "18%" : ""
         },
         { 
             name: 'Status',
@@ -77,11 +78,11 @@ function index() {
                 <span className={`status status--${(row.status)}`}>
                     <p>{row.status}</p>
                 </span>
-            )
+            ),
         },
         { 
             selector: () => (
-                <span className='flex table--actions'>
+                <span className='table--actions'>
                     <button className='table--btn'><RiEdit2Line /></button>
                     <button className='table--btn'><RiDeleteBin5Line /></button>
                 </span>

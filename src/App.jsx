@@ -1,26 +1,26 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react'
+import React, { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import ProtectedRoute from './utils/ProtectedRoute';
 import 'react-loading-skeleton/dist/skeleton.css'
 import './pages/generalStyle.css';
 
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 // const Login = lazy(() => import('./auth/login'));
 // const Signup = lazy(() => import('./auth/signup'));
 // const Error = lazy(() => import('./pages/error'));
 
-import Login from './auth/login';
-import Signup from './auth/signup';
-import ForgotPassword from './auth/forgotPassword';
-import ResetPassword from './auth/resetPassword';
-import VerifyOtp from './auth/otpVerification';
-import Onboarding from './auth/onboarding';
-import Congrats from './auth/NextCongratsScreen';
-import Error from './pages/error';
-
 // const DashboardHome = lazy(() => import('./pages/home'));
 // const Orders = lazy(() => import('./pages/orders'));
 // const Products = lazy(() => import('./pages/products'));
+// const RecordOrders = lazy(() => import('./pages/orders/orderComponents/RecordOrder'));
+// const UploadProduct = lazy(() => import('./pages/products/productComponents/UploadProduct'));
+// const CreateCustomers = lazy(() => import('./pages/customers/customerComponents/CreateCustomers'));
+// const ProductItem = lazy(() => import('./pages/products/productComponents/ProductItem'));
+// const OrderItem = lazy(() => import('./pages/orders/orderComponents/OrderItem'));
+// const CustomerItem = lazy(() => import('./pages/customers'));
 // const Transaction = lazy(() => import('./pages/transactions'));
 // const Settings = lazy(() => import('./pages/settings'));
 // const Profile = lazy(() => import('./pages/profile'));
@@ -34,7 +34,22 @@ import Error from './pages/error';
 // const Delivery = lazy(() => import('./pages/delivery'));
 // const Subscription = lazy(() => import('./pages/subscription'));
 // const Analytics = lazy(() => import('./pages/analytics'));
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
+
+
+// AUTHENTICATION PAGES
+import Login from './auth/login';
+import Signup from './auth/signup';
+import ForgotPassword from './auth/forgotPassword';
+import ResetPassword from './auth/resetPassword';
+import VerifyOtp from './auth/otpVerification';
+import Onboarding from './auth/onboarding';
+import Congrats from './auth/NextCongratsScreen';
+import Error from './pages/error';
+
+// GENERAL DASHBOARD PAGES 
 import DashboardHome from './pages/home';
 import Orders from './pages/orders';
 import RecordOrders from './pages/orders/orderComponents/RecordOrder';
@@ -67,59 +82,56 @@ function App() {
         window.location.pathname === '/verify-otp' ||
         window.location.pathname === '/onboarding'
     ) {
-        window.onbeforeunload = function() {
-          return "Are you sure you want to leave this page?";
+        window.onbeforeunload = function () {
+            return "Are you sure you want to leave this page?";
         };
     }
 
 
     return (
 
-        // <Suspense fallback={<></>} >
-            <BrowserRouter>
-                <Routes>
-                    <Route path='/login' element={<Login />}></Route>
-                    <Route path='/signup' element={<Signup />}></Route>
-                    <Route path='/forgot-password' element={<ForgotPassword />}></Route>
-                    <Route path='/reset-password/:resettoken' element={<ResetPassword />}></Route>
-                    <Route path='/verify-otp' element={<VerifyOtp />}></Route>
-                    <Route path='/onboarding' element={<Onboarding />}></Route>
-                    <Route path='/congratulations' element={<Congrats />}></Route>
-                    <Route path="*" element={<Error />} />
+        <BrowserRouter>
+            <Routes>
+                <Route path='/login' element={<Login />}></Route>
+                <Route path='/signup' element={<Signup />}></Route>
+                <Route path='/forgot-password' element={<ForgotPassword />}></Route>
+                <Route path='/reset-password/:resettoken' element={<ResetPassword />}></Route>
+                <Route path='/verify-otp' element={<VerifyOtp />}></Route>
+                <Route path='/onboarding' element={<Onboarding />}></Route>
+                <Route path='/congratulations' element={<Congrats />}></Route>
+                <Route path="*" element={<Error />} />
 
-                    <Route element={<ProtectedRoute />}>
-                        <Route path='/' element={<DashboardHome />}></Route>
-                        <Route path='/dashboard' element={<DashboardHome />}></Route>
-                        <Route path='/dashboard/orders' element={<Orders />}></Route>
-                        <Route path='/dashboard/products' element={<Products />}></Route>
-                        <Route path='/dashboard/customers' element={<Customers />}></Route>
+                <Route element={<ProtectedRoute />}>
+                    <Route path='/' element={<DashboardHome />}></Route>
+                    <Route path='/dashboard' element={<DashboardHome />}></Route>
+                    <Route path='/dashboard/orders' element={<Orders />}></Route>
+                    <Route path='/dashboard/products' element={<Products />}></Route>
+                    <Route path='/dashboard/customers' element={<Customers />}></Route>
 
-                        <Route path='/dashboard/orders/record' element={<RecordOrders />}></Route>
-                        <Route path='/dashboard/products/upload' element={<UploadProduct />}></Route>
-                        <Route path='/dashboard/customers/add' element={<CreateCustomers />}></Route>
+                    <Route path='/dashboard/orders/record' element={<RecordOrders />}></Route>
+                    <Route path='/dashboard/products/upload' element={<UploadProduct />}></Route>
+                    <Route path='/dashboard/customers/add' element={<CreateCustomers />}></Route>
 
-                        <Route path='/dashboard/products/:id' element={<ProductItem />}></Route>
-                        <Route path='/dashboard/orders/:id' element={<OrderItem />}></Route>
-                        <Route path='/dashboard/customers/:id' element={<CustomerItem />}></Route>
+                    <Route path='/dashboard/products/:id' element={<ProductItem />}></Route>
+                    <Route path='/dashboard/orders/:id' element={<OrderItem />}></Route>
+                    <Route path='/dashboard/customers/:id' element={<CustomerItem />}></Route>
 
-
-                        <Route path='/dashboard/transactions' element={<Transaction />}></Route>
-                        <Route path='/dashboard/settings' element={<Settings />}></Route>
-                        <Route path='/dashboard/custom-domain' element={<CustomDomain />}></Route>
-                        <Route path='/dashboard/connected-apps' element={<ConnectedApps />}></Route>
-                        <Route path='/dashboard/store-customisation' element={<StoreCustomisation />}></Route>
-                        <Route path='/dashboard/bank-details' element={<BankDetails />}></Route>
-                        <Route path='/dashboard/store-info' element={<StoreInformation />}></Route>
-                        <Route path='/dashboard/run-sales' element={<RunSales />}></Route>
-                        <Route path='/dashboard/delivery' element={<Delivery />}></Route>
-                        <Route path='/dashboard/subscription' element={<Subscription />}></Route>
-                        <Route path='/dashboard/profile' element={<Profile />}></Route>
-                        <Route path='/dashboard/analytics' element={<Analytics />}></Route>
-                        <Route path='/dashboard/community-forums' element={<CommunityForums />}></Route>
-                    </Route>
-                </Routes>
-            </BrowserRouter>
-        // </Suspense>
+                    <Route path='/dashboard/transactions' element={<Transaction />}></Route>
+                    <Route path='/dashboard/settings' element={<Settings />}></Route>
+                    <Route path='/dashboard/custom-domain' element={<CustomDomain />}></Route>
+                    <Route path='/dashboard/connected-apps' element={<ConnectedApps />}></Route>
+                    <Route path='/dashboard/store-customisation' element={<StoreCustomisation />}></Route>
+                    <Route path='/dashboard/bank-details' element={<BankDetails />}></Route>
+                    <Route path='/dashboard/store-info' element={<StoreInformation />}></Route>
+                    <Route path='/dashboard/run-sales' element={<RunSales />}></Route>
+                    <Route path='/dashboard/delivery' element={<Delivery />}></Route>
+                    <Route path='/dashboard/subscription' element={<Subscription />}></Route>
+                    <Route path='/dashboard/profile' element={<Profile />}></Route>
+                    <Route path='/dashboard/analytics' element={<Analytics />}></Route>
+                    <Route path='/dashboard/community-forums' element={<CommunityForums />}></Route>
+                </Route>
+            </Routes>
+        </BrowserRouter>
     )
 }
 

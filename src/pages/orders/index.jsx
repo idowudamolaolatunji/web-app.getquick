@@ -22,7 +22,7 @@ const emptyTitle = "Record a new sale!";
 const emptyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat aliquam vero perferendis sapiente iste assumenda nam, vel dicta ducimus at perferendis sapiente iste.";
 const emptyBtns = [
     { title: "Record Order", link: "/dashboard/orders/record" },
-    { title: "Import Order", link: "/dashboard/orders/import/record" }
+    // { title: "Import Order", link: "/dashboard/orders/import/record" }
 ];
 
 

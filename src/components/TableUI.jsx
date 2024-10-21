@@ -68,12 +68,8 @@ function TableUI({ columns, data, toLink, emptyComponent, selectableRows, headTa
                         <div className="product__grid">
                             <ProductCardSkeleton />
                             <ProductCardSkeleton />
-                            {width > 600 && (
-                                <>
-                                    <ProductCardSkeleton />
-                                    <ProductCardSkeleton />
-                                </>
-                            )}
+                            <ProductCardSkeleton />
+                            {width > 600 && <ProductCardSkeleton />}
                         </div>
                     ) : (
                         <div style={{ overflow: "hidden" }}>

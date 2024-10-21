@@ -81,8 +81,11 @@ function index() {
     }
 
     useEffect(function() {
+        document.title = "Quicka | Orders";
+        window.scrollTo(0, 0);
+
         if(orders?.length < 1 && error.order) handleFetchUserStoreOrders();
-    }, [])
+    }, []);
 
     
     return (

@@ -7,12 +7,14 @@ function ProductCardSkeleton() {
 
   return (
     <div className='product__figure'>
-        <Skeleton height={width < 450 ? 120 : 230} />
+        <Skeleton height={width < 450 ? 120 : 200} />
         <div>
             <Skeleton height={10} />
-            <Skeleton height={10} />
+            <div style={{ width: "45%" }}>
+              <Skeleton height={10} />
+            </div>
         </div>
-        <div>
+        <div style={{ width: "70%" }}>
             <Skeleton height={10} />
             <Skeleton height={10} />
         </div>

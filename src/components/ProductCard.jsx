@@ -32,8 +32,8 @@ function ProductCard({ product }) {
                 </div>
 
                 <span className='product__figure--actions'>
-                    <button className='table--btn'><RiEdit2Line />{width > 450 ? "Edit" : ""}</button>
-                    <button className='table--btn'><RiDeleteBin5Line />{width > 450 ? "Delete" : ""}</button>
+                    <button className='table--btn'><RiEdit2Line />{width > 500 ? "Edit" : ""}</button>
+                    <button className='table--btn'><RiDeleteBin5Line />{width > 500 ? "Delete" : ""}</button>
                 </span>
 
             </figcaption>

@@ -27,6 +27,12 @@ export const DataProvider = ({ children }) => {
         customer: false,
     });
 
+    const [location, setLocation] = useState({
+        country: [],
+        state: [],
+        city: [],
+    });
+
     const { pathname } = useLocation();
     const { width } = useWindowSize();
 
@@ -61,6 +67,35 @@ export const DataProvider = ({ children }) => {
             [name]: !showInsights[name]
         })
     }
+
+
+
+    // COUNTRY AND LOCATION API (COUNTRY, STATE, CITY)
+    const apiBaseUrl = "https://api.countrystatecity.in/v1/countries";
+    const apiToken = "Q0lMUm00U1NFcnFQN1V1MlRwaHR3aUpwQWZ0SVV0MU9lS0JsY0hDQQ==";
+    const headers = new Headers();
+    headers.append("X-CSCAPI-KEY", apiToken);
+    console.log(location.country, location.state, location.city);
+
+
+    const getContries = async function() {
+        const response = await fetch(apiBaseUrl, { headers });
+        const data = await response.json();
+        setLocation({...location, country: [...data] })
+    };
+
+    const getStates = async function(selectedCountryCode) {
+        const response = await fetch(`${apiBaseUrl}/${selectedCountryCode}/states`, { headers });
+        const data = await response.json();
+        setLocation({...location, state: [...data] })
+    };
+
+    const getCities = async function(selectedCountryCode, selectedStateCode) {
+        const response = await fetch(`${apiBaseUrl}/${selectedCountryCode}/states/${selectedStateCode}/cities`, { headers });
+        const data = await response.json();
+        setLocation({...location, city: [...data] })
+    };
+    // //////////////////////////////////////////////////////
 
 
     useEffect(function() {
@@ -106,6 +141,12 @@ export const DataProvider = ({ children }) => {
 
         activeDisplayTab,
         handleDisplayTab,
+
+        location,
+        setLocation,
+        getContries,
+        getStates,
+        getCities
     }
 
 

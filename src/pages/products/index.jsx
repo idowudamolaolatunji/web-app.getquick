@@ -126,6 +126,9 @@ function index() {
     }
 
     useEffect(function() {
+        document.title = "Quicka | Orders";
+        window.scrollTo(0, 0);
+
         if(products?.length < 1 && error?.product) handleFetchUserStoreProducts();
     }, []);
 

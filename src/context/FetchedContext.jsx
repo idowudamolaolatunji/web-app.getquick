@@ -23,7 +23,7 @@ export const FetchedProvider = ({ children }) => {
 
     // THIS STATES SERVES AS HELPER IN THE INDIVIDUAL COMPONENTS
     const [loader, setLoader] = useState({
-        product: true,
+        product: false,
         order: false,
         customer: false,
         collection: false
@@ -35,7 +35,7 @@ export const FetchedProvider = ({ children }) => {
         collection: false
     });
 
-    console.log(loader)
+    // console.log(loader)
 
     const headers = {
         "Content-Type": "application/json",
@@ -79,6 +79,8 @@ export const FetchedProvider = ({ children }) => {
         try {
             const res = await fetch(`${BASE_API_URL}/products/mine/all`, { method: "GET", headers });
             const data = await res.json();
+            if(!res.ok) throw new Error();
+            if(data.status == "fail") throw new Error();
             if (data?.data) setProducts(data?.data?.products);
             handleLoader("product", false);
         } catch (err) {
@@ -92,6 +94,8 @@ export const FetchedProvider = ({ children }) => {
         try {
             const res = await fetch(`${BASE_API_URL}/orders/mine/all`, { method: "GET", headers });
             const data = await res.json();
+            if(!res.ok) throw new Error();
+            if(data.status == "fail") throw new Error();
             if (data?.data) setOrders(data?.data?.orders);
             handleLoader("order", false);
         } catch (err) {
@@ -136,7 +140,7 @@ export const FetchedProvider = ({ children }) => {
     useEffect(function () {
         handleFetchUserStoreCollection();
         handleFetchUserStoreProducts();
-        handleFetchUserStoreOrders()
+        // handleFetchUserStoreOrders();
         // handleFetchUserStoreCustomers();
     }, [])
 

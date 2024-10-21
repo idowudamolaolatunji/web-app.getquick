@@ -256,11 +256,15 @@
 .product__figure--img {
 	position: relative;
 	width: 100%;
+	max-height: 20rem;
+	background-color: #eee;
 }
 .product__figure--stat {
 	position: absolute;
 	top: 5px;
 	right: 5px;
+    box-shadow: 0 0 2px #0000001e, 0 0 10px #0000000d;
+	border-radius: .4rem;
 }
 .product__figure img {
 	width: 100%;

@@ -40,7 +40,7 @@ function UploadProduct({ isnew, close }) {
     const navigate = useNavigate();
     const { width } = useWindowSize();
     const { token, handleUser, handleStore } = useAuthContext();
-    const { collections, handleImageUpload } = useFetchedContext();
+    const { collections, handleImageUpload, handleFetchUserStoreProducts } = useFetchedContext();
 
     const headers = {
         "Content-Type": "application/json",
@@ -89,7 +89,6 @@ function UploadProduct({ isnew, close }) {
     const [images, setImages] = useState([]);
     const imageFiles = images.map(img => img.file);
 
-    
     function handleOnChangeImage(imageList, addUpdateIndex) {
         console.log(imageList, addUpdateIndex);
         setImages(imageList);
@@ -233,7 +232,8 @@ function UploadProduct({ isnew, close }) {
             setTimeout(function() {
                 if(isnew) close();
                 else navigate(-1)
-            }, 5000);
+            }, 3000);
+            handleFetchUserStoreProducts()
 
         } catch(err) {
             setResponse({ status: "error", message: err.message });

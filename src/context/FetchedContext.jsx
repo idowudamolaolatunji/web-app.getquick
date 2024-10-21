@@ -14,7 +14,8 @@ export default FetchedContext;
 //// CREATING PROVIDER ////
 //////////////////////////////////////////////
 export const FetchedProvider = ({ children }) => {
-    const { token } = useAuthContext();
+    const { token, user } = useAuthContext();
+
     const [collections, setCollections] = useState([]);
     const [products, setProducts] = useState([]);
     const [customers, setCustomers] = useState([]);
@@ -73,7 +74,6 @@ export const FetchedProvider = ({ children }) => {
         handleLoader("collection", false);
     }
 
-
     async function handleFetchUserStoreProducts() {
         handleResetLE("product");
         try {
@@ -106,9 +106,19 @@ export const FetchedProvider = ({ children }) => {
     }
 
     async function handleFetchUserStoreCustomers() {
-        const res = await fetch(`${BASE_API_URL}/customers/mine/all`, { method: "GET", headers });
-        const data = await res.json();
-        if (data?.data) setCustomers(data?.data?.customers);
+        handleResetLE("customer");
+        try {
+            const res = await fetch(`${BASE_API_URL}/customers/mine/all`, { method: "GET", headers });
+            const data = await res.json();
+            if(!res.ok) throw new Error();
+            if(data.status == "fail") throw new Error();
+            if (data?.data) setCustomers(data?.data?.customers);
+
+            handleLoader("customer", false);
+        } catch (err) {
+            handleError("customer", true);
+            handleLoader("customer", false);
+        }
     }
 
 
@@ -138,11 +148,18 @@ export const FetchedProvider = ({ children }) => {
 
 
     useEffect(function () {
-        handleFetchUserStoreCollection();
-        handleFetchUserStoreProducts();
-        // handleFetchUserStoreOrders();
-        // handleFetchUserStoreCustomers();
-    }, [])
+        setCollections([])
+        setProducts([])
+        setOrders([])
+        setCustomers([]);
+
+        if(token && user) {
+            handleFetchUserStoreCollection();
+            handleFetchUserStoreProducts();
+            // handleFetchUserStoreOrders();
+            // handleFetchUserStoreCustomers();
+        }
+    }, [token, user])
 
 
     // CREATE CONTEXT DATA

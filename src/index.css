@@ -128,12 +128,22 @@ input::-webkit-inner-spin-button {
 	overflow-y: auto;
 }
 
+.modal.export {
+	min-height: 28rem;
+	width: 60rem;
+}
 
 .modal.simple {
 	min-height: 40rem;
-	border-radius: 0.6rem;
 	width: 50rem;
 }
+
+.modal.simple, 
+.modal.export {
+	border-radius: 0.6rem;
+}
+
+
 
 @keyframes zoom-in {
 	0% {
@@ -161,6 +171,64 @@ input::-webkit-inner-spin-button {
 	font-size: 2.4rem;
 	cursor: pointer;
 }
+
+
+.export .modal--head {
+	border-bottom: none;
+}
+.export .modal--body {
+	display: flex;
+	flex-direction: column;
+	gap: 1.4rem;
+	margin-top: 2.8rem;
+}
+.export .modal--body p {
+	font-size: 1.4rem;
+	font-weight: 500;
+	color: #555;
+	margin-bottom: .8rem;
+	line-height: 1.4;
+}
+.export .modal--others {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.4rem;
+}
+.export .modal--others span {
+	font-size: 1.2rem;
+	font-weight: 600;
+}
+
+.export .modal--form {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	justify-content: flex-start;
+	gap: .8rem;
+}
+.export button {
+	padding: 1.2rem 1rem;
+	border: none;
+	border-radius: .4rem;
+	font-weight: 500;
+	font-size: 1.34rem;
+	color: #fff;
+	background-color: #333;
+	align-self: stretch;
+	cursor: pointer;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: .6rem;
+}
+.export button svg {
+	font-size: 1.8rem;
+}
+.export .modal--form button {
+	background-color: var(--color-brand-500);
+}
+
 
 
 
@@ -519,6 +587,10 @@ input::-webkit-inner-spin-button {
 		width: 100% !important;
 		height: 100%;
 	}
+	.modal.export {
+		height: auto;
+		padding-bottom: 2.8rem;
+	}
 }
 
 
@@ -565,7 +637,13 @@ input::-webkit-inner-spin-button {
 		align-items: center;
 		justify-content: center;
 	}
-	
+
+	.export .modal--head {
+		border-bottom: 1.4px solid #eee;
+	}
+	.export .modal--form {
+		grid-template-columns: 1fr;
+	}
 }
 
 

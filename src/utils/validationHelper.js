@@ -168,3 +168,16 @@ export function validateBankForm(data, _) {
 
 	return errors;
 }
+
+
+export function validateExportCsvInput(email) {
+	let error;
+
+	if (!email.trim()) {
+		error = "An email address is required";
+	} else if (!/\S+@\S+\.\S+/.test(email)) {
+		error = "Email address is invalid!";
+	}
+
+	return error;
+}

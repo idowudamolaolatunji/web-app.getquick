@@ -85,7 +85,7 @@ function index() {
                     <button className='table--btn'><RiEdit2Line /></button>
                     <button className='table--btn'><RiDeleteBin5Line /></button>
                 </span>
-            )
+            ),
         },
     ];
 

@@ -8,8 +8,8 @@ import { BiChevronDown, BiPlus } from 'react-icons/bi';
 import TableUI from '../../components/TableUI';
 import EmptyTableComponent from '../../components/EmptyTableComponent';
 import Spinner from '../../components/spinner/spinner_two';
-
-
+import ExportCSV from '../../components/modal/ExportCSV';
+import CustomAlert from '../../components/CustomAlert';
 
 
 function PageUI({ items, pageName, columns, data, addUrl, emptyTitle, emptyText, emptyImg, emptyBtns, emptyClassName, headTabs, error, loader, activeDisplayTab=null, children }) {
@@ -20,11 +20,31 @@ function PageUI({ items, pageName, columns, data, addUrl, emptyTitle, emptyText,
     const widthandItem500 = (items && items.length > 0 && width < 500);
 
     const [showMoreActions, setShowMoreActions] = useState(false);
+    const [showExportModal, setShowExportModal] = useState(false);
+    const [response, setResponse] = useState({ status: null, message: null });
+
+
+    function handleShowExportModal() {
+        console.log(items?.length);
+        if(!items || items?.length == 0) {
+            setResponse({ status: "error", message: `You have no ${pageName} to export! ` });
+            setTimeout(() => setResponse({ status: null, message: null }), 2500)
+        } else {
+            setShowExportModal(true)
+        }
+    }
 
     return (
         <>
+            {(response.message || response.status) && (
+                <CustomAlert type={response.status} message={response.message} />
+            )}
+
             <div className='page__section--heading' style={widthandItem500 ? {flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start'} : {}}>
-                <h2 className="page__section--title">{pageName}s</h2>
+                <span>
+                    <h2 className="page__section--title">{pageName}s</h2>
+                    {width > 600 && <p className='page__section--text'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, facilis.</p>}
+                </span>
 
                 <span className='page__section--btns' style={widthandItem500 ? { width: "100%", display: "grid", gridTemplateColumns: "1fr 1fr" } : {}}>
                     {(items && items?.length > 0) && (
@@ -41,12 +61,15 @@ function PageUI({ items, pageName, columns, data, addUrl, emptyTitle, emptyText,
                                     </span>
                                     {showInsights?.[pageName] ? 'Hide' : 'Show'} Insights
                                 </li>
-                                <li><span><PiShareFatFill /></span>Export CSV</li>
+                                <li onClick={handleShowExportModal}>
+                                    <span><PiShareFatFill /></span>Export CSV
+                                </li>
                             </ul>
                         )}
                     </span>
                 </span>
             </div>
+            
 
             {children}
 
@@ -72,6 +95,16 @@ function PageUI({ items, pageName, columns, data, addUrl, emptyTitle, emptyText,
                     {...(activeDisplayTab && {displayType: activeDisplayTab})}
                 />
             </div>
+
+
+
+            {showExportModal && (
+                <ExportCSV
+                    data={data} 
+                    title={pageName}
+                    setClose={setShowExportModal}
+                />
+            )}
 
         </>
 

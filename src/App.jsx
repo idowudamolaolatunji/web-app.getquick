@@ -12,6 +12,7 @@ import './pages/generalStyle.css';
 import Login from './auth/login';
 import Signup from './auth/signup';
 import ForgotPassword from './auth/forgotPassword';
+import ResetPassword from './auth/resetPassword';
 import VerifyOtp from './auth/otpVerification';
 import Onboarding from './auth/onboarding';
 import Congrats from './auth/NextCongratsScreen';
@@ -47,6 +48,8 @@ import StoreCustomisation from './pages/storeCustomization';
 import CustomDomain from './pages/customDomain';
 import StoreInformation from './pages/storeInfo';
 import Customers from './pages/customers';
+import CreateCustomers from './pages/customers/customerComponents/CreateCustomers';
+import CustomerItem from './pages/customers';
 import RunSales from './pages/salesAndCoupon';
 import BankDetails from './pages/bankDetails';
 import Delivery from './pages/delivery';
@@ -78,6 +81,7 @@ function App() {
                     <Route path='/login' element={<Login />}></Route>
                     <Route path='/signup' element={<Signup />}></Route>
                     <Route path='/forgot-password' element={<ForgotPassword />}></Route>
+                    <Route path='/reset-password/:resettoken' element={<ResetPassword />}></Route>
                     <Route path='/verify-otp' element={<VerifyOtp />}></Route>
                     <Route path='/onboarding' element={<Onboarding />}></Route>
                     <Route path='/congratulations' element={<Congrats />}></Route>
@@ -88,12 +92,15 @@ function App() {
                         <Route path='/dashboard' element={<DashboardHome />}></Route>
                         <Route path='/dashboard/orders' element={<Orders />}></Route>
                         <Route path='/dashboard/products' element={<Products />}></Route>
+                        <Route path='/dashboard/customers' element={<Customers />}></Route>
 
                         <Route path='/dashboard/orders/record' element={<RecordOrders />}></Route>
                         <Route path='/dashboard/products/upload' element={<UploadProduct />}></Route>
+                        <Route path='/dashboard/customers/add' element={<CreateCustomers />}></Route>
 
                         <Route path='/dashboard/products/:id' element={<ProductItem />}></Route>
                         <Route path='/dashboard/orders/:id' element={<OrderItem />}></Route>
+                        <Route path='/dashboard/customers/:id' element={<CustomerItem />}></Route>
 
 
                         <Route path='/dashboard/transactions' element={<Transaction />}></Route>
@@ -107,7 +114,6 @@ function App() {
                         <Route path='/dashboard/delivery' element={<Delivery />}></Route>
                         <Route path='/dashboard/subscription' element={<Subscription />}></Route>
                         <Route path='/dashboard/profile' element={<Profile />}></Route>
-                        <Route path='/dashboard/customers' element={<Customers />}></Route>
                         <Route path='/dashboard/analytics' element={<Analytics />}></Route>
                         <Route path='/dashboard/community-forums' element={<CommunityForums />}></Route>
                     </Route>

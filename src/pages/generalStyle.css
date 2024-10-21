@@ -257,6 +257,7 @@
 	position: relative;
 	width: 100%;
 	max-height: 20rem;
+	min-height: 14rem;
 	background-color: #eee;
 }
 .product__figure--stat {
@@ -369,6 +370,7 @@
 		font-size: 1.48rem;
 	}
 
+	
 	.product__figure--img,
 	.product__figure img {
 		max-height: 20rem;

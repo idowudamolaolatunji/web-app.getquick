@@ -1,63 +1,62 @@
-import React, { useEffect, useState } from 'react'
-import { BiChevronDown } from 'react-icons/bi'
-
+import React, { useEffect } from 'react'
+import PageUI from '../pageComponents/PageUI'
+import { useWindowSize } from 'react-use';
 import { useDataContext } from '../../context/DataContext';
-import MainDropdownSelect from '../../components/MainDropdownSelect';
+import { useFetchedContext } from '../../context/FetchedContext';
+import Insight from '../../components/Insight';
+import { FiUser, FiUsers } from 'react-icons/fi';
+
+
+const BASE_URL = import.meta.env.VITE_BASE_URL
+
+const emptyTitle = "Add new customer!";
+const emptyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat aliquam vero perferendis sapiente iste assumenda nam, vel dicta ducimus at perferendis sapiente iste.";
+const emptyBtns = [
+    { title: "Add Customer", link: "/dashboard/customers/add" },
+    { title: "Import Customer", link: "/dashboard/customers/import/add" }
+];
 
 
 function index() {
+    const { width } = useWindowSize();
+    const { showInsights } = useDataContext();
+    const { loader, error, customers } = useFetchedContext();
 
-    const { location, getContries, getStates, getCities, setLocation } = useDataContext();
-    const [country, setCountry] = useState([]);
-    const [state, setState] = useState([]);
-    const [city, setCity] = useState([]);
-
-
-    function handleClearLocation() {
-        setState([]);
-        setCity([]);
-        setLocation({...location, state: [], city: []})
-    }
+    const columns = [];
 
     useEffect(function() {
-        handleClearLocation()
-        getContries()
+        document.title = "Quicka | Customers";
+        window.scrollTo(0, 0);
+
+        if(customers?.length < 1 && error?.customer) {}
     }, []);
 
-    
-    useEffect(function() {
-        handleClearLocation();
-
-        if(country.length > 0) {
-            getStates(country[0]?.iso2)
-        }
-    }, [country[0]]);
-
-
-    useEffect(function() {
-        setCity([]);
-        setLocation({...location, city: []});
-
-        if(country.length > 0 && state.length > 0) {
-            getCities(country[0]?.iso2, state[0]?.iso2);
-        }
-    }, [country[0], state[0]]);
 
     return (
-        <>
-        <div className='page__section--heading'>
-            <h2 className="page__section--title">Customers</h2>
-            <button className="page__section-top-btn">More Actions <BiChevronDown /></button>
-        </div>
+        <PageUI
+            pageName="customer"
+            items={customers}
+            columns={columns}
+            data={customers}
+            addUrl="customers/add"
+            emptyText={emptyText}
+            emptyBtns={emptyBtns}
+            // emptyImg={emptyImg}
+            emptyTitle={emptyTitle}
+            emptyClassName="empty--customer"
+            // headTabs={<HeadTabs />}
+            loader={loader} error={error}
+            // loader={loader?.customer} error={error?.customer}
+        >
+            
+            {showInsights?.customer && (
+                <div className='page__section--insights insight--grid' style={{ marginBottom: '3rem', ...(width > 900 && {width: '90%'}) }}>
+                    <Insight title='Total Customers' loader={loader?.customer} value={customers?.length || 0} icon={<FiUsers />} />
+                    <Insight title='New Customers' loader={loader?.customer} value={0} icon={<FiUser />} />
+                </div>
+            )}
 
-        <div>
-            <MainDropdownSelect title="a Country" options={location?.country} field="name" value={country} setValue={setCountry} clearOnSelect={true} />
-
-            <MainDropdownSelect title="a state" options={location?.state} field="name" value={state} setValue={setState} noDataLabel='No states' clearOnSelect={true} disabled={country?.length < 1} />
-
-            <MainDropdownSelect title="a city" options={location?.city} field="name" value={city} setValue={setCity} noDataLabel='No Cities' clearOnSelect={true} disabled={state?.length < 1} />
-        </div>
-        </>
+        </PageUI>
     )
 }
 

@@ -31,7 +31,7 @@ const customStyles = {
     headCells: {
         style: {
             paddingRight: '5px',
-            backgroundColor: '#444',
+            backgroundColor: '#333',
             color: '#fff',
             height: '65px'
         },
@@ -54,6 +54,10 @@ function TableUI({ columns, data, toLink, emptyComponent, selectableRows, headTa
         const ids = [];
         selectedRows?.map(row => ids.push(row._id));
         setSelectedRowsId(ids);
+    }
+
+    const handleNavigate = function(row) {
+        navigate(`${toLink}/${row._id}`);
     }
 
     return (
@@ -103,6 +107,7 @@ function TableUI({ columns, data, toLink, emptyComponent, selectableRows, headTa
                         <DataTable
                             data={data}
                             columns={columns}
+                            pagination
                             pointerOnHover
                             highlightOnHover={width > 600 ? true : false}
                             persistTableHead
@@ -110,8 +115,8 @@ function TableUI({ columns, data, toLink, emptyComponent, selectableRows, headTa
                             customStyles={customStyles}
                             selectableRows={selectableRows}
                             onSelectedRowsChange={handleSelectedRow}
-                            pagination
-                            onRowClicked={(row) => navigate(`${toLink}/${row._id}`)}
+                            onRowClicked={(row) => handleNavigate(row)}
+                            {...(width < 600 && { onRowMouseEnter: (row => handleNavigate(row)), })}
                         />
                     )}
                 </>

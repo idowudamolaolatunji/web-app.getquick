@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { BiChevronDown, BiPlus } from 'react-icons/bi'
-import TableUI from '../../components/TableUI'
 import { formatNumber } from '../../utils/helper';
-import EmptyTableComponent from '../../components/EmptyTableComponent';
-import emptyImg from '../../assets/images/resources/orange-woman-with-packages-in-shopping-cart.png';
 import { useWindowSize } from 'react-use';
 import Insight from '../../components/Insight';
 import { LuClipboardList } from 'react-icons/lu';
-import { ImEye, ImEyeBlocked } from 'react-icons/im';
-import { PiExport, PiShareFatFill } from 'react-icons/pi';
 import { GrTag } from 'react-icons/gr';
 import { TbArrowWaveRightDown, TbListSearch } from 'react-icons/tb';
 import { useFetchedContext } from '../../context/FetchedContext';
 import { useDataContext } from '../../context/DataContext';
-import { useNavigate } from 'react-router-dom';
 import { MdOutlineRefresh, MdTableRows } from 'react-icons/md';
 import { RiDeleteBin5Line, RiEdit2Line } from 'react-icons/ri';
 import { BsFillGrid3X3GapFill, BsFillGridFill, BsTable } from 'react-icons/bs';
-import DefaultButton from '../../components/button/DefaultButton';
 import TooltipUI from '../../components/TooltipUI';
-import Spinner from '../../components/spinner/spinner_two';
-import Skeleton from 'react-loading-skeleton';
+import PageUI from '../pageComponents/PageUI';
+import emptyImg from '../../assets/images/resources/orange-woman-with-packages-in-shopping-cart.png';
 
 
 //////////////////////////////////////////////////////
@@ -35,19 +28,14 @@ const emptyBtns = [
 
 
 function index() {
-    const navigate = useNavigate();
     const { width } = useWindowSize();
-    const { handleToggleInsights, showInsights, activeDisplayTab, handleDisplayTab } = useDataContext();
-
+    const { showInsights, activeDisplayTab, handleDisplayTab } = useDataContext();
     const { loader, error, products, collections, handleFetchUserStoreProducts, handleFetchUserStoreCollections } = useFetchedContext();
 
     const productsSold = 2;
     const outOfStock = 0;
     const collectionAmount = collections?.length;
     const totalInventoryWorth = products?.reduce((acc, product) => acc + product.price, 0);
-    const widthandProduct500 = (products && products.length > 0 && width < 500);
-
-    const [showMoreActions, setShowMoreActions] = useState(false);
     const [tableSearch, setTableSearch] = useState('');
 
     const columns = [
@@ -134,31 +122,22 @@ function index() {
 
 
     return (
-        <>
-            <div className='page__section--heading' style={widthandProduct500 ? {flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start'} : {}}>
-                <h2 className="page__section--title">Products</h2>
-
-                <span className='page__section--btns' style={widthandProduct500 ? { width: "100%", display: "grid", gridTemplateColumns: "1fr 1fr" } : {}}>
-                    {(products && products.length > 0) && (
-                        <button className="page__section-top-btn add" onClick={() => navigate("/dashboard/products/upload")}>Add Product <BiPlus /></button>
-                    )}
-
-                    <span className="page__section--action" onMouseLeave={() => setShowMoreActions(false)}>
-                        <button onClick={() => setShowMoreActions(!showMoreActions)} className="page__section-top-btn more">More Actions <BiChevronDown /></button>
-                        {showMoreActions && (
-                            <ul className="page__section--dropdown">
-                                <li onClick={() => handleToggleInsights("product")}>
-                                    <span>
-                                        {showInsights?.product ? <ImEyeBlocked /> : <ImEye />}
-                                    </span>
-                                    {showInsights?.product ? 'Hide' : 'Show'} Insights
-                                </li>
-                                <li><span><PiShareFatFill /></span>Export CSV</li>
-                            </ul>
-                        )}
-                    </span>
-                </span>
-            </div>
+        <PageUI
+            pageName="product"
+            items={products}
+            columns={columns}
+            data={products}
+            addUrl="products/upload"
+            emptyText={emptyText}
+            emptyBtns={emptyBtns}
+            emptyImg={emptyImg}
+            emptyTitle={emptyTitle}
+            emptyClassName="empty--product"
+            headTabs={<HeadTabs />}
+            loader={loader} error={error}
+            activeDisplayTab={activeDisplayTab}
+            // loader={loader?.product} error={error?.product}
+        >
 
             {showInsights?.product && (
                 <div className='page__section--insights insight--grid' style={{ marginBottom: '3rem', ...(width > 900 && {width: '85%'}) }}>
@@ -169,28 +148,7 @@ function index() {
                 </div>
             )}
 
-            <div className="page__section--main card" style={{ padding: 0 }}>
-                <TableUI 
-                    data={products}
-                    columns={columns}
-                    selectableRows={true}
-                    toLink="/dashboard/products"
-                    emptyComponent={
-                        <EmptyTableComponent
-                            img={emptyImg}
-                            text={emptyText}
-                            btns={emptyBtns}
-                            title={emptyTitle}
-                            className="empty--product"
-                        />
-                    }
-                    headTabs={<HeadTabs />}
-                    displayType={activeDisplayTab}
-                    loader={loader?.product}
-                    error={error?.product}
-                />
-            </div>
-        </>
+        </PageUI>
     )
 }
 

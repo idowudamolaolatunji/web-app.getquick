@@ -75,7 +75,6 @@ export const DataProvider = ({ children }) => {
     const apiToken = "Q0lMUm00U1NFcnFQN1V1MlRwaHR3aUpwQWZ0SVV0MU9lS0JsY0hDQQ==";
     const headers = new Headers();
     headers.append("X-CSCAPI-KEY", apiToken);
-    console.log(location.country, location.state, location.city);
 
 
     const getContries = async function() {

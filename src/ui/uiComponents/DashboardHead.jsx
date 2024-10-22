@@ -71,6 +71,7 @@ function DashboardHead() {
                         </div>
                     </DefaultButton>
 
+                    {/* DROPDOWN MENU */}
                     {isShownDropdown && (
                         <Dropdown isShown={isShownDropdown} setIsShown={setIsShownDropdown} />
                     )}

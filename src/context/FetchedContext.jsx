@@ -68,7 +68,7 @@ export const FetchedProvider = ({ children }) => {
 
     async function handleFetchUserStoreCollection() {
         handleLoader("collection", true);
-        const res = await fetch(`${BASE_API_URL}/collections/mine/all`, { method: "GET", headers })
+        const res = await fetch(`${BASE_API_URL}/collections/mine/collections`, { method: "GET", headers })
         const data = await res.json();
         if (data?.data) setCollections(data?.data?.collections);
         handleLoader("collection", false);
@@ -77,7 +77,7 @@ export const FetchedProvider = ({ children }) => {
     async function handleFetchUserStoreProducts() {
         handleResetLE("product");
         try {
-            const res = await fetch(`${BASE_API_URL}/products/mine/all`, { method: "GET", headers });
+            const res = await fetch(`${BASE_API_URL}/products/mine/products`, { method: "GET", headers });
             const data = await res.json();
             if(!res.ok) throw new Error();
             if(data.status == "fail") throw new Error();

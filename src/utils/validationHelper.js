@@ -57,7 +57,6 @@ export function validateAuthForm(data, type) {
 		}
 
 		if (!data.phone.trim()) {
-			console.log(data.phone);
 			errors.phone = "Phone number is required";
 		} else if (!["234", "233"].includes(data.phone.slice(0, 3))) {
 			errors.phone = "Quicka is only allowed in Nigeria and Ghana";
@@ -126,6 +125,29 @@ export function validateProductForm(data, _) {
 
 	if (data.productCollection.length < 1 && !data.productCollection.name) {
 		errors.productCollection = "Produt collection is required";
+	}
+
+	return errors;
+}
+
+
+export function validateOrderForm(data, _) {
+	const errors = {};
+
+	if (!data.orderDate.trim()) {
+		errors.orderDate = "Order date is required";
+	}
+	if (data.orderProducts.length < 1) {
+		errors.orderProducts = "Product(s) ordered is required";
+	}
+	if (data.paymentMethod.length < 1 && !data.paymentMethod.value) {
+		errors.paymentMethod = "Payment method is required";
+	}
+	if (data.deliveryStatus.length < 1 && !data.deliveryStatus.value) {
+		errors.deliveryStatus = "Delivery status is required";
+	}
+	if (data.channel.length < 1 && !data.channel.value) {
+		errors.channel = "Produt collection is required";
 	}
 
 	return errors;

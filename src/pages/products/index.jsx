@@ -43,11 +43,11 @@ function index() {
         { 
             name: 'Prduct',
             selector: row => (
-                <Link className="table--flex table--link" to={`/dashboard/products/${row._id}`}>
-                    <img alt={row.name} src={BASE_URL + row.images[0]} />
+                <Link className="table--flex table--link" to={`/dashboard/products/${row?.productId}`}>
+                    <img alt={row?.name} src={BASE_URL + row?.images[0]} />
                     <span className='table--info'>
-                        <h3>{row.name}</h3>
-                        <span>{row.productCollection}</span>
+                        <h3>{row?.name}</h3>
+                        <span>{row?.productCollection}</span>
                     </span>
 
                 </Link>
@@ -57,7 +57,7 @@ function index() {
         { 
             name: 'Price',
             selector: row => (
-                <p className='value' style={{ fontSize: "1.3rem" }}>{'₦'+formatNumber(row.price)}</p>
+                <p className='value' style={{ fontSize: "1.3rem" }}>{'₦'+formatNumber(row?.price)}</p>
             ),
             width: width > 600 ? "10%" : ""
         },
@@ -65,9 +65,9 @@ function index() {
             name: 'Inventory',
             selector: row => (
                 <span className="flex table--info" style={{ gap: ".4rem", alignItems: "center" }}>
-                    <p  className='value'>{row.stockAmount} <span>Stocks</span></p>
+                    <p  className='value'>{row?.stockAmount} <span>Stocks</span></p>
                     <span>/</span>
-                    <p  className='value'>{row.variations.length} <span>Variations</span></p>
+                    <p  className='value'>{row?.variations.length} <span>Variations</span></p>
                 </span>
             ),
             width: width > 600 ? "18%" : ""
@@ -75,8 +75,8 @@ function index() {
         { 
             name: 'Status',
             selector: row => (
-                <span className={`status status--${(row.status)}`}>
-                    <p>{row.status}</p>
+                <span className={`status status--${(row?.status)}`}>
+                    <p>{row?.status}</p>
                 </span>
             ),
         },

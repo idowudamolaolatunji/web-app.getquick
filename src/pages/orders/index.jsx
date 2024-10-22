@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { BiChevronDown, BiPlus } from 'react-icons/bi'
-import TableUI from '../../components/TableUI'
 import { formatDate, formatNumber } from '../../utils/helper';
-import EmptyTableComponent from '../../components/EmptyTableComponent'
 import emptyImg from '../../assets/images/resources/orange-happy-valentines-day-greetings-and-gift.png';
 import { useWindowSize } from 'react-use';
-import { LuMousePointerClick } from 'react-icons/lu';
 import Insight from '../../components/Insight';
-import { PiShareFatFill } from 'react-icons/pi';
-import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import { TbNotes, TbNotesOff } from 'react-icons/tb';
-import { MdOutlineNoteAlt, MdOutlineShoppingBag } from 'react-icons/md';
+import { MdOutlineNoteAlt, MdOutlineRefresh, MdOutlineShoppingBag } from 'react-icons/md';
 import { useDataContext } from '../../context/DataContext';
 import { useFetchedContext } from '../../context/FetchedContext';
 import PageUI from '../pageComponents/PageUI';
+import TooltipUI from '../../components/TooltipUI';
 
 
 
@@ -29,31 +24,15 @@ const emptyBtns = [
 function index() {
     const { width } = useWindowSize();
     const { showInsights,  } = useDataContext();
-    const { loader, error, orders, products, handleFetchUserStoreOrders } = useFetchedContext()
-
-    const [showMoreActions, setShowMoreActions] = useState(false);
+    const { loader, error, orders, handleFetchUserStoreOrders } = useFetchedContext()
     const [tableSearch, setTableSearch] = useState('');
     
     const columns = [
         { 
-            name: '', selector: row => (
-                <img width={'40px'} alt={''} src={row.name} />
-            )
-        },
-        { 
             name: 'Prduct Name', selector: row => row.name
         },
         { 
-            name: 'Collection', selector: row => row.productCollection
-        },
-        { 
-            name: 'Variation', selector: row => row.variations
-        },
-        { 
-            name: 'In Stock', selector: row => row.stock
-        },
-        { 
-            name: 'Price', selector: row => '₦'+formatNumber(row.price)
+            name: 'Amount', selector: row => '₦'+formatNumber(row.price)
         },
         { 
             name: 'Status', selector: row => (

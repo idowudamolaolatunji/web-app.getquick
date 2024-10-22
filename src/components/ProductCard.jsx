@@ -11,7 +11,7 @@ function ProductCard({ product }) {
 
     return (
         <figure className="product__figure">
-            <Link to={`/dashboard/products/${product._id}`} className="product__figure--img">
+            <Link to={`/dashboard/products/${product.productId}`} className="product__figure--img">
                 <span className={`product__figure--stat status status--${(product.status)}`}>
                     <p style={{ minWidth: "0" }}>{product.status}</p>
                 </span>

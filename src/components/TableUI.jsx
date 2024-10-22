@@ -13,19 +13,21 @@ const customStyles = {
     table: {
         style: {
             overflowX: 'auto',
+            fontFamily: "inherit",
+            color: "inherit",
         },
     },
     head: {
         style: {
-            fontSize: "13px",
-            fontWeight: "bold",
+            fontSize: "15px",
+            fontWeight: "600",
             height: '65px',
         },
     },
     rows: {
         style: {
             minHeight: '75px',
-            cursor: 'pointer'
+            cursor: 'pointer',
         },
     },
     headCells: {
@@ -44,7 +46,7 @@ const customStyles = {
 };
 
 
-function TableUI({ columns, data, toLink, emptyComponent, selectableRows, headTabs, displayType = "table", loader, error }) {
+function TableUI({ name, columns, data, toLink, emptyComponent, selectableRows, headTabs, displayType = "table", loader, error }) {
     const isData = data?.length > 0;
     const navigate = useNavigate();
     const { width } = useWindowSize();
@@ -57,7 +59,7 @@ function TableUI({ columns, data, toLink, emptyComponent, selectableRows, headTa
     }
 
     const handleNavigate = function(row) {
-        navigate(`${toLink}/${row._id}`);
+        navigate(`${toLink}/${row[name == "product" ? "productId" : "_id"]}`);
     }
 
     return (

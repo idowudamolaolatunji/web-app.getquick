@@ -6,7 +6,7 @@ import QuillEditor from '../../../components/QuillEditor';
 import BackButton from '../../../components/button/BackButton';
 import SimpleModal from '../../../components/modal/Simple';
 
-import { MdOutlinePendingActions, MdOutlineShoppingBag } from 'react-icons/md';
+import { MdOutlineShoppingBag } from 'react-icons/md';
 import { useAuthContext } from '../../../context/AuthContext';
 import Line from '../../../components/Line';
 import '../../uploadStyle.css';
@@ -21,14 +21,29 @@ import FullScreen from '../../../components/modal/FullScreen';
 import Drawer from '../../../components/modal/Drawer';
 import AddCustomer from './AddCustomer';
 
+import Spinner from '../../../components/spinner/spinner_two';
+import CustomAlert from '../../../components/CustomAlert';
+import ConfettiUI from '../../../components/ConfettiUI';
+
+import { truncateString } from '../../../utils/helper.js';
+import { validateOrderForm } from '../../../utils/validationHelper.js';
+
 
 const BASE_API_URL = import.meta.env.VITE_API_URL
-const BASE_URL = import.meta.env.VITE_BASE_URL
 
 function RecordOrder() {
+    const { width } = useWindowSize();
+    const { token } = useAuthContext();
+    const { products, customers, handleFetchUserStoreOrders } = useFetchedContext();
+
+    const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+    }
+
     const [orderData, setOrderData] = useState({
-        title: "",
-        paymentType: "paid",
+        paymentStatus: "paid",
+        orderDate: ""
     });
 
     const [loading, setLoading] = useState({
@@ -36,8 +51,13 @@ function RecordOrder() {
         imageLoading: false
     });
 
+    const [response, setResponse] = useState({
+        status: null,
+        message: null
+    });
+
     const [description, setDescription] = useState('');
-    const [orderProduct, setOrderProduct] = useState([]);
+    const [orderProducts, setOrderProducts] = useState([]);
     const [orderCustomer, setOrderCustomer] = useState([]);
 
     const [paymentMethod, setPaymentMethod] = useState([]);
@@ -49,23 +69,21 @@ function RecordOrder() {
         customer: false
     });
 
-    const currency = "₦";
-    const { width } = useWindowSize();
-    const { store } = useAuthContext();
-    const { products, customers } = useFetchedContext();
-    const transformedProducts = products?.map(product => ({
-        label: 
-            <span className='flex align' key={product?._id}>
-                <img src={BASE_URL + product?.images[0]} />
-                {product?.name}
-            </span>
-        ,
-        value: product._id
-    }));
+    const [showConfetti, setShowConfetti] = useState(false)
+    const [salesFormErrors, setSalesFormErrors] = useState({})
 
-    
-    console.log(paymentMethodData, deliveryStatusData)
-      
+    // const transformedProducts = products?.map(product => ({
+    //     label: (
+    //         <span className='flex align' key={product?._id}>
+    //             <img src={BASE_URL + product?.images[0]} />
+    //             <span className='p-input--item'>
+    //                 <p>{width < 450 ? truncateString(product?.name, 30) : product?.name }</p>
+    //                 <span>{product?.productCollection}</span>
+    //             </span>
+    //         </span>
+    //     ),
+    //     value: product._id
+    // }));
     
     function handleOrderDataChange(e) {
         const { name, value } = e?.target;
@@ -82,15 +100,15 @@ function RecordOrder() {
 
     function handleClearFields() {
         setOrderData({
-            title: "",
-            paymentType: "paid",
+            paymentStatus: "paid",
+            orderDate: ""
         });
 
         setDescription("");
         setPaymentMethod([]);
         setDeliveryStatus([]);
         setOrderCustomer([]);
-        setOrderProduct([]);
+        setOrderProducts([]);
         setChannel([]);
     }
 
@@ -99,18 +117,89 @@ function RecordOrder() {
     }, []);
 
     useEffect(function () {
-        if (orderData.paymentType == "unpaid") {
+        if (orderData.paymentStatus == "unpaid") {
             setPaymentMethod([]);
         }
-    }, [orderData.paymentType]);
+    }, [orderData.paymentStatus]);
+
+
+    async function handleRecordOrder() {
+        // FORM VALIDATIONS 
+        let formData = { 
+            channel,
+            ...orderData,
+            orderProducts,
+            paymentMethod,
+            deliveryStatus,
+        }
+
+        const newErrors = validateOrderForm(formData);
+        setSalesFormErrors(newErrors);
+        if (Object.keys(newErrors).length >= 1) {
+            setResponse({ status: "error", message: "Fill up all required fields!" });
+            setTimeout(() => setResponse({ status: "", message: "" }), 1500);
+            return;
+        };
+
+        // SET LOADER
+        setResponse({ status: "", message: "" });
+        setLoading({ ...loading, mainLoading: true });
+        const products = orderProducts?.map(product => product._id)
+        
+        // MAKE REQUEST
+        try {
+            const res = await fetch(`${BASE_API_URL}/orders/record`, {
+                headers,
+                method: "POST",
+                body: JSON.stringify({
+                    products,
+                    description,
+                    ...orderData,
+                    channel: channel[0]?.value,
+                    paymentMethod: paymentMethod[0]?.value,
+                    customer: orderCustomer[0]?._id || null,
+                    deliveryStatus: deliveryStatus[0]?.value,
+                })
+            });
+            if(!res.ok) throw new Error('Something went wrong! Check intenet connection');
+
+            const data = await res.json();
+            console.log(res, data)
+            
+            const { status, message } = data;
+            if(status !== 'success') throw new Error(message);
+
+            // SET RESPONSE MESSAGE
+            setResponse({ status: "success", message });
+            setShowConfetti(true)
+
+            window.scrollTo(0, 0);
+            handleClearFields();
+            
+            setTimeout(() => navigate(-1), 3000);
+            handleFetchUserStoreOrders()
+
+        } catch(err) {
+            setResponse({ status: "error", message: err.message });
+        } finally {
+            setLoading({ ...loading, mainLoading: false })
+        }
+    }
 
 
     return (
         <>
 
+            {showConfetti &&  <ConfettiUI />}
+            {loading.mainLoading && <Spinner />}
+
+            {(response.message || response.status) && (
+                <CustomAlert type={response.status} message={response.message} />
+            )}
+
             {showModal.product && (
                 <FullScreen style={{ maxWidth: '100rem', margin: '0 auto' }}>
-                    <UploadProduct isnew close={() => handleCloseModal("product")} />
+                    <UploadProduct isModal close={() => handleCloseModal("product")} />
                 </FullScreen>
             )}
 
@@ -130,7 +219,7 @@ function RecordOrder() {
                     {width > 600 && (
                         <div className="page__section--actions">
                             <button className='button clear--button' onClick={handleClearFields}>Clear Fields</button>
-                            <button className='button submit--button'>Submit</button>
+                            <button className='button submit--button' onClick={handleRecordOrder}>Submit</button>
                         </div>
                     )}
                 </div>
@@ -149,7 +238,10 @@ function RecordOrder() {
                             <div className="form--item">
                                 <label className="form--label">Product <Asterisk /></label>
 
-                                <MainDropdownSelect title="Product" options={transformedProducts} field="label" value={orderProduct} setValue={setOrderProduct} noDataLabel="No product found!" />
+                                <MainDropdownSelect title="Product" options={products} field="name" value={orderProducts} setValue={setOrderProducts} noDataLabel="No product found!" multiple={true} />
+                                <span className="form--error-message">
+                                    {salesFormErrors.orderProducts && salesFormErrors.orderProducts}
+                                </span>
 
                                 <button className='form--add' onClick={() => setShowModal({ ...showModal, product: true })}>
                                     <AiOutlinePlus />
@@ -174,11 +266,17 @@ function RecordOrder() {
                                     <label className="form--label">Order / Sales Channel <Asterisk /></label>
 
                                     <MainDropdownSelect title="a Channel" options={channelData} field="label" value={channel} setValue={setChannel} />
+                                    <span className="form--error-message">
+                                        {salesFormErrors.channel && salesFormErrors.channel}
+                                    </span>
                                 </div>
 
                                 <div className="form--item">
                                     <label id='date' className="form--label">Order Date <Asterisk /></label>
-                                    <input type="date" className='form--input' placeholder='Select date' max={new Date().toISOString().split('T')[0]} name="" id="date" />
+                                    <input type="date" className='form--input' placeholder='Select date' max={new Date().toISOString().split('T')[0]} name="orderDate" id="date" value={orderData.orderDate} onChange={handleOrderDataChange} />
+                                    <span className="form--error-message">
+                                        {salesFormErrors.orderDate && salesFormErrors.orderDate}
+                                    </span>
                                 </div>
                             </div>
 
@@ -209,27 +307,31 @@ function RecordOrder() {
                                 <label className="form--label">Payment Status</label>
 
                                 <div className="form--clicks">
-                                    <div className={`form--click ${orderData.paymentType == "paid" ? 'is-selected' : ''}`}
-                                        onClick={() => setOrderData({ ...orderData, paymentType: "paid" })}
+                                    <div className={`form--click ${orderData.paymentStatus == "paid" ? 'is-selected' : ''}`}
+                                        onClick={() => setOrderData({ ...orderData, paymentStatus: "paid" })}
                                     >Paid <span></span>
                                     </div>
-                                    <div className={`form--click ${orderData.paymentType == "partially" ? 'is-selected' : ''}`}
-                                        onClick={() => setOrderData({ ...orderData, paymentType: "partially" })}
+                                    <div className={`form--click ${orderData.paymentStatus == "partially" ? 'is-selected' : ''}`}
+                                        onClick={() => setOrderData({ ...orderData, paymentStatus: "partially" })}
                                     >Partly Paid<span></span>
                                     </div>
-                                    <div className={`form--click ${orderData.paymentType == "unpaid" ? 'is-selected' : ''}`}
-                                        onClick={() => setOrderData({ ...orderData, paymentType: "unpaid" })}
+                                    <div className={`form--click ${orderData.paymentStatus == "unpaid" ? 'is-selected' : ''}`}
+                                        onClick={() => setOrderData({ ...orderData, paymentStatus: "unpaid" })}
                                     >Unpaid<span></span>
                                     </div>
                                 </div>
                             </div>
 
 
-                            {orderData.paymentType != "unpaid" && (
+                            {orderData.paymentStatus != "unpaid" && (
                                 <div className="form--item">
                                     <label className="form--label">Payment Method <Asterisk /></label>
 
                                     <MainDropdownSelect title="a Payment Method" options={paymentMethodData} field="label" value={paymentMethod} setValue={setPaymentMethod} searchable={false} />
+
+                                    <span className="form--error-message">
+                                        {salesFormErrors.paymentMethod && salesFormErrors.paymentMethod}
+                                    </span>
                                 </div>
                             )}
 
@@ -237,6 +339,9 @@ function RecordOrder() {
                                 <label htmlFor='status' className='form--label'>Delivery Status <Asterisk /></label>
 
                                 <MainDropdownSelect title="a Delivery Status" options={deliveryStatusData} field="label" value={deliveryStatus} setValue={setDeliveryStatus} searchable={false} />
+                                <span className="form--error-message">
+                                    {salesFormErrors.deliveryStatus && salesFormErrors.deliveryStatus}
+                                </span>
                             </div>
 
 
@@ -252,7 +357,7 @@ function RecordOrder() {
                 {width < 600 && (
                     <div className="page__section--actions" style={{ marginTop: "4rem" }}>
                         <button className='button clear--button' onClick={handleClearFields}>Clear Fields</button>
-                        <button className='button submit--button'>Submit</button>
+                        <button className='button submit--button' onClick={handleRecordOrder}>Submit</button>
                     </div>
                 )}
             </section>

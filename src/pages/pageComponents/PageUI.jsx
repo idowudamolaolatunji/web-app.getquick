@@ -26,7 +26,7 @@ function PageUI({ items, pageName, columns, data, addUrl, emptyTitle, emptyText,
 
     function handleShowExportModal() {
         if(!items || items?.length == 0) {
-            setResponse({ status: "error", message: `You have no ${pageName} to export! ` });
+            setResponse({ status: "error", message: `No ${pageName} data to export! ` });
             setTimeout(() => setResponse({ status: null, message: null }), 2500)
         } else {
             setShowExportModal(true)
@@ -78,6 +78,7 @@ function PageUI({ items, pageName, columns, data, addUrl, emptyTitle, emptyText,
                 <TableUI
                     data={data}
                     columns={columns}
+                    name={pageName}
                     selectableRows={true}
                     toLink={`/dashboard/${pageName}s`}
                     loader={loader?.[pageName]}

@@ -275,6 +275,9 @@
     .form--img-box .img--container {
         max-width: 100%;
     }
+    .product__upload--container .form--grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 

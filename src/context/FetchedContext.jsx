@@ -154,10 +154,10 @@ export const FetchedProvider = ({ children }) => {
         setCustomers([]);
 
         if(token && user) {
-            handleFetchUserStoreCollection();
-            handleFetchUserStoreProducts();
             handleFetchUserStoreOrders();
+            handleFetchUserStoreProducts();
             handleFetchUserStoreCustomers();
+            handleFetchUserStoreCollection();
         }
     }, [token, user])
 
@@ -173,6 +173,7 @@ export const FetchedProvider = ({ children }) => {
         collections,
         handleFetchUserStoreOrders,
         handleFetchUserStoreProducts,
+        handleFetchUserStoreCustomers,
         handleFetchUserStoreCollection,
 
 

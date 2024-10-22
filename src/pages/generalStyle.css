@@ -141,7 +141,8 @@
 	align-items: center;
 	gap: 1.2rem;
 }
-.table--flex .table--info {
+.table--flex .table--info,
+.p-input--item {
 	display: flex;
 	flex-direction: column;
 	gap: 0.4rem;
@@ -158,13 +159,17 @@
 	font-size: 1.5;
 	font-weight: 500;
 }
-.table--flex .table--info span {
+.table--flex .table--info span,
+.p-input--item span {
 	font-size: 1.28rem;
 	background-color: var(--color-brand-50);
 	padding: 0.2rem 0.4rem;
 	color: var(--color-brand-500);
 	font-weight: 500;
 	border-radius: 0.4rem;
+}
+.p-input--item span {
+	font-size: 1.1rem;
 }
 
 .table--info p {
@@ -271,6 +276,7 @@
 	max-height: 20rem;
 	min-height: 14rem;
 	background-color: #eee;
+	border-radius: 0.4rem;
 }
 .product__figure--stat {
 	position: absolute;
@@ -389,6 +395,10 @@
 		max-height: 20rem;
 		width: 100%;
 		height: auto;
+	}
+
+	.product__figure--img {
+		min-height: 12rem;
 	}
 }
 

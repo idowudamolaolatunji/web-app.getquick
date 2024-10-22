@@ -17,7 +17,6 @@ function MainDropdownSelect({ options, multiple=false, field, title, value, sear
                 searchable={searchable}
                 separator
                 clearable
-                closeOnScroll
                 color='#ff7a49'
                 onChange={(values) => setValue(values)}
                 placeholder={`Select ${title}`}

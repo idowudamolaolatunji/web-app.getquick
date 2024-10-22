@@ -34,7 +34,7 @@ import { createPortal } from 'react-dom';
 
 const BASE_API_URL = import.meta.env.VITE_API_URL;
 
-function UploadProduct({ isnew, close }) {
+function UploadProduct({ isnew, isModal, close }) {
     const currency = "₦";
     const maxNumber = 4;
     const navigate = useNavigate();
@@ -74,7 +74,7 @@ function UploadProduct({ isnew, close }) {
         stockAmount: null,
         status: "published",
         discount: null,
-        discountType: "no-discount"
+        discountType: "no-discount",
     });
 
     const [checks, setChecks] = useState({
@@ -151,7 +151,7 @@ function UploadProduct({ isnew, close }) {
 
 
     useEffect(function () {
-        !isnew && window.scrollTo(0, 0);
+        (!isnew || !isModal) && window.scrollTo(0, 0);
     }, []);
 
 
@@ -207,11 +207,9 @@ function UploadProduct({ isnew, close }) {
             if(!res.ok) throw new Error('Something went wrong! Check intenet connection');
 
             const data = await res.json();
-            console.log(res, data)
             
             const { status, message } = data;
-            const { store, owner } = data.useful.data;
-
+            const { product } = data.data;
             if(status !== 'success') throw new Error(message);
 
             // SET RESPONSE MESSAGE
@@ -220,17 +218,19 @@ function UploadProduct({ isnew, close }) {
             setShowConfetti(true)
 
             // UPLOAD PRODUCT IMAGES
-            const url = `products/upload-image/${data.data.product._id}`
+            const url = `products/upload-image/${product._id}`
             await handleImageUpload(imageFiles, url);
-            window.scrollTo(0, 0)
 
-            // MODIFY THE USER OBJECT AND STORE IN THE COOKIE and clear the form
-            handleStore(store);
-            handleUser(owner);
+            window.scrollTo(0, 0);
             handleClearFields();
 
+            // MODIFY THE USER OBJECT AND STORE IN THE COOKIE
+            // const { store, owner } = data.useful.data;
+            // handleStore(store);
+            // handleUser(owner);
+
             setTimeout(function() {
-                if(isnew) close();
+                if(isnew || isModal) close();
                 else navigate(-1)
             }, 3000);
             handleFetchUserStoreProducts()
@@ -246,10 +246,10 @@ function UploadProduct({ isnew, close }) {
     return (
         <>
             {showConfetti &&  <ConfettiUI />}
-            {loading.mainLoading && (isnew ? createPortal(<Spinner />, document.body) : <Spinner />)}
+            {loading.mainLoading && ((isnew || isModal) ? createPortal(<Spinner />, document.body) : <Spinner />)}
 
             {(response.message || response.status) && (
-                isnew ? createPortal(<CustomAlert type={response.status} message={response.message} />, document.body) 
+                (isnew || isModal) ? createPortal(<CustomAlert type={response.status} message={response.message} />, document.body) 
                 : <CustomAlert type={response.status} message={response.message} />
             )}
 
@@ -369,8 +369,8 @@ function UploadProduct({ isnew, close }) {
                             </div>
 
                             <div className="form--item">
-                                <label htmlFor="" className="form--label">Short Description</label>
-                                <input type="text" name="" id="" className="form--input" placeholder='Lorem ipsum dolor sit amet consectetur.' />
+                                <label htmlFor="short-des" className="form--label">Short Description</label>
+                                <input type="text" name="shortDescription" id="short-des" value={productData.shortDescription} onChange={handleProductDataChange} className="form--input" placeholder='Lorem ipsum dolor sit amet consectetur.' />
                             </div>
                             <div className="form--item">
                                 <label htmlFor="" className="form--label">Product Description <Asterisk /></label>
@@ -533,12 +533,12 @@ function UploadProduct({ isnew, close }) {
                             </div>
 
                             {productData.status == "published" && (
-                                    <div className="form--item-flex" onClick={() => setChecks({ ...checks, isVisible: !checks.isVisible })}>
-                                        <div id="checkbox" className={checks.isVisible ? 'is-selected' : ''}>
-                                            {checks.isVisible && <FaCheck />}
-                                        </div>
-                                        <label className='form--text flex' style={{ fontSize: '1.24rem', fontWeight: '500', gap: '.4rem', width: "auto" }}>Hide this Product <Info /></label>
+                                <div className="form--item-flex" onClick={() => setChecks({ ...checks, isVisible: !checks.isVisible })}>
+                                    <div id="checkbox" className={checks.isVisible ? 'is-selected' : ''}>
+                                        {checks.isVisible && <FaCheck />}
                                     </div>
+                                    <label className='form--text flex' style={{ fontSize: '1.24rem', fontWeight: '500', gap: '.4rem', width: "auto" }}>Hide this Product <Info /></label>
+                                </div>
                             )}
                         </div>
 

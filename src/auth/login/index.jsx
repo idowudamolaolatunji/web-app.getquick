@@ -20,7 +20,7 @@ const headingText = "Manage your business online like the boss that you are."
 function index() {
     const navigate = useNavigate();
     const { width } = useWindowSize();
-    const { user, store, handleChange, handleStore, handleBank } = useAuthContext();
+    const { user, store, handleChange, handleStore } = useAuthContext();
 
     
     const [showPassword, setShowPassword] = useState(false);
@@ -104,7 +104,7 @@ function index() {
                 // IF AND ELSE THROW NEW ERROR
                 throw new Error(message);
             }
-            const { user, store, bankInfo } = data?.data;
+            const { user, store } = data?.data;
 
             // USER MUST HAVE SETUP THEIR STORE TO LOGIN
             if(!user.storeBasicSetup) {
@@ -122,7 +122,6 @@ function index() {
             setTimeout(function() {
                 handleChange(user, token);
                 handleStore(store);
-                handleBank(bankInfo);
 
             }, 2000);
         } catch (err) {

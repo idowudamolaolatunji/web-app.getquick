@@ -115,8 +115,6 @@ function BankDetails({ isnew, close }) {
             // SET RESPONSE MESSAGE
             setResponse({ status: "success", message });
 
-            // handleBank(owner);
-
             setTimeout(function () {
                 if (isnew) close();
                 else navigate(-1)

@@ -18,7 +18,7 @@ import MainDropdownSelect from '../../components/MainDropdownSelect';
 
 function index() {
     const navigate = useNavigate();
-    const { handleChange, handleStore, handleBank } = useAuthContext();
+    const { handleChange, handleStore } = useAuthContext();
     const { handleImageUpload, storeCategories, handleFetchStoreCategories } = useFetchedContext();
     
     const [isLoading, setIsLoading] = useState(false);
@@ -211,7 +211,7 @@ function index() {
             // SET THE ACCESS STORAGE FOR THE CONGRATS PAGE
             localStorage.setItem(`${import.meta.env.VITE_CONGRATS_KEY}`, "access");
             setResponse({ status: data.status, message: data.message });
-            const { user, store, bankInfo } = data.data;
+            const { user, store } = data.data;
 
             // IF THER'S A LOGO, UPLOAD LOGO
             if(image.file) {
@@ -222,7 +222,6 @@ function index() {
             setTimeout(function () {
                 handleChange(user, token);
                 handleStore(store);
-                handleBank(bankInfo);
 
                 localStorage.removeItem("tab_num");
                 navigate('/congratulations?next=dashboard');

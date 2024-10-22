@@ -92,7 +92,7 @@ export const FetchedProvider = ({ children }) => {
     async function handleFetchUserStoreOrders() {
         handleResetLE("order");
         try {
-            const res = await fetch(`${BASE_API_URL}/orders/mine/all`, { method: "GET", headers });
+            const res = await fetch(`${BASE_API_URL}/orders/mine/orders`, { method: "GET", headers });
             const data = await res.json();
             if(!res.ok) throw new Error();
             if(data.status == "fail") throw new Error();
@@ -108,7 +108,7 @@ export const FetchedProvider = ({ children }) => {
     async function handleFetchUserStoreCustomers() {
         handleResetLE("customer");
         try {
-            const res = await fetch(`${BASE_API_URL}/customers/mine/all`, { method: "GET", headers });
+            const res = await fetch(`${BASE_API_URL}/customers/mine/customers`, { method: "GET", headers });
             const data = await res.json();
             if(!res.ok) throw new Error();
             if(data.status == "fail") throw new Error();
@@ -156,8 +156,8 @@ export const FetchedProvider = ({ children }) => {
         if(token && user) {
             handleFetchUserStoreCollection();
             handleFetchUserStoreProducts();
-            // handleFetchUserStoreOrders();
-            // handleFetchUserStoreCustomers();
+            handleFetchUserStoreOrders();
+            handleFetchUserStoreCustomers();
         }
     }, [token, user])
 

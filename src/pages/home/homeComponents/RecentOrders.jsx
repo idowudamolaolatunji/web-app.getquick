@@ -7,6 +7,7 @@ import { facebook, online_store, physical_store, instagram,whatsapp, twitter, fl
 import TooltipUI from '../../../components/TooltipUI';
 import Empty from '../../../components/Empty';
 import { useFetchedContext } from '../../../context/FetchedContext';
+import { useWindowSize } from 'react-use';
 
 
 function imgString(imgType) {
@@ -34,12 +35,12 @@ const customStyles = {
 			fontSize: "13px",
 			fontWeight: "bold",
 			color: "#eee",
-            height: '40px'
+            height: '45px'
 		},
 	},
 	rows: {
         style: {
-            minHeight: '60px',
+            minHeight: '65px',
             cursor: 'pointer'
         },
     },
@@ -47,8 +48,7 @@ const customStyles = {
 		style: {
 			paddingRight: '5px',
             backgroundColor: '#444',
-            height: '40px'
-
+            height: '45px'
 		},
 	},
     cells: {
@@ -67,7 +67,9 @@ const columns = [
         ), width: '70px'
     },
     {
-        name: 'Order Id', selector: row => row.orderId, width: '100px'
+        name: 'Order Id', selector: row => (
+            <p className='value'>{row.orderId}</p>
+        ), width: '100px'
     },
     {
         name: 'Custumer Name', selector: row => row.customer?.name || "--", width: '150px'
@@ -122,6 +124,7 @@ const columns = [
 
 function RecentOrders() {
     const navigate = useNavigate();
+    const { width } = useWindowSize();
     const { orders, loader, error } = useFetchedContext();
 
     const isData = orders?.length > 0;
@@ -142,15 +145,17 @@ function RecentOrders() {
                 {(error?.order && !isData) && <TableError text="Unable to fetch, Check Connection" />}
                 
                 {(orders && !error?.order) && (
-                    <DataTable
-                        data={orders}
-                        columns={columns}
-                        pointerOnHover
-                        highlightOnHover
-                        customStyles={customStyles}
-                        onRowClicked={(row) => navigate(`/dashboard/orders/${row.id}`)}
-                        noDataComponent={<Empty customStyle={{ margin: "3rem 0" }} text="recent orders yet!" />}
-                    />
+                    <div className="table-h">
+                        <DataTable
+                            data={orders}
+                            columns={columns}
+                            pointerOnHover={true}
+                            customStyles={customStyles}
+                            highlightOnHover={width > 600 ? true : false}
+                            onRowClicked={(row) => navigate(`/dashboard/orders/${row.id}`)}
+                            noDataComponent={<Empty customStyle={{ margin: "3rem 0" }} text="recent orders yet!" />}
+                        />
+                    </div>
                 )}
                 
             </>

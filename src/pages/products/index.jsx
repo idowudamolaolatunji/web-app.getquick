@@ -15,7 +15,6 @@ import TooltipUI from '../../components/TooltipUI';
 import PageUI from '../pageComponents/PageUI';
 import emptyImg from '../../assets/images/resources/orange-woman-with-packages-in-shopping-cart.png';
 import { Link } from 'react-router-dom';
-import { Input } from '@mui/material';
 import SearchInput from '../../components/SearchInput';
 
 

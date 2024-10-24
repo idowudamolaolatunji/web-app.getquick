@@ -1,11 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function EmptyTableComponent({ img, title, text, className, btns }) {
+function EmptyTableComponent({ img, title, text, className, btns, customStyle }) {
     const navigate = useNavigate();
 
     return (
-        <div className={className}>
+        <div className={className} style={customStyle}>
             <div className="empty--img">
                 <img src={img} alt="empty image" />
             </div>

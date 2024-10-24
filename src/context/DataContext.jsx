@@ -25,6 +25,7 @@ export const DataProvider = ({ children }) => {
         product: false,
         order: false,
         customer: false,
+        transaction: false
     });
 
     const [location, setLocation] = useState({

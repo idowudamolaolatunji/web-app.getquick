@@ -50,10 +50,12 @@ function index() {
             ), width: '70px'
         },
         {
-            name: 'Order Id', selector: row => row.orderId, width: '100px'
+            name: 'Order Id', selector: row => (
+                <p className='value'>{row.orderId}</p>
+            ), width: '100px'
         },
         {
-            name: 'Custumer Name', selector: row => row.customer?.name || "--", width: '150px'
+            name: 'Custumer Name', selector: row => row.customer?.name || "-- Not Added --", width: '150px'
         },
         {
             name: 'Product', selector: row => (

@@ -199,7 +199,7 @@ function RecordOrder() {
             )}
 
             {showModal.product && (
-                <FullScreen style={{ maxWidth: '100rem', margin: '0 auto' }}>
+                <FullScreen style={{ maxWidth: '105rem', margin: '0 auto' }}>
                     <UploadProduct isModal close={() => handleCloseModal("product")} />
                 </FullScreen>
             )}

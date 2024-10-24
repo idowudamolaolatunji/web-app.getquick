@@ -384,6 +384,33 @@ input::-webkit-inner-spin-button {
 	gap: 6rem;
 	padding: 3rem 2.4rem;
 }
+
+
+.empty--others {
+	padding: 3rem 2.4rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2rem;
+	max-width: 50rem;
+	margin: 0 auto;
+	text-align: center;
+}
+.empty--others .empty--img {
+	padding: .8rem;
+}
+.empty--others .empty--img img {
+	width: 10rem;
+}
+.empty--others .empty--btns {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+
+
 .empty--info h3 {
 	font-size: 1.8rem;
 	margin-bottom: 1.2rem;
@@ -564,7 +591,7 @@ input::-webkit-inner-spin-button {
 
 /* REACT DATA TABLE */
 .page__section--main div:nth-child(2),
-.page__section--main .hZZlND,
+.table-h div:nth-child(2),
 .page__section--main .rdt_TableHead {
 	border-radius: 0 !important;
 }
@@ -606,10 +633,14 @@ input::-webkit-inner-spin-button {
 		grid-template-columns: 1fr;
 		gap: 4rem;
 	}
+
+	.empty--others .empty--img,
 	.empty--img {
 		max-width: 22rem;
 		padding: 2.4rem;
 	}
+
+	.empty--others .empty--img img,
 	.empty--img img {
 		width: 18rem;
 	}
@@ -622,9 +653,18 @@ input::-webkit-inner-spin-button {
 
 
 @media screen and (max-width: 450px) {
+	.empty--others,
 	.empty--order,
 	.empty--product {
 		padding: 0;
+	}
+
+	.empty--others {
+		align-items: stretch;
+		text-align: left;
+	}
+	.empty--others .empty--btns {
+		display: block;
 	}
 
 	.modal {
@@ -658,6 +698,7 @@ input::-webkit-inner-spin-button {
 		flex-direction: column;
 	}
 
+	.empty--others .empty--img,
 	.empty--img {
 		max-width: 100%;
 		display: flex;

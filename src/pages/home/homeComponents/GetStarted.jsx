@@ -184,7 +184,7 @@ function GetStarted() {
 
 
             {(showModal.bank || showModal.delivery || showModal.product || showModal.store) && (
-                <FullScreen style={{ maxWidth: '100rem', margin: '0 auto' }}>
+                <FullScreen style={{ maxWidth: '105rem', margin: '0 auto' }}>
                     {showModal.bank && <BankDetails isnew close={() => handleCloseModal('bank')} />}
                     {showModal.store && <StoreCustom isnew  close={() => handleCloseModal('store')} />}
                     {showModal.product && <UploadProduct isnew close={() => handleCloseModal('product')} />}

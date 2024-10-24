@@ -6,6 +6,8 @@ import { useFetchedContext } from '../../context/FetchedContext';
 import Insight from '../../components/Insight';
 import { FiUser, FiUsers } from 'react-icons/fi';
 import emptyImg from '../../assets/images/resources/hue-orange-note.png'
+// import emptyImg from '../../assets/svgs/undraw_add_user_re_5oib.svg'
+import { TbUserSquare } from 'react-icons/tb';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
@@ -52,7 +54,7 @@ function index() {
             {showInsights?.customer && (
                 <div className='page__section--insights insight--grid' style={{ marginBottom: '3rem', ...(width > 900 && {width: '90%'}) }}>
                     <Insight title='Total Customers' loader={loader?.customer} value={customers?.length || 0} icon={<FiUsers />} />
-                    <Insight title='New Customers' loader={loader?.customer} value={0} icon={<FiUser />} />
+                    <Insight title='Newsletter Customers' loader={loader?.customer} value={0} icon={<TbUserSquare />} />
                 </div>
             )}
 

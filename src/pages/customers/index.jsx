@@ -5,7 +5,7 @@ import { useDataContext } from '../../context/DataContext';
 import { useFetchedContext } from '../../context/FetchedContext';
 import Insight from '../../components/Insight';
 import { FiUser, FiUsers } from 'react-icons/fi';
-import emptyImg from '../../assets/images/resources/hue-orange-note.png'
+import emptyImg from '../../assets/images/illustrations/customer.png'
 // import emptyImg from '../../assets/svgs/undraw_add_user_re_5oib.svg'
 import { TbUserSquare } from 'react-icons/tb';
 
@@ -15,7 +15,6 @@ const emptyTitle = "Add new customer!";
 const emptyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat aliquam vero perferendis sapiente iste assumenda nam, vel dicta ducimus at perferendis sapiente iste.";
 const emptyBtns = [
     { title: "Add Customer", link: "/dashboard/customers/add" },
-    // { title: "Import Customer", link: "/dashboard/customers/import/add" }
 ];
 
 

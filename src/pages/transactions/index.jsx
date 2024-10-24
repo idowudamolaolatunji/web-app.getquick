@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PageUI from '../pageComponents/PageUI'
 import { useDataContext } from '../../context/DataContext';
 import { useWindowSize } from 'react-use';
@@ -24,6 +24,14 @@ function index() {
 
 
     const columns = []
+
+
+    useEffect(function() {
+        document.title = "Quicka | All Transactions";
+        window.scrollTo(0, 0);
+
+        // if(customers?.length < 1 && error?.customer) {}
+    }, []);
 
     return (
         <PageUI

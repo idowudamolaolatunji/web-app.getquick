@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PageUI from '../pageComponents/PageUI'
 import { useDataContext } from '../../context/DataContext';
 import { useWindowSize } from 'react-use';
@@ -21,7 +21,15 @@ function index() {
     const { loader, error, delivery } = useFetchedContext();
 
 
-    const columns = []
+    const columns = [];
+
+
+    useEffect(function() {
+        document.title = "Quicka | Delivery Rates";
+        window.scrollTo(0, 0);
+
+        // if(customers?.length < 1 && error?.customer) {}
+    }, []);
 
     return (
         <PageUI

@@ -417,7 +417,7 @@ input::-webkit-inner-spin-button {
 }
 .empty--info p {
 	font-size: 1.46rem;
-	line-height: 1.3;
+	line-height: 1.4;
 }
 .empty--img {
 	padding: 3rem;
@@ -425,7 +425,7 @@ input::-webkit-inner-spin-button {
 	border-radius: .4rem;
 }
 .empty--img img {
-	width: 30rem;
+	width: 40rem;
 }
 .empty--btns {
 	display: flex;

@@ -46,7 +46,7 @@ const customStyles = {
 };
 
 
-function TableUI({ name, columns, data, toLink, emptyComponent, selectableRows, headTabs, displayType = "table", loader, error }) {
+function TableUI({ name, columns, data, toLink, goto, emptyComponent, selectableRows, headTabs, displayType = "table", loader, error }) {
     const isData = data?.length > 0;
     const navigate = useNavigate();
     const { width } = useWindowSize();
@@ -118,8 +118,7 @@ function TableUI({ name, columns, data, toLink, emptyComponent, selectableRows, 
                             customStyles={customStyles}
                             selectableRows={selectableRows}
                             onSelectedRowsChange={handleSelectedRow}
-                            onRowClicked={(row) => handleNavigate(row)}
-                            // {...(width < 600 && { onRowMouseEnter: (row => handleNavigate(row)), })}
+                            {...(goto && { onRowClicked: (row) => handleNavigate(row) })}
                         />
                     )}
                 </>

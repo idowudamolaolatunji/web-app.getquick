@@ -12,12 +12,12 @@ import ExportCSV from '../../components/modal/ExportCSV';
 import CustomAlert from '../../components/CustomAlert';
 
 
-function PageUI({ items, pageName, columns, data, addUrl, emptyTitle, emptyText, emptyImg, emptyBtns, emptyClassName, headTabs, error, loader, activeDisplayTab = null, insights = true, children }) {
+function PageUI({ items, pageName, columns, data, addUrl, goto=true, emptyTitle, emptyText, emptyImg, emptyBtns, emptyClassName, headTabs, error, loader, activeDisplayTab = null, insights = true, children }) {
 
     const navigate = useNavigate();
     const { width } = useWindowSize();
     const { handleToggleInsights, showInsights } = useDataContext();
-    const widthandItem500 = (items && items.length > 0 && width < 500);
+    const widthandItem500 = (items && items.length > 0 && width < 500 && !addUrl);
 
     const [showMoreActions, setShowMoreActions] = useState(false);
     const [showExportModal, setShowExportModal] = useState(false);
@@ -40,7 +40,7 @@ function PageUI({ items, pageName, columns, data, addUrl, emptyTitle, emptyText,
             )}
 
             <div className='page__section--heading' style={widthandItem500 ? { flexDirection: 'column', gap: '1.2rem', alignItems: 'flex-start' } : {}}>
-                <h2 className="page__section--title">{pageName}s</h2>
+                <h2 className="page__section--title">{pageName == "delivery" ? "delivery rate" : pageName}s</h2>
                     
 
                 <span className='page__section--btns' style={widthandItem500 ? { width: "100%", display: "grid", gridTemplateColumns: "1fr 1fr" } : {}}>
@@ -81,6 +81,7 @@ function PageUI({ items, pageName, columns, data, addUrl, emptyTitle, emptyText,
                     columns={columns}
                     name={pageName}
                     selectableRows={true}
+                    goto={goto}
                     toLink={`/dashboard/${pageName}s`}
                     loader={loader?.[pageName]}
                     error={error?.[pageName]}

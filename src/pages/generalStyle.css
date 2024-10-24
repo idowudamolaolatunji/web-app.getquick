@@ -154,6 +154,7 @@
 	border-radius: 0.4rem;
 }
 
+.table--info h3,
 .table--flex .table--info h3 {
 	font-size: 1.5rem;
 	font-weight: 500;

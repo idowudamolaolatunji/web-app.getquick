@@ -18,7 +18,7 @@ import Spinner from '../../../components/spinner/spinner_two';
 const BASE_API_URL = import.meta.env.VITE_API_URL;
 
 
-function CreateDelivery({ close, isnew }) {
+function CreateDelivery({ close, isnew, isModal }) {
     const currency = "₦";
     const { width } = useWindowSize();
     const { token, handleUser, handleStore } = useAuthContext();

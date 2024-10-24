@@ -7,7 +7,7 @@ import Insight from '../../components/Insight';
 import { GrTag } from 'react-icons/gr';
 import { TbArrowWaveRightDown } from 'react-icons/tb';
 import { LuClipboardList } from 'react-icons/lu';
-import emptyImg from '../../assets/svgs/undraw_credit_card_re_blml.svg'
+import emptyImg from '../../assets/images/illustrations/transactions.png'
 
 
 ///////////////////////////////////////////////

@@ -73,9 +73,11 @@ import Analytics from './pages/analytics';
 import CommunityForums from './pages/communityForums';
 import ProductItem from './pages/products/productComponents/ProductItem';
 import OrderItem from './pages/orders/orderComponents/OrderItem';
+import CreateDelivery from './pages/delivery/deliveryComponents/CreateDelivery';
+
+
 
 function App() {
-
 
     // COME BACK AND REMODIFY THIS OR NOT
     if (
@@ -115,6 +117,8 @@ function App() {
                     <Route path='/dashboard/products/:id' element={<ProductItem />}></Route>
                     <Route path='/dashboard/orders/:id' element={<OrderItem />}></Route>
                     <Route path='/dashboard/customers/:id' element={<CustomerItem />}></Route>
+                    <Route path='/dashboard/delivery-rates' element={<Delivery />}></Route>
+                    <Route path='/dashboard/delivery-rates/add' element={<CreateDelivery />}></Route>
 
                     <Route path='/dashboard/transactions' element={<Transaction />}></Route>
                     <Route path='/dashboard/settings' element={<Settings />}></Route>
@@ -124,7 +128,6 @@ function App() {
                     <Route path='/dashboard/bank-details' element={<BankDetails />}></Route>
                     <Route path='/dashboard/store-info' element={<StoreInformation />}></Route>
                     <Route path='/dashboard/run-sales' element={<RunSales />}></Route>
-                    <Route path='/dashboard/delivery' element={<Delivery />}></Route>
                     <Route path='/dashboard/subscription' element={<Subscription />}></Route>
                     <Route path='/dashboard/profile' element={<Profile />}></Route>
                     <Route path='/dashboard/analytics' element={<Analytics />}></Route>

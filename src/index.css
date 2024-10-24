@@ -387,7 +387,7 @@ input::-webkit-inner-spin-button {
 
 
 .empty--others {
-	padding: 3rem 2.4rem;
+	padding: 4rem 2.4rem 3rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -663,7 +663,7 @@ input::-webkit-inner-spin-button {
 	.empty--others,
 	.empty--order,
 	.empty--product {
-		padding: 0;
+		padding: 0 !important;
 	}
 
 	.empty--others {

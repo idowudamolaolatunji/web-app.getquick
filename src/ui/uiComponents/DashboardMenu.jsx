@@ -85,7 +85,7 @@ function DashboardMenu() {
                             <ul className={`menu--list ${showRemains ? 'menu-animate' : 'menu-unanimate'}`}>
                                 <MenuLink icon={<MdOutlineStorefront />} title='Store Information' link='/store-info' />
                                 {/* <MenuLink icon={<RiBankLine />} title='Bank Details' link='/bank-details' /> */}
-                                <MenuLink icon={<TbTruckDelivery />} title='Delivery and Rates' link='/delivery' />
+                                <MenuLink icon={<TbTruckDelivery />} title='Delivery and Rates' link='/delivery-rates' />
                                 <MenuLink icon={<LuGlobe />} title='Custom Domain' link='/custom-domain' />
                                 <MenuLink icon={<HiOutlineSquare3Stack3D />} title='Subscription' link='/subscription' />
                                 <MenuLink icon={<BiCustomize />} title='Store Customisation' link='/store-customisation' />
@@ -131,11 +131,11 @@ function DashboardMenu() {
                             </span>
                             <ul className='menu--list'>
                                 <MenuLink icon={<LuLayoutPanelLeft />} title='Dashboard' link='/' />
-                                <MenuLink icon={<MdOutlineShoppingBag />} title='Orders' link='/orders' />
-                                <MenuLink icon={<LuTags />} title='Products' link='/products' />
-                                <MenuLink icon={<BiLineChart />} title='Analytics' link='/analytics' />
+                                <MenuLink icon={<MdOutlineShoppingBag />} title='Your Orders' link='/orders' />
+                                <MenuLink icon={<LuTags />} title='Your Products' link='/products' />
+                                <MenuLink icon={<BiLineChart />} title='Store Analytics' link='/analytics' />
                                 <MenuLink icon={<RiCoupon3Line />} title='Run sales / coupon' link='/run-sales' />
-                                <MenuLink icon={<FiUsers />} title='Customers' link='/customers' />
+                                <MenuLink icon={<FiUsers />} title='Your Customers' link='/customers' />
                                 <MenuLink icon={<LuRotate3D />} title='Transactions' link='/transactions' />
                                 <MenuLink icon={<MdOutlineWebhook />} title='Connected platforms' link='/connected-apps' />
                             </ul>
@@ -154,8 +154,7 @@ function DashboardMenu() {
                             {showRemains && (
                                 <ul className='menu--list'>
                                     <MenuLink icon={<MdOutlineStorefront />} title='Store Information' link='/store-info' />
-                                    {/* <MenuLink icon={<RiBankLine />} title='Bank Details' link='/bank-details' /> */}
-                                    <MenuLink icon={<TbTruckDelivery />} title='Delivery and Rates' link='/delivery' />
+                                    <MenuLink icon={<TbTruckDelivery />} title='Delivery and Rates' link='/delivery-rates' />
                                     <MenuLink icon={<LuGlobe />} title='Custom Domain' link='/custom-domain' />
                                     <MenuLink icon={<HiOutlineSquare3Stack3D />} title='Subscription' link='/subscription' />
                                     <MenuLink icon={<BiCustomize />} title='Site Customisation' link='/store-customisation' />

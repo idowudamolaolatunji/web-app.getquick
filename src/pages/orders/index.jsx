@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { capitalizeFirstLetter, formatDate, formatNumber } from '../../utils/helper';
-import emptyImg from '../../assets/images/resources/orange-happy-valentines-day-greetings-and-gift.png';
 import { useWindowSize } from 'react-use';
 import Insight from '../../components/Insight';
 import { TbNotes, TbNotesOff } from 'react-icons/tb';
@@ -10,6 +9,7 @@ import { useFetchedContext } from '../../context/FetchedContext';
 import PageUI from '../pageComponents/PageUI';
 import TooltipUI from '../../components/TooltipUI';
 import { facebook, online_store, physical_store, instagram, whatsapp, twitter, flutterwave_store, others, jiji, jumia, konga } from "../../assets/images/index";
+import emptyImg from '../../assets/images/illustrations/sales.png';
 
 
 //////////////////////////////////////////////////////

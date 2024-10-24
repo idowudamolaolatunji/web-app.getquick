@@ -31,25 +31,39 @@ export function TableHeadSkeleton({ title }) {
     const { width } = useWindowSize();
 
     return (
-        <div className='table--head'>
-            <div className='content'>
-                <span className='flex'>
-                    <Skeleton height={40} width={50} />
-                    <div style={{ width: "100%" }}>
-                        <Skeleton height={40} width={ width > 580 && 150} />
+        <>
+            {(title == "delivery" || title == "transaction") ? (
+                <div className='table--head'>
+                    <div className='content'>
+                        <Skeleton height={40} width={50} />
                     </div>
-                </span>
+                </div>
+            ) : (
+                <div className='table--head'>
+                    <div className='content'>
+                        <span className='flex'>
+                            <Skeleton height={40} width={50} />
+                            <div style={{ width: "100%" }}>
+                                <Skeleton height={40} width={width > 580 && 150} />
+                            </div>
+                        </span>
 
-                <span className='flex' style={{ justifyContent: "space-between" }}>
-                    <span className='flex'>
-                        <Skeleton height={40} width={100} />
-                        <Skeleton height={40} width={60} />
-                    </span>
-                    {title == "product" && (
-                        <Skeleton height={40} width={60} />
-                    )}
-                </span>
-            </div>
-        </div>
+                        <span className='flex' style={{ justifyContent: "space-between" }}>
+                            <span className='flex'>
+                                <Skeleton height={40} width={100} />
+                                <Skeleton height={40} width={60} />
+                            </span>
+                            {title == "product" && (
+                                <Skeleton height={40} width={60} />
+                            )}
+                        </span>
+                    </div>
+                </div>
+            )}
+
+
+
+
+        </>
     )
 }

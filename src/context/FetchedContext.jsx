@@ -20,21 +20,24 @@ export const FetchedProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [orders, setOrders] = useState([]);
+    const [deliveryRates, setDeliveryRates] = useState([]);
     const [storeCategories, setStoreCategories] = useState([]);
 
     const [orderLoader, setOrderLoader] = useState(true);
     const [productLoader, setProductLoader] = useState(true);
+    const [deliveryLoader, setDeliveryLoader] = useState(true);
     const [customerLoader, setCustomerLoader] = useState(true);
     const [collectionLoader, setCollectionLoader] = useState(true);
 
     const [error, setError] = useState({
-        order: false, product: false, customer: false, collection: false
+        order: false, product: false, customer: false, collection: false, delivery: false,
     });
 
     // SETTING LOADER THIS WAY IS BETTER THAN THE PREVIOUS
     const loader = {
         order: orderLoader,
         product: productLoader,
+        delivery: deliveryLoader,
         customer: customerLoader,
         collection: collectionLoader,
     }
@@ -61,7 +64,8 @@ export const FetchedProvider = ({ children }) => {
     async function handleFetchUserStoreCollection() {
         try {
             handleError("collection", false);
-            setCollectionLoader(true)
+            setCollectionLoader(true);
+            setCollections([]);
 
             const res = await fetch(`${BASE_API_URL}/collections/mine/collections`, { method: "GET", headers })
             const data = await res.json();
@@ -79,6 +83,7 @@ export const FetchedProvider = ({ children }) => {
         try {
             handleError("product", false);
             setProductLoader(true);
+            setProducts([]);
 
             const res = await fetch(`${BASE_API_URL}/products/mine/products`, { method: "GET", headers });
             const data = await res.json();
@@ -96,6 +101,7 @@ export const FetchedProvider = ({ children }) => {
         try {
             handleError("order", false);
             setOrderLoader(true);
+            setOrders([]);
 
             const res = await fetch(`${BASE_API_URL}/orders/mine/orders`, { method: "GET", headers });
             const data = await res.json();
@@ -114,6 +120,7 @@ export const FetchedProvider = ({ children }) => {
         try {
             handleError("customer", false);
             setCustomerLoader(true);
+            setCustomers([]);
 
             const res = await fetch(`${BASE_API_URL}/customers/mine/customers`, { method: "GET", headers });
             const data = await res.json();
@@ -124,6 +131,25 @@ export const FetchedProvider = ({ children }) => {
             handleError("customer", true);
         } finally {
             setCustomerLoader(false);
+        }
+    }
+
+
+    async function handleFetchUserStoreDeliveryRates () {
+        try {
+            handleError("delivery", false);
+            setDeliveryLoader(true);
+            setDeliveryRates([]);
+
+            const res = await fetch(`${BASE_API_URL}/delivery-rates/mine/delivery-rates`, { method: "GET", headers });
+            const data = await res.json();
+            if(!res.ok) throw new Error();
+            if(data.status == "fail") throw new Error();
+            if (data?.data) setDeliveryRates(data?.data?.rates);
+        } catch (err) {
+            handleError("delivery", true);
+        } finally {
+            setDeliveryLoader(false);
         }
     }
 
@@ -154,36 +180,41 @@ export const FetchedProvider = ({ children }) => {
 
 
     useEffect(function () {
-        setCollections([])
-        setProducts([])
-        setOrders([])
+        setCollections([]);
+        setProducts([]);
+        setOrders([]);
         setCustomers([]);
+        setDeliveryRates([]);
 
         if(token && user) {
             handleFetchUserStoreOrders();
             handleFetchUserStoreProducts();
             handleFetchUserStoreCustomers();
             handleFetchUserStoreCollection();
+            handleFetchUserStoreDeliveryRates();
         }
     }, [token, user])
 
 
     // CREATE CONTEXT DATA
     let contextData = {
-        handleImageUpload,
         error,
         loader,
-
+        
         orders,
         products,
+        customers,
         collections,
+        deliveryRates,
         handleFetchUserStoreOrders,
         handleFetchUserStoreProducts,
         handleFetchUserStoreCustomers,
         handleFetchUserStoreCollection,
+        handleFetchUserStoreDeliveryRates,
 
-
+        
         storeCategories,
+        handleImageUpload,
         handleFetchStoreCategories
     }
 

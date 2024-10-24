@@ -17,6 +17,7 @@ import PageUI from '../pageComponents/PageUI';
 import emptyImg from '../../assets/images/illustrations/add-products-2.png';
 import { Link } from 'react-router-dom';
 import SearchInput from '../../components/SearchInput';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 
 //////////////////////////////////////////////////////

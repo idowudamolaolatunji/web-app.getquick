@@ -438,6 +438,13 @@ input::-webkit-inner-spin-button {
     font-weight: 500;
 	cursor: pointer;
     transition: opacity .3s;
+
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+.empty--btns button svg {
+	font-size: 1.8rem;
 }
 .empty--btns button:hover {
 	opacity: .85;

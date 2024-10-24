@@ -25,7 +25,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL
 const emptyTitle = "Add new product!";
 const emptyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat aliquam vero perferendis sapiente iste assumenda nam, vel dicta ducimus at perferendis sapiente iste.";
 const emptyBtns = [
-    { title: "Add Product", link: "/dashboard/products/upload" },
+    { title: <><AiOutlinePlus />Add Product</>, link: "/dashboard/products/upload" },
     // { title: "Import Product", link: "/dashboard/products/import/upload" }
 ];
 

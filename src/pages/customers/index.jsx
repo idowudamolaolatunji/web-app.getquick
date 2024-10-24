@@ -8,13 +8,14 @@ import { FiUser, FiUsers } from 'react-icons/fi';
 import emptyImg from '../../assets/images/illustrations/customer.png'
 // import emptyImg from '../../assets/svgs/undraw_add_user_re_5oib.svg'
 import { TbUserSquare } from 'react-icons/tb';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
 const emptyTitle = "Add new customer!";
 const emptyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat aliquam vero perferendis sapiente iste assumenda nam, vel dicta ducimus at perferendis sapiente iste.";
 const emptyBtns = [
-    { title: "Add Customer", link: "/dashboard/customers/add" },
+    { title: <><AiOutlinePlus /> Add Customer</>, link: "/dashboard/customers/add" },
 ];
 
 

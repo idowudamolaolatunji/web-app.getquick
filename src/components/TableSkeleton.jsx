@@ -1,5 +1,6 @@
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
+import { useWindowSize } from 'react-use'
 
 export function TableSkeleton() {
     return (
@@ -26,15 +27,28 @@ export function TableSkeleton() {
 }
 
 
-export function TableHead() {
+export function TableHeadSkeleton({ title }) {
+    const { width } = useWindowSize();
+
     return (
         <div className='table--head'>
-            <div>
+            <div className='content'>
                 <span className='flex'>
                     <Skeleton height={40} width={50} />
-                    <Skeleton height={40} width={150} />
+                    <div style={{ width: "100%" }}>
+                        <Skeleton height={40} width={ width > 580 && 150} />
+                    </div>
                 </span>
-                <Skeleton height={40} width={60} />
+
+                <span className='flex' style={{ justifyContent: "space-between" }}>
+                    <span className='flex'>
+                        <Skeleton height={40} width={100} />
+                        <Skeleton height={40} width={60} />
+                    </span>
+                    {title == "product" && (
+                        <Skeleton height={40} width={60} />
+                    )}
+                </span>
             </div>
         </div>
     )

@@ -7,7 +7,7 @@ import { RiDeleteBin5Line } from 'react-icons/ri';
 import ProductCard from './ProductCard';
 import TableError from './TableError';
 import ProductCardSkeleton from './ProductCardSkeleton';
-import { TableHead, TableSkeleton } from './TableSkeleton';
+import { TableHeadSkeleton, TableSkeleton } from './TableSkeleton';
 
 const customStyles = {
     table: {
@@ -51,6 +51,7 @@ function TableUI({ name, columns, data, toLink, emptyComponent, selectableRows, 
     const navigate = useNavigate();
     const { width } = useWindowSize();
     const [selectedRowsId, setSelectedRowsId] = useState([]);
+    
 
     const handleSelectedRow = function ({ allSelected, selectedCount, selectedRows }) {
         const ids = [];
@@ -69,7 +70,7 @@ function TableUI({ name, columns, data, toLink, emptyComponent, selectableRows, 
 
             {loader && (
                 <>
-                    <TableHead />
+                    <TableHeadSkeleton title={name} />
                     {displayType == "grid" ? (
                         <div className="product__grid">
                             <ProductCardSkeleton />

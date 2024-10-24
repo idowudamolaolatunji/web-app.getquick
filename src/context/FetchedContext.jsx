@@ -22,38 +22,30 @@ export const FetchedProvider = ({ children }) => {
     const [orders, setOrders] = useState([]);
     const [storeCategories, setStoreCategories] = useState([]);
 
-    // THIS STATES SERVES AS HELPER IN THE INDIVIDUAL COMPONENTS
-    const [loader, setLoader] = useState({
-        product: false,
-        order: false,
-        customer: false,
-        collection: false
-    })
+    const [orderLoader, setOrderLoader] = useState(true);
+    const [productLoader, setProductLoader] = useState(true);
+    const [customerLoader, setCustomerLoader] = useState(true);
+    const [collectionLoader, setCollectionLoader] = useState(true);
+
     const [error, setError] = useState({
-        product: false,
-        order: false,
-        customer: false,
-        collection: false
+        order: false, product: false, customer: false, collection: false
     });
 
-    // console.log(loader)
+    // SETTING LOADER THIS WAY IS BETTER THAN THE PREVIOUS
+    const loader = {
+        order: orderLoader,
+        product: productLoader,
+        customer: customerLoader,
+        collection: collectionLoader,
+    }
 
     const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`
     }
 
-    function handleLoader(name, value) {
-        setLoader({...loader, [name]: value});
-    }
-
     function handleError(name, value) {
         setError({...error, [name]: value});
-    }
-
-    function handleResetLE(name) {
-        handleError(name, false);
-        handleLoader(name, true);
     }
 
     async function handleFetchStoreCategories() {
@@ -67,57 +59,71 @@ export const FetchedProvider = ({ children }) => {
     }
 
     async function handleFetchUserStoreCollection() {
-        handleLoader("collection", true);
-        const res = await fetch(`${BASE_API_URL}/collections/mine/collections`, { method: "GET", headers })
-        const data = await res.json();
-        if (data?.data) setCollections(data?.data?.collections);
-        handleLoader("collection", false);
+        try {
+            handleError("collection", false);
+            setCollectionLoader(true)
+
+            const res = await fetch(`${BASE_API_URL}/collections/mine/collections`, { method: "GET", headers })
+            const data = await res.json();
+            if(!res.ok) throw new Error();
+            if(data.status == "fail") throw new Error();
+            if (data?.data) setCollections(data?.data?.collections);
+        } catch(err) {
+            handleError("collection", true);
+        } finally {
+            setCollectionLoader(false);
+        }
     }
 
     async function handleFetchUserStoreProducts() {
-        handleResetLE("product");
         try {
+            handleError("product", false);
+            setProductLoader(true);
+
             const res = await fetch(`${BASE_API_URL}/products/mine/products`, { method: "GET", headers });
             const data = await res.json();
             if(!res.ok) throw new Error();
             if(data.status == "fail") throw new Error();
             if (data?.data) setProducts(data?.data?.products);
-            handleLoader("product", false);
         } catch (err) {
             handleError("product", true);
-            handleLoader("product", false);
+        } finally {
+            setProductLoader(false);
         }
     }
 
     async function handleFetchUserStoreOrders() {
-        handleResetLE("order");
         try {
+            handleError("order", false);
+            setOrderLoader(true);
+
             const res = await fetch(`${BASE_API_URL}/orders/mine/orders`, { method: "GET", headers });
             const data = await res.json();
             if(!res.ok) throw new Error();
             if(data.status == "fail") throw new Error();
             if (data?.data) setOrders(data?.data?.orders);
-            handleLoader("order", false);
         } catch (err) {
             handleError("order", true);
-            handleLoader("order", false);
+        } finally {
+            setOrderLoader(false);
         }
 
     }
 
     async function handleFetchUserStoreCustomers() {
-        handleResetLE("customer");
         try {
+            handleError("customer", false);
+            setCustomerLoader(true);
+
             const res = await fetch(`${BASE_API_URL}/customers/mine/customers`, { method: "GET", headers });
             const data = await res.json();
             if(!res.ok) throw new Error();
             if(data.status == "fail") throw new Error();
             if (data?.data) setCustomers(data?.data?.customers);
-
-            handleLoader("customer", false);
         } catch (err) {
             handleError("customer", true);
-            handleLoader("customer", false);
+        } finally {
+            setCustomerLoader(false);
         }
     }
 

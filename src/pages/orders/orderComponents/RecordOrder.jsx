@@ -27,6 +27,7 @@ import ConfettiUI from '../../../components/ConfettiUI';
 
 import { truncateString } from '../../../utils/helper.js';
 import { validateOrderForm } from '../../../utils/validationHelper.js';
+import { DatePicker, Stack } from 'rsuite';
 
 
 const BASE_API_URL = import.meta.env.VITE_API_URL
@@ -274,6 +275,7 @@ function RecordOrder() {
                                 <div className="form--item">
                                     <label id='date' className="form--label">Order Date <Asterisk /></label>
                                     <input type="date" className='form--input' placeholder='Select date' max={new Date().toISOString().split('T')[0]} name="orderDate" id="date" value={orderData.orderDate} onChange={handleOrderDataChange} />
+                                    {/* <DatePicker format="MM/dd/yyyy" className='form--input' placeholder="Select date" /> */}
                                     <span className="form--error-message">
                                         {salesFormErrors.orderDate && salesFormErrors.orderDate}
                                     </span>

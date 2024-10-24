@@ -8,13 +8,15 @@ import { GrTag } from 'react-icons/gr';
 import { TbArrowWaveRightDown, TbListSearch } from 'react-icons/tb';
 import { useFetchedContext } from '../../context/FetchedContext';
 import { useDataContext } from '../../context/DataContext';
-import { MdOutlineRefresh, MdTableRows } from 'react-icons/md';
+import { MdOutlineFilterList, MdOutlineRefresh, MdTableRows } from 'react-icons/md';
 import { RiDeleteBin5Line, RiEdit2Line } from 'react-icons/ri';
 import { BsFillGrid3X3GapFill, BsFillGridFill, BsTable } from 'react-icons/bs';
 import TooltipUI from '../../components/TooltipUI';
 import PageUI from '../pageComponents/PageUI';
 import emptyImg from '../../assets/images/resources/orange-woman-with-packages-in-shopping-cart.png';
 import { Link } from 'react-router-dom';
+import { Input } from '@mui/material';
+import SearchInput from '../../components/SearchInput';
 
 
 //////////////////////////////////////////////////////
@@ -37,7 +39,6 @@ function index() {
     const outOfStock = 0;
     const collectionAmount = collections?.length;
     const totalInventoryWorth = products?.reduce((acc, product) => acc + product.price, 0);
-    const [tableSearch, setTableSearch] = useState('');
 
     const columns = [
         { 
@@ -92,23 +93,33 @@ function index() {
 
     const HeadTabs = function() {
         return (
-            <div>
+            <div className='content'>
                 <span className='flex'>
                     <TooltipUI placement='top' title="Refresh">
                         <button className='table--btn' onClick={handleFetchUserStoreProducts}><MdOutlineRefresh /></button>
                     </TooltipUI>
-                    <input type="text" className="table--input form--input" placeholder='search..' />
+
+                    <SearchInput />
                 </span>
 
-                <span className='table--tabs'>
-                    <TooltipUI placement='top' title="Table View">
-                        <span className={activeDisplayTab == "table" ? "active" : ""} onClick={() => handleDisplayTab("table")}><BsTable /> </span>
+
+                <span className="flex">
+                    <button className='table--btn'>Clear filter</button>
+
+                    <TooltipUI placement='top' title="Filters">
+                        <button className='table--btn'><MdOutlineFilterList /></button>
                     </TooltipUI>
 
+                    <span className='table--tabs'>
+                        <TooltipUI placement='top' title="Table View">
+                            <span className={activeDisplayTab == "table" ? "active" : ""} onClick={() => handleDisplayTab("table")}><BsTable /> </span>
+                        </TooltipUI>
 
-                    <TooltipUI placement='top' title="Grid View">
-                        <span className={activeDisplayTab == "grid" ? "active" : ""} onClick={() => handleDisplayTab("grid")}>{width < 365 ? <MdTableRows /> : width <= 620 ? <BsFillGridFill /> : <BsFillGrid3X3GapFill />} </span>
-                    </TooltipUI>
+
+                        <TooltipUI placement='top' title="Grid View">
+                            <span className={activeDisplayTab == "grid" ? "active" : ""} onClick={() => handleDisplayTab("grid")}>{width < 365 ? <MdTableRows /> : width <= 620 ? <BsFillGridFill /> : <BsFillGrid3X3GapFill />} </span>
+                        </TooltipUI>
+                    </span>
                 </span>
             </div>
         );

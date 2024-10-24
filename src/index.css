@@ -37,6 +37,10 @@ form, a, button, input, textarea, select {
 	font-family: inherit;
 }
 
+a:hover {
+	color:unset;
+}
+
 /* Parent selector, finally 😃 */
 button:has(svg) {
 	line-height: 0;
@@ -51,6 +55,7 @@ h5,
 h6 {
 	overflow-wrap: break-word;
 	hyphens: auto;
+	line-height: 1.2;
 }
 
 input[type="file"] {
@@ -296,11 +301,13 @@ input::-webkit-inner-spin-button {
     color: red;
 }
 .status--pending p,
+.status--processing p,
 .status--published p {
 	background-color: #EEF1FF;
     color: #655DBB;
 }
 .status--success p,
+.status--completed p,
 .status--delivered p {
     color: #008001;
     background-color: #d7ecd1b7;
@@ -556,9 +563,32 @@ input::-webkit-inner-spin-button {
 
 
 /* REACT DATA TABLE */
-.page__section--main .hZZlND {
+.page__section--main div:nth-child(2),
+.page__section--main .hZZlND,
+.page__section--main .rdt_TableHead {
 	border-radius: 0 !important;
 }
+
+
+
+
+.rs-picker-toggle-wrapper {
+	padding: 0;
+}
+.rs-input-group {
+	border: none;
+	padding: .4rem 1.2rem;
+}
+.rs-input-group.rs-input-group-inside {
+	background-color: transparent;
+	height: auto !important;
+}
+.rs-input-group.rs-input-group-inside .rs-input {
+	background-color: transparent;
+	padding: 0;
+	height: auto;
+}
+
 
 
 

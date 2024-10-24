@@ -6,107 +6,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import { facebook, online_store, physical_store, instagram,whatsapp, twitter, flutterwave_store, others, jiji, jumia, konga } from '../../../assets/images/index';
 import TooltipUI from '../../../components/TooltipUI';
 import Empty from '../../../components/Empty';
+import { useFetchedContext } from '../../../context/FetchedContext';
 
 
 function imgString(imgType) {
-    if(imgType === 'your_online_store') return online_store;
-    if(imgType === 'facebook') return facebook;
-    if(imgType === 'physical_store') return physical_store;
-    if(imgType === 'instagram') return instagram;
-    if(imgType === 'whatsapp') return whatsapp;
-    if(imgType === 'twitter') return twitter;
-    if(imgType === 'flutterwave_store') return flutterwave_store;
-    if(imgType === 'jiji') return jiji;
-    if(imgType === 'jumia') return jumia;
-    if(imgType === 'konga') return konga;
-    if(imgType === 'others') return others;
+    if (imgType === 'online store') return online_store;
+    if (imgType === 'facebook') return facebook;
+    if (imgType === 'physical store') return physical_store;
+    if (imgType === 'instagram') return instagram;
+    if (imgType === 'whatsapp') return whatsapp;
+    if (imgType === 'twitter') return twitter;
+    if (imgType === 'flutterwave store') return flutterwave_store;
+    if (imgType === 'jiji') return jiji;
+    if (imgType === 'jumia') return jumia;
+    if (imgType === 'konga') return konga;
+    if (imgType === 'others') return others;
 }
-
-
-const columns = [
-    { 
-        name: 'Channel', selector: row => (
-        <TooltipUI placement='top' title={capitalizeFirstLetter(row.channel.split('_').join(' '))}>
-            <img width={'40px'} alt={row.channel} src={imgString(row.channel)} />
-        </TooltipUI>
-    ), width: '70px'},
-    { 
-        name: 'Order Id', selector: row => row.id, width: '100px'
-    },
-    { 
-        name: 'Custumer Name', selector: row => row.name, width: '150px'
-    },
-    { 
-        name: 'Product', selector: row => row.product, width: '150px'
-    },
-    { 
-        name: 'Amount', selector: row => '₦'+formatNumber(row.amount), width: '100px'
-    },
-    { 
-        name: 'Status', selector: row => (
-            <span className={`status status--${(row.status)}`}>
-                <p>{row.status}</p>
-            </span>
-        ),
-        width: '120px'
-    },
-    { 
-        name: 'Delievery', selector: row => (
-            <span className={`status status--${(row.delivery)}`}>
-                <p>{row.delivery}</p>
-            </span>
-        ),
-        width: '135px'
-    },
-    { 
-        name: 'Date', selector: row => formatDate(row.date), width: '150px'
-    },
-];
-
-const data = [
-    {
-        id: '019875',
-        name: 'Damola Olatunji',
-        product: 'T-shirt polo xl',
-        amount: 10000,
-        status: 'success',
-        delivery: 'delivered',
-        date: new Date('2024-09-04T09:21:38Z'),
-        channel: 'your_online_store'
-    },
-    {
-        id: '0387663',
-        name: 'Idowu Olatunji',
-        product: 'Baggie Trousers',
-        amount: 10000,
-        status: 'pending',
-        delivery: 'pending',
-        date: new Date('2024-05-22T23:59:01Z'),
-        channel: 'facebook'
-    },
-    {
-        id: '0358673',
-        name: 'David Olatunji',
-        product: 'Baggie Sweater',
-        amount: 12000,
-        status: 'pending',
-        delivery: 'pending',
-        date: new Date('2024-05-22T23:59:01Z'),
-        channel: 'jiji'
-    },
-    {
-        id: '01162334',
-        name: 'Oyindamola Olatunji',
-        product: 'Luxury Trousers',
-        amount: 12000,
-        status: 'pending',
-        delivery: 'failed',
-        date: new Date('2024-09-22T23:59:01Z'),
-        channel: 'flutterwave_store'
-    },
-];
-
-// const data = []
 
 const customStyles = {
     table: {
@@ -143,8 +58,73 @@ const customStyles = {
     }
 };
 
+const columns = [
+    {
+        name: 'Channel', selector: row => (
+            <TooltipUI placement='top' title={capitalizeFirstLetter(row.channel)}>
+                <img width={'40px'} alt={row.channel} src={imgString(row.channel)} />
+            </TooltipUI>
+        ), width: '70px'
+    },
+    {
+        name: 'Order Id', selector: row => row.orderId, width: '100px'
+    },
+    {
+        name: 'Custumer Name', selector: row => row.customer?.name || "--", width: '150px'
+    },
+    {
+        name: 'Product', selector: row => (
+            <ul className='table--list'>
+                {row.products?.map(product => (
+                    <li>{product?.name}</li>
+                ))}
+            </ul>
+        ),
+        width: '150px'
+    },
+    {
+        name: 'Amount', selector: row => (
+            <span className='value'>₦{formatNumber((row?.products || []).reduce((acc, item) => acc + item?.price, 0) || 0)}</span>
+        ), width: '100px'
+    },
+    {
+        name: 'Payment', selector: row => (
+            <span className={`status status--${( row.paymentStatus != "unpaid" ? "success" : "pending" )}`}>
+                <p>{row.paymentStatus}</p>
+            </span>
+        ),
+        width: '120px'
+    },
+    {
+        name: 'Delievery', selector: row => (
+            <span className={`status status--${(row.deliveryStatus)}`}>
+                <p>{row.deliveryStatus}</p>
+            </span>
+        ),
+        width: '135px'
+    },
+    {
+        name: 'Status', selector: row => (
+            <span className={`status status--${(row.orderStatus)}`}>
+                <p>{row.orderStatus}</p>
+            </span>
+        ),
+        width: '120px'
+    },
+    {
+        name: 'Date', selector: row => (
+            <TooltipUI placement='top' title={formatDate(row.orderDate)}>
+                <p>{formatDate(row.orderDate)}</p>
+            </TooltipUI>
+        ), width: '150px'
+    },
+];
+
 function RecentOrders() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const { orders, loader, error } = useFetchedContext();
+
+    const isData = orders?.length > 0;
 
     return (
         <div className='card recent-section' style={{ padding: 0 }}>
@@ -155,18 +135,25 @@ function RecentOrders() {
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing.</p>
                 </div>
 
-                <Link to="/dashboard/orders">View-more</Link>
+                <Link to="/dashboard/orders/">View-more</Link>
             </div>
 
-            <DataTable
-                columns={columns}
-                data={data}
-                pointerOnHover
-                highlightOnHover
-                onRowClicked={(row) => navigate(`/dashboard/orders/${row.id}`)}
-                customStyles={customStyles}
-                noDataComponent={<Empty customStyle={{ margin: "3rem 0" }} text="recent orders yet!" />}
-            />
+            <>
+                {(error?.order && !isData) && <TableError text="Unable to fetch, Check Connection" />}
+                
+                {(orders && !error?.order) && (
+                    <DataTable
+                        data={orders}
+                        columns={columns}
+                        pointerOnHover
+                        highlightOnHover
+                        customStyles={customStyles}
+                        onRowClicked={(row) => navigate(`/dashboard/orders/${row.id}`)}
+                        noDataComponent={<Empty customStyle={{ margin: "3rem 0" }} text="recent orders yet!" />}
+                    />
+                )}
+                
+            </>
         </div>
     )
 }

@@ -411,6 +411,7 @@ button.menu--button {
 
 .menu--link:hover, .menu--button:hover {
     background-color: var(--white-2);
+    color: var(--grey-1);
 }
 .menu--link.is-active,
 .menu--link.is-active:hover {
@@ -505,6 +506,7 @@ button.menu--button {
     display: inline-flex;
     margin: 2.8rem 0 1.8rem;
     justify-content: center;
+    color: var(--color-brand-700);
 }
 /* ========================================== */
 

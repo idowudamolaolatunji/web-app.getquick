@@ -28,11 +28,13 @@ import ConfettiUI from '../../../components/ConfettiUI';
 import { truncateString } from '../../../utils/helper.js';
 import { validateOrderForm } from '../../../utils/validationHelper.js';
 import { DatePicker, Stack } from 'rsuite';
+import { useNavigate } from 'react-router-dom';
 
 
 const BASE_API_URL = import.meta.env.VITE_API_URL
 
 function RecordOrder() {
+    const navigate = useNavigate();
     const { width } = useWindowSize();
     const { token } = useAuthContext();
     const { products, customers, handleFetchUserStoreOrders } = useFetchedContext();

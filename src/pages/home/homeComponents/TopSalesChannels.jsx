@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import TopSalesChannelsChart from './TopSalesChannelsChart'
 import { useNavigate } from 'react-router-dom';
+import { useFetchedContext } from '../../../context/FetchedContext';
 
 
 
 
 function TopSalesChannels() {
     const navigate = useNavigate();
-    const [salesChannels, setSalesChannels] = useState(false);
+    const [salesChannels, setSalesChannels] = useState(true);
+    const { order } = useFetchedContext()
 
     return (
         <div className='card sales-channel-section'>
@@ -18,6 +20,7 @@ function TopSalesChannels() {
                 </div>
             </div>
 
+            {/* {(order && order?.length > 0) ? ( */}
             {salesChannels ? (
                 <TopSalesChannelsChart />
             ) : (

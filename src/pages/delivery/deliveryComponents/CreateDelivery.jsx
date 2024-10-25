@@ -13,6 +13,7 @@ import ConfettiUI from '../../../components/ConfettiUI';
 import CustomAlert from '../../../components/CustomAlert';
 import { createPortal } from 'react-dom';
 import Spinner from '../../../components/spinner/spinner_two';
+import { useNavigate } from 'react-router-dom';
 
 
 const BASE_API_URL = import.meta.env.VITE_API_URL;
@@ -20,6 +21,7 @@ const BASE_API_URL = import.meta.env.VITE_API_URL;
 
 function CreateDelivery({ close, isnew, isModal }) {
     const currency = "₦";
+    const navigate = useNavigate();
     const { width } = useWindowSize();
     const { token, handleUser, handleStore } = useAuthContext();
 

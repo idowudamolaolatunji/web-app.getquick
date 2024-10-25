@@ -3,15 +3,41 @@ import ReactApexChart from 'react-apexcharts';
 import { pieArcLabelClasses, PieChart } from '@mui/x-charts/PieChart';
 import { useWindowSize } from 'react-use';
 import { useDataContext } from '../../../context/DataContext';
+import { useFetchedContext } from '../../../context/FetchedContext';
 
 function TopSalesChannelsChart() {
-    const { isMenuCollapsed } = useDataContext()
     const { width } = useWindowSize();
+    const { orders } = useFetchedContext();
+    const { isMenuCollapsed } = useDataContext()
 
     const isCollapsedBtw1000and1100 = !isMenuCollapsed && (width >= 1000 && width < 1100 );
 
+    const processChannels = () => {
+        const channelCounts = orders?.reduce((acc, curr) => {
+          acc[curr.channel] = (acc[curr.channel] || 0) + 1;
+          return acc;
+        }, {});
+      
+        const sortedChannels = Object.entries(channelCounts).sort((a, b) => b[1] - a[1]);
+      
+        return [
+          sortedChannels.slice(0, 5).map(([_, count]) => count),
+          sortedChannels.slice(0, 5).map(([channel]) => channel),
+          sortedChannels.slice(0, 5).map(([channel, count]) => ({ label: channel, value: count })),
+        ];
+    };
+
+    const [ApexSeriesData, ApexLebelData, MUIChartData] = processChannels();
+
+
+
+      
+
+
     // FOR THE MOBIE DOUNOT PIE CHART IN APEXCHART
-    const [series] = useState([44, 55, 41, 17, 15]);
+    // const [series] = useState([44, 55, 41, 17, 15]);
+    const [series] = useState(ApexSeriesData);
+
     const [options] = useState({
         chart: {
             type: 'donut',
@@ -24,8 +50,7 @@ function TopSalesChannelsChart() {
                 color: '#333',
             },
         },
-     // colors: ['#00DFA2', '#F8CBA6', '#A7B4F5', '#EB4747', '#D2C5F7'],
-        colors: ['#ff7a49', '#F8CBA6', '#A7B4F5', '#EB4747', '#444444'],
+        colors: ['#ff7a49', '#A7B4F5', '#F8CBA6', '#EB4747', '#444444'],
         responsive: [
             {
                 breakpoint: 600,
@@ -91,33 +116,34 @@ function TopSalesChannelsChart() {
             offsetY: 10,
 
         },
-        labels: ['Jiji', 'Online store', 'WhatsApp', 'Physical store', 'Others'],
+        // labels: ['Jiji', 'Online store', 'WhatsApp', 'Physical store', 'Others'],
+        labels: ApexLebelData,
     });
 
 
     // FOR THE DESTOP DOUNOT PIE CHART WITH MUI
-    const data = [
-        {
-            label: 'Jiji',
-            value: 44,
-        },
-        {
-            label: 'Online store',
-            value: 55,
-        },
-        {
-            label: 'WhatsApp',
-            value: 41,
-        },
-        {
-            label: 'Physical store',
-            value: 17,
-        },
-        {
-            label: 'Others',
-            value: 15,
-        },
-    ];
+    // const data = [
+    //     {
+    //         label: 'Jiji',
+    //         value: 44,
+    //     },
+    //     {
+    //         label: 'Online store',
+    //         value: 55,
+    //     },
+    //     {
+    //         label: 'WhatsApp',
+    //         value: 41,
+    //     },
+    //     {
+    //         label: 'Physical store',
+    //         value: 17,
+    //     },
+    //     {
+    //         label: 'Others',
+    //         value: 15,
+    //     },
+    // ];
 
     return (
 
@@ -125,7 +151,7 @@ function TopSalesChannelsChart() {
             {width > 850 ? (
                 <div id="chart">
                     <PieChart
-                        colors={['#ff7a49', '#F8CBA6', '#A7B4F5', '#EB4747', '#444444']}
+                        colors={['#ff7a49', '#A7B4F5', '#F8CBA6', '#EB4747', '#444444']}
                         slotProps={{
                             legend: { 
                                 hidden: isCollapsedBtw1000and1100,
@@ -133,7 +159,7 @@ function TopSalesChannelsChart() {
                         }}
                         series={[
                             {
-                                data,
+                                data: MUIChartData,
                                 ...( width <= 500 && { arcLabel: (item) => `${item.value}` }),
                                 highlightScope: { fade: 'global', highlight: 'item' },
                                 donut: { innerRadius: 30 },

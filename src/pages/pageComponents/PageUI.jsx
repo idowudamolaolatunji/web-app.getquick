@@ -17,7 +17,9 @@ function PageUI({ items, pageName, columns, data, addUrl, goto=true, emptyTitle,
     const navigate = useNavigate();
     const { width } = useWindowSize();
     const { handleToggleInsights, showInsights } = useDataContext();
-    const widthandItem500 = (items && items.length > 0 && width < 500 && !addUrl);
+
+    // CHECK THIS AGAIN LATER....
+    const widthandItem500 = (items && items.length > 0 && width < 500 && insights);
 
     const [showMoreActions, setShowMoreActions] = useState(false);
     const [showExportModal, setShowExportModal] = useState(false);
@@ -46,7 +48,7 @@ function PageUI({ items, pageName, columns, data, addUrl, goto=true, emptyTitle,
                 <span className='page__section--btns' style={widthandItem500 ? { width: "100%", display: "grid", gridTemplateColumns: "1fr 1fr" } : {}}>
 
                     {(items && items?.length > 0 && addUrl) && (
-                        <button className="page__section-top-btn add" onClick={() => navigate(`/dashboard/${addUrl}`)}>Add {pageName} <BiPlus /></button>
+                        <button className="page__section-top-btn add" onClick={() => navigate(`/dashboard/${addUrl}`)}>{pageName == "order" ? "Record" : "Add"} {pageName} <BiPlus /></button>
                     )}
 
                     {insights && (

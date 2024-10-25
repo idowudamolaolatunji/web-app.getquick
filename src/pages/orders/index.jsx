@@ -10,6 +10,7 @@ import PageUI from '../pageComponents/PageUI';
 import TooltipUI from '../../components/TooltipUI';
 import { facebook, online_store, physical_store, instagram, whatsapp, twitter, flutterwave_store, others, jiji, jumia, konga } from "../../assets/images/index";
 import emptyImg from '../../assets/images/illustrations/sales.png';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 
 //////////////////////////////////////////////////////
@@ -17,7 +18,7 @@ import emptyImg from '../../assets/images/illustrations/sales.png';
 const emptyTitle = "Record a new sale!";
 const emptyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat aliquam vero perferendis sapiente iste assumenda nam, vel dicta ducimus at perferendis sapiente iste.";
 const emptyBtns = [
-    { title: "Record Order", link: "/dashboard/orders/record" },
+    { title: <><AiOutlinePlus />Record Order</>, link: "/dashboard/orders/record" },
 ];
 
 function imgString(imgType) {

@@ -72,13 +72,14 @@ const columns = [
         ), width: '100px'
     },
     {
-        name: 'Custumer Name', selector: row => row.customer?.name || "--", width: '150px'
+        name: 'Custumer Name', selector: row => row.customer?.name || "-- Not Added --",
+        width: '150px'
     },
     {
         name: 'Product', selector: row => (
             <ul className='table--list'>
                 {row.products?.map(product => (
-                    <li>{product?.name}</li>
+                    <li key={product?.name}>{product?.name}</li>
                 ))}
             </ul>
         ),
@@ -87,7 +88,8 @@ const columns = [
     {
         name: 'Amount', selector: row => (
             <span className='value'>₦{formatNumber((row?.products || []).reduce((acc, item) => acc + item?.price, 0) || 0)}</span>
-        ), width: '100px'
+        ),
+        width: '100px'
     },
     {
         name: 'Payment', selector: row => (
@@ -121,6 +123,8 @@ const columns = [
         ), width: '150px'
     },
 ];
+
+
 
 function RecentOrders() {
     const navigate = useNavigate();

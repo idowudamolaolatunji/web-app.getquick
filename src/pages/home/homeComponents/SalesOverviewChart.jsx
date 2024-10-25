@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import ReactApexChart from 'react-apexcharts';
 import { formatNumber } from '../../../utils/helper';
 import { useWindowSize } from 'react-use';
+import { useFetchedContext } from '../../../context/FetchedContext';
 
 function OverviewChart() {
-    const { width } = useWindowSize()
-    
+    const { width } = useWindowSize();
+    const { orders } = useFetchedContext();
+
     // I DONNO HOW YOU'D DO IT BUT THIS STATE BELOW HERE SHOULD BE THE GUY HOLDING THE CHART DATA
-    const [salesChartData, setSalesChartData] = useState(null);
+    const isData = orders?.length > 0 ? true : false;
+    
 
     const series = [
         {
@@ -29,6 +32,36 @@ function OverviewChart() {
             color: '#994020'
         }          
     ];
+
+
+    const processChart = () => {
+        const salesData = orders.reduce((acc, curr) => {
+            const month = new Date(curr.orderDate).getMonth();
+            const sales = curr.products.reduce((sum, product) => sum + product.amount, 0);
+        
+            if (curr.channel === 'online store') {
+              acc[0].data[month] = (acc[0].data[month] || 0) + sales;
+              acc[1].data[month] = (acc[1].data[month] || 0) + sales;
+            } else {
+              acc[2].data[month] = (acc[2].data[month] || 0) + sales;
+            }
+        
+            acc[0].data[month] = (acc[0].data[month] || 0) + sales;
+        
+            return acc;
+          }, [
+            { name: 'Total Sales', data: new Array(12).fill(null), color: '#ff7a49' },
+            { name: 'Online Sales', data: new Array(12).fill(null), color: '#ffb59a' },
+            { name: 'Offline Sales', data: new Array(12).fill(null), color: '#994020' },
+          ]);
+        
+          return salesData;
+        
+    };
+
+    console.log(processChart())
+    // const [series] = processChart()
+      
 
     const options = {
         chart: {
@@ -127,7 +160,7 @@ function OverviewChart() {
     return (
         <div className='sales-overview'>
             <div id="chart" className='bar-chart'>
-                <ReactApexChart options={options} series={series} type='bar' height={salesChartData ? 360 : (width < 850) ? 270 : 300} />
+                <ReactApexChart options={options} series={series} type='bar' height={isData ? 320 : (width < 850) ? 270 : 300} />
             </div>
             <div id="html-dist"></div>
         </div>

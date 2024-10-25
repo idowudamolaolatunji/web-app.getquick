@@ -8,6 +8,7 @@ import { RiDeleteBin5Line, RiEdit2Line } from 'react-icons/ri';
 import TooltipUI from '../../components/TooltipUI';
 import { MdOutlineRefresh } from 'react-icons/md';
 import { formatNumber } from '../../utils/helper';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 
 ///////////////////////////////////////////////
@@ -16,7 +17,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL
 const emptyTitle = "Add Delivery Rates";
 const emptyText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat aliquam vero perferendis sapiente iste assumenda nam, vel dicta ducimus at perferendis sapiente iste.";
 const emptyBtns = [
-    { title: "Add Delivery", link: "/dashboard/delivery/add" },
+    { title: <><AiOutlinePlus />Add Delivery</>, link: "/dashboard/delivery-rates/add" },
 ];
 
 function index() {
